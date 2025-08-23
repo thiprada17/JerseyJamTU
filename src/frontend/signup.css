@@ -1,0 +1,134 @@
+@font-face {
+  font-family: 'PG';
+  src: url('./PG Newport DEMO.ttf');
+}
+
+@font-face {
+  font-family: 'Kanit';
+  src: url('./Kanit-Regular.ttf');
+}
+
+
+:root {
+  background-color: #FFFFF0;
+  font-family: 'Kanit';
+  size: 10px;
+}
+
+.body-login {
+  font-size: 1.5rem;
+  font-style: normal;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    /* background-color: #434343; */
+    font-family: 'Kanit';
+}
+
+.container {
+    background-color: #fdfdf0;
+    width: 100%; 
+    /* อันแคบกว่านี้ 400 กำลังดีๆ */
+    max-width: 90%;
+    margin: 60px auto;
+    padding: 40px;
+    text-align: center;
+    /* border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15); */
+    }
+
+@keyframes floating {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-9px);
+    }
+    }
+
+
+.logo {
+    display: block;
+    width: 7rem;
+    height: 7rem;
+    margin: 0 auto -30px;
+    animation: floating 3s ease-in-out infinite;
+    }
+
+h2 {
+    font-family: 'PG';
+    margin: 0px;
+    font-size: 50px;
+    font-weight: 100; 
+}
+
+form {
+    text-align: left;
+}
+
+.input-group {
+    position: relative;
+    margin-bottom: 20px;
+    text-align: left;
+    width: 70%;
+    margin: 0 auto 20px;
+    text-align: left;
+}
+
+.input-group label {
+    display: flex;
+    font-size: 15px;
+    margin-bottom: 5px;
+    text-transform: uppercase;
+    align-items: center;
+    font-family: 'Kanit', sans-serif;
+}
+
+.input-group label i {
+    margin-right: 6px;
+    font-size: 15px;
+    color: #333;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 10px;
+    font-size: 14px;
+    border: 2px solid #000000;
+    outline: none;
+    box-sizing: border-box;
+    background-color: #FFFFF0;
+    font-family: 'Kanit';
+    opacity: 50%;
+}
+
+.input-group input:focus {
+    border-color: #333;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+.icon-signup {
+    width: 1.5rem;
+    margin-bottom: 1px;
+}
+
+.btn-signup {
+    background: linear-gradient(90deg, #000000, #333333);
+    color: white;
+    padding: 12px;
+    width: 70%;
+    font-family: 'Kanit';
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    margin: 10px auto 0 auto;  
+    display: block;            
+    transition: 0.2s ease;
+}
+
+.btn-signup:hover {
+    background: linear-gradient(90deg, #333333, #000000);
+    transform: translateY(-2px);
+    }

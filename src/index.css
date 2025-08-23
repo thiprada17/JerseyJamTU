@@ -1,0 +1,9 @@
+@font-face {
+  font-family: 'PG';
+  src: url('PG Newport DEMO copy.ttf');
+}
+
+:root {
+  background-color: #FFFFF0;
+  font-family: 'PG';
+}
