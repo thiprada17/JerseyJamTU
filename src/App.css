@@ -1,14 +1,14 @@
 .app {
   width: 100%;
   height: 100vh;
-  overflow: hidden; /* 🔒 ห้าม scroll */
+  overflow: hidden; 
 }
 
 .sections {
   width: 100%;
-  min-height: 100vh;         /* ใช้ min-height แทน height */
+  min-height: 100vh;         
   scroll-behavior: smooth;
-  overflow: hidden;         /* 🔒 ห้าม scroll ทั้ง vertical และ horizontal */
+  overflow: hidden;        
   position: relative;
 }
 

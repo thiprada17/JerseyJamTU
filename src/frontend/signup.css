@@ -28,27 +28,17 @@ body {
     font-family: 'Kanit';
 }
 
-/* .signup-container {
-    background-color: #fdfdf0;
-    width: 100%; 
-    max-width: 90%;
-    margin: 60px auto;
-    padding: 40px;
-    text-align: center;
-    position: relative;
-    min-height: 100vh;
-    } */
     
 .signup-container {
   background-color: #fdfdf0;
   width: 100%;
   max-width: 90%;
-  padding: 60px 40px 40px 40px; /* 👈 เพิ่ม padding บนแทน */
+  padding: 60px 40px 40px 40px; 
   text-align: center;
   position: relative;
   min-height: 100vh;
   box-sizing: border-box;
-  margin: 0 auto; /* ❌ ตัด margin บนออก */
+  margin: 0 auto; 
 }
 
 
@@ -146,14 +136,9 @@ form {
     transform: translateY(-2px);
     }
 
-/* .back-to-home-btn img.arrow-icon {
-  width: 30px;
-  height: 30px;
-  opacity: 0.85;
-} */
 
 .signup-back-btn {
-  position: absolute;       /* ให้ลอยบนจอ ไม่ยึด container */
+  position: absolute;       
   top: 20px;
   right: 10px;
   background: transparent;
@@ -170,10 +155,15 @@ form {
   opacity: 0.85;
 }
 
-.signup-arrow-icon.flipped {
-  transform: rotate(180deg); /* พลิกกลับ */
+.signup-arrow-icon {
+  width: 30px;
+  height: 30px;
+  transition: transform 0.3s ease;
+  opacity: 0.85;
+  transform: rotate(0deg); 
 }
 
 .signup-arrow-icon:hover {
-  transform: scale(1.1) rotate(180deg);
+  transform: rotate(180deg) scale(1.1); 
 }
+

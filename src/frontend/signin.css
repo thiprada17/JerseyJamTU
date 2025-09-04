@@ -30,13 +30,11 @@ body {
 .signin-container {
     background-color: #fdfdf0;
     width: 100%;
-    /* อันแคบกว่านี้ 400 กำลังดีๆ */
     max-width: 90%;
     margin: 60px auto;
     padding: 40px;
     text-align: center;
-    /* border-radius: 12px;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15); */
+
 }
 
 .btn-wrapper {
@@ -178,12 +176,11 @@ form {
   height: 30px;
   transition: transform 0.2s ease;
   opacity: 0.85;
-}
-.login-arrow-icon.flipped {
-  transform: rotate(180deg);
+  transform: rotate(180deg); 
+
 }
 
 .login-arrow-icon:hover {
-  transform: scale(1.1);
+  transform: rotate(0deg) scale(1.1);
 }
 

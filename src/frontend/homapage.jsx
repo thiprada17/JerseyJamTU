@@ -4,6 +4,7 @@ import SignUp from "./SignUp";
 import "./homepage.css";
 import cartImg from "../assets/cart.png";
 import backgroundImg from "../assets/homepage.png";
+import speakerImg from "../assets/speaker.png";
 
 
 export default function Homepage() {
@@ -17,12 +18,17 @@ export default function Homepage() {
         }
     };
 
-    // ✅ เริ่มต้นที่ section 2 (homeRef)
     useEffect(() => {
         if (homeRef.current) {
             homeRef.current.scrollIntoView({ behavior: "instant" });
         }
     }, []);
+
+    const speakText = (text) => {
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.lang = "en-US";  
+        speechSynthesis.speak(utterance);
+    };
 
     return (
         <div className="homepage-container">
@@ -30,9 +36,14 @@ export default function Homepage() {
                 <SignIn scrollToHome={() => scrollToSection(homeRef)} />
             </div>
 
+            
+
             <div ref={homeRef} className="section home-section"
                 style={{ backgroundImage: `url(${backgroundImg})` }}>
                 <img src={cartImg} alt="cart" className="cart" />
+                <img src={speakerImg} alt="speaker" className="speaker-icon"
+                    onClick={() => speakText("Welcome to Jersey Jam T U Marketplace")}
+                />
                 <div className="action-buttons">
                     <button className="signup-btn" onClick={() => scrollToSection(signupRef)}> Sign Up </button>
                     <button className="login-btn" onClick={() => scrollToSection(loginRef)}> Login</button>

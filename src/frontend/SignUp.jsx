@@ -96,7 +96,7 @@ export default function SignUp({ scrollToHome }) {
         </button>
       </form>
       <button className="signup-back-btn" onClick={scrollToHome}>
-        <img src={arrowIcon} alt="Back" className="signup-arrow-icon flipped" />
+        <img src={arrowIcon} alt="Back" className="signup-arrow-icon" />
       </button>
 
     </div>
