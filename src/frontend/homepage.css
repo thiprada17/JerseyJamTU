@@ -43,15 +43,18 @@
   transform: translateY(-50%);
   width: 30rem;    
   transform-origin: center top;    /* สำคัญมากสำหรับฟีลลิ่งแบบแขวน/เหวี่ยง */             
-  animation: wiggle 1.6s ease-in-out infinite;
+animation: wiggle 3s cubic-bezier(0.445, 0.05, 0.55, 0.95) infinite;
 }
 
 @keyframes wiggle {
-  0%, 100% { transform: translateY(-50%) rotate(0deg); }
-  20% { transform: translateY(-50%) rotate(-4deg); }   /* เหวี่ยงซ้ายเบา ๆ */
-  40% { transform: translateY(-50%) rotate(10deg); }   /* เหวี่ยงขวาหนักหน่อย */
-  60% { transform: translateY(-50%) rotate(-2deg); }
-  80% { transform: translateY(-50%) rotate(8deg); }
+  0%   { transform: translateY(-50%) rotate(0deg); }
+  10%  { transform: translateY(-50%) rotate(-4deg); }
+  25%  { transform: translateY(-50%) rotate(3deg); }
+  40%  { transform: translateY(-50%) rotate(10deg); }
+  55%  { transform: translateY(-50%) rotate(2deg); }
+  70%  { transform: translateY(-50%) rotate(-3deg); }
+  85%  { transform: translateY(-50%) rotate(6deg); }
+  100% { transform: translateY(-50%) rotate(0deg); }
 }
 
 
