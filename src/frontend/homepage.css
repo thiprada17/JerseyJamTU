@@ -9,59 +9,52 @@
 /* ปุ่ม action ล่างซ้าย */
 .action-buttons {
   position: absolute;
-  bottom: 30px;
-  left: 30px;
+  bottom: 5rem;
+  left: 10rem;
   display: flex;
-  gap: 10px;
+  gap: 1.5rem;
 }
 
-
-.signup-btn {
-  padding: 10px 18px;
-  border: none;
-  border-radius: 8px;
-  background-color: #28a745; /* เขียว */
-  color: white;
-  font-weight: bold;
-  cursor: pointer;
-  transition: 0.3s;
-}
-.signup-btn:hover {
-  background-color: #1e7e34;
-}
-
-/* ปุ่ม Login */
+.signup-btn,
 .login-btn {
-  padding: 10px 18px;
+  background: none;
   border: none;
-  border-radius: 8px;
-  background-color: #0077ff; /* น้ำเงิน */
-  color: white;
-  font-weight: bold;
+  color: #333;
+  font-weight: 500;
+  font-size: 1.2rem;
   cursor: pointer;
-  transition: 0.3s;
+  text-decoration: underline;
+  transition: color 0.2s ease;
+  padding: 4px 8px;
+  font-size: 4rem;
 }
+
+.signup-btn:hover,
 .login-btn:hover {
-  background-color: #0055aa;
+  color: #000; /* สีเข้มขึ้นตอน hover */
 }
+
 
 /* cart อยู่เฉพาะ home section */
 .cart {
   position: absolute;
-  right: 20px;
-  top: 50%;
+  right: 6rem;                  
+  top: 45%;
   transform: translateY(-50%);
-  width: 80px;
-  animation: wiggle 2s infinite;
+  width: 30rem;    
+  transform-origin: center top;    /* สำคัญมากสำหรับฟีลลิ่งแบบแขวน/เหวี่ยง */             
+  animation: wiggle 1.6s ease-in-out infinite;
 }
 
-/* animation ดุ๊กดิ๊ก */
 @keyframes wiggle {
   0%, 100% { transform: translateY(-50%) rotate(0deg); }
-  25% { transform: translateY(-48%) rotate(-5deg); }
-  50% { transform: translateY(-50%) rotate(0deg); }
-  75% { transform: translateY(-52%) rotate(5deg); }
+  20% { transform: translateY(-50%) rotate(-4deg); }   /* เหวี่ยงซ้ายเบา ๆ */
+  40% { transform: translateY(-50%) rotate(10deg); }   /* เหวี่ยงขวาหนักหน่อย */
+  60% { transform: translateY(-50%) rotate(-2deg); }
+  80% { transform: translateY(-50%) rotate(8deg); }
 }
+
+
 
 /* Sections */
 .section {
