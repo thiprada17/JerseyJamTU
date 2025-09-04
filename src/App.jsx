@@ -5,6 +5,7 @@ import SignIn from "./frontend/SignIn";
 import SignUp from "./frontend/SignUp";
 // import Login from "./pages/Login";
 // import Register from "./pages/Register";
+import Homepage from './frontend/homapage';
 
 function App() {
 
@@ -12,8 +13,9 @@ function App() {
     <>
       <Router>
         <Routes>
-          <Route path="/" element={<SignIn />} />
-          <Route path="/signup" element={<SignUp />} />
+          <Route path="/" element={<Homepage />} />
+          {/* <Route path="/" element={<SignIn />} />
+          <Route path="/signup" element={<SignUp />} /> */}
         </Routes>
       </Router>
     </>

@@ -1,26 +1,21 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import axios from 'axios';
 import img from "../assets/animal.png";
 import profile from "../assets/profile-icon.png";
 import fingerprint from "../assets/fingerprint-icon.png";
-
 import "./signin.css";
+import arrowIcon from "../assets/arrow.png";
 
-export default function LogIn() {
-    const [userData, setuserData] = useState({
+
+export default function Login({ scrollToHome, scrollToSignup }) {
+  const [userData, setuserData] = useState({
     username: '',
     password: ''
   });
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-
-    setuserData(prevState => ({
-      ...prevState,
-      [name]: value
-    }));
-
-    console.log({ name, value });
+    setuserData(prevState => ({ ...prevState, [name]: value }));
   };
 
   const handleSubmit = async (e) => {
@@ -28,12 +23,10 @@ export default function LogIn() {
     console.log('ข้อมูลผู้เข้าใช้:', userData);
 
     try {
-      const user_response = await axios.post('http://localhost:8000/create/login', userData)
-      console.log("login sucsess")
+      const user_response = await axios.post('http://localhost:8000/create/login', userData);
+      console.log("login success");
       alert('Login Success.');
-
       localStorage.setItem('username', user_response.data.user.username);
-
     } catch (error) {
       console.error('Error sending data:', error);
       alert('Login Fail.');
@@ -47,11 +40,11 @@ export default function LogIn() {
         <h2 className='font-light'>LOGIN</h2>
       </div>
 
-      <form className='w-50%' onSubmit={handleSubmit}>
+      <form style={{ width: "50%", margin: "0 auto" }} onSubmit={handleSubmit}>
         <div className="input-group">
           <label htmlFor="username">
             <img src={profile} alt="" className='icon-login' />
-            <i className="bi bi-person-circle"></i> Username
+            Username
           </label>
           <input
             name="username"
@@ -59,31 +52,36 @@ export default function LogIn() {
             id="username"
             placeholder="Enter username"
             value={userData.username}
-            onChange={handleChange} required />
+            onChange={handleChange}
+            required />
         </div>
 
         <div className="input-group">
           <label htmlFor="password">
             <img src={fingerprint} alt="" className='icon-login' />
-            <i className="bi bi-fingerprint"></i> Password
+            Password
           </label>
           <input
             name="password"
-            type="password" 
+            type="password"
             id="password"
             placeholder="Enter password"
             value={userData.password}
-            onChange={handleChange} required />
+            onChange={handleChange}
+            required />
         </div>
 
         <div className="btn-wrapper">
-          <button type="submit" className="btn-login">
-            LOGIN
-          </button>
-          <Link to="/signup" className="signup">Signup</Link>
+          <button type="submit" className="btn-login">LOGIN</button>
+          <span className="signup" onClick={scrollToSignup}>Signup</span>
         </div>
       </form>
-    </div>
 
+      <button className="back-to-home-btn left" onClick={scrollToHome}>
+  <img src={arrowIcon} alt="Back" className="arrow-icon" />
+</button>
+
+
+    </div>
   );
 }

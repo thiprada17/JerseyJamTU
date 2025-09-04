@@ -12,8 +12,9 @@
 :root {
   background-color: #FFFFF0;
   font-family: 'Kanit';
-  size: 10px;
+  font-size: 10px;
 }
+
 
 .body-login {
   font-size: 1.5rem;
@@ -132,3 +133,42 @@ form {
     background: linear-gradient(90deg, #333333, #000000);
     transform: translateY(-2px);
     }
+
+/* .back-to-home-btn img.arrow-icon {
+  width: 30px;
+  height: 30px;
+  opacity: 0.85;
+} */
+
+
+
+.back-to-home-btn.right {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+}
+
+
+.back-to-home-btn {
+  position: fixed;        /* สำคัญมาก! ให้ลอยอยู่ */
+  padding: 10px;
+  background: transparent; /* เอาฉากหลังออก */
+  border: none;            /* ลบกรอบปุ่ม */
+  cursor: pointer;
+  z-index: 999;
+  opacity: 0.9;
+}
+
+
+.arrow-icon {
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+.arrow-icon.flipped {
+  transform: rotate(180deg); /* พลิกภาพในแนวนอน */
+}
+.arrow-icon:hover {
+  transform: scale(1.1);
+}

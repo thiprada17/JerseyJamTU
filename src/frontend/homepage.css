@@ -1,0 +1,99 @@
+.homepage-container {
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+  position: relative;
+  font-family: sans-serif;
+}
+
+/* ปุ่ม action ล่างซ้าย */
+.action-buttons {
+  position: absolute;
+  bottom: 30px;
+  left: 30px;
+  display: flex;
+  gap: 10px;
+}
+
+
+/* ปุ่ม Signup */
+.signup-btn {
+  padding: 10px 18px;
+  border: none;
+  border-radius: 8px;
+  background-color: #28a745; /* เขียว */
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+}
+.signup-btn:hover {
+  background-color: #1e7e34;
+}
+
+/* ปุ่ม Login */
+.login-btn {
+  padding: 10px 18px;
+  border: none;
+  border-radius: 8px;
+  background-color: #0077ff; /* น้ำเงิน */
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+}
+.login-btn:hover {
+  background-color: #0055aa;
+}
+
+/* cart อยู่เฉพาะ home section */
+.cart {
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 80px;
+  animation: wiggle 2s infinite;
+}
+
+/* animation ดุ๊กดิ๊ก */
+@keyframes wiggle {
+  0%, 100% { transform: translateY(-50%) rotate(0deg); }
+  25% { transform: translateY(-48%) rotate(-5deg); }
+  50% { transform: translateY(-50%) rotate(0deg); }
+  75% { transform: translateY(-52%) rotate(5deg); }
+}
+
+/* Sections */
+.section {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-size: cover;
+  background-position: center;
+}
+
+.login-section {
+  background-image: url("/assets/login-bg.jpg");
+}
+
+.home-section {
+  background-image: url(".../assets/homepage.png");
+  position: relative;
+  height: 100vh; /* หรือความสูงตามดีไซน์ */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.signup-section {
+  background-image: url("/assets/signup-bg.jpg");
+}
+
+.arrow-icon {
+  width: 30px;
+  height: 30px;
+  opacity: 0.85;
+}
