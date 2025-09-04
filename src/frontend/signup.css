@@ -28,17 +28,29 @@ body {
     font-family: 'Kanit';
 }
 
-.container {
+/* .signup-container {
     background-color: #fdfdf0;
     width: 100%; 
-    /* อันแคบกว่านี้ 400 กำลังดีๆ */
     max-width: 90%;
     margin: 60px auto;
     padding: 40px;
     text-align: center;
-    /* border-radius: 12px;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15); */
-    }
+    position: relative;
+    min-height: 100vh;
+    } */
+    
+.signup-container {
+  background-color: #fdfdf0;
+  width: 100%;
+  max-width: 90%;
+  padding: 60px 40px 40px 40px; /* 👈 เพิ่ม padding บนแทน */
+  text-align: center;
+  position: relative;
+  min-height: 100vh;
+  box-sizing: border-box;
+  margin: 0 auto; /* ❌ ตัด margin บนออก */
+}
+
 
 @keyframes floating {
     0%, 100% {
@@ -140,35 +152,28 @@ form {
   opacity: 0.85;
 } */
 
-
-
-.back-to-home-btn.right {
-  position: absolute;
+.signup-back-btn {
+  position: absolute;       /* ให้ลอยบนจอ ไม่ยึด container */
   top: 20px;
-  right: 20px;
-}
-
-
-.back-to-home-btn {
-  position: fixed;        /* สำคัญมาก! ให้ลอยอยู่ */
-  padding: 10px;
-  background: transparent; /* เอาฉากหลังออก */
-  border: none;            /* ลบกรอบปุ่ม */
+  right: 10px;
+  background: transparent;
+  border: none;
   cursor: pointer;
   z-index: 999;
-  opacity: 0.9;
+  padding: 0;
 }
 
-
-.arrow-icon {
+.signup-arrow-icon {
   width: 30px;
   height: 30px;
-  cursor: pointer;
   transition: transform 0.2s ease;
+  opacity: 0.85;
 }
-.arrow-icon.flipped {
-  transform: rotate(180deg); /* พลิกภาพในแนวนอน */
+
+.signup-arrow-icon.flipped {
+  transform: rotate(180deg); /* พลิกกลับ */
 }
-.arrow-icon:hover {
-  transform: scale(1.1);
+
+.signup-arrow-icon:hover {
+  transform: scale(1.1) rotate(180deg);
 }

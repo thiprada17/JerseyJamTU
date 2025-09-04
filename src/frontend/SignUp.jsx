@@ -41,7 +41,7 @@ export default function SignUp({ scrollToHome }) {
   };
 
   return (
-    <div className="container">
+    <div className="signup-container">
 
       <div className='header-signup'>
         <img src={img} alt="Logo" className="logo" />
@@ -95,11 +95,9 @@ export default function SignUp({ scrollToHome }) {
           SIGNUP
         </button>
       </form>
-      <button className="back-to-home-btn right" onClick={scrollToHome}>
-  <img src={arrowIcon} alt="Back" className="arrow-icon flipped" />
-</button>
-
-
+      <button className="signup-back-btn" onClick={scrollToHome}>
+        <img src={arrowIcon} alt="Back" className="signup-arrow-icon flipped" />
+      </button>
 
     </div>
   );

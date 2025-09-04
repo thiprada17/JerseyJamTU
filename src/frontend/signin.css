@@ -27,7 +27,7 @@ body {
     font-family: 'Kanit';
 }
 
-.container {
+.signin-container {
     background-color: #fdfdf0;
     width: 100%;
     /* อันแคบกว่านี้ 400 กำลังดีๆ */
@@ -161,30 +161,29 @@ form {
     background: linear-gradient(90deg, #333333, #000000);
     transform: translateY(-2px);
 }
-.back-to-home-btn {
-  position: fixed;        /* สำคัญมาก! ให้ลอยอยู่ */
-  padding: 10px;
-  background: transparent; /* เอาฉากหลังออก */
-  border: none;            /* ลบกรอบปุ่ม */
-  cursor: pointer;
-  z-index: 999;
-  opacity: 0.9;
-}
 
-.back-to-home-btn.left {
+.login-back-btn {
   position: absolute;
   bottom: 20px;
   left: 20px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  z-index: 999;
+  padding: 0;
 }
 
-.arrow-icon {
+.login-arrow-icon {
   width: 30px;
   height: 30px;
-  cursor: pointer;
   transition: transform 0.2s ease;
+  opacity: 0.85;
+}
+.login-arrow-icon.flipped {
+  transform: rotate(180deg);
 }
 
-.arrow-icon:hover {
+.login-arrow-icon:hover {
   transform: scale(1.1);
 }
 

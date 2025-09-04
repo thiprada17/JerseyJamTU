@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import axios from 'axios';
+// import axios from 'axios';
 import img from "../assets/animal.png";
 import profile from "../assets/profile-icon.png";
 import fingerprint from "../assets/fingerprint-icon.png";
@@ -34,7 +34,7 @@ export default function Login({ scrollToHome, scrollToSignup }) {
   };
 
   return (
-    <div className="container">
+    <div className="signin-container">
       <div className='header-login'>
         <img src={img} alt="Logo" className="logo-login" />
         <h2 className='font-light'>LOGIN</h2>
@@ -77,9 +77,10 @@ export default function Login({ scrollToHome, scrollToSignup }) {
         </div>
       </form>
 
-      <button className="back-to-home-btn left" onClick={scrollToHome}>
-  <img src={arrowIcon} alt="Back" className="arrow-icon" />
+      <button className="login-back-btn" onClick={scrollToHome}>
+  <img src={arrowIcon} alt="Back" className="login-arrow-icon" />
 </button>
+
 
 
     </div>
