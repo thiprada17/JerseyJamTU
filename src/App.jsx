@@ -6,7 +6,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 // import Login from "./pages/Login";
 // import Register from "./pages/Register";
 import Commu from './frontend/commu/commu'
-import Homepage from './frontend/homapage';
+import Homepage from './frontend/Homepage';
 
 function App() {
 
