@@ -1,0 +1,17 @@
+@font-face {
+    font-family: 'PG';
+    src: url('./PG Newport DEMO.ttf');
+}
+
+@font-face {
+    font-family: 'Kanit';
+    src: url('./Kanit-Regular.ttf');
+}
+
+
+
+.commu-navbar {
+    background-color: white;
+    width: 100%;
+    height: 2rem;
+}
