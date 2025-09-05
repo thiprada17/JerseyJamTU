@@ -1,193 +1,171 @@
 @font-face {
-    font-family: 'PG';
-    src: url('./PG Newport DEMO.ttf');
+  font-family: 'PG';
+  src: url('./PG Newport DEMO.ttf');
 }
 
 @font-face {
-    font-family: 'Kanit';
-    src: url('./Kanit-Regular.ttf');
+  font-family: 'Kanit';
+  src: url('./Kanit-Regular.ttf');
 }
-
 
 :root {
-    background-color: #FFFFF0;
-    font-family: 'Kanit';
-    size: 10px;
+  background-color: #FFFFF0;
+  font-family: 'Kanit', sans-serif;
+  font-size: 10px;
 }
 
-.body-login {
-    font-size: 1.5rem;
-    font-style: normal;
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
 }
 
-body, .signin-page {
-    margin: 0;
-    padding: 0;
-    font-family: 'Kanit';
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: linear-gradient(to top,#f0f0b5, #ffffff);
-    position: relative;
-    overflow: hidden;
-}
-
-.signin-container {
-    background-color: #fdfdf0;
-    width: 50%;
-    max-width: 90%;
-    /* margin: 60px auto; */
-    padding: 40px;
-    text-align: center;
-    z-index: 1;
-/* ไว้ใส่รูปชมพู */
-}
-.pink-shape {
-    width: 100%;
-    height: auto;
-    display: block;
-}
-
-.btn-wrapper {
-    width: 70%;
-    /* ให้เท่ากับปุ่ม */
-    margin: 10px auto;
-    /* กึ่งกลางหน้าจอ */
-    text-align: right;
-    /* ข้อความชิดขวาภายใน container */
-}
-
-
-.signup {
-    color: #CD1616;
-    font-size: 15px;
-    margin-top: 5px;
-    /* เว้นระยะจากปุ่ม */
-}
-
-.sign-form {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 70%;
-    text-align: left;
+.login-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  width: 100%;
+  background: linear-gradient(to bottom, #ffffff, #f2f2a0);
+  position: relative;
+  overflow: hidden;
 }
 
 .background-text {
-    position: absolute;
-    font-size: 18rem;
-    color: rgba(0, 0, 0, 0.08);
-    z-index: 0;
-    left: 5%;
-    top: 10%;
-    margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 45rem;
+  font-weight: bold;
+  color: rgba(0, 0, 0, 0.15);
+  z-index: 0;
+  pointer-events: none;
+  user-select: none;
 }
 
-
-
-@keyframes bounceIn {
-    0% {
-        transform: scale(0.8) translateY(-30px);
-        opacity: 0;
-    }
-
-    50% {
-        transform: scale(1.05) translateY(10px);
-        opacity: 1;
-    }
-
-    70% {
-        transform: scale(0.95) translateY(-5px);
-    }
-
-    100% {
-        transform: scale(1) translateY(0);
-    }
+.signin-container {
+  position: relative;
+  width: 90%;
+  max-width: 1000px;
+  height: 90vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1;
 }
 
-
-.logo-login {
-    display: block;
-    width: 7rem;
-    height: 7rem;
-    margin: 0 auto -30px;
-    animation: bounceIn 0.8s ease-out;
+.pink-shape {
+  width: 100%;
+  height: 100%;
+  display: block;
 }
 
-
+.signin-form {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  max-width: 500px;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 
 .input-group {
-    margin-bottom: 20px;
-    /* position: relative;
-    text-align: left;
-    width: 70%;
-    margin: 0 auto 20px;
-    text-align: left; */
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+  width: 100%;
 }
 
 .input-group label {
-    /* display: flex;
-    font-size: 15px;
-    margin-bottom: 8px;
-    text-transform: uppercase;
-    align-items: center;
-    font-family: 'Kanit', sans-serif; */
-    display: flex;
-    align-items: center;
-    font-weight: 600;
-    margin-bottom: 8px;
-}
-
-.input-group label i {
-    margin-right: 6px;
-    font-size: 15px;
-    color: #333;
+  font-size: 3rem;
+  font-weight: bold;
+  margin-right: 1rem;
 }
 
 .input-group input {
-    width: 100%;
-    padding: 10px;
-    /* font-size: 14px; */
-    border: 2px solid #000000;
-    border-radius: 1rem;
-    /* outline: none; */
-    /* box-sizing: border-box; */
-    /* background-color: #FFFFF0; */
-    font-family: 'Kanit';
-    /* opacity: 50%; */
+  flex: 1;
+  padding: 12px 20px;
+  font-size: 1.8rem;
+  height: 5rem;
+  border: 1px solid black;
+  border-radius: 999px;
+  background: #fff;
+  outline: none;
 }
 
 .input-group input:focus {
-    border-color: #333;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+  border-color: #555;
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.2);
 }
 
-.icon-login {
-    width: 1.5rem;
-    margin-bottom: 1px;
+.password-wrapper {
+  display: flex;
+  flex: 1;
+}
+
+.password-wrapper input {
+  flex-grow: 1;
+  padding: 16px 24px;
+  font-size: 2.4rem;
+  border: 1px solid black;
+  border-right: none;
+  background: #fff;
+  border-radius: 999px 0 0 999px;
+  outline: none;
+  box-sizing: border-box;
+}
+
+.password-wrapper input:focus {
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.2);
+}
+
+.toggle-password {
+  padding: 0 20px;
+  font-size: 2.4rem;
+  border: 1px solid black;
+  border-radius: 0 999px 999px 0;
+  background: #fff;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .btn-login {
-    background: linear-gradient(90deg, #000000, #333333);
-    color: white;
-    padding: 12px;
-    
-    font-family: 'Kanit';
-    border: none;
-    cursor: pointer;
-    font-size: 14px;
-    transition: 0.2s ease;
-    width: 100%;
-    /* ปรับให้เต็ม container */
-    display: block;
-    margin: 0;
+  padding: 12px 40px;
+  font-size: 1.6rem;
+  font-weight: bold;
+  background: #000;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-top: 20px;
+  align-self: center;
 }
 
 .btn-login:hover {
-    background: linear-gradient(90deg, #333333, #000000);
-    transform: translateY(-2px);
+  background: #222;
+  transform: translateY(-2px);
+}
+
+.signup-text {
+  margin-top: 10px;
+  font-size: 2rem;
+  text-align: center;
+  width: 100%;
+}
+
+.signup-link {
+  color: #000;
+  font-weight: bold;
+  text-decoration: underline;
+  cursor: pointer;
 }
 
 .login-back-btn {
@@ -197,30 +175,18 @@ body, .signin-page {
   background: transparent;
   border: none;
   cursor: pointer;
-  z-index: 999;
+  z-index: 3;
   padding: 0;
 }
 
 .login-arrow-icon {
   width: 30px;
   height: 30px;
-  transition: transform 0.2s ease;
   opacity: 0.85;
-  transform: rotate(180deg); 
-
+  transition: transform 0.2s ease;
+  transform: rotate(180deg);
 }
 
 .login-arrow-icon:hover {
   transform: rotate(0deg) scale(1.1);
-}
-
-h2 {
-    font-family: 'PG';
-    margin: 0px;
-    font-size: 50px;
-    font-weight: 100;
-}
-
-form {
-    text-align: left;
 }

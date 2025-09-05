@@ -97,6 +97,7 @@ animation: wiggle 3s cubic-bezier(0.445, 0.05, 0.55, 0.95) infinite;
   transition: transform 0.2s ease;
 }
 
+
 .speaker-icon:hover {
   transform: scale(1.2);
 }

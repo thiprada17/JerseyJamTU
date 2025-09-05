@@ -1,17 +1,21 @@
 import { useState } from 'react';
 import axios from 'axios';
-import img from "../assets/animal.png";
-import profile from "../assets/profile-icon.png";
-import fingerprint from "../assets/fingerprint-icon.png";
 import "./login.css";
 import arrowIcon from "../assets/arrow.png";
-
+import pinkshape from "../assets/pink-shape.png";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 export default function Login({ scrollToHome, scrollToSignup }) {
   const [userData, setuserData] = useState({
     username: '',
     password: ''
   });
+
+  const [showPassword, setShowPassword] = useState(false);
+
+  const togglePassword = () => {
+    setShowPassword(prevShowPassword => !prevShowPassword);
+  }
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -34,56 +38,57 @@ export default function Login({ scrollToHome, scrollToSignup }) {
   };
 
   return (
-    <div className='signin-page'>
-      <h1 className=''></h1>
-    <div className="signin-container">
-      <div className='header-login'>
-        <img src={img} alt="Logo" className="logo-login" />
-        <h2 className='font-light'>LOGIN</h2>
+    <div className="login-page">
+      <div className="background-text">Login</div>
+
+      <div className="signin-container">
+        <img src={pinkshape} alt="Pink Shape" className="pink-shape" />
+
+        <form className="signin-form" onSubmit={handleSubmit}>
+          <div className="input-group">
+            <label htmlFor="username">Username</label>
+            <input
+              type="text"
+              id="username"
+              name="username"
+              value={userData.username}
+              onChange={handleChange}
+              placeholder="Enter username"
+            />
+          </div>
+
+          <div className="input-group">
+            <label htmlFor="password">Password</label>
+            <div className="password-wrapper">
+              <input
+                type={showPassword ? "text" : "password"}
+                id="password"
+                name="password"
+                value={userData.password}
+                onChange={handleChange}
+                placeholder="Enter password"
+              />
+              <button
+                type="button"
+                className="toggle-password"
+                onClick={togglePassword}
+              >
+                {showPassword ? <FaEyeSlash /> : <FaEye />}
+              </button>
+            </div>
+          </div>
+
+          <button type="submit" className="btn-login">Log in</button>
+
+          <p className="signup-text">
+            Don’t have an account? <span className="signup-link">Sign Up</span>
+          </p>
+        </form>
       </div>
 
-      <form style={{ width: "50%", margin: "0 auto" }} onSubmit={handleSubmit}>
-        <div className="input-group">
-          <label htmlFor="username">
-            <img src={profile} alt="" className='icon-login' />
-            Username
-          </label>
-          <input
-            name="username"
-            type="text"
-            id="username"
-            placeholder="Enter username"
-            value={userData.username}
-            onChange={handleChange}
-            required />
-        </div>
-
-        <div className="input-group">
-          <label htmlFor="password">
-            <img src={fingerprint} alt="" className='icon-login' />
-            Password
-          </label>
-          <input
-            name="password"
-            type="password"
-            id="password"
-            placeholder="Enter password"
-            value={userData.password}
-            onChange={handleChange}
-            required />
-        </div>
-
-        <div className="btn-wrapper">
-          <button type="submit" className="btn-login">LOGIN</button>
-          <span className="signup" onClick={scrollToSignup}>Signup</span>
-        </div>
-      </form>
-
       <button className="login-back-btn" onClick={scrollToHome}>
-  <img src={arrowIcon} alt="Back" className="login-arrow-icon" />
-</button>
-
-    </div>
+              <img src={arrowIcon} alt="Back" className="signup-arrow-icon" />
+            </button>
     </div>
   );
 }

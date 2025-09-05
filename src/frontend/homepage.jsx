@@ -43,7 +43,7 @@ export default function Homepage() {
                     onClick={() => speakText("Welcome to Jersey Jam T U Marketplace")}
                 />
                 <div className="action-buttons">
-                    <button className="signup-btn" onClick={() => scrollToSection(signupRef)}> Sign U p </button>
+                    <button className="signup-btn" onClick={() => scrollToSection(signupRef)}> Sign Up </button>
                     <button className="login-btn" onClick={() => scrollToSection(loginRef)}> Login</button>
                 </div>
             </div>
@@ -53,6 +53,7 @@ export default function Homepage() {
             </div>
         </div>
     );
+    
 }
 
 

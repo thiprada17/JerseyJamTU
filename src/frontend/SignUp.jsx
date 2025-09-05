@@ -8,7 +8,6 @@ import fingerprint from "../assets/fingerprint-icon.png";
 import arrowIcon from "../assets/arrow.png";
 
 
-
 export default function SignUp({ scrollToHome }) {
   const [userData, setuserData] = useState({
     username: '',
