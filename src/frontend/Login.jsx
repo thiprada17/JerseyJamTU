@@ -35,6 +35,7 @@ export default function Login({ scrollToHome, scrollToSignup }) {
 
   return (
     <div className='signin-page'>
+      <h1 className=''></h1>
     <div className="signin-container">
       <div className='header-login'>
         <img src={img} alt="Logo" className="logo-login" />
@@ -81,8 +82,6 @@ export default function Login({ scrollToHome, scrollToSignup }) {
       <button className="login-back-btn" onClick={scrollToHome}>
   <img src={arrowIcon} alt="Back" className="login-arrow-icon" />
 </button>
-
-
 
     </div>
     </div>

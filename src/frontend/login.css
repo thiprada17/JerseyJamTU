@@ -20,21 +20,33 @@
     font-style: normal;
 }
 
-body {
+body, .signin-page {
     margin: 0;
     padding: 0;
-    /* background-color: #434343; */
     font-family: 'Kanit';
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(to top,#f0f0b5, #ffffff);
+    position: relative;
+    overflow: hidden;
 }
 
 .signin-container {
     background-color: #fdfdf0;
-    width: 100%;
+    width: 50%;
     max-width: 90%;
-    margin: 60px auto;
+    /* margin: 60px auto; */
     padding: 40px;
     text-align: center;
-
+    z-index: 1;
+/* ไว้ใส่รูปชมพู */
+}
+.pink-shape {
+    width: 100%;
+    height: auto;
+    display: block;
 }
 
 .btn-wrapper {
@@ -54,14 +66,26 @@ body {
     /* เว้นระยะจากปุ่ม */
 }
 
-.signin-page {
-    position: relative;
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #fdfdf0;
+.sign-form {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 70%;
+    text-align: left;
 }
+
+.background-text {
+    position: absolute;
+    font-size: 18rem;
+    color: rgba(0, 0, 0, 0.08);
+    z-index: 0;
+    left: 5%;
+    top: 10%;
+    margin: 0;
+}
+
+
 
 @keyframes bounceIn {
     0% {
@@ -92,33 +116,28 @@ body {
     animation: bounceIn 0.8s ease-out;
 }
 
-h2 {
-    font-family: 'PG';
-    margin: 0px;
-    font-size: 50px;
-    font-weight: 100;
-}
 
-form {
-    text-align: left;
-}
 
 .input-group {
-    position: relative;
     margin-bottom: 20px;
+    /* position: relative;
     text-align: left;
     width: 70%;
     margin: 0 auto 20px;
-    text-align: left;
+    text-align: left; */
 }
 
 .input-group label {
-    display: flex;
+    /* display: flex;
     font-size: 15px;
-    margin-bottom: 5px;
+    margin-bottom: 8px;
     text-transform: uppercase;
     align-items: center;
-    font-family: 'Kanit', sans-serif;
+    font-family: 'Kanit', sans-serif; */
+    display: flex;
+    align-items: center;
+    font-weight: 600;
+    margin-bottom: 8px;
 }
 
 .input-group label i {
@@ -130,13 +149,14 @@ form {
 .input-group input {
     width: 100%;
     padding: 10px;
-    font-size: 14px;
+    /* font-size: 14px; */
     border: 2px solid #000000;
-    outline: none;
-    box-sizing: border-box;
-    background-color: #FFFFF0;
+    border-radius: 1rem;
+    /* outline: none; */
+    /* box-sizing: border-box; */
+    /* background-color: #FFFFF0; */
     font-family: 'Kanit';
-    opacity: 50%;
+    /* opacity: 50%; */
 }
 
 .input-group input:focus {
@@ -153,6 +173,7 @@ form {
     background: linear-gradient(90deg, #000000, #333333);
     color: white;
     padding: 12px;
+    
     font-family: 'Kanit';
     border: none;
     cursor: pointer;
@@ -193,3 +214,13 @@ form {
   transform: rotate(0deg) scale(1.1);
 }
 
+h2 {
+    font-family: 'PG';
+    margin: 0px;
+    font-size: 50px;
+    font-weight: 100;
+}
+
+form {
+    text-align: left;
+}
