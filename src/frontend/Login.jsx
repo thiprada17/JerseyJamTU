@@ -1,6 +1,6 @@
 import { useState } from 'react';
-// import img from "../assets/animal.png";
-import pinkshape from "../assets/pink-shape.png";
+import axios from 'axios';
+import img from "../assets/animal.png";
 import profile from "../assets/profile-icon.png";
 import fingerprint from "../assets/fingerprint-icon.png";
 import "./login.css";
