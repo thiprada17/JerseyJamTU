@@ -54,6 +54,15 @@ body {
     /* เว้นระยะจากปุ่ม */
 }
 
+.signin-page {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #fdfdf0;
+}
+
 @keyframes bounceIn {
     0% {
         transform: scale(0.8) translateY(-30px);

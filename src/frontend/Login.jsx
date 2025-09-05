@@ -1,6 +1,6 @@
 import { useState } from 'react';
-// import axios from 'axios';
-import img from "../assets/animal.png";
+// import img from "../assets/animal.png";
+import pinkshape from "../assets/pink-shape.png";
 import profile from "../assets/profile-icon.png";
 import fingerprint from "../assets/fingerprint-icon.png";
 import "./login.css";
@@ -34,6 +34,7 @@ export default function Login({ scrollToHome, scrollToSignup }) {
   };
 
   return (
+    <div className='signin-page'>
     <div className="signin-container">
       <div className='header-login'>
         <img src={img} alt="Logo" className="logo-login" />
@@ -83,6 +84,7 @@ export default function Login({ scrollToHome, scrollToSignup }) {
 
 
 
+    </div>
     </div>
   );
 }
