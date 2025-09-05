@@ -34,7 +34,7 @@ export default function Homepage() {
                 style={{ backgroundImage: `url(${backgroundImg})` }}>
                 <img src={cartImg} alt="cart" className="cart" />
                 <div className="action-buttons">
-                    <button className="signup-btn" onClick={() => scrollToSection(signupRef)}> Sign Up </button>
+                    <button className="signup-btn" onClick={() => scrollToSection(signupRef)}> Sign U p </button>
                     <button className="login-btn" onClick={() => scrollToSection(loginRef)}> Login</button>
                 </div>
             </div>
