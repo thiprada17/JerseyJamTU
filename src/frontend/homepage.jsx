@@ -1,5 +1,5 @@
 import { useRef, useEffect } from "react";
-import SignIn from "./SignIn";
+import SignIn from "./Login";
 import SignUp from "./SignUp";
 import "./homepage.css";
 import cartImg from "../assets/cart.png";
@@ -35,8 +35,6 @@ export default function Homepage() {
             <div ref={loginRef} className="section login-section">
                 <SignIn scrollToHome={() => scrollToSection(homeRef)} />
             </div>
-
-            
 
             <div ref={homeRef} className="section home-section"
                 style={{ backgroundImage: `url(${backgroundImg})` }}>

@@ -5,7 +5,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 // import SignUp from "./frontend/SignUp";
 // import Login from "./pages/Login";
 // import Register from "./pages/Register";
-import Homepage from './frontend/homepage';
+import Homepage from './frontend/Homepage';
 
 function App() {
 

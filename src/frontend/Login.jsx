@@ -3,7 +3,7 @@ import { useState } from 'react';
 import img from "../assets/animal.png";
 import profile from "../assets/profile-icon.png";
 import fingerprint from "../assets/fingerprint-icon.png";
-import "./signin.css";
+import "./login.css";
 import arrowIcon from "../assets/arrow.png";
 
 
