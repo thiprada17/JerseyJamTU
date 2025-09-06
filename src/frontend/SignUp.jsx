@@ -5,8 +5,10 @@ import img from "../assets/animal.png";
 import profile from "../assets/profile-icon.png";
 import mail from "../assets/mail-icon.png";
 import fingerprint from "../assets/fingerprint-icon.png";
+import arrowIcon from "../assets/arrow.png";
 
-export default function SignIn() {
+
+export default function SignUp({ scrollToHome }) {
   const [userData, setuserData] = useState({
     username: '',
     email: '',
@@ -38,13 +40,14 @@ export default function SignIn() {
   };
 
   return (
-    <div className="container">
+    <div className="signup-container">
+
       <div className='header-signup'>
         <img src={img} alt="Logo" className="logo" />
         <h2 className='font-light'>SignUp</h2>
       </div>
 
-      <form className='w-50%' onSubmit={handleSubmit}>
+      <form style={{ width: "50%", margin: "0 auto" }} onSubmit={handleSubmit}>
         <div className="input-group">
           <label htmlFor="username">
             <img src={profile} alt="" className='icon-signup' />
@@ -56,7 +59,7 @@ export default function SignIn() {
             id="username"
             placeholder="Enter username"
             value={userData.username}
-            onChange={handleChange} required/>
+            onChange={handleChange} required />
         </div>
 
         <div className="input-group">
@@ -70,7 +73,7 @@ export default function SignIn() {
             id="email"
             placeholder="Enter email"
             value={userData.email}
-            onChange={handleChange} required/>
+            onChange={handleChange} required />
         </div>
 
         <div className="input-group">
@@ -84,13 +87,17 @@ export default function SignIn() {
             id="password"
             placeholder="Enter password"
             value={userData.password}
-            onChange={handleChange} required/>
+            onChange={handleChange} required />
         </div>
 
         <button type="submit" className="btn-signup">
           SIGNUP
         </button>
       </form>
+      <button className="signup-back-btn" onClick={scrollToHome}>
+        <img src={arrowIcon} alt="Back" className="signup-arrow-icon" />
+      </button>
+
     </div>
   );
 }
