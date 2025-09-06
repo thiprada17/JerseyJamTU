@@ -5,7 +5,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 // import SignUp from "./frontend/SignUp";
 // import Login from "./pages/Login";
 // import Register from "./pages/Register";
-// import Commu from './frontend/commu/commu'
+import Commu from './frontend/commu/commu'
 import Homepage from './frontend/Homepage';
 
 function App() {
@@ -16,7 +16,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Homepage />} />
 
-          {/* <Route path="/commu" element={<Commu />} /> */}
+          <Route path="/commu" element={<Commu />} />
 
           {/* <Route path="/" element={<SignIn />} />
           <Route path="/signup" element={<SignUp />} /> */}
