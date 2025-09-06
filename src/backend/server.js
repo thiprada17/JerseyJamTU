@@ -76,10 +76,39 @@ app.post('/add-user/register', async (req, res) => {
 });
 
 // commu post
+app.post('/commu/post', async (req, res) => {
+  try {
+    const { content } = req.body;
+
+    if (!content) {
+      return res.status(400).json({ message: "content ห้ามเป็นค่าว่าง" });
+    }
+
+    const [results] = await conn.query(
+      'INSERT INTO commupost (content, created_at) VALUES (?, NOW())',
+      [content]
+    );
+
+    res.json({
+      message: "Post created successfully",
+      data: {
+        post_id: results.insertId,
+        content,
+        created_at: new Date()
+      }
+    });
+
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({
+      message: "Error while creating post",
+      errorMessage: error.message
+    });
+  }
+});
 
 const port = 8000;
-app.listen(port, async (req, res) => {
+app.listen(port, async () => {
     await initMySQL()
-    console.log('http sever run at : ' + port)
+    console.log('http server run at : ' + port)
 })
-
