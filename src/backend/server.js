@@ -2,19 +2,19 @@ const express = require('express')
 const app = express()
 const bodyParser = require('body-parser')
 const mysql = require('mysql2/promise')
-const cors = require('cors'); 
+const cors = require('cors');
 app.use(cors());
 app.use(bodyParser.json())
 
 let conn = null
 const initMySQL = async () => {
-    conn = await mysql.createConnection ({
+  conn = await mysql.createConnection({
     host: 'localhost',
     user: 'root',
     password: 'root',
     database: 'jerseyjamtu',
-    port : 3306
-    })
+    port: 3306
+  })
 }
 
 // sign in
@@ -78,24 +78,13 @@ app.post('/add-user/register', async (req, res) => {
 // commu post
 app.post('/commu/post', async (req, res) => {
   try {
-    const { content } = req.body;
-
-    if (!content) {
-      return res.status(400).json({ message: "content ห้ามเป็นค่าว่าง" });
-    }
-
-    const [results] = await conn.query(
-      'INSERT INTO commupost (content, created_at) VALUES (?, NOW())',
-      [content]
-    );
+    const data = req.body;
+    console.log(data)
+    const results = await conn.query('INSERT INTO commupost SET ?', data);
 
     res.json({
-      message: "Post created successfully",
-      data: {
-        post_id: results.insertId,
-        content,
-        created_at: new Date()
-      }
+      message: 'Insert Success',
+      data: results
     });
 
   } catch (error) {
@@ -109,6 +98,6 @@ app.post('/commu/post', async (req, res) => {
 
 const port = 8000;
 app.listen(port, async () => {
-    await initMySQL()
-    console.log('http server run at : ' + port)
+  await initMySQL()
+  console.log('http server run at : ' + port)
 })

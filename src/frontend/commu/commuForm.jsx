@@ -1,8 +1,10 @@
 import "./commuForm.css";
 import { useState } from "react";
+import { useNavigate } from 'react-router-dom';
 
 
 export default function CommuForm() {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     title: '',
     detail: '',
@@ -14,11 +16,20 @@ export default function CommuForm() {
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     console.log("ข้อมูลโพสต์: ", formData);
-    console.log(formData)
+
+    const commu_response = await axios.post('http://localhost:8000/commu/post', formData)
+
+    console.log('Response from server:', commu_response.data);
+
+
     alert("โพสต์สำเร็จ!");
+
+    setTimeout(() => {
+      navigate('/commu');
+    }, 1000);
   };
 
   return (
@@ -58,7 +69,7 @@ export default function CommuForm() {
               type="url"
               placeholder="https://www.facebook.com/"
               onChange={handleChange}
-              required 
+              required
             />
           </div>
 
