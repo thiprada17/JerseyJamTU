@@ -9,11 +9,7 @@
 }
 
 
-:root {
-  background-color: #FFFFF0;
-  font-family: 'Kanit';
-  font-size: 10px;
-}
+
 
 
 .body-login {
@@ -135,6 +131,7 @@ form {
     background: linear-gradient(90deg, #333333, #000000);
     transform: translateY(-2px);
     }
+
 
 .signup-back-btn {
   position: absolute;       

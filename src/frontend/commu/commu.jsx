@@ -1,4 +1,5 @@
 import { useRef, useEffect } from "react";
+import { Link } from 'react-router-dom';
 import "./commu.css";
 import viewBg from "../../assets/view-bg.png";
 import popup from "../../assets/popup-commu.png";
@@ -42,10 +43,7 @@ export default function Commu() {
       <div className="commu-topic">
         <div className="commu-popup-container">
           <img src={popup} alt="Popup" className="popup-img" />
-          <button
-            className="popup-button"
-            onClick={() => alert("Clicked!")}
-          ></button>
+          <Link className="popup-button" to="/commu/form"></Link>
         </div>
       </div>
 

@@ -1,7 +1,8 @@
-import './FormPost.css';
+import "./commuForm.css";
 import { useState } from "react";
 
-export default function FormPost() {
+
+export default function CommuForm() {
   const [formData, setFormData] = useState({
     title: '',
     detail: '',
@@ -15,7 +16,8 @@ export default function FormPost() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("📩 Data to send: ", formData);
+    console.log("ข้อมูลโพสต์: ", formData);
+    console.log(formData)
     alert("โพสต์สำเร็จ!");
   };
 
@@ -56,7 +58,7 @@ export default function FormPost() {
               type="url"
               placeholder="https://www.facebook.com/"
               onChange={handleChange}
-              required
+              required 
             />
           </div>
 
