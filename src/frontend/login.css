@@ -14,7 +14,8 @@
   font-size: 10px;
 }
 
-html, body {
+html,
+body {
   height: 100%;
   margin: 0;
   padding: 0;
@@ -79,23 +80,27 @@ html, body {
   align-items: center;
   margin-bottom: 20px;
   width: 100%;
+  gap: 1rem;
 }
 
 .input-group label {
   font-size: 3rem;
   font-weight: bold;
-  margin-right: 1rem;
+  margin-right: 1.5rem;
+  width: 30%;
+  text-align: right;
 }
 
 .input-group input {
   flex: 1;
-  padding: 12px 20px;
+  padding: 2rem 1.5rem;
+  width: 65%;
   font-size: 1.8rem;
-  height: 5rem;
   border: 1px solid black;
   border-radius: 999px;
-  background: #fff;
   outline: none;
+  background-color: #EFEEEA;
+
 }
 
 .input-group input:focus {
@@ -110,14 +115,15 @@ html, body {
 
 .password-wrapper input {
   flex-grow: 1;
-  padding: 16px 24px;
-  font-size: 2.4rem;
+  padding: 2rem 1.5rem;
+  font-size: 1.8rem;
   border: 1px solid black;
   border-right: none;
-  background: #fff;
+  background-color: #EFEEEA;
   border-radius: 999px 0 0 999px;
   outline: none;
   box-sizing: border-box;
+  width: 100%;
 }
 
 .password-wrapper input:focus {
@@ -129,7 +135,7 @@ html, body {
   font-size: 2.4rem;
   border: 1px solid black;
   border-radius: 0 999px 999px 0;
-  background: #fff;
+  background-color: #EFEEEA;
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -137,7 +143,7 @@ html, body {
 }
 
 .btn-login {
-  padding: 12px 40px;
+  padding: 1.5rem 12rem;
   font-size: 1.6rem;
   font-weight: bold;
   background: #000;
@@ -145,8 +151,8 @@ html, body {
   border: none;
   border-radius: 8px;
   cursor: pointer;
-  margin-top: 20px;
   align-self: center;
+  margin-top: 1rem;
 }
 
 .btn-login:hover {
@@ -180,8 +186,8 @@ html, body {
 }
 
 .login-arrow-icon {
-  width: 30px;
-  height: 30px;
+  width: 3rem;
+  height: 3rem;
   opacity: 0.85;
   transition: transform 0.2s ease;
   transform: rotate(180deg);
