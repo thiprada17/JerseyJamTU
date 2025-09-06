@@ -75,6 +75,8 @@ app.post('/add-user/register', async (req, res) => {
   }
 });
 
+// commu post
+
 const port = 8000;
 app.listen(port, async (req, res) => {
     await initMySQL()
