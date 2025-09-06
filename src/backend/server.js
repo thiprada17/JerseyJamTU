@@ -75,6 +75,8 @@ app.post('/add-user/register', async (req, res) => {
   }
 });
 
+
+
 // commu post
 app.post('/commu/post', async (req, res) => {
   try {
@@ -99,12 +101,10 @@ app.post('/commu/post', async (req, res) => {
 // commu get
 app.get('/commu/get', async (req, res) => {
   try {
-    const [results] = await conn.query('SELECT * FROM commupost ORDER BY created_at DESC');
+    const [results] = await conn.query('SELECT * FROM commupost');
 
-    res.json({
-      message: 'Fetch Success',
-      data: results
-    });
+    res.json(results)
+    console.log(results)
 
   } catch (error) {
     console.error(error);
@@ -121,4 +121,3 @@ app.listen(port, async () => {
   await initMySQL()
   console.log('http server run at : ' + port)
 })
-

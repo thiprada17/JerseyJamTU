@@ -29,7 +29,7 @@ export default function CommuForm() {
 
     setTimeout(() => {
       navigate('/commu');
-    }, 1000);
+    }, 500);
   };
 
   return (
