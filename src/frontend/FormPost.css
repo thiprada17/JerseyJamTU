@@ -1,0 +1,101 @@
+@font-face {
+    font-family: 'Kanit';
+    src: url('./Kanit-Regular.ttf');
+}
+
+.form-body {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: url('/bg.png') no-repeat center center fixed;
+    background-size: cover;
+    font-family: 'Kanit';
+    position: relative;
+}
+
+.form-body::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255,255,255,0.5);
+    z-index: 0;
+}
+
+.form-box {
+    position: relative;
+    background: white;
+    padding: 30px; 
+    border-radius: 20px;
+    width: 950px;   
+    min-height: 380px; 
+    box-shadow: 0px 4px 15px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+.form-header {
+    text-align: center;
+    font-size: 40px; 
+    font-style: italic; 
+    color: #DF2D3B;     
+    margin-top: -10px; 
+    margin-bottom: 15px;
+    font-family: 'Kanit';  
+    border-bottom: 2px solid #D8D8D8; 
+    padding-bottom: 10px;
+    margin-left: -30px;   
+    margin-right: -30px;  
+}
+
+.form {
+    margin-bottom: 20px;
+}
+
+.form-label {
+    font-weight: normal; 
+    color: #1E1E1E;         
+    display: block;
+    margin-bottom: 6px;
+    font-size: 22px; 
+    font-family: 'Kanit';
+}
+
+.form-input {
+    width: 100%;
+    padding: 12px; 
+    border-radius: 8px;
+    border: 1px solid #A6A6A6; 
+    margin-bottom: 15px;
+    font-size: 18px; 
+    box-sizing: border-box;
+    font-family: 'Kanit';
+}
+
+.form-input::placeholder {
+    font-style: italic; 
+    color: #999;
+}
+
+.submit-btn {
+    display: block;
+    margin: 10px auto 0; 
+    background: #7773FF;
+    color: white;
+    padding: 12px 45px; 
+    border: none;
+    border-radius: 20px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.2s;
+    font-family: 'Kanit';
+    font-size: 18px; 
+    box-shadow: 0px 6px 15px rgba(0,0,0,0.2); 
+}
+
+.submit-btn:hover {
+    background: #5a55e0;
+    transform: translateY(-2px); 
+}
