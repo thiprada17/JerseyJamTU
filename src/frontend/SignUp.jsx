@@ -1,12 +1,9 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import "./signup.css";
-import img from "../assets/animal.png";
-import profile from "../assets/profile-icon.png";
-import mail from "../assets/mail-icon.png";
-import fingerprint from "../assets/fingerprint-icon.png";
 import arrowIcon from "../assets/arrow.png";
-
+import BackgroundSignup from "../assets/background-signup.png";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 export default function SignUp({ scrollToHome }) {
   const [userData, setuserData] = useState({
@@ -14,6 +11,12 @@ export default function SignUp({ scrollToHome }) {
     email: '',
     password: ''
   });
+
+  const [showPassword, setShowPassword] = useState(false);
+
+    const togglePassword = () => {
+    setShowPassword(!showPassword);
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -40,64 +43,99 @@ export default function SignUp({ scrollToHome }) {
   };
 
   return (
-    <div className="signup-container">
-
-      <div className='header-signup'>
-        <img src={img} alt="Logo" className="logo" />
-        <h2 className='font-light'>SignUp</h2>
+<div
+      className="signup-page"
+      style={{ backgroundImage: `url(${BackgroundSignup})` }}
+    >
+      <div className="signup-header">
+        <button className="signup-header-btn">Username</button>
+        <button className="signup-header-btn">Seller</button>
+        <button className="signup-back-btn" onClick={scrollToHome}>
+          <img src={arrowIcon} alt="Back" className="signup-arrow-icon" />
+        </button>
       </div>
 
-      <form style={{ width: "50%", margin: "0 auto" }} onSubmit={handleSubmit}>
-        <div className="input-group">
-          <label htmlFor="username">
-            <img src={profile} alt="" className='icon-signup' />
-            <i className="bi bi-person-circle"></i> Username
-          </label>
-          <input
-            name="username"
-            type="text"
-            id="username"
-            placeholder="Enter username"
-            value={userData.username}
-            onChange={handleChange} required />
+      <form className="signup-form-wrapper" onSubmit={handleSubmit}>
+        <div className="signup-form-row ">
+          <div className="input-group" >
+            <label>Username:</label>
+            <input
+              type="text"
+              name="username"
+              value={userData.username}
+              onChange={handleChange}
+              placeholder="Enter username"
+              required
+            />
+          </div>
+          <div className="input-group">
+            <label>Name:</label>
+            <input
+              type="text"
+              name="name"
+              value={userData.name}
+              onChange={handleChange}
+              placeholder="Enter name"
+              required
+            />
+          </div>
         </div>
 
-        <div className="input-group">
-          <label htmlFor="email">
-            <img src={mail} alt="" className='icon-signup' />
-            <i className="bi bi-envelope"></i> Email
-          </label>
-          <input
-            name="email"
-            type="email"
-            id="email"
-            placeholder="Enter email"
-            value={userData.email}
-            onChange={handleChange} required />
+        <div className="signup-form-row">
+          <div className="input-group">
+            <label>Faculty:</label>
+            <input
+              type="text"
+              name="faculty"
+              value={userData.faculty}
+              onChange={handleChange}
+              placeholder="Enter faculty"
+              required
+            />
+          </div>
+          <div className="input-group">
+            <label>Year:</label>
+            <input
+              type="text"
+              name="year"
+              value={userData.year}
+              onChange={handleChange}
+              placeholder="Enter year"
+              required
+            />
+          </div>
         </div>
 
-        <div className="input-group">
-          <label htmlFor="password">
-            <img src={fingerprint} alt="" className='icon-signup' />
-            <i className="bi bi-fingerprint"></i> Password
-          </label>
-          <input
-            name="password"
-            type="password"
-            id="password"
-            placeholder="Enter password"
-            value={userData.password}
-            onChange={handleChange} required />
-        </div>
+        <div className="signup-form-row last-row">
+          <div className="input-group password-group">
+            <label>Password:</label>
+            <div className="password-wrapper">
+              <input
+                type={showPassword ? "text" : "password"}
+                name="password"
+                value={userData.password}
+                onChange={handleChange}
+                placeholder="Enter password"
+                required
+              />
+              <button
+                type="button"
+                className="toggle-password"
+                onClick={togglePassword}
+              >
+                {showPassword ? <FaEyeSlash /> : <FaEye />}
+              </button>
+            </div>
+          </div>
 
-        <button type="submit" className="btn-signup">
-          SIGNUP
-        </button>
+        <div className="signup-actions">
+            <button type="submit" className="btn-login">Sign up</button>
+            <p className="signup-text">
+              Already have an account? <span className="signup-link">Log in</span>
+            </p>
+          </div>
+          </div>
       </form>
-      <button className="signup-back-btn" onClick={scrollToHome}>
-        <img src={arrowIcon} alt="Back" className="signup-arrow-icon" />
-      </button>
-
     </div>
   );
 }

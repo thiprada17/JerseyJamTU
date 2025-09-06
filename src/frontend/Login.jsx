@@ -46,7 +46,7 @@ export default function Login({ scrollToHome, scrollToSignup }) {
 
         <form className="signin-form" onSubmit={handleSubmit}>
           <div className="input-group">
-            <label htmlFor="username">Username</label>
+            <label htmlFor="username">Username:</label>
             <input
               type="text"
               id="username"
@@ -58,7 +58,7 @@ export default function Login({ scrollToHome, scrollToSignup }) {
           </div>
 
           <div className="input-group">
-            <label htmlFor="password">Password</label>
+            <label htmlFor="password">Password:</label>
             <div className="password-wrapper">
               <input
                 type={showPassword ? "text" : "password"}

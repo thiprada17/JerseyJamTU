@@ -1,168 +1,99 @@
-@font-face {
-  font-family: 'PG';
-  src: url('./PG Newport DEMO.ttf');
-}
-
-@font-face {
-  font-family: 'Kanit';
-  src: url('./Kanit-Regular.ttf');
-}
-
-
-:root {
-  background-color: #FFFFF0;
-  font-family: 'Kanit';
-  font-size: 10px;
-}
-
-
-.body-login {
-  font-size: 1.5rem;
-  font-style: normal;
-}
-
-body {
-    margin: 0;
-    padding: 0;
-    /* background-color: #434343; */
-    font-family: 'Kanit';
-}
-
-    
-.signup-container {
-  background-color: #fdfdf0;
-  width: 100%;
-  max-width: 90%;
-  padding: 60px 40px 40px 40px; 
-  text-align: center;
-  position: relative;
+.signup-page {
+  display: flex;
+  flex-direction: column;
+  top: 0;
+  align-items: center;
   min-height: 100vh;
-  box-sizing: border-box;
-  margin: 0 auto; 
+  width: 100%;
+  position: relative;
 }
-
-
-@keyframes floating {
-    0%, 100% {
-        transform: translateY(0);
-    }
-    50% {
-        transform: translateY(-9px);
-    }
-    }
-
-
-.logo {
-    display: block;
-    width: 7rem;
-    height: 7rem;
-    margin: 0 auto -30px;
-    animation: floating 3s ease-in-out infinite;
-    }
-
-h2 {
-    font-family: 'PG';
-    margin: 0px;
-    font-size: 50px;
-    font-weight: 100; 
-}
-
-form {
-    text-align: left;
-}
-
-.input-group {
-    position: relative;
-    margin-bottom: 20px;
-    text-align: left;
-    width: 70%;
-    margin: 0 auto 20px;
-    text-align: left;
-}
-
-.input-group label {
-    display: flex;
-    font-size: 15px;
-    margin-bottom: 5px;
-    text-transform: uppercase;
-    align-items: center;
-    font-family: 'Kanit', sans-serif;
-}
-
-.input-group label i {
-    margin-right: 6px;
-    font-size: 15px;
-    color: #333;
-}
-
-.input-group input {
-    width: 100%;
-    padding: 10px;
-    font-size: 14px;
-    border: 2px solid #000000;
-    outline: none;
-    box-sizing: border-box;
-    background-color: #FFFFF0;
-    font-family: 'Kanit';
-    opacity: 50%;
-}
-
-.input-group input:focus {
-    border-color: #333;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
-}
-
-.icon-signup {
-    width: 1.5rem;
-    margin-bottom: 1px;
-}
-
-.btn-signup {
-    background: linear-gradient(90deg, #000000, #333333);
-    color: white;
-    padding: 12px;
-    width: 70%;
-    font-family: 'Kanit';
-    border: none;
-    cursor: pointer;
-    font-size: 14px;
-    margin: 10px auto 0 auto;  
-    display: block;            
-    transition: 0.2s ease;
-}
-
-.btn-signup:hover {
-    background: linear-gradient(90deg, #333333, #000000);
-    transform: translateY(-2px);
-    }
 
 .signup-back-btn {
-  position: absolute;       
-  top: 20px;
-  right: 10px;
+  position: absolute;
   background: transparent;
   border: none;
   cursor: pointer;
-  z-index: 999;
-  padding: 0;
+  right: 5rem;
 }
 
 .signup-arrow-icon {
-  width: 30px;
-  height: 30px;
+  width: 3rem;
+  height: 3rem;
+  opacity: 0.85;
   transition: transform 0.2s ease;
-  opacity: 0.85;
-}
-
-.signup-arrow-icon {
-  width: 30px;
-  height: 30px;
-  transition: transform 0.3s ease;
-  opacity: 0.85;
-  transform: rotate(0deg); 
 }
 
 .signup-arrow-icon:hover {
-  transform: rotate(180deg) scale(1.1); 
+  transform: rotate(180deg) scale(1.1);
 }
 
+.signup-header {
+  position: absolute;
+  top: 1rem;
+  left: 0;
+  height: 6rem;
+  width: 100%;
+  background: rgba(255, 255, 255, 0.8);
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 0 2rem;
+  z-index: 99;
+  border-bottom: 1px solid #ccc;
+}
+
+.signup-header-btn {
+  margin-left: 1rem;
+  padding: 0.8rem 2rem;
+  font-size: 1.8rem;
+  border: 1px solid black;
+  background: white;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.signup-header-btn:hover {
+  background: #eee;
+}
+
+.signup-form-wrapper {
+  margin-top: 45rem;
+  width: 90%;
+  max-width: 100rem;
+  padding: 3rem 2rem;
+  border-radius: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.signup-form-row {
+  display: flex;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.last-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  flex-wrap: nowrap;
+}
+
+.signup-actions {
+  display: flex;
+  flex: 0 0 50%;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 1rem;
+  margin-left: auto;
+}
+
+.signup-form-row .input-group {
+  flex: 1;
+}
+
+.password-group {
+  flex: 0 0 60%;
+  min-width: 0;
+}
