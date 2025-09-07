@@ -30,6 +30,7 @@ body {
   background: linear-gradient(to bottom, #ffffff, #f2f2a0);
   position: relative;
   overflow: hidden;
+  font-family: "Kanit", sans-serif;
 }
 
 .background-text {
