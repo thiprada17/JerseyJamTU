@@ -94,7 +94,7 @@ body {
 
 .input-group input {
   flex: 1;
-  padding: 2rem 1.5rem;
+  padding: 1.5rem 1.5rem;
   width: 65%;
   font-size: 1.8rem;
   border: 1px solid black;
@@ -116,7 +116,7 @@ body {
 
 .password-wrapper input {
   flex-grow: 1;
-  padding: 2rem 1.5rem;
+  padding: 1.5rem 1.5rem;
   font-size: 1.8rem;
   border: 1px solid black;
   border-right: none;
