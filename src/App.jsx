@@ -8,8 +8,8 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 // import Register from "./pages/Register";
 import Commu from './frontend/commu/commu'
 import CommuForm from './frontend/commu/commuForm'
-import Homepage from './frontend/Homepage';
-// import Display from './frontend/ShirtDisplay';
+// import Homepage from './frontend/Homepage';
+import Display from './frontend/ShirtDisplay';
 
 function App() {
 
@@ -17,12 +17,12 @@ function App() {
     <>
       <Router>
         <Routes>
-          <Route path="/" element={<Homepage />} />
+          {/* <Route path="/" element={<Homepage />} /> */}
           {/* <Route path="/" element={<Commu />} /> */}
 
           <Route path="/commu" element={<Commu />} />
           <Route path="/commu/form" element={<CommuForm />} />
-          {/* <Route path="/" element={<Display />} /> */}
+          <Route path="/" element={<Display />} />
           {/* <Route path="/" element={<SignIn />} />
           <Route path="/signup" element={<SignUp />} /> */}
         </Routes>
