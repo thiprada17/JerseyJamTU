@@ -32,6 +32,9 @@ export default function CommuForm() {
     }, 500);
   };
 
+
+
+
   return (
     <div className="form-body">
       <div className="form-box">
