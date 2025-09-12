@@ -75,7 +75,22 @@ app.post('/add-user/register', async (req, res) => {
   }
 });
 
+// commu get
+app.get('/commu/get', async (req, res) => {
+  try {
+    const [results] = await conn.query('SELECT * FROM commupost ORDER BY postid DESC');
 
+    res.json(results)
+    console.log(results)
+
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({
+      message: "Error while fetching posts",
+      errorMessage: error.message
+    });
+  }
+});
 
 // commu post
 app.post('/commu/post', async (req, res) => {
@@ -101,10 +116,10 @@ app.post('/commu/post', async (req, res) => {
 // commu get
 app.get('/commu/get', async (req, res) => {
   try {
-    const [results] = await conn.query('SELECT * FROM commupost ORDER BY post_id DESC');
+    const [results] = await conn.query('SELECT * FROM commupost');
 
-    res.json(results)
-    console.log(results)
+    // res.json(results)
+    // console.log(results)
 
   } catch (error) {
     console.error(error);
