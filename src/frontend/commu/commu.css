@@ -2,26 +2,24 @@
 
 
 @font-face {
-    font-family: 'PG';
-    src: url('./PG Newport DEMO.ttf');
+  font-family: 'PG';
+  src: url('/fonts/PG-Newport-DEMO.ttf') format('truetype');
 }
 
 @font-face {
-    font-family: 'Kanit';
-    src: url('./Kanit-Regular.ttf');
+  font-family: 'Kanit';
+  src: url('/fonts/Kanit-Regular.ttf') format('truetype');
 }
 
 @font-face {
-    font-family: 'Nec';
-    src: url('Nectarine.ttf')
+  font-family: 'Nec';
+  src: url('/fonts/Nectarine.ttf') format('truetype');
 }
 
 @font-face {
-    font-family: 'thi';
-    src: url('thierry.ttf')
+  font-family: 'thi';
+  src: url('/fonts/thierry.ttf') format('truetype');
 }
-
-
 
 .commu-body {
     background-color: white;
@@ -69,14 +67,13 @@
     max-width: 60rem;
     margin: 0 auto;
 }
-
-.popup-img {
+.commu-popup-img {
     width: 100%;
     height: auto;
     display: block;
 }
 
-.popup-button {
+.commu-popup-button {
     position: absolute;
     bottom: 0;
     left: 0;
@@ -146,6 +143,7 @@
 
 
 .commu-post-detail {
+    font-family: 'Kanit';
     font-size: 2rem;
     color: #444;
     margin-top: 1rem;
@@ -162,6 +160,7 @@
     margin-top: auto;
     font-size: 2rem;
     margin-left: 0.6rem;
+        font-family: 'Kanit';
 }
 
 .commu-post-contact a {

@@ -113,10 +113,23 @@ app.post('/commu/post', async (req, res) => {
   }
 });
 
-<<<<<<< Updated upstream
-=======
+// commu get
+app.get('/commu/get', async (req, res) => {
+  try {
+    const [results] = await conn.query('SELECT * FROM commupost');
 
->>>>>>> Stashed changes
+    // res.json(results)
+    // console.log(results)
+
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({
+      message: "Error while fetching posts",
+      errorMessage: error.message
+    });
+  }
+});
+
 
 const port = 8000;
 app.listen(port, async () => {
