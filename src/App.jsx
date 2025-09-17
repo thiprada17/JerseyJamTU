@@ -8,14 +8,11 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 // import Register from "./pages/Register";
 import Commu from './frontend/commu/commu'
 import CommuForm from './frontend/commu/commuForm'
-<<<<<<< Updated upstream
 import Main from './frontend/main/Main'
 import MainNews from './frontend/main/MainNews'
 import Homepage from './frontend/homepage';
-=======
-// import Homepage from './frontend/Homepage';
->>>>>>> Stashed changes
 import Display from './frontend/ShirtDisplay';
+import Sellerform from './frontend/sellerform';
 
 function App() {
 
@@ -23,18 +20,14 @@ function App() {
     <>
       <Router>
         <Routes>
-<<<<<<< Updated upstream
           <Route path="/" element={<Homepage />} />
           <Route path="/main" element={<Main />} />
           <Route path="/main/news" element={<MainNews />} />
-=======
-          {/* <Route path="/" element={<Homepage />} /> */}
-          {/* <Route path="/" element={<Commu />} /> */}
->>>>>>> Stashed changes
 
           <Route path="/commu" element={<Commu />} />
           <Route path="/commu/form" element={<CommuForm />} />
           <Route path="/display" element={<Display />} />
+          <Route path="/sellerform" element={<Sellerform />} />
           {/* <Route path="/" element={<SignIn />} />
           <Route path="/signup" element={<SignUp />} /> */}
         </Routes>
