@@ -10,7 +10,7 @@ import Commu from './frontend/commu/commu'
 import CommuForm from './frontend/commu/commuForm'
 import Main from './frontend/main/Main'
 import MainNews from './frontend/main/MainNews'
-import Homepage from './frontend/Homepage';
+import Homepage from './frontend/homepage';
 import Display from './frontend/ShirtDisplay';
 
 function App() {
