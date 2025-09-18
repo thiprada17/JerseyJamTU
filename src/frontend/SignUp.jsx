@@ -33,7 +33,10 @@ export default function SignUp({ scrollToHome }) {
     e.preventDefault();
     console.log('ข้อมูลผู้ลงทะเบียน:', userData);
 
+    fetch
+
     try {
+      
       const user_response = await axios.post('http://localhost:8000/add-user/register', userData)
       console.log("insert sucsess")
 

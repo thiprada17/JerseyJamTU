@@ -1,138 +1,192 @@
+require('dotenv').config()
+
+// const mysql = require('mysql2/promise')
+
 const express = require('express')
-const app = express()
+const { createClient } = require('@supabase/supabase-js')
+const cors = require('cors')
 const bodyParser = require('body-parser')
-const mysql = require('mysql2/promise')
-const cors = require('cors');
-app.use(cors());
+
+const app = express()
+app.use(cors())
 app.use(bodyParser.json())
 
-let conn = null
-const initMySQL = async () => {
-  conn = await mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    password: 'root',
-    database: 'jerseyjamtu',
-    port: 3306
-  })
-}
 
-// sign in
-app.post('/create/login', async (req, res) => {
-  try {
-    const { username, password } = req.body;
+// let conn = null
+// const initMySQL = async () => {
+//   conn = await mysql.createConnection({
+//     host: 'localhost',
+//     user: 'root',
+//     password: 'root',
+//     database: 'jerseyjamtu',
+//     port: 3306
+//   })
+// }
 
-    const [results] = await conn.query('SELECT * FROM users WHERE username = ?', [username]);
-    const userData_db = results[0];
-    console.log(userData_db);
+const supabaseUrl = 'https://zdhjexmsbgozpxroeaud.supabase.co'
+const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpkaGpleG1zYmdvenB4cm9lYXVkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTgxODU3NTUsImV4cCI6MjA3Mzc2MTc1NX0.E_NmaPHl2jK_h8CTHqzfF5K8cTUMehs7Bf9nHdjLizM"
+const supabase = createClient(supabaseUrl, supabaseKey)
 
-    if (!userData_db) {
-      return res.status(401).json({
-        message: 'User not found'
-      });
-    }
 
-    if (userData_db.password !== password) {
-      return res.status(401).json({
-        message: 'Incorrect password'
-      });
-    }
+app.get('/test', async (req, res) => {
+  const { data, error } = await supabase
+    .from('users')
+    .select('*')
 
-    res.json({
-      message: 'Login successful',
-      user: {
-        user_id: userData_db.user_id,
-        email: userData_db.email,
-        username: userData_db.username
-      }
-    });
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({
-      message: 'Server error'
-    });
+  console.log("Supabase result:", data)
+  console.log("Supabase error:", error)
+  if (error) {
+    return res.status(500).json({ error: error.message })
   }
-});
 
+  res.json({
+    args: req.query,
+    headers: req.headers,
+    url: req.url,
+    data: data
+  });
+})
 
-// sign up
 app.post('/add-user/register', async (req, res) => {
-  try {
-    const data = req.body;
-    console.log("ข้อมูลที่ผู้ลงทะเบียนกรอก" + data);
+  const { username, email, password } = req.body;
 
-    const [results] = await conn.query('INSERT INTO users SET ?', data);
+  console.log({ username, email, password });
 
-    res.json({
-      message: 'Insert Success',
-      data: results
-    });
-  } catch (error) {
-    res.status(500).json({
-      message: "error something wrong",
-      errorMessage: error.message
-    });
+  const { data, error } = await supabase
+    .from('users')
+    .insert([
+      { username, email, password },
+    ])
+    .select();
+    
+
+  if (error) {
+    console.error("Supabase insert error:", error.message);
+    return res.status(500).json({ error: error.message });
   }
+
+  res.json({
+    message: "User registered successfully",
+    data
+  });
 });
+// // sign in
+// app.post('/create/login', async (req, res) => {
+//   try {
+//     const { username, password } = req.body;
 
-// commu get
-app.get('/commu/get', async (req, res) => {
-  try {
-    const [results] = await conn.query('SELECT * FROM commupost ORDER BY postid DESC');
+//     const [results] = await conn.query('SELECT * FROM users WHERE username = ?', [username]);
+//     const userData_db = results[0];
+//     console.log(userData_db);
 
-    res.json(results)
-    console.log(results)
+//     if (!userData_db) {
+//       return res.status(401).json({
+//         message: 'User not found'
+//       });
+//     }
 
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({
-      message: "Error while fetching posts",
-      errorMessage: error.message
-    });
-  }
-});
+//     if (userData_db.password !== password) {
+//       return res.status(401).json({
+//         message: 'Incorrect password'
+//       });
+//     }
 
-// commu post
-app.post('/commu/post', async (req, res) => {
-  try {
-    const data = req.body
-    console.log(data)
-    const results = await conn.query('INSERT INTO commupost SET ?', data);
+//     res.json({
+//       message: 'Login successful',
+//       user: {
+//         user_id: userData_db.user_id,
+//         email: userData_db.email,
+//         username: userData_db.username
+//       }
+//     });
+//   } catch (error) {
+//     console.error(error);
+//     res.status(500).json({
+//       message: 'Server error'
+//     });
+//   }
+// });
 
-    res.json({
-      message: 'Insert Success',
-      data: results
-    });
 
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({
-      message: "Error while creating post",
-      errorMessage: error.message
-    });
-  }
-});
+// // sign up
+// app.post('/add-user/register', async (req, res) => {
+//   try {
+//     const data = req.body;
+//     console.log("ข้อมูลที่ผู้ลงทะเบียนกรอก" + data);
 
-// commu get
-app.get('/commu/get', async (req, res) => {
-  try {
-    const [results] = await conn.query('SELECT * FROM commupost');
+//     const [results] = await conn.query('INSERT INTO users SET ?', data);
 
-    res.json(results)
-    // console.log(results)
+//     res.json({
+//       message: 'Insert Success',
+//       data: results
+//     });
+//   } catch (error) {
+//     res.status(500).json({
+//       message: "error something wrong",
+//       errorMessage: error.message
+//     });
+//   }
+// });
 
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({
-      message: "Error while fetching posts",
-      errorMessage: error.message
-    });
-  }
-});
+// // commu get
+// app.get('/commu/get', async (req, res) => {
+//   try {
+//     const [results] = await conn.query('SELECT * FROM commupost ORDER BY postid DESC');
+
+//     res.json(results)
+//     console.log(results)
+
+//   } catch (error) {
+//     console.error(error);
+//     res.status(500).json({
+//       message: "Error while fetching posts",
+//       errorMessage: error.message
+//     });
+//   }
+// });
+
+// // commu post
+// app.post('/commu/post', async (req, res) => {
+//   try {
+//     const data = req.body
+//     console.log(data)
+//     const results = await conn.query('INSERT INTO commupost SET ?', data);
+
+//     res.json({
+//       message: 'Insert Success',
+//       data: results
+//     });
+
+//   } catch (error) {
+//     console.error(error);
+//     res.status(500).json({
+//       message: "Error while creating post",
+//       errorMessage: error.message
+//     });
+//   }
+// });
+
+// // commu get
+// app.get('/commu/get', async (req, res) => {
+//   try {
+//     const [results] = await conn.query('SELECT * FROM commupost');
+
+//     res.json(results)
+//     // console.log(results)
+
+//   } catch (error) {
+//     console.error(error);
+//     res.status(500).json({
+//       message: "Error while fetching posts",
+//       errorMessage: error.message
+//     });
+//   }
+// });
 
 
 const port = 8000;
-app.listen(port, async () => {
-  await initMySQL()
+app.listen(port, () => {
   console.log('http server run at : ' + port)
 })
+
+
