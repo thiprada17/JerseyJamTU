@@ -64,16 +64,18 @@ export default function MainNews() {
   ];
 
   return (
-    <div className="main-news">
-      <Slider {...settings}>
-        {slides.map((s) => (
-          <div key={s.id} style={{ padding: "0 10px" }}>
-            <div className="main-news slick-slide-item">
-              <img src={s.img} className="main-news-img" alt={`Slide ${s.id}`}/>
-            </div>
+<div className="main-news">
+  <Slider {...settings}>
+    {slides.map((s) => (
+      <div key={s.id} style={{ padding: "0 10px" }}>
+        <div className="slick-slide-item">
+          <div className="main-news-frame">
+            <img src={s.img} className="main-news-img" alt={`Slide ${s.id}`} />
           </div>
-        ))}
-      </Slider>
-    </div>
+        </div>
+      </div>
+    ))}
+  </Slider>
+</div>
   );
 }

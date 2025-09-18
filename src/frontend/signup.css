@@ -92,6 +92,7 @@
   display: flex;
   gap: 2rem;
   flex-wrap: wrap;
+  
 }
 
 .last-row {
@@ -118,3 +119,4 @@
   flex: 0 0 60%;
   min-width: 0;
 }
+

@@ -17,15 +17,22 @@ export default function CommuForm() {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    console.log("ข้อมูลโพสต์: ", formData);
+    try {
+      e.preventDefault();
 
-    const commu_response = await axios.post('http://localhost:8000/commu/post', formData)
+      const commu_response = await axios.post('http://localhost:8000/commu/post', formData)
 
-    console.log('Response from server:', commu_response.data);
+      console.log('Response from server:', commu_response.data);
+
+      console.log("ข้อมูลโพสต์: ", formData);
+      alert("โพสต์สำเร็จ!");
+
+    } catch (error) {
+      alert("ERROR!!\nไม่สามารถสร้างโพสต์ได้")
+
+    }
 
 
-    alert("โพสต์สำเร็จ!");
 
     setTimeout(() => {
       navigate('/commu');

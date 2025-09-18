@@ -95,7 +95,7 @@ app.get('/commu/get', async (req, res) => {
 // commu post
 app.post('/commu/post', async (req, res) => {
   try {
-    const data = req.body;
+    const data = req.body
     console.log(data)
     const results = await conn.query('INSERT INTO commupost SET ?', data);
 
@@ -118,7 +118,7 @@ app.get('/commu/get', async (req, res) => {
   try {
     const [results] = await conn.query('SELECT * FROM commupost');
 
-    // res.json(results)
+    res.json(results)
     // console.log(results)
 
   } catch (error) {

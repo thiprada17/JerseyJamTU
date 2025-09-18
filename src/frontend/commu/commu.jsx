@@ -19,6 +19,8 @@ export default function Commu() {
         console.log("fetching posts success")
       } catch (error) {
         console.error("Error fetching posts:", error);
+
+        alert("ERROR!!\nไม่สามารถโหลดโพสต์ได้")
       }
     };
 
@@ -42,12 +44,12 @@ export default function Commu() {
         <div className="commu-grid">
           {posts.map((post, index) => (
             <div className="commu-post bg-slate-50" key={index}>
-              <div className="commu-post-topic"> {post.title} </div>
-              <div className="commu-post-detail">{post.detail}</div>
+              <div className="commu-post-topic"> {post.title ?? "No Title"} </div>
+              <div className="commu-post-detail">{post.detail ?? "No detail"}</div>
               <div className="commu-post-contact">
                 ช่องทางการติดต่อ :{" "}
-                <a href={post.contact} target="_blank">
-                  {post.contact}
+                <a href={post.contact } target="_blank">
+                  {post.contact ?? "No Contact"}
                 </a>
               </div>
             </div>
