@@ -98,10 +98,10 @@ body {
   width: 65%;
   font-size: 1.8rem;
   border: 1px solid black;
-  border-radius: 999px;
+  border-radius: 999px !important;
   outline: none;
   background-color: #EFEEEA;
-
+  box-sizing: border-box;
 }
 
 .input-group input:focus {
@@ -121,7 +121,7 @@ body {
   border: 1px solid black;
   border-right: none;
   background-color: #EFEEEA;
-  border-radius: 999px 0 0 999px;
+  border-radius: 999px 0 0 999px !important;
   outline: none;
   box-sizing: border-box;
   width: 100%;

@@ -4,8 +4,10 @@ import "./login.css";
 import arrowIcon from "../assets/arrow.png";
 import pinkshape from "../assets/pink-shape.png";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { useNavigate } from 'react-router-dom';
 
 export default function Login({ scrollToHome, scrollToSignup }) {
+  const navigate = useNavigate();
   const [userData, setuserData] = useState({
     username: '',
     password: ''
@@ -27,10 +29,15 @@ export default function Login({ scrollToHome, scrollToSignup }) {
     console.log('ข้อมูลผู้เข้าใช้:', userData);
 
     try {
-      const user_response = await axios.post('http://localhost:8000/create/login', userData);
+      fetch('http://localhost:8000/test', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(userData),
+      })
       console.log("login success");
       alert('Login Success.');
-      localStorage.setItem('username', user_response.data.user.username);
+
+      navigate('/main');
     } catch (error) {
       console.error('Error sending data:', error);
       alert('Login Fail.');
@@ -87,8 +94,8 @@ export default function Login({ scrollToHome, scrollToSignup }) {
       </div>
 
       <button className="login-back-btn" onClick={scrollToHome}>
-              <img src={arrowIcon} alt="Back" className="signup-arrow-icon" />
-            </button>
+        <img src={arrowIcon} alt="Back" className="signup-arrow-icon" />
+      </button>
     </div>
   );
 }

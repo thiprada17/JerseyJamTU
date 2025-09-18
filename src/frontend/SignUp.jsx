@@ -9,12 +9,14 @@ export default function SignUp({ scrollToHome }) {
   const [userData, setuserData] = useState({
     username: '',
     email: '',
-    password: ''
+    password: '',
+    faculty: '',
+    year: '',
   });
 
   const [showPassword, setShowPassword] = useState(false);
 
-    const togglePassword = () => {
+  const togglePassword = () => {
     setShowPassword(!showPassword);
   };
 
@@ -33,11 +35,16 @@ export default function SignUp({ scrollToHome }) {
     e.preventDefault();
     console.log('ข้อมูลผู้ลงทะเบียน:', userData);
 
-    fetch
 
     try {
-      
-      const user_response = await axios.post('http://localhost:8000/add-user/register', userData)
+      fetch('http://localhost:8000/add-user/register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(userData),
+      })
+        // .then(res => res.json())
+        // .then(data => console.log(data))
+        // .catch(err => console.error(err)); 
       console.log("insert sucsess")
 
     } catch (error) {
@@ -46,7 +53,7 @@ export default function SignUp({ scrollToHome }) {
   };
 
   return (
-<div
+    <div
       className="signup-page"
       style={{ backgroundImage: `url(${BackgroundSignup})` }}
     >
@@ -72,13 +79,13 @@ export default function SignUp({ scrollToHome }) {
             />
           </div>
           <div className="input-group">
-            <label>Name:</label>
+            <label>Email:</label>
             <input
-              type="text"
-              name="name"
-              value={userData.name}
+              type="email"
+              name="email"
+              value={userData.email}
               onChange={handleChange}
-              placeholder="Enter name"
+              placeholder="Enter email"
               required
             />
           </div>
@@ -99,7 +106,7 @@ export default function SignUp({ scrollToHome }) {
           <div className="input-group">
             <label>Year:</label>
             <input
-              type="text"
+              type="number"
               name="year"
               value={userData.year}
               onChange={handleChange}
@@ -131,13 +138,13 @@ export default function SignUp({ scrollToHome }) {
             </div>
           </div>
 
-        <div className="signup-actions">
+          <div className="signup-actions">
             <button type="submit" className="btn-login">Sign up</button>
             <p className="signup-text">
               Already have an account? <span className="signup-link">Log in</span>
             </p>
           </div>
-          </div>
+        </div>
       </form>
     </div>
   );

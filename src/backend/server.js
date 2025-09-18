@@ -10,6 +10,8 @@ const bodyParser = require('body-parser')
 const app = express()
 app.use(cors())
 app.use(bodyParser.json())
+app.use(express.json());
+
 
 
 // let conn = null
@@ -28,84 +30,85 @@ const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS
 const supabase = createClient(supabaseUrl, supabaseKey)
 
 
-app.get('/test', async (req, res) => {
+app.post('/test', async (req, res) => {
+  console.log('Request body:', req.body);
+  const { username, password } = req.body;
   const { data, error } = await supabase
     .from('users')
-    .select('*')
+    .select('password')
+    .eq('username', inputUsername)
 
   console.log("Supabase result:", data)
   console.log("Supabase error:", error)
+
   if (error) {
+    // ถ้ามี error ส่งกลับ status 500 พร้อมข้อความ error
     return res.status(500).json({ error: error.message })
   }
 
-  res.json({
-    args: req.query,
-    headers: req.headers,
-    url: req.url,
-    data: data
-  });
+  // ถ้าไม่มี error ส่งข้อมูล data กลับไป
+  res.json(data)
 })
 
+// sign up
 app.post('/add-user/register', async (req, res) => {
-  const { username, email, password } = req.body;
+  try {
+    console.log('Request body:', req.body);
+    const { username, email, password, faculty, year } = req.body;
 
-  console.log({ username, email, password });
+    const { data, error } = await supabase
+      .from('users')
+      .insert([{ username, email, password, faculty, year }])
+      .select();
 
-  const { data, error } = await supabase
-    .from('users')
-    .insert([
-      { username, email, password },
-    ])
-    .select();
-    
+    if (error) {
+      console.error('Supabase insert error:', error);
+      return res.status(500).json({ error: error.message });
+    }
 
-  if (error) {
-    console.error("Supabase insert error:", error.message);
-    return res.status(500).json({ error: error.message });
+    res.json({ message: 'User registered successfully', data });
+  } catch (err) {
+    console.error('Unexpected error:', err);
+    res.status(500).json({ error: 'Internal server error' });
   }
-
-  res.json({
-    message: "User registered successfully",
-    data
-  });
 });
-// // sign in
-// app.post('/create/login', async (req, res) => {
-//   try {
-//     const { username, password } = req.body;
 
-//     const [results] = await conn.query('SELECT * FROM users WHERE username = ?', [username]);
-//     const userData_db = results[0];
-//     console.log(userData_db);
+// sign in
+app.post('/create/login', async (req, res) => {
+  try {
+    const { username, password } = req.body;
+    const { data, error } = await supabase
+      .from('users')
+      .select('password')
+      .eq('username', username)
 
-//     if (!userData_db) {
-//       return res.status(401).json({
-//         message: 'User not found'
-//       });
-//     }
+    console.log("Supabase result:", data)
+    console.log("Supabase error:", error)
 
-//     if (userData_db.password !== password) {
-//       return res.status(401).json({
-//         message: 'Incorrect password'
-//       });
-//     }
+    if (!data) {
+      return res.status(401).json({
+        message: 'User not found'
+      });
+    }
 
-//     res.json({
-//       message: 'Login successful',
-//       user: {
-//         user_id: userData_db.user_id,
-//         email: userData_db.email,
-//         username: userData_db.username
-//       }
-//     });
-//   } catch (error) {
-//     console.error(error);
-//     res.status(500).json({
-//       message: 'Server error'
-//     });
-//   }
-// });
+    const storedPassword = data[0].password;
+
+    if (storedPassword !== password) {
+      return res.status(401).json({
+        message: 'Incorrect password'
+      });
+    }
+
+    res.json({
+      message: 'Login successful',
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({
+      message: 'Server error'
+    });
+  }
+});
 
 
 // // sign up
