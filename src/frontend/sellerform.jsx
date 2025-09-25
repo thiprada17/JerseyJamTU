@@ -3,11 +3,11 @@ import "./sellerform.css";
 import greenLayer from "../assets/green.png";
 import creamLayer from "../assets/cream.png";
 import blueLayer from "../assets/blue.png";
-import {useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-export default function sellerform() {
+export default function SellerForm() {
   const navigate = useNavigate();
   const [image, setImage] = useState(null);
   const [formData, setFormData] = useState({
@@ -23,39 +23,39 @@ export default function sellerform() {
     const file = e.target.files[0];
     if (file) {
       const imageUrl = URL.createObjectURL(file);
-      setImage(imageUrl); // ใช้ URL preview
+      setImage(imageUrl);
     }
   };
 
-const handleChange = (e) => {
-  const { name, value } = e.target;
-  setFormData((prev) => ({
-    ...prev,
-    [name]: value,
-  }));
-};
-
-const handleSubmit = async (e) => {
-  e.preventDefault();
-
-  const payload = {
-    ...formData,
-    shirt_pic: image || "", // คุณอาจใส่ URL ภาพ (หลังอัปโหลดจริง)
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
   };
 
-  try {
-    const response = await fetch("http://localhost:8000/shirt/info/post", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(payload),
-    });
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-    const result = await response.json();
+    const payload = {
+      ...formData,
+      shirt_pic: image || "",
+    };
 
-    if (response.ok) {
-      toast.success("Sent laew!", {
+    try {
+      const response = await fetch("http://localhost:8000/shirt/info/post", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+
+      const result = await response.json();
+
+      if (response.ok) {
+        toast.success("Sent laew!", {
           position: "top-center",
-          autoClose: 3000, 
+          autoClose: 3000,
           hideProgressBar: true,
           closeOnClick: false,
           pauseOnHover: false,
@@ -80,6 +80,7 @@ const handleSubmit = async (e) => {
     <div className="sellerform-app">
       {/* -------- หน้าแรก -------- */}
       <section className="sellerform-pageOne">
+        {/* เลเยอร์รูปซ้อนกันเป็นพื้นหลัง */}
         <div className="sellerform-layers">
           <img src={greenLayer} alt="green" className="sellerform-layer" />
           <img src={creamLayer} alt="cream" className="sellerform-layer" />
@@ -134,20 +135,24 @@ const handleSubmit = async (e) => {
 
             <label className="sellerform-row">
               <span className="sellerform-label">วันเปิดขาย</span>
-              <input type="date" 
-              name="shirt_open_date"
-              value={formData.shirt_open_date}
-              onChange={handleChange}
-              className="sellerform-input" />
+              <input
+                type="date"
+                name="shirt_open_date"
+                value={formData.shirt_open_date}
+                onChange={handleChange}
+                className="sellerform-input"
+              />
             </label>
 
             <label className="sellerform-row">
               <span className="sellerform-label">วันปิดขาย</span>
-              <input type="date" 
-              name="shirt_close_date"
-              value={formData.shirt_close_date}
-              onChange={handleChange}
-              className="sellerform-input" />
+              <input
+                type="date"
+                name="shirt_close_date"
+                value={formData.shirt_close_date}
+                onChange={handleChange}
+                className="sellerform-input"
+              />
             </label>
 
             <div className="sellerform-block">
@@ -157,7 +162,8 @@ const handleSubmit = async (e) => {
                 value={formData.shirt_detail}
                 onChange={handleChange}
                 className="sellerform-input"
-                placeholder="ราคาเสื้อตัวละ xxx บาท&#10;ไซส์เสื้อบวกเพิ่ม"
+                placeholder={`ราคาเสื้อตัวละ xxx บาท
+                  ไซส์เสื้อบวกเพิ่ม`}
                 required
               ></textarea>
             </div>
@@ -175,7 +181,9 @@ const handleSubmit = async (e) => {
               />
 
               <div className="sellerform-submitWrapper">
-                <button type="submit" className="sellerform-submitBtn">Submit</button>
+                <button type="submit" className="sellerform-submitBtn">
+                  Submit
+                </button>
               </div>
             </div>
           </form>

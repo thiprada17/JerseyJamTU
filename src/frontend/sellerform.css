@@ -6,14 +6,16 @@
 .sellerform-app {
   font-family: "Kanit";
   font-weight: bold;
-  transform: scale(0.8); /* ปรับขนาดลง 80% */
-  transform-origin: top middle; /* กำหนดจุดยึดเวลาย่อ */
+  /* transform: scale(0.8); ปรับขนาดลง 80% */
+  /* transform-origin: top middle; กำหนดจุดยึดเวลาย่อ */
+  min-height: 100vh;
+  overflow-x: hidden;
 }
 
 /* ---------- หน้าแรก ---------- */
 .sellerform-pageOne {
   position: relative;
-  height: 40vh;
+  height: 100vh;
   overflow: hidden;
   display: flex;
   align-items: flex-end;
@@ -24,15 +26,20 @@
 .sellerform-layers {
   position: absolute;
   top: 0;
+  left: 0;
   width: 100%;
-  height: auto;
-  max-height: 80%;
-}
+  height: 100%;
+  overflow: hidden;
+  z-index: 0;}
 
 .sellerform-layer {
   position: absolute;
   width: 100%;
+  height: 100%;
+  object-fit: cover;
   left: 0;
+  top: 0;
+  z-index: 0;
 }
 
 .sellerform-title {
@@ -43,6 +50,7 @@
   color: #d63031;
   font-style: italic;
   font-family: 'Kanit';
+  z-index: 1;
 }
 
 /* ---------- หน้าที่สอง ---------- */
