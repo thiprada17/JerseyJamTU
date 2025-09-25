@@ -12,6 +12,8 @@ app.use(cors())
 app.use(bodyParser.json())
 app.use(express.json());
 
+let mockShirts = [];
+
 
 
 // let conn = null
@@ -113,6 +115,94 @@ app.post('/commu/post', async (req, res) => {
     });
 
 });
+
+app.get('/shirt/info/get', async (req, res) => {
+  try {
+    const { data, error } = await supabase
+      .from('shirtInfo')
+      .select('*')
+      .order('id', { ascending: false }); // เรียงล่าสุดขึ้นก่อน
+
+    if (error) {
+      console.error('Supabase select error:', error);
+      return res.status(500).json({ error: error.message });
+    }
+
+    res.json(data);
+  } catch (err) {
+    console.error('Unexpected error:', err);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+app.post('/shirt/info/post', async (req, res) => {
+  try {
+    console.log('Insert shirt info:', req.body);
+
+    const {
+      shirt_name,
+      shirt_price,
+      shirt_open_date,
+      shirt_close_date,
+      shirt_detail,
+      shirt_url,
+      shirt_pic // จาก frontend จะส่งมาหรือไม่ก็ได้
+    } = req.body;
+
+    const { data, error } = await supabase
+      .from('shirtInfo')
+      .insert([{
+        shirt_name,
+        shirt_price,
+        shirt_open_date,
+        shirt_close_date,
+        shirt_detail,
+        shirt_url,
+        shirt_pic
+      }])
+      .select();
+
+    if (error) {
+      console.error('Supabase insert error:', error);
+      return res.status(500).json({ error: error.message });
+    }
+
+    res.json({ message: 'Shirt info added successfully', data });
+  } catch (err) {
+    console.error('Unexpected error:', err);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+
+//อันนี้เทสยิงข้อมูล mock นะ
+// app.post('/shirt/info/post', async (req, res) => {
+//   try {
+//     console.log('Mock insert shirt info:', req.body);
+
+//     // เพิ่มข้อมูลเข้า array
+//     mockShirts.push(req.body);
+
+//     res.json({
+//       message: 'Shirt info added (mocked)',
+//       data: req.body
+//     });
+//   } catch (err) {
+//     console.error('Unexpected error:', err);
+//     res.status(500).json({ error: 'Internal server error' });
+//   }
+// });
+
+
+// app.get('/shirt/info/get', async (req, res) => {
+//   try {
+//     res.json({ shirts: mockShirts });
+//   } catch (err) {
+//     console.error('Unexpected error:', err);
+//     res.status(500).json({ error: 'Internal server error' });
+//   }
+// });
+
 
 
 // // sign up

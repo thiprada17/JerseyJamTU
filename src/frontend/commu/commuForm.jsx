@@ -21,9 +21,7 @@ export default function CommuForm() {
       e.preventDefault();
 
       const commu_response = await axios.post('http://localhost:8000/commu/post', formData)
-
       console.log('Response from server:', commu_response.data);
-
       console.log("ข้อมูลโพสต์: ", formData);
       alert("โพสต์สำเร็จ!");
 

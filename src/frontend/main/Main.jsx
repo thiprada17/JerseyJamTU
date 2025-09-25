@@ -8,29 +8,35 @@ import MainNews from "./MainNews.jsx"
 import FeatureFolder from "./FeatureFolder.jsx"
 
 export default function Main() {
-    const posts = [
-        { id: 1, name: "Shirt name", price: 350, img: "https://picsum.photos/id/1011/600/400" },
-        { id: 2, name: "Shirt name", price: 350, img: "liverpool.jpg" },
-        { id: 3, name: "Shirt name", price: 350, img: "chelsea.jpg" },
-        { id: 4, name: "Shirt name", price: 350, img: "barca.jpg" },
-    ];
-    // const [posts, setPosts] = useState([]);
-    // console.log(posts)
+    // const posts = [
+    //     { id: 1, name: "Shirt name", price: 350, img: "https://picsum.photos/id/1011/600/400" },
+    //     { id: 2, name: "Shirt name", price: 350, img: "liverpool.jpg" },
+    //     { id: 3, name: "Shirt name", price: 350, img: "chelsea.jpg" },
+    //     { id: 4, name: "Shirt name", price: 350, img: "barca.jpg" },
+    // ];
+    const [posts, setPosts] = useState([]);
+    console.log(posts)
 
-    // useEffect(() => {
-    //     const fetchPosts = async () => {
-    //         try {
-    //             const response = await axios.get('http://localhost:8000/commu/get');
-    //             setPosts(response.data);
+    useEffect(() => {
+    const fetchPosts = async () => {
+        try {
+            const response = await fetch('http://localhost:8000/shirt/info/get', {
+                method: 'GET'
+            });
 
-    //             console.log(setPosts)
-    //         } catch (error) {
-    //             console.error("Error fetching posts:", error);
-    //         }
-    //     };
+            const data = await response.json();
 
-    //     fetchPosts();
-    // }, []);
+            setPosts(data);
+
+            console.log(data);
+        } catch (error) {
+            console.error("Error fetching posts:", error);
+        }
+    };
+
+    fetchPosts();
+
+    }, []);
 
     return (
         <div className="main-body">
@@ -50,12 +56,12 @@ export default function Main() {
                     {posts.map((post) => (
                         <div key={post.id} className="main-post">
                             <div className="main-post-photo">
-                 
-                                <img src={post.img} alt={post.name} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+
+                                <img src={post.shirt_pic} alt={post.shirt_name} />
                             </div>
                             <div className="main-post-detail-card">
-                                <div className="shirt-name">{post.name}</div>
-                                <div className="price">{post.price} ฿</div>
+                                <div className="shirt-name">{post.shirt_name}</div>
+                                <div className="price">{post.shirt_price} ฿</div>
                             </div>
                         </div>
                     ))}
