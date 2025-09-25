@@ -6,12 +6,14 @@
 .sellerform-app {
   font-family: "Kanit";
   font-weight: bold;
+  transform: scale(0.8); /* ปรับขนาดลง 80% */
+  transform-origin: top middle; /* กำหนดจุดยึดเวลาย่อ */
 }
 
 /* ---------- หน้าแรก ---------- */
 .sellerform-pageOne {
   position: relative;
-  height: 150vh;
+  height: 40vh;
   overflow: hidden;
   display: flex;
   align-items: flex-end;
@@ -23,14 +25,14 @@
   position: absolute;
   top: 0;
   width: 100%;
-  height: 180%;
+  height: auto;
+  max-height: 80%;
 }
 
 .sellerform-layer {
   position: absolute;
   width: 100%;
   left: 0;
-  bottom: 0;
 }
 
 .sellerform-title {
@@ -50,6 +52,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-top: 0; 
 
 }
 
@@ -61,6 +64,7 @@
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
+  margin-top: -10px;
 }
 
 /* ---------- ซ้าย: โพลารอยด์ ---------- */
@@ -181,7 +185,7 @@
   cursor: pointer;
   box-shadow: 0 3px 5px rgba(0,0,0,0.2);
   transition: background 0.3s;
-  margin-top: 150px;
+  margin-top: 100px;
 }
 
 .sellerform-submitBtn:hover {
