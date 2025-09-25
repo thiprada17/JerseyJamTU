@@ -3,14 +3,76 @@ import "./sellerform.css";
 import greenLayer from "../assets/green.png";
 import creamLayer from "../assets/cream.png";
 import blueLayer from "../assets/blue.png";
+import {useNavigate} from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function sellerform() {
+  const navigate = useNavigate();
   const [image, setImage] = useState(null);
+  const [formData, setFormData] = useState({
+    shirt_name: "",
+    shirt_price: "",
+    shirt_open_date: "",
+    shirt_close_date: "",
+    shirt_detail: "",
+    shirt_url: "",
+  });
 
   const handleUpload = (e) => {
     const file = e.target.files[0];
     if (file) {
-      setImage(URL.createObjectURL(file));
+      const imageUrl = URL.createObjectURL(file);
+      setImage(imageUrl); // ใช้ URL preview
+    }
+  };
+
+const handleChange = (e) => {
+  const { name, value } = e.target;
+  setFormData((prev) => ({
+    ...prev,
+    [name]: value,
+  }));
+};
+
+const handleSubmit = async (e) => {
+  e.preventDefault();
+
+  const payload = {
+    ...formData,
+    shirt_pic: image || "", // คุณอาจใส่ URL ภาพ (หลังอัปโหลดจริง)
+  };
+
+  try {
+    const response = await fetch("http://localhost:8000/shirt/info/post", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    });
+
+    const result = await response.json();
+
+    if (response.ok) {
+      toast.success("Sent laew!", {
+          position: "top-center",
+          autoClose: 3000, 
+          hideProgressBar: true,
+          closeOnClick: false,
+          pauseOnHover: false,
+          draggable: false,
+          pauseOnFocusLoss: false,
+        });
+        console.log("Server response:", result);
+
+        setTimeout(() => {
+          navigate("/");
+        }, 1500);
+      } else {
+        toast.error("Warning Mistakes: " + result.error);
+      }
+    } catch (err) {
+      toast.error("Connection Error");
+      console.error(err);
     }
   };
 
@@ -29,74 +91,95 @@ export default function sellerform() {
       {/* -------- หน้าที่สอง -------- */}
       <section className="sellerform-pageTwo">
         <div className="sellerform-container">
-        {/* ---------- ซ้ายมือ: โพลารอยด์ + Upload ---------- */}
-        <div className="sellerform-left">
-          <div className="sellerform-polaroid">
-            {image ? (
-              <img src={image} alt="Uploaded Jersey" />
-            ) : (
-              <div className="sellerform-placeholder"></div>
-            )}
-          </div>
-          <label className="sellerform-uploadBtn">
-            Upload
-            <input type="file" accept="image/*" onChange={handleUpload} hidden />
-          </label>
-        </div>
-
-        {/* ---------- ขวามือ: ฟอร์ม ---------- */}
-        <form className="sellerform-form">
-          <label className="sellerform-row">
-            <span className="sellerform-label">ชื่อเสื้อ</span>
-            <input
-              type="text"
-              className="sellerform-input"
-              placeholder="Rockstar Jersey, TU Jersey..."
-            />
-          </label>
-
-          <label className="sellerform-row">
-            <span className="sellerform-label">ราคาเสื้อ</span>
-            <input
-              type="number"
-              className="sellerform-input"
-              placeholder="350"
-            />
-          </label>
-
-          <label className="sellerform-row">
-            <span className="sellerform-label">วันเปิดขาย</span>
-            <input type="date" className="sellerform-input" />
-          </label>
-
-          <label className="sellerform-row">
-            <span className="sellerform-label">วันปิดขาย</span>
-            <input type="date" className="sellerform-input" />
-          </label>
-
-          <div className="sellerform-block">
-            <span className="sellerform-labelTop">รายละเอียดเสื้อ</span>
-            <textarea
-              className="sellerform-input"
-              placeholder="ราคาเสื้อตัวละ xxx บาท&#10;ไซส์เสื้อบวกเพิ่ม"
-              required
-            ></textarea>
-          </div>
-
-          <div className="sellerform-block">
-            <span className="sellerform-labelTop">ลิงก์ฟอร์มซื้อเสื้อ</span>
-            <input
-              type="url"
-              className="sellerform-input sellerform-inputLink"
-              placeholder="https://example.com/order-form"
-              required
-            />
-
-            <div class="sellerform-submitWrapper">
-                <button type="submit" class="sellerform-submitBtn">Submit</button>
+          {/* ---------- ซ้ายมือ: โพลารอยด์ + Upload ---------- */}
+          <div className="sellerform-left">
+            <div className="sellerform-polaroid">
+              {image ? (
+                <img src={image} alt="Uploaded Jersey" />
+              ) : (
+                <div className="sellerform-placeholder"></div>
+              )}
             </div>
+            <label className="sellerform-uploadBtn">
+              Upload
+              <input type="file" accept="image/*" onChange={handleUpload} hidden />
+            </label>
           </div>
-        </form>
+
+          {/* ---------- ขวามือ: ฟอร์ม ---------- */}
+          <form className="sellerform-form" onSubmit={handleSubmit}>
+            <label className="sellerform-row">
+              <span className="sellerform-label">ชื่อเสื้อ</span>
+              <input
+                name="shirt_name"
+                type="text"
+                value={formData.shirt_name}
+                onChange={handleChange}
+                className="sellerform-input"
+                placeholder="Rockstar Jersey, TU Jersey..."
+              />
+            </label>
+
+            <label className="sellerform-row">
+              <span className="sellerform-label">ราคาเสื้อ</span>
+              <input
+                name="shirt_price"
+                value={formData.shirt_price}
+                onChange={handleChange}
+                type="number"
+                className="sellerform-input"
+                placeholder="350"
+              />
+            </label>
+
+            <label className="sellerform-row">
+              <span className="sellerform-label">วันเปิดขาย</span>
+              <input type="date" 
+              name="shirt_open_date"
+              value={formData.shirt_open_date}
+              onChange={handleChange}
+              className="sellerform-input" />
+            </label>
+
+            <label className="sellerform-row">
+              <span className="sellerform-label">วันปิดขาย</span>
+              <input type="date" 
+              name="shirt_close_date"
+              value={formData.shirt_close_date}
+              onChange={handleChange}
+              className="sellerform-input" />
+            </label>
+
+            <div className="sellerform-block">
+              <span className="sellerform-labelTop">รายละเอียดเสื้อ</span>
+              <textarea
+                name="shirt_detail"
+                value={formData.shirt_detail}
+                onChange={handleChange}
+                className="sellerform-input"
+                placeholder="ราคาเสื้อตัวละ xxx บาท&#10;ไซส์เสื้อบวกเพิ่ม"
+                required
+              ></textarea>
+            </div>
+
+            <div className="sellerform-block">
+              <span className="sellerform-labelTop">ลิงก์ฟอร์มซื้อเสื้อ</span>
+              <input
+                name="shirt_url"
+                value={formData.shirt_url}
+                onChange={handleChange}
+                type="url"
+                className="sellerform-input sellerform-inputLink"
+                placeholder="https://example.com/order-form"
+                required
+              />
+
+              <div className="sellerform-submitWrapper">
+                <button type="submit" className="sellerform-submitBtn">Submit</button>
+              </div>
+            </div>
+          </form>
+          <ToastContainer />
         </div>
       </section>
     </div>
