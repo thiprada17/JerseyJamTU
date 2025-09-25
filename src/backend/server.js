@@ -30,26 +30,6 @@ const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS
 const supabase = createClient(supabaseUrl, supabaseKey)
 
 
-app.post('/test', async (req, res) => {
-  console.log('Request body:', req.body);
-  const { username, password } = req.body;
-  const { data, error } = await supabase
-    .from('users')
-    .select('password')
-    .eq('username', inputUsername)
-
-  console.log("Supabase result:", data)
-  console.log("Supabase error:", error)
-
-  if (error) {
-    // ถ้ามี error ส่งกลับ status 500 พร้อมข้อความ error
-    return res.status(500).json({ error: error.message })
-  }
-
-  // ถ้าไม่มี error ส่งข้อมูล data กลับไป
-  res.json(data)
-})
-
 // sign up
 app.post('/add-user/register', async (req, res) => {
   try {
@@ -108,6 +88,30 @@ app.post('/create/login', async (req, res) => {
       message: 'Server error'
     });
   }
+});
+
+// commu post
+app.post('/commu/post', async (req, res) => {
+
+    const { user_id, title, detail, contact } = req.body;
+    console.log(title, detail, contact)
+
+    const { data, error } = await supabase
+      .from('commuPost')
+      .insert([{ user_id, title, detail, contact }])
+      .select()
+
+    console.log(data)
+    if (error) {
+      console.error('Supabase insert error:', error);
+      return res.status(500).json({ error: error.message });
+    }
+
+    res.json({
+      message: 'Insert Success',
+      data: data
+    });
+
 });
 
 

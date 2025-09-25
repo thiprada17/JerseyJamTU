@@ -3,7 +3,7 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "./main.css";
-
+import news1 from "../../assets/new1.png";
 
 const PrevArrow = ({ onClick }) => (
   <div
@@ -56,7 +56,7 @@ export default function MainNews() {
   };
 
   const slides = [
-    { id: 1, img: "https://picsum.photos/id/1011/600/400" },
+    { id: 1, img: news1 },
     { id: 2, img: "https://picsum.photos/id/1012/600/400" },
     { id: 3, img: "https://picsum.photos/id/1013/600/400" },
     { id: 4, img: "https://picsum.photos/id/1014/600/400" },
