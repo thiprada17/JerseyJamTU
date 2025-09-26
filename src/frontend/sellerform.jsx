@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import "./sellerform.css";
-import greenLayer from "../assets/green.png";
-import creamLayer from "../assets/cream.png";
-import blueLayer from "../assets/blue.png";
+// import greenLayer from "../assets/green.png";
+// import creamLayer from "../assets/cream.png";
+import blueLayer from "../assets/bg.png"
 import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -77,20 +77,16 @@ export default function SellerForm() {
   };
 
   return (
-    <div className="sellerform-app">
-      {/* -------- หน้าแรก -------- */}
-      <section className="sellerform-pageOne">
-        {/* เลเยอร์รูปซ้อนกันเป็นพื้นหลัง */}
+    <>
+
+      <div className="sellerform-app">
         <div className="sellerform-layers">
-          <img src={greenLayer} alt="green" className="sellerform-layer" />
-          <img src={creamLayer} alt="cream" className="sellerform-layer" />
-          <img src={blueLayer} alt="blue" className="sellerform-layer" />
+          {/* <img src={greenLayer} alt="green" className="sellerform-layer green" />
+  <img src={creamLayer} alt="cream" className="sellerform-layer cream" /> */}
+          <img src={blueLayer} alt="blue" className="sellerform-layer blue" />
         </div>
         <h1 className="sellerform-title">Add Your Jersey</h1>
-      </section>
 
-      {/* -------- หน้าที่สอง -------- */}
-      <section className="sellerform-pageTwo">
         <div className="sellerform-container">
           {/* ---------- ซ้ายมือ: โพลารอยด์ + Upload ---------- */}
           <div className="sellerform-left">
@@ -163,7 +159,7 @@ export default function SellerForm() {
                 onChange={handleChange}
                 className="sellerform-input"
                 placeholder={`ราคาเสื้อตัวละ xxx บาท
-                  ไซส์เสื้อบวกเพิ่ม`}
+ไซส์เสื้อบวกเพิ่ม`}
                 required
               ></textarea>
             </div>
@@ -189,7 +185,7 @@ export default function SellerForm() {
           </form>
           <ToastContainer />
         </div>
-      </section>
-    </div>
+      </div>
+    </>
   );
 }
