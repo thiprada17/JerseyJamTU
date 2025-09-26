@@ -58,8 +58,6 @@ export default function SignUp({ scrollToHome }) {
       style={{ backgroundImage: `url(${BackgroundSignup})` }}
     >
       <div className="signup-header">
-        <button className="signup-header-btn">Username</button>
-        <button className="signup-header-btn">Seller</button>
         <button className="signup-back-btn" onClick={scrollToHome}>
           <img src={arrowIcon} alt="Back" className="signup-arrow-icon" />
         </button>
