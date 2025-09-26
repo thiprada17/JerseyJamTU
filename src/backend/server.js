@@ -95,24 +95,24 @@ app.post('/create/login', async (req, res) => {
 // commu post
 app.post('/commu/post', async (req, res) => {
 
-    const { user_id, title, detail, contact } = req.body;
-    console.log(title, detail, contact)
+  const { user_id, title, detail, contact } = req.body;
+  console.log(title, detail, contact)
 
-    const { data, error } = await supabase
-      .from('commuPost')
-      .insert([{ user_id, title, detail, contact }])
-      .select()
+  const { data, error } = await supabase
+    .from('commuPost')
+    .insert([{ user_id, title, detail, contact }])
+    .select()
 
-    console.log(data)
-    if (error) {
-      console.error('Supabase insert error:', error);
-      return res.status(500).json({ error: error.message });
-    }
+  console.log(data)
+  if (error) {
+    console.error('Supabase insert error:', error);
+    return res.status(500).json({ error: error.message });
+  }
 
-    res.json({
-      message: 'Insert Success',
-      data: data
-    });
+  res.json({
+    message: 'Insert Success',
+    data: data
+  });
 
 });
 
@@ -122,6 +122,29 @@ app.get('/shirt/info/get', async (req, res) => {
       .from('shirtInfo')
       .select('*')
       .order('id', { ascending: false }); // เรียงล่าสุดขึ้นก่อน
+
+    if (error) {
+      console.error('Supabase select error:', error);
+      return res.status(500).json({ error: error.message });
+    }
+
+    res.json(data);
+  } catch (err) {
+    console.error('Unexpected error:', err);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+app.get('/shirt/info/get/:id', async (req, res) => {
+
+  let id = req.params.id
+  console.log(id)
+  try {
+    let { data, error } = await supabase
+      .from('shirtInfo')
+      .select('*')
+      .eq('id', id)
+      .select()
 
     if (error) {
       console.error('Supabase select error:', error);

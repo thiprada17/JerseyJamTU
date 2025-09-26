@@ -38,6 +38,7 @@ export default function Main() {
 
     }, []);
 
+
     return (
         <div className="main-body">
             <div className="main-navbar">JerseyJamTU</div>
@@ -54,6 +55,7 @@ export default function Main() {
                 <div className="main-posttext">ALL JERSEY</div>
                 <div className="main-grid">
                     {posts.map((post) => (
+                        <Link to="/display" state={{id : post.id}} style={{ textDecoration: 'none', color: 'black' }}>
                         <div key={post.id} className="main-post">
                             <div className="main-post-photo">
 
@@ -64,6 +66,9 @@ export default function Main() {
                                 <div className="price">{post.shirt_price} ฿</div>
                             </div>
                         </div>
+
+                        </Link>
+
                     ))}
                 </div>
             </div>
