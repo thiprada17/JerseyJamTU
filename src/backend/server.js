@@ -12,10 +12,6 @@ app.use(cors())
 app.use(bodyParser.json())
 app.use(express.json());
 
-let mockShirts = [];
-
-
-
 // let conn = null
 // const initMySQL = async () => {
 //   conn = await mysql.createConnection({

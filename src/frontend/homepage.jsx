@@ -5,12 +5,14 @@ import "./homepage.css";
 import cartImg from "../assets/cart.png";
 import backgroundImg from "../assets/homepage.png";
 import speakerImg from "../assets/speaker.png";
+import { useNavigate } from "react-router-dom";
 
 
 export default function Homepage() {
     const loginRef = useRef(null);
     const homeRef = useRef(null);
     const signupRef = useRef(null);
+    const navigate = useNavigate();
 
     const scrollToSection = (ref) => {
         if (ref.current) {
@@ -45,6 +47,7 @@ export default function Homepage() {
                 <div className="action-buttons">
                     <button className="signup-btn" onClick={() => scrollToSection(signupRef)}> Sign Up </button>
                     <button className="login-btn" onClick={() => scrollToSection(loginRef)}> Login</button>
+                    <button className="login-btn" onClick={() => navigate('/sellerform')}> Seller </button>
                 </div>
             </div>
 
