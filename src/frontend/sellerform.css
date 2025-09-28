@@ -202,3 +202,18 @@
   transform: scale(1.07) translateY(-5px);
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
 }
+
+.sellerform-floatingButton {
+  position: fixed;
+  bottom: 2rem;
+  right: 3rem;
+  width: 5rem;
+  height: 5rem;
+  cursor: pointer;
+  transition: transform 0.4s ease;
+  z-index: 1000;
+}
+
+.sellerform-floatingButton:hover {
+  transform: rotate(180deg) scale(1.05);
+}

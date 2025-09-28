@@ -6,7 +6,8 @@ import blueLayer from "../assets/bg.png"
 import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { supabase } from "./supabaseClient"; 
+import { supabase } from "./supabaseClient";
+import greyArrow from "../assets/grey_arrow.png"
 
 export default function SellerForm() {
   const navigate = useNavigate();
@@ -27,36 +28,36 @@ export default function SellerForm() {
       setImage(imageUrl); // ใช้ URL preview
     }
 
-const fileExt = file.name.split('.').pop();
-  const fileName = `${Date.now()}.${fileExt}`;
-  const filePath = `shirt/${fileName}`;
+    const fileExt = file.name.split('.').pop();
+    const fileName = `${Date.now()}.${fileExt}`;
+    const filePath = `shirt/${fileName}`;
 
-  console.log("File selected:", file);
+    console.log("File selected:", file);
 
-  //อัปโหลดรูปไป Supabase Bucket
-  const { data: uploadData, error: uploadError } = await supabase
-    .storage
-    .from("shirt_images")
-    .upload(filePath, file);
+    //อัปโหลดรูปไป Supabase Bucket
+    const { data: uploadData, error: uploadError } = await supabase
+      .storage
+      .from("shirt_images")
+      .upload(filePath, file);
 
-  if (uploadError) {
-    console.error("Upload error:", uploadError.message);
-    toast.error("Upload failed: " + uploadError.message);
-    return;
-  }
+    if (uploadError) {
+      console.error("Upload error:", uploadError.message);
+      toast.error("Upload failed: " + uploadError.message);
+      return;
+    }
 
-  //ดึง URL ของรูป
-  const { data: publicData } = supabase
-    .storage
-    .from("shirt_images")
-    .getPublicUrl(filePath);
+    //ดึง URL ของรูป
+    const { data: publicData } = supabase
+      .storage
+      .from("shirt_images")
+      .getPublicUrl(filePath);
 
-  //ใส่ URL ของรูปใน Image
-  if (publicData?.publicUrl) {
-    setImage(publicData.publicUrl); 
-    console.log("Image uploaded & public URL:", publicData.publicUrl);
-  }
-};
+    //ใส่ URL ของรูปใน Image
+    if (publicData?.publicUrl) {
+      setImage(publicData.publicUrl);
+      console.log("Image uploaded & public URL:", publicData.publicUrl);
+    }
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -69,10 +70,10 @@ const fileExt = file.name.split('.').pop();
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-  const payload = {
-    ...formData,
-    shirt_pic: image || "", // คุณอาจใส่ URL ภาพ (หลังอัปโหลดจริง)
-  };
+    const payload = {
+      ...formData,
+      shirt_pic: image || "", // คุณอาจใส่ URL ภาพ (หลังอัปโหลดจริง)
+    };
 
     try {
       const response = await fetch("http://localhost:8000/shirt/info/post", {
@@ -216,6 +217,12 @@ const fileExt = file.name.split('.').pop();
           </form>
           <ToastContainer />
         </div>
+        <img
+          src={greyArrow}
+          alt="back button"
+          className="sellerform-floatingButton"
+          onClick={() => navigate('/')}
+        />
       </div>
     </>
   );

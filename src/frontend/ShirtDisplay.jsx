@@ -2,11 +2,18 @@ import { useState, useEffect } from 'react';
 import './shirtDisplay.css';
 import defaultJerseyImage from '../assets/sampleShirt.png';
 import { useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 export default function ShirtDisplay() {
+    const navigate = useNavigate();
     const location = useLocation();
     const { id } = location.state;
     console.log(id)
+
+    const handleBack = () => {
+    navigate(-1); // ย้อนกลับไปอัน่ก่อน
+};
+
 
     const [shirtData, setshirtData] = useState([]);
 
@@ -38,7 +45,11 @@ export default function ShirtDisplay() {
     return (
         <>
 
-            <div className="shirtDisplay-topRedBar"></div>
+<div className="shirtDisplay-topBar">
+    <button className="shirtDisplay-backButton" onClick={handleBack}>
+        &lt; back
+    </button>
+</div>
             {shirtData.map((shirtData) => (
                 <div className="shirtDisplay-container" key={shirtData.id}>
 
