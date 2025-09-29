@@ -120,3 +120,11 @@
   min-width: 0;
 }
 
+.success-message {
+  color: #28a745;
+  font-weight: bold;
+  margin-top: 10px;
+  /* text-align: center; */
+}
+
+

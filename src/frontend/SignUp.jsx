@@ -6,6 +6,8 @@ import BackgroundSignup from "../assets/background-signup.png";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 export default function SignUp({ scrollToHome }) {
+  const nevigate = useNavigate();
+  const [successMessage, setSuccessMessage] = useState("");
   const [userData, setuserData] = useState({
     username: '',
     email: '',
@@ -36,16 +38,41 @@ export default function SignUp({ scrollToHome }) {
     console.log('ข้อมูลผู้ลงทะเบียน:', userData);
 
 
-    try {
-      fetch('http://localhost:8000/add-user/register', {
+  //   try {
+  //     fetch('http://localhost:8000/add-user/register', {
+  //       method: 'POST',
+  //       headers: { 'Content-Type': 'application/json' },
+  //       body: JSON.stringify(userData),
+  //     })
+  //       // .then(res => res.json())
+  //       // .then(data => console.log(data))
+  //       // .catch(err => console.error(err)); 
+  //     console.log("insert sucsess")
+
+  //   } catch (error) {
+  //     console.error('Error sending data:', error);
+  //   }
+  // };
+
+      try {
+      const response = await fetch('http://localhost:8000/add-user/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(userData),
-      })
-        // .then(res => res.json())
-        // .then(data => console.log(data))
-        // .catch(err => console.error(err)); 
-      console.log("insert sucsess")
+      });
+
+      if (response.ok) {
+        console.log("Insert success");
+        setSuccessMessage("SignUp Success!"); // ✅ แสดงข้อความ
+        setuserData({ username: '', email: '', password: '', faculty: '', year: '' }); // เคลียร์ฟอร์ม
+        setTimeout(() => {
+          setSuccessMessage(""); // ลบข้อความหลัง 0.5 วิ 
+          scrollToHome(); 
+        }, 500);
+      } else {
+        console.error('Failed to register user');
+        alert("เกิดข้อผิดพลาดในการลงทะเบียน");
+      }
 
     } catch (error) {
       console.error('Error sending data:', error);
@@ -141,6 +168,9 @@ export default function SignUp({ scrollToHome }) {
             <p className="signup-text">
               Already have an account? <span className="signup-link">Log in</span>
             </p>
+            {successMessage && (
+              <p className="success-message">{successMessage}</p> 
+            )}
           </div>
         </div>
       </form>
