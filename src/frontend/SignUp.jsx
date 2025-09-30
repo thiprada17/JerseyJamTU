@@ -7,6 +7,7 @@ import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 export default function SignUp({ scrollToHome }) {
   const nevigate = useNavigate();
+  const [showToast, setShowToast] = useState(false);
   const [successMessage, setSuccessMessage] = useState("");
   const [userData, setuserData] = useState({
     username: '',
@@ -37,24 +38,7 @@ export default function SignUp({ scrollToHome }) {
     e.preventDefault();
     console.log('ข้อมูลผู้ลงทะเบียน:', userData);
 
-
-  //   try {
-  //     fetch('http://localhost:8000/add-user/register', {
-  //       method: 'POST',
-  //       headers: { 'Content-Type': 'application/json' },
-  //       body: JSON.stringify(userData),
-  //     })
-  //       // .then(res => res.json())
-  //       // .then(data => console.log(data))
-  //       // .catch(err => console.error(err)); 
-  //     console.log("insert sucsess")
-
-  //   } catch (error) {
-  //     console.error('Error sending data:', error);
-  //   }
-  // };
-
-      try {
+    try {
       const response = await fetch('http://localhost:8000/add-user/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -63,12 +47,16 @@ export default function SignUp({ scrollToHome }) {
 
       if (response.ok) {
         console.log("Insert success");
-        setSuccessMessage("SignUp Success!"); // ✅ แสดงข้อความ
-        setuserData({ username: '', email: '', password: '', faculty: '', year: '' }); // เคลียร์ฟอร์ม
+        setShowToast(true); //แสดง toast
+        setuserData({ username: '', email: '', password: '', faculty: '', year: '' });
+
         setTimeout(() => {
-          setSuccessMessage(""); // ลบข้อความหลัง 0.5 วิ 
-          scrollToHome(); 
+          scrollToHome();
         }, 500);
+
+        setTimeout(() => {
+          setShowToast(false);
+        }, 2500);
       } else {
         console.error('Failed to register user');
         alert("เกิดข้อผิดพลาดในการลงทะเบียน");
@@ -169,11 +157,17 @@ export default function SignUp({ scrollToHome }) {
               Already have an account? <span className="signup-link">Log in</span>
             </p>
             {successMessage && (
-              <p className="success-message">{successMessage}</p> 
+              <p className="success-message">{successMessage}</p>
             )}
           </div>
         </div>
       </form>
+      {showToast && (
+        <div className="custom-toast">
+          <p>🎉 Sign up success!</p>
+        </div>
+      )}
+
     </div>
   );
 }
