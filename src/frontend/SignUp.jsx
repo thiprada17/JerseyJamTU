@@ -4,6 +4,7 @@ import "./signup.css";
 import arrowIcon from "../assets/arrow.png";
 import BackgroundSignup from "../assets/background-signup.png";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+import Toast from './component/Toast';
 
 export default function SignUp({ scrollToHome }) {
   const nevigate = useNavigate();
@@ -47,7 +48,7 @@ export default function SignUp({ scrollToHome }) {
 
       if (response.ok) {
         console.log("Insert success");
-        setShowToast(true); //แสดง toast
+        setShowToast(true);
         setuserData({ username: '', email: '', password: '', faculty: '', year: '' });
 
         setTimeout(() => {
@@ -59,7 +60,7 @@ export default function SignUp({ scrollToHome }) {
         }, 2500);
       } else {
         console.error('Failed to register user');
-        alert("เกิดข้อผิดพลาดในการลงทะเบียน");
+        alert("ผิดพลาดในการลงทะเบียน");
       }
 
     } catch (error) {
@@ -163,11 +164,12 @@ export default function SignUp({ scrollToHome }) {
         </div>
       </form>
       {showToast && (
-        <div className="custom-toast">
-          <p>🎉 Sign up success!</p>
-        </div>
+        <Toast
+          message="🎉 Sign up success!"
+          duration={2500}
+          onClose={() => setShowToast(false)}
+        />
       )}
-
     </div>
   );
 }

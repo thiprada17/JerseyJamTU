@@ -77,9 +77,8 @@ app.post('/create/login', async (req, res) => {
       });
     }
 
-    res.json({
-      message: 'Login successful',
-    });
+    res.json({ success: true, message: "Login successful" });
+
   } catch (error) {
     console.error(error);
     res.status(500).json({

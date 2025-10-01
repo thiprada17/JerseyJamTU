@@ -1,17 +1,18 @@
 import React, { useState } from "react";
 import "./sellerform.css";
-// import greenLayer from "../assets/green.png";
-// import creamLayer from "../assets/cream.png";
 import blueLayer from "../assets/bg.png"
 import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { supabase } from "./supabaseClient";
 import greyArrow from "../assets/grey_arrow.png"
+import Toast from "./component/Toast";
 
 export default function SellerForm() {
   const navigate = useNavigate();
   const [image, setImage] = useState(null);
+  const [showToast, setShowToast] = useState(false);
+
   const [formData, setFormData] = useState({
     shirt_name: "",
     shirt_price: "",
@@ -72,7 +73,7 @@ export default function SellerForm() {
 
     const payload = {
       ...formData,
-      shirt_pic: image || "", // คุณอาจใส่ URL ภาพ (หลังอัปโหลดจริง)
+      shirt_pic: image || "", 
     };
 
     try {
@@ -85,26 +86,20 @@ export default function SellerForm() {
       const result = await response.json();
 
       if (response.ok) {
-        toast.success("Sent laew!", {
-          position: "top-center",
-          autoClose: 3000,
-          hideProgressBar: true,
-          closeOnClick: false,
-          pauseOnHover: false,
-          draggable: false,
-          pauseOnFocusLoss: false,
-        });
-        console.log("Server response:", result);
+        setShowToast(true); 
 
         setTimeout(() => {
           navigate("/");
-        }, 1500);
+        }, 2000);
+
+        setTimeout(() => {
+          setShowToast(false);
+        }, 3000);
       } else {
-        toast.error("Warning Mistakes: " + result.error);
+        alert("Warning Mistakes: " + result.error);
       }
     } catch (err) {
-      toast.error("Connection Error");
-      console.error(err);
+      alert("Connection Error");
     }
   };
 
@@ -117,6 +112,10 @@ export default function SellerForm() {
   <img src={creamLayer} alt="cream" className="sellerform-layer cream" /> */}
           <img src={blueLayer} alt="blue" className="sellerform-layer blue" />
         </div>
+        
+      {showToast && (
+        <Toast message="✅ Add Jersey success!" />
+      )}
         <h1 className="sellerform-title">Add Your Jersey</h1>
 
         <div className="sellerform-container">
@@ -169,6 +168,7 @@ export default function SellerForm() {
                 value={formData.shirt_open_date}
                 onChange={handleChange}
                 className="sellerform-input"
+                lang="en"
               />
             </label>
 
@@ -180,6 +180,7 @@ export default function SellerForm() {
                 value={formData.shirt_close_date}
                 onChange={handleChange}
                 className="sellerform-input"
+                lang="en"
               />
             </label>
 
