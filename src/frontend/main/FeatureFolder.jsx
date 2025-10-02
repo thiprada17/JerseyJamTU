@@ -11,7 +11,7 @@ export default function FeatureFolder() {
 
   return (
     <div className="main-ff">
-      <button className="ff-button 1">
+      <button className="ff-button 1" onClick={() => navi("/mixAndmatch")}>
         <img src={icon} alt="Click me" />
         <div className="ff-button-text">Mix & Match</div>
       </button>

@@ -15,6 +15,7 @@ import Display from './frontend/ShirtDisplay';
 import Sellerform from './frontend/sellerform';
 import Homepage from './frontend/homepage';
 import 'react-toastify/dist/ReactToastify.css';
+import MixAndMatch from './frontend/MixAndMatch';
 
 function App() {
 
@@ -30,6 +31,7 @@ function App() {
           <Route path="/commu/form" element={<CommuForm />} />
           <Route path="/display" element={<Display />} />
           <Route path="/sellerform" element={<Sellerform />} />
+          <Route path="/mixAndmatch" element = {<MixAndMatch />} />
           {/* <Route path="/" element={<SignIn />} />
           <Route path="/signup" element={<SignUp />} /> */}
         </Routes>
