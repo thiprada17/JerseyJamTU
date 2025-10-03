@@ -16,6 +16,7 @@ import Sellerform from './frontend/sellerform';
 import Homepage from './frontend/homepage';
 import 'react-toastify/dist/ReactToastify.css';
 import MixAndMatch from './frontend/MixAndMatch';
+import Closet from './frontend/Closetmm'
 
 function App() {
 
@@ -32,6 +33,7 @@ function App() {
           <Route path="/display" element={<Display />} />
           <Route path="/sellerform" element={<Sellerform />} />
           <Route path="/mixAndmatch" element = {<MixAndMatch />} />
+          <Route path='/closet' element = {<Closet />} />
           {/* <Route path="/" element={<SignIn />} />
           <Route path="/signup" element={<SignUp />} /> */}
         </Routes>

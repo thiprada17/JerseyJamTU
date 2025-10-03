@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import "./mixAndmatch.css";
 import greyArrow from "../assets/grey_arrow.png";
 
@@ -14,6 +14,8 @@ const polaroidFrames = [
 
 export default function MixAndMatch() {
   const navigate = useNavigate();
+  const locate = useLocation();
+
   const [selectedImages, setSelectedImages] = useState({});
   const [positions, setPositions] = useState(
     polaroidFrames.reduce((acc, frame) => {
@@ -21,18 +23,32 @@ export default function MixAndMatch() {
       return acc;
     }, {})
   );
-
   const [dragging, setDragging] = useState(null);
-  const [moved, setMoved] = useState(false); // state เช็คว่ามีการลากจริงไหม
+  const [moved, setMoved] = useState(false);
+
+  useEffect(() => {
+    console.log("MixAndMatch mount, locate.state:", locate.state);
+    if (locate.state?.selectedImages) {
+      setSelectedImages(locate.state.selectedImages);
+    } else {
+      const stored = localStorage.getItem("selectedImages");
+      if (stored) {
+        setSelectedImages(JSON.parse(stored));
+      }
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem("selectedImages", JSON.stringify(selectedImages));
+  }, [selectedImages]);
 
   const handleSelect = (id, imageUrl) => {
-    setSelectedImages((prev) => ({ ...prev, [id]: imageUrl }));
+    setSelectedImages((prev) => {
+      const updated = { ...prev, [id]: imageUrl };
+      console.log("MixAndMatch: updated images:", updated);
+      return updated;
+    });
   };
-
-  const goToSelectPage = () => {
-  navigate(`/`);
-};
-
 
   const onMouseDown = (e, id) => {
     e.preventDefault();
@@ -50,11 +66,9 @@ export default function MixAndMatch() {
     if (!dragging) return;
     const dx = e.clientX - dragging.startX;
     const dy = e.clientY - dragging.startY;
-
     if (Math.abs(dx) > 3 || Math.abs(dy) > 3) {
       setMoved(true);
     }
-
     setPositions((prev) => ({
       ...prev,
       [dragging.id]: {
@@ -68,20 +82,17 @@ export default function MixAndMatch() {
     setDragging(null);
   };
 
-// const onClickFrame = () => {
-//   if (!moved) {
-//     goToSelectPage();
-//   }
-// };
-
-const onClickFrame = (id) => {
-  if (!moved) {
-    // trigger input file click
-    document.getElementById(`file-input-${id}`).click();
-  }
-};
-
-
+  const onClickFrame = (id) => {
+    if (!moved) {
+      console.log("MixAndMatch: onClickFrame, navigate to closet with frameId:", id);
+      navigate("/closet", {
+        state: {
+          frameId: id,
+          selectedImages: selectedImages,
+        },
+      });
+    }
+  };
 
   return (
     <div
@@ -89,8 +100,7 @@ const onClickFrame = (id) => {
       onMouseMove={onMouseMove}
       onMouseUp={onMouseUp}
     >
-      {/* กดแล้วไปหน้าอื่น ใช้จริงน่าจะอันนี้ */}
-      {/* {polaroidFrames.map((frame) => (
+      {polaroidFrames.map((frame) => (
         <div
           key={frame.id}
           className={frame.className}
@@ -102,52 +112,29 @@ const onClickFrame = (id) => {
             position: "absolute",
           }}
         >
-          {selectedImages[frame.id] ? (
+          {selectedImages[frame.id] && (
             <img
               src={selectedImages[frame.id]}
               alt="selected"
               className="frame-img"
             />
-          ) : null}
+          )}
+
+          <input
+            type="file"
+            accept="image/*"
+            id={`file-input-${frame.id}`}
+            style={{ display: "none" }}
+            onChange={(e) => {
+              const file = e.target.files[0];
+              if (file) {
+                const imageUrl = URL.createObjectURL(file); 
+                handleSelect(frame.id, imageUrl);
+              }
+            }}
+          />
         </div>
-      ))} */}
-{/* อันนี้แบบเทสแบบอัพโหลดจากเครื่อง */}
-      {polaroidFrames.map((frame) => (
-  <div
-    key={frame.id}
-    className={frame.className}
-    onMouseDown={(e) => onMouseDown(e, frame.id)}
-    onClick={() => onClickFrame(frame.id)}
-    style={{
-      transform: `translate(${positions[frame.id].x}px, ${positions[frame.id].y}px)`,
-      cursor: "grab",
-      position: "absolute",
-    }}
-  >
-    {selectedImages[frame.id] ? (
-      <img
-        src={selectedImages[frame.id]}
-        alt="selected"
-        className="frame-img"
-      />
-    ) : null}
-
-    <input
-      type="file"
-      accept="image/*"
-      id={`file-input-${frame.id}`}
-      style={{ display: "none" }}
-      onChange={(e) => {
-        const file = e.target.files[0];
-        if (file) {
-          const imageUrl = URL.createObjectURL(file);
-          handleSelect(frame.id, imageUrl);
-        }
-      }}
-    />
-  </div>
-))}
-
+      ))}
 
       <img
         src={greyArrow}
