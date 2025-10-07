@@ -13,11 +13,6 @@ import Main from './frontend/main/Main'
 import MainNews from './frontend/main/MainNews'
 import Display from './frontend/ShirtDisplay';
 import Sellerform from './frontend/sellerform';
-import Homepage from './frontend/homepage';
-import 'react-toastify/dist/ReactToastify.css';
-import MixAndMatch from './frontend/MixAndMatch';
-import Closet from './frontend/Closetmm'
-
 function App() {
 
   return (
