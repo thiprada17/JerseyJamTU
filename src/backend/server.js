@@ -115,24 +115,8 @@ app.get('/commu/get', async (req, res) => {
   try {
     const { data, error } = await supabase
       .from('commuPost')
-      .select('post_id, title, detail, contact, create_at, user_id')
-      .order('create_at', { ascending: false }); // เรียงจากล่าสุดก่อน
-
-    if (error) return res.status(500).json({ error: error.message })
-    res.json(data)
-  } catch (err) {
-    res.status(500).json({ error: 'Internal server error' })
-  }
-})
-
-//commu get ทีละid
-app.get('/shirt/info/get/:id', async (req, res) => {
-  try {
-    const id = req.params.id
-    const { data, error } = await supabase
-      .from('shirtInfo')
-      .select('post_id, title, detail, contact, create_at, user_id')
-      .eq('post_id', pid)
+      .select('post_id, title, detail, contact, user_id')
+      .order('post_id', { ascending: false }); // เรียงจากล่าสุดก่อน
 
     if (error) return res.status(500).json({ error: error.message })
     res.json(data)
