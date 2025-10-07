@@ -44,7 +44,7 @@ export default function Commu() {
 
         <div className="commu-grid">
           {posts.map((post, index) => (
-            <div className="commu-post bg-slate-50" key={post.id ?? index}>
+            <div className="commu-post bg-slate-50" key={post.post_id}>
               <div className="commu-post-topic"> {post.title ?? "No Title"} </div>
               <div className="commu-post-detail">{post.detail ?? "No detail"}</div>
               <div className="commu-post-contact">
