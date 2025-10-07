@@ -21,7 +21,7 @@ export default function Main() {
   const toastRef = useRef(null);
   const [showToast, setShowToast] = useState(false);
 
-  // ก้อนนี้คือเพิ่มอนิเมชั่นเล่นๆนะ ไม่ชอบเดะเอาออก
+  // ก้อนนี้คือเพิ่มอนิเมชั่นเล่นๆนะ ไม่ชอบเดะเอาออก มันคือ เฟดตอนเข้า
   const postRefs = useRef([]);
   useEffect(() => {
     const observer = new IntersectionObserver((entries) => {
@@ -94,7 +94,7 @@ export default function Main() {
       <div className="main-container">
         <div className="main-posttext">ALL JERSEY</div>
         <div className="main-grid">
-          {/* {posts.map((post) => (
+          {posts.map((post) => (
                         <Link to="/display" state={{id : post.id}} style={{ textDecoration: 'none', color: 'black' }}>
                         <div key={post.id} className="main-post">
                             <div className="main-post-photo">
@@ -109,8 +109,8 @@ export default function Main() {
 
                         </Link>
 
-                    ))} */}
-          {posts.map((post, index) => (
+                    ))}
+          {/* {posts.map((post, index) => (
             <Link
               to="/display"
               state={{ id: post.id }}
@@ -130,7 +130,7 @@ export default function Main() {
                 </div>
               </div>
             </Link>
-          ))}
+          ))} */}
 
         </div>
       </div>

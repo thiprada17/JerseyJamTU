@@ -58,7 +58,7 @@ const settings = {
   nextArrow: <NextArrow />,
   focusOnSelect: true,
   autoplay: true,
-  autoplaySpeed: 2000,  
+  autoplaySpeed: 3000,  
   pauseOnHover: true,
 };
 

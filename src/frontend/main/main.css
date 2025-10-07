@@ -74,8 +74,10 @@
   width: 100%;
   height: auto;
   display: block;
-  animation: floatImage 3s ease-in-out infinite;
+  animation: bounceIn 0.9s ease forwards, floatImage 4s ease-in-out infinite;
+  animation-delay: 0s, 0.9s;
 }
+
 
 .main-news {
   background-color: #EDEDED;
@@ -135,6 +137,7 @@
   gap: 15rem;
 
 }
+
 .ff-button {
   display: flex;
   flex-direction: column;
@@ -182,7 +185,9 @@
   padding: 2rem;
   margin-left: auto;
   margin-right: 10px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
+
 
 .main-post {
   display: flex;
@@ -195,14 +200,18 @@
   overflow: hidden;
   background: #fff;
   box-shadow: 2px 3px 5px rgba(0, 0, 0, 0.1);
+  will-change: transform;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
-
 }
 
 .main-post:hover {
-  transform: translateY(-10px) scale(1.05);
-  box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.2);
+  transform: translateY(-8px) scale(1.04) !important;
+  box-shadow: 0px 12px 25px rgba(0, 0, 0, 0.25);
+  z-index: 10;
+
 }
+
+
 
 .main-post-photo {
   background-color: #f8f8f8;
@@ -273,13 +282,35 @@
   }
 }
 
+
 .fade-in-up {
   opacity: 0;
-  transform: translateY(20px);
-  transition: all 0.6s ease-out;
+  /* ลองเอา transform ออกก่อน */
+  transform: none;
+  transition: opacity 0.6s ease-out;
 }
 
 .fade-in-up.visible {
   opacity: 1;
-  transform: translateY(0);
+  transform: none;
+}
+
+@keyframes bounceIn {
+  0% {
+    transform: translateY(-200px);
+    opacity: 0;
+  }
+
+  60% {
+    transform: translateY(30px);
+    opacity: 1;
+  }
+
+  80% {
+    transform: translateY(-10px);
+  }
+
+  100% {
+    transform: translateY(0);
+  }
 }
