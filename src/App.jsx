@@ -2,6 +2,8 @@ import { useState } from 'react'
 import { ToastContainer } from 'react-toastify';
 import './App.css'
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import 'react-toastify/dist/ReactToastify.css';
+
 // import SignIn from "./frontend/SignIn";
 // import SignUp from "./frontend/SignUp";
 
@@ -9,14 +11,17 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 // import Register from "./pages/Register";
 import Commu from './frontend/commu/commu'
 import CommuForm from './frontend/commu/commuForm'
+
 import Main from './frontend/main/Main'
 import MainNews from './frontend/main/MainNews'
 import Display from './frontend/ShirtDisplay';
+
 import Sellerform from './frontend/sellerform';
 import Homepage from './frontend/homepage';
-import 'react-toastify/dist/ReactToastify.css';
+
 import MixAndMatch from './frontend/MixAndMatch';
 import Closet from './frontend/Closetmm'
+import UserProfile from './frontend/user-profile/user-profile'
 
 function App() {
 
@@ -36,6 +41,7 @@ function App() {
           <Route path='/closet' element = {<Closet />} />
           {/* <Route path="/" element={<SignIn />} />
           <Route path="/signup" element={<SignUp />} /> */}
+          <Route path='/userprofile' element = {<UserProfile />} />
         </Routes>
       </Router>
 

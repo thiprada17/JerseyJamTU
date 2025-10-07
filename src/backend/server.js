@@ -164,7 +164,7 @@ app.post('/shirt/info/post', async (req, res) => {
       shirt_close_date,
       shirt_detail,
       shirt_url,
-      shirt_pic // จาก frontend จะส่งมาหรือไม่ก็ได้
+      shirt_pic 
     } = req.body;
 
     const { data, error } = await supabase
