@@ -20,7 +20,7 @@ export default function Commu() {
       } catch (error) {
         console.error("Error fetching posts:", error);
 
-        alert("ERROR!!\nไม่สามารถโหลดโพสต์ได้")
+        
       }
     };
 

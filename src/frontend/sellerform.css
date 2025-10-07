@@ -9,62 +9,53 @@
   /* transform: scale(0.8); ปรับขนาดลง 80% */
   /* transform-origin: top middle; กำหนดจุดยึดเวลาย่อ */
   min-height: 100vh;
+  width: 100%;
   overflow-x: hidden;
-}
-
-/* ---------- หน้าแรก ---------- */
-.sellerform-pageOne {
   position: relative;
-  height: 100vh;
-  overflow: hidden;
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
-  background: #fff;
+  background-color: #fefefe;
 }
-
 .sellerform-layers {
-  position: absolute;
+  position: absolute; 
   top: 0;
   left: 0;
   width: 100%;
-  height: 100%;
+  min-height: 100%;
+  z-index: 0;
   overflow: hidden;
-  z-index: 0;}
+}
 
 .sellerform-layer {
   position: absolute;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  left: 0;
   top: 0;
-  z-index: 0;
+  left: 0;
+  width: 100%;
+  min-height: 100vh;
+  object-fit: cover; 
 }
 
+.sellerform-layer.green { z-index: 1; }
+.sellerform-layer.cream { z-index: 2; }
+.sellerform-layer.blue  { z-index: 3; }
+
 .sellerform-title {
-  position: relative;
-  margin-bottom: 30px;
-  font-size: 15rem;
+  position: absolute;
+  top: 5.5rem; 
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 15rem; 
   font-weight: bold;
   color: #d63031;
   font-style: italic;
   font-family: 'Kanit';
-  z-index: 1;
-}
-
-/* ---------- หน้าที่สอง ---------- */
-.sellerform-pageTwo {
-  background: #d7eef6;
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-top: 0; 
-
+  z-index: 10;
+  text-align: center;
+  margin: 0;
+  pointer-events: none;
 }
 
 .sellerform-container {
+  position: relative;
+  z-index: 10;
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
@@ -72,10 +63,15 @@
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
-  margin-top: -10px;
+  padding: 7rem 20px 100px 20px; 
 }
 
-/* ---------- ซ้าย: โพลารอยด์ ---------- */
+.sellerform-title,
+.sellerform-container {
+  position: relative;
+  z-index: 10;  
+}
+
 .sellerform-left {
   display: flex;
   flex-direction: column;
@@ -115,6 +111,10 @@
   font-weight: bold;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   font-family: 'Kanit';
+}
+
+.sellerform-uploadBtn:hover {
+  transform: scale(1.05);
 }
 
 /* ---------- ขวา: ฟอร์ม ---------- */
@@ -183,8 +183,8 @@
 }
 
 .sellerform-submitBtn {
-  background: #DAEBB3;      
-  color: white;             
+  background: #e3f8b4;      
+  color: rgb(255, 255, 255);             
   border: 1px solid #000000;
   border-radius: 15px;
   padding: 10px 100px;       
@@ -194,8 +194,26 @@
   box-shadow: 0 3px 5px rgba(0,0,0,0.2);
   transition: background 0.3s;
   margin-top: 100px;
+  transition: transform 0.2s ease; 
 }
 
 .sellerform-submitBtn:hover {
-  background: #DAEBB3;      
+  background: #476600; 
+  transform: scale(1.07) translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+.sellerform-floatingButton {
+  position: fixed;
+  bottom: 2rem;
+  right: 3rem;
+  width: 5rem;
+  height: 5rem;
+  cursor: pointer;
+  transition: transform 0.4s ease;
+  z-index: 1000;
+}
+
+.sellerform-floatingButton:hover {
+  transform: rotate(180deg) scale(1.05);
 }

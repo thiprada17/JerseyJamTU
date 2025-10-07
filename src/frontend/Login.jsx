@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import axios from 'axios';
 import "./login.css";
 import arrowIcon from "../assets/arrow.png";
 import pinkshape from "../assets/pink-shape.png";
@@ -8,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 
 export default function Login({ scrollToHome, scrollToSignup }) {
   const navigate = useNavigate();
+
   const [userData, setuserData] = useState({
     username: '',
     password: ''
@@ -26,21 +26,36 @@ export default function Login({ scrollToHome, scrollToSignup }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('ข้อมูลผู้เข้าใช้:', userData);
 
     try {
-      fetch('http://localhost:8000/test', {
+      const response = await fetch('http://localhost:8000/create/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(userData),
-      })
-      console.log("login success");
-      alert('Login Success.');
+      });
 
-      navigate('/main');
+      const contentType = response.headers.get("content-type");
+
+      if (!response.ok) {
+        throw new Error("Server responded with status: " + response.status);
+      }
+
+      if (contentType && contentType.includes("application/json")) {
+        const data = await response.json();
+
+        if (data.success) {
+          setTimeout(() => {
+            navigate('/main', { state: { showLoginToast: true } });
+          }, 1500);
+        } else {
+          alert(data.message || "Login failed.");
+        }
+      } else {
+        const text = await response.text();
+        alert("Login failed: Unexpected server response.");
+      }
     } catch (error) {
-      console.error('Error sending data:', error);
-      alert('Login Fail.');
+      alert('Login Fail: ' + error.message);
     }
   };
 

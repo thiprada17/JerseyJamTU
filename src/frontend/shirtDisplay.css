@@ -3,9 +3,9 @@
     src: url('./COOPBL.TTF');
 }
 
-.shirtDisplay-topRedBar {
+.shirtDisplay-topBar {
   width: 100vw; 
-  height: 3rem;
+  height: 5rem;
   background-color: #D7EEF6;
   position: relative; 
   border-bottom: 0.1rem solid #7F7F7F;
@@ -13,24 +13,45 @@
   padding: 0; 
   box-sizing: border-box; 
 }
+.shirtDisplay-backButton {
+  background: none;
+  border: none;
+  font-size: 2rem;
+  font-family: 'Kanit', sans-serif;
+  cursor: pointer;
+  padding: 1rem 2rem;
+  color: #6660D4;
+  display: flex;
+  align-items: center;
+  transition: color 0.2s ease;
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.shirtDisplay-backButton:hover {
+  color: #d62828;
+}
 
 .shirtDisplay-container {
   width: 100vw;
-  max-width: 100vw; 
+  /* max-width: 100vw;  */
   box-sizing: border-box;
   display: flex;
   justify-content: center;
   background-color: #fff;
   margin: 0;
-  padding: 0;
+  padding: 0 2rem;
 }
 
 .shirtDisplay-wrapper {
   display: flex;
   flex-direction: row;
-  flex-wrap: wrap; 
+  /* flex-wrap: wrap;  */
   justify-content: space-between;
-  align-items: flex-start;
+  /* align-items: flex-start; */
+  align-items: stretch;
   width: 100%;
   margin-top: 2rem;
   max-width: 1200px;
@@ -40,10 +61,11 @@
 
 .shirtDisplay-left {
   flex: 1;
+  max-width: 50%;
 }
 
 .shirtDisplay-title {
-  font-size: 3rem;
+  font-size: 5rem;
   font-weight: bold;
   margin-bottom: 1rem;
   font-family: 'Cooper', sans-serif;
@@ -56,7 +78,9 @@
   border: 3px solid black;
   border-radius: 9999px;
   overflow: hidden;
-  margin-bottom: 2rem;
+  margin-bottom: 3rem;
+  margin-top: 2rem;
+  transform: scale(1.2);
 }
 
 .shirtDisplay-priceLeft {
@@ -98,33 +122,44 @@
   border: 1px solid #ccc;
   background-color: #fff6ee;
   color: #333;
+  font-size: 1.2rem;
   padding: 1.25rem;
-  height: 180px;
+  height: 25rem;
   margin-bottom: 1.5rem;
   border-radius: 1rem;
+  min-height: 10rem;
 }
 
 .shirtDisplay-datesWrapper {
+  width: 100%;
   display: flex;
   flex-wrap: wrap;
   gap: 1rem;
   margin-bottom: 1.5rem;
   align-items: center;
+  margin-top: 3rem;
+  justify-content: center;
+  font-family: 'Kanit';
 }
 
 .shirtDisplay-dateBox {
   border: 2px solid black;
-  padding: 1rem 1.5rem;
+  padding: 1.2rem 4rem;
   border-radius: 1rem;
   text-align: center;
   background-color: white;
-  font-size: 1.5rem;
+  font-size: 2rem;
 }
 
 .shirtDisplay-dateBox span {
-  font-size: 0.8rem;
+  /* font-size: 2rem; */
   display: block;
   margin-top: 0.3rem;
+}
+
+.shirtDisplay-dateBox p {
+  margin: 2px 0;      /* ลดช่องว่างบน–ล่าง */
+  line-height: 1.2;   /* กำหนดระยะบรรทัดให้แน่นขึ้น */
 }
 
 
@@ -145,22 +180,31 @@
   padding: 1rem 1.5rem;
   border-radius: 9999px;
   background-color: white;
-  transition: background-color 0.2s ease;
+  transition: all 0.3s ease;
   cursor: pointer;
+  font-size: 2rem;
   width: 100%;
+  margin-top: 2rem;
+  font-weight: bold;
+  font-family: 'Kanit';
+  
 }
 
 .shirtDisplay-orderButton:hover {
   background-color: #f0f0f0;
+  transform: translateY(-5px);
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
 }
 .shirtDisplay-right {
   position: relative;
   flex: 1;
-  min-width: 0;
-  max-width: 100%;
+  /* min-width: 0; */
+  max-width: 50%;
   display: flex;
-  justify-content: right;
-  align-items: right;
+  /* justify-content: right; */
+  /* align-items: right; */
+  justify-content: center;
+  align-items: center;
   overflow: hidden;
 }
 
@@ -221,10 +265,13 @@
 .shirtDisplay-imageContainer {
   background-color: rgb(255, 255, 255);
   border-radius: 1rem;
-  padding: 0.5rem;
-  width: 100%;
-  max-width: 90%;
+  padding: 1rem;
+  /* width: 100%; */
+  max-width: 80%;
   position: relative;
+  justify-content: center;
+  align-items: center;
+
 }
 
 .shirtDisplay-image {
@@ -232,6 +279,7 @@
   height: 100%;
   object-fit: contain;
   display: block;
+  border-radius: 2rem;
 }
 
 

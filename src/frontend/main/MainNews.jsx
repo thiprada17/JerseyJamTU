@@ -3,7 +3,11 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "./main.css";
-
+import news1 from "../../assets/news1.png";
+import news2 from "../../assets/news2.png";
+import news3 from "../../assets/news3.png";
+import news4 from "../../assets/news4.png";
+import news5 from "../../assets/news5.png";
 
 const PrevArrow = ({ onClick }) => (
   <div
@@ -56,11 +60,11 @@ export default function MainNews() {
   };
 
   const slides = [
-    { id: 1, img: "https://picsum.photos/id/1011/600/400" },
-    { id: 2, img: "https://picsum.photos/id/1012/600/400" },
-    { id: 3, img: "https://picsum.photos/id/1013/600/400" },
-    { id: 4, img: "https://picsum.photos/id/1014/600/400" },
-    { id: 5, img: "https://picsum.photos/id/1015/600/400" },
+    { id: 1, img: news1 },
+    { id: 2, img: news2 },
+    { id: 3, img: news3 },
+    { id: 4, img: news4 },
+    { id: 5, img: news5 },
   ];
 
   return (

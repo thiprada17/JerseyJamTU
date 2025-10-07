@@ -191,8 +191,15 @@
 }
 
 .main-post-photo {
-    flex: 1;
     background-color: #f8f8f8;
+    height: 30rem;  /* กำหนดความสูงที่ต้องการ */
+    overflow: hidden; /* ซ่อนส่วนเกิน */
+}
+
+.main-post-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
 }
 
 .main-post-detail-card {
@@ -221,4 +228,44 @@
     font-weight: bold;
     text-align: right;
     align-self: flex-end;
+}
+
+.custom-toast-login {
+  position: fixed;
+  top: 2rem;
+  right: 2rem;
+  background-color: #f5f5f5;
+  color: #28a745;
+  padding: 1.2rem 2rem;
+  border-radius: 8px;
+  box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
+  font-size: 2rem;
+  z-index: 9999;
+  animation: slideInRight 0.5s ease forwards;
+}
+
+.custom-toast-login.hide {
+  animation: slideOutRight 0.5s ease forwards;
+}
+
+@keyframes slideInRight {
+  from {
+    right: -100%;
+    opacity: 0;
+  }
+  to {
+    right: 2rem;
+    opacity: 1;
+  }
+}
+
+@keyframes slideOutRight {
+  from {
+    right: 2rem;
+    opacity: 1;
+  }
+  to {
+    right: -100%;
+    opacity: 0;
+  }
 }

@@ -28,26 +28,6 @@ const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS
 const supabase = createClient(supabaseUrl, supabaseKey)
 
 
-app.post('/test', async (req, res) => {
-  console.log('Request body:', req.body);
-  const { username, password } = req.body;
-  const { data, error } = await supabase
-    .from('users')
-    .select('password')
-    .eq('username', inputUsername)
-
-  console.log("Supabase result:", data)
-  console.log("Supabase error:", error)
-
-  if (error) {
-    // ถ้ามี error ส่งกลับ status 500 พร้อมข้อความ error
-    return res.status(500).json({ error: error.message })
-  }
-
-  // ถ้าไม่มี error ส่งข้อมูล data กลับไป
-  res.json(data)
-})
-
 // sign up
 app.post('/add-user/register', async (req, res) => {
   try {
@@ -97,15 +77,38 @@ app.post('/create/login', async (req, res) => {
       });
     }
 
-    res.json({
-      message: 'Login successful',
-    });
+    res.json({ success: true, message: "Login successful" });
+
   } catch (error) {
     console.error(error);
     res.status(500).json({
       message: 'Server error'
     });
   }
+});
+
+// commu post
+app.post('/commu/post', async (req, res) => {
+
+  const { user_id, title, detail, contact } = req.body;
+  console.log(title, detail, contact)
+
+  const { data, error } = await supabase
+    .from('commuPost')
+    .insert([{ user_id, title, detail, contact }])
+    .select()
+
+  console.log(data)
+  if (error) {
+    console.error('Supabase insert error:', error);
+    return res.status(500).json({ error: error.message });
+  }
+
+  res.json({
+    message: 'Insert Success',
+    data: data
+  });
+
 });
 
 app.get('/shirt/info/get', async (req, res) => {
@@ -120,7 +123,30 @@ app.get('/shirt/info/get', async (req, res) => {
       return res.status(500).json({ error: error.message });
     }
 
-    res.json({ shirts: data });
+    res.json(data);
+  } catch (err) {
+    console.error('Unexpected error:', err);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+app.get('/shirt/info/get/:id', async (req, res) => {
+
+  let id = req.params.id
+  console.log(id)
+  try {
+    let { data, error } = await supabase
+      .from('shirtInfo')
+      .select('*')
+      .eq('id', id)
+      .select()
+
+    if (error) {
+      console.error('Supabase select error:', error);
+      return res.status(500).json({ error: error.message });
+    }
+
+    res.json(data);
   } catch (err) {
     console.error('Unexpected error:', err);
     res.status(500).json({ error: 'Internal server error' });

@@ -4,8 +4,12 @@ import "./signup.css";
 import arrowIcon from "../assets/arrow.png";
 import BackgroundSignup from "../assets/background-signup.png";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+import Toast from './component/Toast';
 
 export default function SignUp({ scrollToHome }) {
+  const nevigate = useNavigate();
+  const [showToast, setShowToast] = useState(false);
+  const [successMessage, setSuccessMessage] = useState("");
   const [userData, setuserData] = useState({
     username: '',
     email: '',
@@ -35,17 +39,29 @@ export default function SignUp({ scrollToHome }) {
     e.preventDefault();
     console.log('ข้อมูลผู้ลงทะเบียน:', userData);
 
-
     try {
-      fetch('http://localhost:8000/add-user/register', {
+      const response = await fetch('http://localhost:8000/add-user/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(userData),
-      })
-        // .then(res => res.json())
-        // .then(data => console.log(data))
-        // .catch(err => console.error(err)); 
-      console.log("insert sucsess")
+      });
+
+      if (response.ok) {
+        console.log("Insert success");
+        setShowToast(true);
+        setuserData({ username: '', email: '', password: '', faculty: '', year: '' });
+
+        setTimeout(() => {
+          scrollToHome();
+        }, 500);
+
+        setTimeout(() => {
+          setShowToast(false);
+        }, 2500);
+      } else {
+        console.error('Failed to register user');
+        alert("ผิดพลาดในการลงทะเบียน");
+      }
 
     } catch (error) {
       console.error('Error sending data:', error);
@@ -58,8 +74,6 @@ export default function SignUp({ scrollToHome }) {
       style={{ backgroundImage: `url(${BackgroundSignup})` }}
     >
       <div className="signup-header">
-        <button className="signup-header-btn">Username</button>
-        <button className="signup-header-btn">Seller</button>
         <button className="signup-back-btn" onClick={scrollToHome}>
           <img src={arrowIcon} alt="Back" className="signup-arrow-icon" />
         </button>
@@ -143,9 +157,19 @@ export default function SignUp({ scrollToHome }) {
             <p className="signup-text">
               Already have an account? <span className="signup-link">Log in</span>
             </p>
+            {successMessage && (
+              <p className="success-message">{successMessage}</p>
+            )}
           </div>
         </div>
       </form>
+      {showToast && (
+        <Toast
+          message="🎉 Sign up success!"
+          duration={2500}
+          onClose={() => setShowToast(false)}
+        />
+      )}
     </div>
   );
 }

@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { ToastContainer } from 'react-toastify';
 import './App.css'
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 // import SignIn from "./frontend/SignIn";
@@ -10,7 +11,6 @@ import Commu from './frontend/commu/commu'
 import CommuForm from './frontend/commu/commuForm'
 import Main from './frontend/main/Main'
 import MainNews from './frontend/main/MainNews'
-import Homepage from './frontend/homepage';
 import Display from './frontend/ShirtDisplay';
 import Sellerform from './frontend/sellerform';
 function App() {
@@ -27,10 +27,26 @@ function App() {
           <Route path="/commu/form" element={<CommuForm />} />
           <Route path="/display" element={<Display />} />
           <Route path="/sellerform" element={<Sellerform />} />
+          <Route path="/mixAndmatch" element = {<MixAndMatch />} />
+          <Route path='/closet' element = {<Closet />} />
           {/* <Route path="/" element={<SignIn />} />
           <Route path="/signup" element={<SignUp />} /> */}
         </Routes>
       </Router>
+
+      <ToastContainer
+  position="top-right"
+  autoClose={2500}
+  hideProgressBar={false}
+  newestOnTop={false}
+  closeOnClick
+  rtl={false}
+  pauseOnFocusLoss
+  draggable
+  pauseOnHover
+  theme="colored"
+/>
+
     </>
   )
 }
