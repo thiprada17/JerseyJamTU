@@ -13,6 +13,9 @@ import Main from './frontend/main/Main'
 import MainNews from './frontend/main/MainNews'
 import Display from './frontend/ShirtDisplay';
 import Sellerform from './frontend/sellerform';
+import MixAndMatch from './frontend/MixAndMatch';
+import Closet from './frontend/Closetmm';
+import Homepage from './frontend/Homepage';
 function App() {
 
   return (
