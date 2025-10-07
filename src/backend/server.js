@@ -111,6 +111,37 @@ app.post('/commu/post', async (req, res) => {
 
 });
 
+//commu get
+app.get('/commu/get', async (req, res) => {
+  try {
+    const { data, error } = await supabase
+      .from('commuPost')
+      .select('*')
+      .order('id', { ascending: false }) // เรียงจากล่าสุดก่อน
+
+    if (error) return res.status(500).json({ error: error.message })
+    res.json(data)
+  } catch (err) {
+    res.status(500).json({ error: 'Internal server error' })
+  }
+})
+
+//commu get ทีละid
+app.get('/shirt/info/get/:id', async (req, res) => {
+  try {
+    const id = req.params.id
+    const { data, error } = await supabase
+      .from('shirtInfo')
+      .select('*')
+      .eq('id', id)
+
+    if (error) return res.status(500).json({ error: error.message })
+    res.json(data)
+  } catch (err) {
+    res.status(500).json({ error: 'Internal server error' })
+  }
+})
+
 app.get('/shirt/info/get', async (req, res) => {
   try {
     const { data, error } = await supabase
