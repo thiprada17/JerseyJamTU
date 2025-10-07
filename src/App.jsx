@@ -13,7 +13,6 @@ import MainNews from './frontend/main/MainNews'
 import Homepage from './frontend/homepage';
 import Display from './frontend/ShirtDisplay';
 import Sellerform from './frontend/sellerform';
-
 function App() {
 
   return (
