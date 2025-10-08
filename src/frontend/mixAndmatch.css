@@ -1,3 +1,8 @@
+@font-face {
+  font-family: 'Kanit';
+  src: url('./main/Kanit-Regular.ttf');
+}
+
 .mixandmatch-container {
   position: relative;
   width: 100%;

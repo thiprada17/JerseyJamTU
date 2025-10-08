@@ -23,9 +23,17 @@ app.use(express.json());
 //   })
 // }
 
-const supabaseUrl = 'https://zdhjexmsbgozpxroeaud.supabase.co'
-const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpkaGpleG1zYmdvenB4cm9lYXVkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTgxODU3NTUsImV4cCI6MjA3Mzc2MTc1NX0.E_NmaPHl2jK_h8CTHqzfF5K8cTUMehs7Bf9nHdjLizM"
+
+
+console.log("SUPABASE_SERVICE_ROLE_KEY =", process.env.SUPABASE_SERVICE_ROLE_KEY)
+
+const supabaseUrl = 'https://zdhjexmsbgozpxroeaud.supabase.co';
+const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpkaGpleG1zYmdvenB4cm9lYXVkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTgxODU3NTUsImV4cCI6MjA3Mzc2MTc1NX0.E_NmaPHl2jK_h8CTHqzfF5K8cTUMehs7Bf9nHdjLizM";
+const supabaseServiceRoleKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpkaGpleG1zYmdvenB4cm9lYXVkIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc1ODE4NTc1NSwiZXhwIjoyMDczNzYxNzU1fQ.y2rLVTGLD5anVMLup17ib5RqS7XrekDr4XVE8Pa2kts';
+if (!supabaseServiceRoleKey) {
+  console.error("⚠️ SUPABASE_SERVICE_ROLE_KEY is missing. Please set it in your .env file!");}
 const supabase = createClient(supabaseUrl, supabaseKey)
+const supabaseAdmin = createClient(supabaseUrl, supabaseServiceRoleKey); // admin client for private buckets ka man pen public fake
 
 
 // sign up
@@ -206,6 +214,52 @@ app.post('/shirt/info/post', async (req, res) => {
   }
 });
 
+app.get('/category/:folder/info/get', async (req, res) => {
+  try {
+    const folder = req.params.folder;
+    console.log("Request for folder:", folder)
+
+    // check private key
+    if (!supabaseServiceRoleKey) {
+      return res.status(500).json({ error: 'Service Role Key not configured' });
+    }
+    const { data: files, error: listError } = await supabaseAdmin.storage
+      .from('closet')
+      .list(folder, { limit: 100, offset: 0 });
+    if (listError) {
+      console.error('Supabase list error:', listError);
+      return res.status(500).json({ error: listError.message });
+    }
+    if (!files || files.length === 0) {
+      console.log(`No files found in folder ${folder}`);
+      return res.json([]);
+    }
+
+    // สร้าง signed URL ให้ไฟล์ทุกไฟล์
+    const images = await Promise.all(
+      files
+        .filter(f => f.name.match(/\.(jpg|jpeg|png|webp|jfif)$/i))
+        .map(async file => {
+          const { data: signedURLData, error: urlError } = await supabaseAdmin.storage
+            .from('closet')
+            .createSignedUrl(`${folder}/${file.name}`, 60 * 60); //สร้าบแบบใช้ชั่วคราวได้ ประมาณ 1 ชม
+          if (urlError) {
+            console.error('Signed URL error:', urlError);
+            return null;
+          }
+          return {
+            name: file.name,
+            url: signedURLData.signedUrl,
+          };
+        })
+    );
+
+    res.json(images.filter(Boolean));
+  } catch (err) {
+    console.error('Unexpected error:', err);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
 
 //อันนี้เทสยิงข้อมูล mock นะ
 // app.post('/shirt/info/post', async (req, res) => {
