@@ -80,49 +80,42 @@ export default function MixAndMatch() {
     }
   };
 
-  const captureScreenshot = () => {
-    setConfirmVisible(true);
-  };
+  const captureScreenshot = () => setConfirmVisible(true);
 
   const doCapture = async () => {
     setConfirmVisible(false);
-
     if (!captureRef.current) return;
 
     const element = captureRef.current;
     const saveButton = document.querySelector(".mam-btn");
     if (saveButton) saveButton.style.visibility = "hidden";
 
-    await new Promise((r) => setTimeout(r, 200));
+    await new Promise((r) => setTimeout(r, 100));
 
     const rect = element.getBoundingClientRect();
     const scale = window.devicePixelRatio || 1;
 
-    html2canvas(element, {
+    const canvas = await html2canvas(element, {
       useCORS: true,
-      scrollX: 0,
-      scrollY: 0,
-      scale: scale,
+      backgroundColor: null,
+      scale,
       width: rect.width,
       height: rect.height,
-      backgroundColor: null,
+      x: rect.left,
+      y: rect.top,
       logging: false,
-      windowWidth: document.documentElement.clientWidth,
-      windowHeight: document.documentElement.clientHeight,
       ignoreElements: (el) => el.classList.contains("no-capture"),
-    })
-      .then((canvas) => {
-        const dataURL = canvas.toDataURL("image/png");
-        const link = document.createElement("a");
-        link.href = dataURL;
-        link.download = "mixandmatch.png";
-        link.click();
-      })
-      .finally(() => {
-        if (saveButton) saveButton.style.visibility = "visible";
-        setShowToast(true);
-        setTimeout(() => setShowToast(false), 2500);
-      });
+    });
+
+    const dataURL = canvas.toDataURL("image/png");
+    const link = document.createElement("a");
+    link.href = dataURL;
+    link.download = "mixandmatch.png";
+    link.click();
+
+    if (saveButton) saveButton.style.visibility = "visible";
+    setShowToast(true);
+    setTimeout(() => setShowToast(false), 2500);
   };
 
   return (
@@ -146,11 +139,13 @@ export default function MixAndMatch() {
             }}
           >
             {selectedImages[frame.id] && (
-              <img
-                src={selectedImages[frame.id]}
-                alt="selected"
-                className="frame-img"
-              />
+              <div className="img-wrapper">
+                <img
+                  src={selectedImages[frame.id]}
+                  alt="selected"
+                  className="frame-img"
+                />
+              </div>
             )}
           </div>
         ))}
