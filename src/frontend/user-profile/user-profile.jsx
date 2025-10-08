@@ -8,11 +8,22 @@ import { useLocation } from "react-router-dom";
 import Toast from "../component/Toast.jsx";
 
 export default function UserProflie() {
+    const [activeTab, setActiveTab] = useState(1);
+
+    let tab1Class = "up-tab";
+    if (activeTab == 1) {
+        tab1Class += " active-tabs";
+    }
+
+    let tab2Class = "up-tab";
+    if (activeTab == 2) {
+        tab2Class += " active-tabs";
+    }
     const posts = [
-        { id: 1, name: "Shirt name", price: 350, img: "https://picsum.photos/id/1011/600/400" },
-        { id: 2, name: "Shirt name", price: 350, img: "liverpool.jpg" },
-        { id: 3, name: "Shirt name", price: 350, img: "chelsea.jpg" },
-        { id: 4, name: "Shirt name", price: 350, img: "barca.jpg" },
+        { id: 1, name: "Shirt name", price: 350, shirt_pic: "https://picsum.photos/id/1011/600/400" },
+        { id: 2, name: "Shirt name", price: 350, shirt_pic: "liverpool.jpg" },
+        { id: 3, name: "Shirt name", price: 350, shirt_pic: "chelsea.jpg" },
+        { id: 4, name: "Shirt name", price: 350, shirt_pic: "barca.jpg" },
     ];
     //      const [posts, setPosts] = useState([]);
     //   const location = useLocation();
@@ -81,15 +92,35 @@ export default function UserProflie() {
             </div>
 
             <div className="up-tabs">
-                <div className="up-tab active-tabs">Your fav</div>
-                <div className="up-tab">Your post</div>
+                <div className={tab1Class} onClick={() => setActiveTab(1)}> Your fav </div>
+                <div className={tab2Class} onClick={() => setActiveTab(2)}>Your post</div>
             </div>
 
             <div className="up-content-tabs">
-                <div className="up-content active-content">
-                    your fav post jaaa
+                <div className={activeTab === 1 ? "up-content active-content" : "up-content"}>
+        
+                    <div className="up-fav-grid">
+                        {posts.map((post) => (
+                            <Link to="/display" state={{ id: post.id }} style={{ textDecoration: 'none', color: 'black' }}>
+                                <div key={post.id} className="up-fav-post">
+                                    <div className="up-post-photo">
+                                        <img src={post.shirt_pic} alt={post.shirt_name} />
+                                    </div>
+                                    <div className="up-fav-detail">
+                                        <div className="up-fav-detail-name">{post.name}</div>
+                                         <button className="up-fav-cmore">
+                                        see more Detail
+                                    </button>
+                                    </div>
+                                   
+                                </div>
+
+                            </Link>
+
+                        ))}
+                    </div>
                 </div>
-                <div className="up-content">
+                <div className={activeTab === 2 ? "up-content active-content" : "up-content"}>
                     your post jaaaa
                 </div>
 
