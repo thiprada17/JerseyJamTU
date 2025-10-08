@@ -226,6 +226,7 @@
     padding: 1rem;
     font-family: 'Kanit', sans-serif;
     height: 10rem;
+    margin-bottom: 1rem;
 }
 
 .up-fav-detail-name {
@@ -237,13 +238,12 @@
 }
 
 .up-fav-cmore {
-    flex: 1;
     display: flex;
     align-items: center;
     justify-content: center;
 
     background-color: #FFF4DF;
-    width: 5px;
+    width: 10rem;
     border-radius: 25px;
     border: 1px solid black;
 

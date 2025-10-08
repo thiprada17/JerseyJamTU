@@ -109,7 +109,7 @@ export default function UserProflie() {
                                     <div className="up-fav-detail">
                                         <div className="up-fav-detail-name">{post.name}</div>
                                          <button className="up-fav-cmore">
-                                        see more Detail
+                                        see more <br /> Detail
                                     </button>
                                     </div>
                                    
