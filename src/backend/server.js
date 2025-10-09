@@ -37,7 +37,7 @@ app.post('/add-user/register', async (req, res) => {
     const { data, error } = await supabase
       .from('users')
       .insert([{ username, email, password, faculty, year }])
-      .select();
+      .select('user_id, username, email');
 
     if (error) {
       console.error('Supabase insert error:', error);
@@ -57,33 +57,31 @@ app.post('/create/login', async (req, res) => {
     const { username, password } = req.body;
     const { data, error } = await supabase
       .from('users')
-      .select('password')
+      .select('user_id, username, password')
       .eq('username', username)
 
     console.log("Supabase result:", data)
     console.log("Supabase error:", error)
 
     if (!data) {
-      return res.status(401).json({
-        message: 'User not found'
-      });
+      return res.status(401).json({ message: 'User not found' });
     }
 
-    const storedPassword = data[0].password;
+    const user = data[0];
 
-    if (storedPassword !== password) {
-      return res.status(401).json({
-        message: 'Incorrect password'
-      });
+    if (data.password !== password) {
+      return res.status(401).json({ message: 'Incorrect password' });
     }
 
-    res.json({ success: true, message: "Login successful" });
+    res.json({
+      success: true,
+      user: { user_id: user.user_id,
+      username: user.username }
+    });
 
   } catch (error) {
     console.error(error);
-    res.status(500).json({
-      message: 'Server error'
-    });
+    res.status(500).json({ message: 'Server error' });
   }
 });
 

@@ -1,7 +1,7 @@
 import "./commuForm.css";
 import { useState } from "react";
 import { useNavigate } from 'react-router-dom';
-
+import axios from "axios";
 
 export default function CommuForm() {
   const navigate = useNavigate();
@@ -17,25 +17,25 @@ export default function CommuForm() {
   };
 
   const handleSubmit = async (e) => {
-    try {
-      e.preventDefault();
-
-      const commu_response = await axios.post('http://localhost:8000/commu/post', formData)
-      console.log('Response from server:', commu_response.data);
-      console.log("ข้อมูลโพสต์: ", formData);
-      alert("โพสต์สำเร็จ!");
-
-    } catch (error) {
-      alert("ERROR!!\nไม่สามารถสร้างโพสต์ได้")
-
+  e.preventDefault();
+  try {
+    const currentUser = JSON.parse(localStorage.getItem('user'));
+    const userId = Number(currentUser?.user_id);
+    if (!userId) {
+      alert('กรุณาเข้าสู่ระบบก่อนโพสต์');
+      return;
     }
 
+    const payload = { ...formData, user_id: userId };
+    const commu_response = await axios.post('http://localhost:8000/commu/post', payload);
 
-
-    setTimeout(() => {
-      navigate('/commu');
-    }, 500);
-  };
+    alert("โพสต์สำเร็จ!");
+    setTimeout(() => navigate('/commu'), 500);
+  } catch (error) {
+    console.error(error);
+    alert("ERROR!!\nไม่สามารถสร้างโพสต์ได้");
+  }
+};
 
 
 

@@ -7,12 +7,15 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 // import Login from "./pages/Login";
 // import Register from "./pages/Register";
-import Commu from './frontend/commu/commu'
-import CommuForm from './frontend/commu/commuForm'
-import Main from './frontend/main/Main'
-import MainNews from './frontend/main/MainNews'
+import Homepage from './frontend/homepage';
+import Commu from './frontend/commu/commu';
+import CommuForm from './frontend/commu/commuForm';
+import Main from './frontend/main/Main';
+import MainNews from './frontend/main/MainNews';
 import Display from './frontend/ShirtDisplay';
 import Sellerform from './frontend/sellerform';
+import MixAndMatch from './frontend/MixAndMatch';
+import Closet from './frontend/Closetmm';
 function App() {
 
   return (

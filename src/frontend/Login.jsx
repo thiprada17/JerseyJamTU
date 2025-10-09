@@ -15,18 +15,15 @@ export default function Login({ scrollToHome, scrollToSignup }) {
 
   const [showPassword, setShowPassword] = useState(false);
 
-  const togglePassword = () => {
-    setShowPassword(prevShowPassword => !prevShowPassword);
-  }
+  const togglePassword = () => setShowPassword(prev => !prev);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setuserData(prevState => ({ ...prevState, [name]: value }));
+    setuserData(prev => ({ ...prev, [name]: value }));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     try {
       const response = await fetch('http://localhost:8000/create/login', {
         method: 'POST',
@@ -34,16 +31,21 @@ export default function Login({ scrollToHome, scrollToSignup }) {
         body: JSON.stringify(userData),
       });
 
+      if (!response.ok) throw new Error(`Server responded with status: ${response.status}`);
+
       const contentType = response.headers.get("content-type");
-
-      if (!response.ok) {
-        throw new Error("Server responded with status: " + response.status);
-      }
-
       if (contentType && contentType.includes("application/json")) {
         const data = await response.json();
 
         if (data.success) {
+          localStorage.setItem(
+            'user',
+            JSON.stringify({
+              user_id: data.user.user_id,
+              username: data.user.username,
+            })
+          );
+
           setTimeout(() => {
             navigate('/main', { state: { showLoginToast: true } });
           }, 1500);
@@ -51,7 +53,6 @@ export default function Login({ scrollToHome, scrollToSignup }) {
           alert(data.message || "Login failed.");
         }
       } else {
-        const text = await response.text();
         alert("Login failed: Unexpected server response.");
       }
     } catch (error) {
@@ -76,6 +77,7 @@ export default function Login({ scrollToHome, scrollToSignup }) {
               value={userData.username}
               onChange={handleChange}
               placeholder="Enter username"
+              required
             />
           </div>
 
@@ -89,6 +91,7 @@ export default function Login({ scrollToHome, scrollToSignup }) {
                 value={userData.password}
                 onChange={handleChange}
                 placeholder="Enter password"
+                required
               />
               <button
                 type="button"
@@ -103,7 +106,8 @@ export default function Login({ scrollToHome, scrollToSignup }) {
           <button type="submit" className="btn-login">Log in</button>
 
           <p className="signup-text">
-            Don’t have an account? <span className="signup-link">Sign Up</span>
+            Don’t have an account?{" "}
+            <span className="signup-link" onClick={scrollToSignup}>Sign Up</span>
           </p>
         </form>
       </div>
