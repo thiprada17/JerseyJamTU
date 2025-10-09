@@ -11,10 +11,8 @@ export default function ShirtDisplay() {
     console.log(id)
 
     const handleBack = () => {
-    navigate(-1); // ย้อนกลับไปอัน่ก่อน
-};
-
-
+        navigate(-1); // ย้อนกลับไปอัน่ก่อน
+    };
     const [shirtData, setshirtData] = useState([]);
 
     useEffect(() => {
@@ -42,20 +40,31 @@ export default function ShirtDisplay() {
         window.open(shirtData.shirt_url, '_blank', 'noopener,noreferrer');
     };
 
+    const [isFavorited, setIsFavorited] = useState(false);
+
+    const toggleFavorite = () => {
+        setIsFavorited(!isFavorited);
+    };
+
+
     return (
         <>
-
-<div className="shirtDisplay-topBar">
-    <button className="shirtDisplay-backButton" onClick={handleBack}>
-        &lt; back
-    </button>
-</div>
+            <div className="shirtDisplay-topBar">
+                <button className="shirtDisplay-backButton" onClick={handleBack}>
+                    &lt; back
+                </button>
+            </div>
             {shirtData.map((shirtData) => (
                 <div className="shirtDisplay-container" key={shirtData.id}>
 
                     <div className="shirtDisplay-wrapper">
                         <div className="shirtDisplay-left">
-
+                            <button
+                                className={`shirtDisplay-heartButton ${isFavorited ? 'active' : ''}`}
+                                onClick={toggleFavorite}
+                            >
+                                {isFavorited ? '❤️' : '🤍'}
+                            </button>
                             <h1 className="shirtDisplay-title">{shirtData.shirt_name}</h1>
                             <div className="shirtDisplay-priceWrapper">
                                 <div className="shirtDisplay-priceLeft">
@@ -108,8 +117,6 @@ export default function ShirtDisplay() {
                             </div>
                         </div>
                     </div>
-
-
                 </div>
             ))}
         </>
