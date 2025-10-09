@@ -22,7 +22,7 @@ export default function FeatureFolder() {
       </button>
 
       
-      <button className="ff-button 3">
+      <button className="ff-button 3" onClick={() => navi("/userprofile")}>
         <img src={icon} alt="Click me" />
         <div className="ff-button-text">Fav Jersey</div>
       </button>

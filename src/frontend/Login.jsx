@@ -37,6 +37,8 @@ export default function Login({ scrollToHome, scrollToSignup }) {
       if (contentType && contentType.includes("application/json")) {
         const data = await response.json();
 
+        console.log(data)
+
         if (data.success) {
           localStorage.setItem(
             'user',

@@ -1,3 +1,7 @@
+@font-face {
+  font-family: 'Kanit';
+  src: url('./main/Kanit-Regular.ttf');
+}
 .closet-container {
   display: flex;
   height: 100vh;
@@ -139,5 +143,3 @@ grid-template-columns: repeat(3, 1fr);
   border-radius: 10px;
   object-fit: cover;
 }
-
-
