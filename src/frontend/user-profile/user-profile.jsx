@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Link } from 'react-router-dom';
 import "./user-profile.css";
 import usericon from "../../assets/profile-icon2.png";
-import topic from "../../assets/main-topic.png";
+import home_icon from "../../assets/home_icon.png";
 import { useLocation } from "react-router-dom";
 import Toast from "../component/Toast.jsx";
 
@@ -11,7 +11,7 @@ export default function UserProflie() {
     const [activeTab, setActiveTab] = useState(1);
     const username = localStorage.getItem("username")
     const faculty = localStorage.getItem("faculty")
-       const year = localStorage.getItem("year")
+    const year = localStorage.getItem("year")
 
     let tab1Class = "up-tab";
     if (activeTab == 1) {
@@ -74,6 +74,11 @@ export default function UserProflie() {
             <div className="up-top">
                 <div className="up-top-container">
 
+                    <Link to="/main">
+                        <img src={home_icon} alt="" className="up-home-icon" />
+                    </Link>
+
+
                     <div className="up-username">
                         <img src={usericon} className="up-usericon" />
                         <div className="up-username-name">{username}</div>
@@ -101,7 +106,7 @@ export default function UserProflie() {
 
             <div className="up-content-tabs">
                 <div className={activeTab === 1 ? "up-content active-content" : "up-content"}>
-        
+
                     <div className="up-fav-grid">
                         {posts.map((post) => (
                             <Link to="/display" state={{ id: post.id }} style={{ textDecoration: 'none', color: 'black' }}>
@@ -111,11 +116,11 @@ export default function UserProflie() {
                                     </div>
                                     <div className="up-fav-detail">
                                         <div className="up-fav-detail-name">{post.name}</div>
-                                         <button className="up-fav-cmore">
-                                        see more <br /> Detail
-                                    </button>
+                                        <button className="up-fav-cmore">
+                                            see more <br /> Detail
+                                        </button>
                                     </div>
-                                   
+
                                 </div>
 
                             </Link>
@@ -125,19 +130,19 @@ export default function UserProflie() {
                 </div>
                 <div className={activeTab === 2 ? "up-content active-content" : "up-content"}>
                     <div className="commu-grid">
-          {posts.map((post, index) => (
-            <div className="commu-post bg-slate-50" key={index}>
-              <div className="commu-post-topic"> {post.title ?? "No Title"} </div>
-              <div className="commu-post-detail">{post.detail ?? "No detail"}</div>
-              <div className="commu-post-contact">
-                ช่องทางการติดต่อ :{" "}
-                <a href={post.contact } target="_blank">
-                  {post.contact ?? "No Contact"}
-                </a>
-              </div>
-            </div>
-          ))}
-        </div>
+                        {posts.map((post, index) => (
+                            <div className="commu-post bg-slate-50" key={index}>
+                                <div className="commu-post-topic"> {post.title ?? "No Title"} </div>
+                                <div className="commu-post-detail">{post.detail ?? "No detail"}</div>
+                                <div className="commu-post-contact">
+                                    ช่องทางการติดต่อ :{" "}
+                                    <a href={post.contact} target="_blank">
+                                        {post.contact ?? "No Contact"}
+                                    </a>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
                 </div>
 
             </div>

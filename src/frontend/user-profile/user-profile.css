@@ -61,6 +61,14 @@
     word-break: break-word;
 }
 
+.up-home-icon {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 2rem;
+    width: 5rem;
+}
+
 .up-top-container {
     display: flex;
     flex-direction: column;

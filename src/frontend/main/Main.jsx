@@ -2,7 +2,7 @@ import { useRef, useEffect } from "react";
 import { useState } from "react";
 import { Link } from 'react-router-dom';
 import "./main.css";
-import viewBg from "../../assets/view-bg.png";
+import profile_icon from "../../assets/profile-icon.png";
 import topic from "../../assets/main-topic.png";
 import MainNews from "./MainNews.jsx"
 import FeatureFolder from "./FeatureFolder.jsx"
@@ -20,6 +20,7 @@ export default function Main() {
   const location = useLocation();
   const toastRef = useRef(null);
   const [showToast, setShowToast] = useState(false);
+  const username = localStorage.getItem("username");
 
   // ก้อนนี้คือเพิ่มอนิเมชั่นเล่นๆนะ ไม่ชอบเดะเอาออก มันคือ เฟดตอนเข้า
   const postRefs = useRef([]);
@@ -81,7 +82,13 @@ export default function Main() {
         />
       )}
 
-      <div className="main-navbar">JerseyJamTU</div>
+      <div className="main-navbar">
+        <Link className="main-navbar-user" to="/userprofile">
+          <img src={profile_icon} alt="" className="main-navbar-user-profile-icon" />
+          <div className="main-navbar-user-username">{username}</div>
+        </Link>
+        <div className="main-navbar-logo">JerseyJamTU</div>
+      </div>
 
       <div className="main-topic">
         <div className="main-popup-container">
@@ -95,21 +102,21 @@ export default function Main() {
         <div className="main-posttext">ALL JERSEY</div>
         <div className="main-grid">
           {posts.map((post) => (
-                        <Link to="/display" state={{id : post.id}} style={{ textDecoration: 'none', color: 'black' }}>
-                        <div key={post.id} className="main-post">
-                            <div className="main-post-photo">
+            <Link to="/display" state={{ id: post.id }} style={{ textDecoration: 'none', color: 'black' }}>
+              <div key={post.id} className="main-post">
+                <div className="main-post-photo">
 
-                                <img src={post.shirt_pic} alt={post.shirt_name} />
-                            </div>
-                            <div className="main-post-detail-card">
-                                <div className="shirt-name">{post.shirt_name}</div>
-                                <div className="price">{post.shirt_price} ฿</div>
-                            </div>
-                        </div>
+                  <img src={post.shirt_pic} alt={post.shirt_name} />
+                </div>
+                <div className="main-post-detail-card">
+                  <div className="shirt-name">{post.shirt_name}</div>
+                  <div className="price">{post.shirt_price} ฿</div>
+                </div>
+              </div>
 
-                        </Link>
+            </Link>
 
-                    ))}
+          ))}
           {/* {posts.map((post, index) => (
             <Link
               to="/display"
