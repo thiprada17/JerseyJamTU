@@ -34,6 +34,7 @@ export default function Login({ scrollToHome, scrollToSignup }) {
         body: JSON.stringify(userData),
       });
 
+
       const contentType = response.headers.get("content-type");
 
       if (!response.ok) {
@@ -43,7 +44,17 @@ export default function Login({ scrollToHome, scrollToSignup }) {
       if (contentType && contentType.includes("application/json")) {
         const data = await response.json();
 
+        console.log(data)
+
         if (data.success) {
+          const user = data.data;
+
+
+          localStorage.setItem("user_id", user.user_id);
+          localStorage.setItem("username", user.username);
+          localStorage.setItem("faculty", user.faculty);
+          localStorage.setItem("year", user.year);
+
           setTimeout(() => {
             navigate('/main', { state: { showLoginToast: true } });
           }, 1500);

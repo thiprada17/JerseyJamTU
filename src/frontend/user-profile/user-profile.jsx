@@ -9,6 +9,9 @@ import Toast from "../component/Toast.jsx";
 
 export default function UserProflie() {
     const [activeTab, setActiveTab] = useState(1);
+    const username = localStorage.getItem("username")
+    const faculty = localStorage.getItem("faculty")
+       const year = localStorage.getItem("year")
 
     let tab1Class = "up-tab";
     if (activeTab == 1) {
@@ -73,19 +76,19 @@ export default function UserProflie() {
 
                     <div className="up-username">
                         <img src={usericon} className="up-usericon" />
-                        <div className="up-username-name">USERNAME</div>
+                        <div className="up-username-name">{username}</div>
 
                     </div>
 
                     <div className="up-top-box">
                         <div className="up-year">
                             <div className="up-year-topic">year</div>
-                            <div className="up-year-num">1</div>
+                            <div className="up-year-num">{year}</div>
                         </div>
 
                         <div className="up-faculty">
                             <div className="up-faculty-topic">faculty</div>
-                            <div className="up-faculty-name">วิดวะ</div>
+                            <div className="up-faculty-name">{faculty}</div>
                         </div>
                     </div>
                 </div>
@@ -121,7 +124,20 @@ export default function UserProflie() {
                     </div>
                 </div>
                 <div className={activeTab === 2 ? "up-content active-content" : "up-content"}>
-                    your post jaaaa
+                    <div className="commu-grid">
+          {posts.map((post, index) => (
+            <div className="commu-post bg-slate-50" key={index}>
+              <div className="commu-post-topic"> {post.title ?? "No Title"} </div>
+              <div className="commu-post-detail">{post.detail ?? "No detail"}</div>
+              <div className="commu-post-contact">
+                ช่องทางการติดต่อ :{" "}
+                <a href={post.contact } target="_blank">
+                  {post.contact ?? "No Contact"}
+                </a>
+              </div>
+            </div>
+          ))}
+        </div>
                 </div>
 
             </div>

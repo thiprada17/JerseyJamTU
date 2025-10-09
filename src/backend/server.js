@@ -55,13 +55,15 @@ app.post('/add-user/register', async (req, res) => {
 app.post('/create/login', async (req, res) => {
   try {
     const { username, password } = req.body;
+
+    //ดึง password ผู้ใช้ที่ตรงกับ username
     const { data, error } = await supabase
       .from('users')
-      .select('password')
+      .select('*')
       .eq('username', username)
 
-    console.log("Supabase result:", data)
-    console.log("Supabase error:", error)
+    console.log("data :", data)
+    console.log("error:", error)
 
     if (!data) {
       return res.status(401).json({
@@ -77,7 +79,10 @@ app.post('/create/login', async (req, res) => {
       });
     }
 
-    res.json({ success: true, message: "Login successful" });
+    res.json({ 
+      success: true, 
+      message: "Login successful" , 
+      data: data[0]});
 
   } catch (error) {
     console.error(error);
