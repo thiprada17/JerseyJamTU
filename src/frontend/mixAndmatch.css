@@ -1,8 +1,13 @@
+@font-face {
+  font-family: 'Kanit';
+  src: url('./main/Kanit-Regular.ttf');
+}
+
 .mixandmatch-container {
   position: relative;
   width: 100%;
   height: 100vh;
-  background-image: url("../assets/m&m-bg.png"); /* ใส่รูป background จริง */
+  background-image: url("../assets/m&m-bg.png");
   background-repeat: no-repeat;
   background-size: cover;
   overflow: hidden;
@@ -10,8 +15,7 @@
 
 .frame {
   position: absolute;
-  background-color: #e5e7eb; 
-  /* border: 1.2rem solid #fff;  */
+  background-color: #e5e7eb;
   border-top: 1rem solid #fff;
   border-left: 1rem solid #fff;
   border-right: 1rem solid #fff;
@@ -23,58 +27,157 @@
   justify-content: center;
   overflow: hidden;
   transition: transform 0.2s ease;
+
 }
 
 .frame:hover {
   transform: scale(1.05);
 }
 
-.frame-img {
+.img-wrapper {
   width: 100%;
   height: 100%;
-  max-width: 100%;
-  max-height: 100%;
-  object-fit: cover;
-  border-radius: 0.25rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: transparent;
 }
+
+.frame-img {
+  max-width: 120%;
+  max-height: 120%;
+  width: auto;
+  height: auto;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  border-radius: 0.25rem;
+  /* transform: scale(1.2);  */
+}
+
+
 .frame1ass {
-  width: 20rem;  
-  height: 25rem; 
+  width: 20rem;
+  height: 25rem;
   top: 2.5rem;
-  left: 17rem; 
+  left: 17rem;
 }
 
 .frameShirt {
   width: 34rem;
   height: 24rem;
   top: 5rem;
-  left: 57rem; 
+  left: 57rem;
 }
 
 .frameLeg {
   width: 29rem;
   height: 40rem;
   top: 30rem;
-  left: 59rem; 
+  left: 59rem;
 }
 
 .frame2ass {
-  width: 20rem;  
-  height: 25rem; 
+  width: 20rem;
+  height: 25rem;
   top: 25rem;
-  right: 32rem; 
+  right: 32rem;
 }
 
 .frameShoe {
   width: 26rem;
   height: 15rem;
   bottom: 6rem;
-  right: 41rem; 
+  right: 41rem;
 }
 
 .frame3ass {
   width: 17rem;
   height: 20rem;
   bottom: 10rem;
-  left: 37rem; 
+  left: 37rem;
+}
+
+.mam-btn {
+  position: absolute;
+  bottom: 2rem;
+  left: 2rem;
+  background-color: #C02C38;
+  color: white;
+  border: none;
+  border-radius: 999px;
+  padding: 12px 18px;
+  font-size: 2rem;
+  font-weight: 1000;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: all 0.2s ease;
+  z-index: 999;
+  font-family: 'Kanit', sans-serif;
+  }
+
+.mam-btn:hover {
+  background-color: #9f2f2f;
+  transform: translateY(-10%) scale(1.05);
+}
+
+.confirm-popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.3);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1001;
+}
+
+.confirm-box {
+  background: #fff;
+  padding: 3rem 3rem;
+  border-radius: 2rem;
+  text-align: center;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  animation: popIn 0.3s ease;
+  font-family: 'Kanit', sans-serif;
+}
+
+.confirm-box p {
+  margin-bottom: 15px;
+  font-size: 2rem;
+  color: #333;
+}
+
+.confirm-btns {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+}
+
+.confirm-btns button {
+  background-color: #fff4df;
+  border: none;
+  border-radius: 12px;
+  padding: 8px 18px;
+  font-size: 1.5rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.confirm-btns button:hover {
+  background-color: #e3ba6d;
+  color: white;
+}
+
+@keyframes popIn {
+  from {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
 }

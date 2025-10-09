@@ -19,25 +19,49 @@ export default function Closetmm() {
   useEffect(() => {
     console.log("Closetmm mount, location.state:", location.state);
   }, []);
+// พี่ขอเก็บไว้ก่อนนะ
+  // useEffect(() => {
+  //   if (category === "Jersey") {
+  //     async function fetchShirts() {
+  //       try {
+  //         const response = await fetch(`http://localhost:8000/shirt/info/get`);
+  //         if (!response.ok) throw new Error("Failed to fetch shirt info");
+  //         const data = await response.json();
+  //         setItems(data);
+  //       } catch (error) {
+  //         console.error("Closetmm fetch error:", error);
+  //         setItems([]);
+  //       }
+  //     }
+  //     fetchShirts();
+  //   } else {
+  //     setItems([]);
+  //   }
+  // }, [category]);
 
   useEffect(() => {
-    if (category === "Jersey") {
-      async function fetchShirts() {
-        try {
+    async function fetchItems() {
+      try {
+        if (category === "Jersey") {
           const response = await fetch(`http://localhost:8000/shirt/info/get`);
           if (!response.ok) throw new Error("Failed to fetch shirt info");
           const data = await response.json();
           setItems(data);
-        } catch (error) {
-          console.error("Closetmm fetch error:", error);
-          setItems([]);
+        } else {
+          let folderName = category;
+          const response = await fetch(`http://localhost:8000/category/${folderName}/info/get`);
+          if (!response.ok) throw new Error("Failed to fetch images from storage");
+          const data = await response.json();
+          setItems(data);
         }
+      } catch (error) {
+        console.error("Closetmm fetch error:", error);
+        setItems([]);
       }
-      fetchShirts();
-    } else {
-      setItems([]);
     }
+    fetchItems();
   }, [category]);
+
 
   const handleSelect = (imageUrl) => {
     console.log("Closetmm: handleSelect for frameId", frameId, "imageUrl:", imageUrl);
@@ -99,15 +123,15 @@ export default function Closetmm() {
       <div className="closet-right">
         <div className="closet-grid">
           {items.length === 0 && <h1 className="closet-title">ยังมะมีรูปจ้า</h1>}
-          {items.map((item) => (
+          {items.map((item, index) => (
             <div
               className="closet-item"
-              key={item.id}
+              key={item.id || index}
               onClick={() =>
-                handleSelect(item.shirt_pic || item.image_url || item.url || "")
+                handleSelect(item.url || item.shirt_pic)
               }
             >
-              <img src={item.shirt_pic} alt={item.shirt_name} />
+              <img src={item.url || item.shirt_pic} alt={item.shirt_name || item.name} />
             </div>
           ))}
         </div>

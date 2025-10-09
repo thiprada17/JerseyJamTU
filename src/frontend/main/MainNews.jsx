@@ -47,17 +47,20 @@ const NextArrow = ({ onClick }) => (
 );
 
 export default function MainNews() {
-  const settings = {
-    centerMode: true,
-    centerPadding: "0px",
-    slidesToShow: 3,
-    infinite: true,
-    speed: 500,
-    arrows: true,
-    prevArrow: <PrevArrow />,
-    nextArrow: <NextArrow />,
-    focusOnSelect: true,
-  };
+const settings = {
+  centerMode: true,
+  centerPadding: "0px",
+  slidesToShow: 3,
+  infinite: true,
+  speed: 500,
+  arrows: true,
+  prevArrow: <PrevArrow />,
+  nextArrow: <NextArrow />,
+  focusOnSelect: true,
+  autoplay: true,
+  autoplaySpeed: 3000,  
+  pauseOnHover: true,
+};
 
   const slides = [
     { id: 1, img: news1 },

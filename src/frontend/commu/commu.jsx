@@ -1,6 +1,7 @@
 import { useRef, useEffect } from "react";
 import { useState } from "react";
 import { Link } from 'react-router-dom';
+import axios from "axios";
 import "./commu.css";
 import viewBg from "../../assets/view-bg.png";
 import popup from "../../assets/popup-commu.png";
@@ -43,7 +44,7 @@ export default function Commu() {
 
         <div className="commu-grid">
           {posts.map((post, index) => (
-            <div className="commu-post bg-slate-50" key={index}>
+            <div className="commu-post bg-slate-50" key={post.post_id}>
               <div className="commu-post-topic"> {post.title ?? "No Title"} </div>
               <div className="commu-post-detail">{post.detail ?? "No detail"}</div>
               <div className="commu-post-contact">

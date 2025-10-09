@@ -19,6 +19,7 @@
     "dotenv": "^17.2.2",
     "express": "^5.1.0",
     "flowbite": "^3.1.2",
+    "html2canvas": "^1.4.1",
     "react": "^19.1.1",
     "react-bootstrap": "^2.10.10",
     "react-dom": "^19.1.1",
