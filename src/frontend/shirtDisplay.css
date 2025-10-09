@@ -62,15 +62,32 @@
 .shirtDisplay-left {
   flex: 1;
   max-width: 50%;
+  position: relative;
 }
 
 .shirtDisplay-title {
-  font-size: 5rem;
+  font-size: 4rem;
   font-weight: bold;
   margin-bottom: 1rem;
   font-family: 'Cooper', sans-serif;
 }
 
+.shirtDisplay-heartButton {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: none;
+  border: none;
+  font-size: 5rem;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+  padding: 0;
+  z-index: 10;
+}
+
+.shirtDisplay-heartButton.active {
+  transform: scale(1.1);
+}
 .shirtDisplay-priceWrapper {
   display: flex;
   font-family: 'Cooper', sans-serif;
@@ -122,7 +139,7 @@
   border: 1px solid #ccc;
   background-color: #fff6ee;
   color: #333;
-  font-size: 1.2rem;
+  font-size: 2rem;
   padding: 1.25rem;
   height: 25rem;
   margin-bottom: 1.5rem;
