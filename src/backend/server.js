@@ -67,26 +67,30 @@ app.post('/create/login', async (req, res) => {
     //ดึง password ผู้ใช้ที่ตรงกับ username
     const { data, error } = await supabase
       .from('users')
-      .select('user_id, username, password')
+      .select('user_id, username, password, faculty, year')
       .eq('username', username)
 
     console.log("data :", data)
     console.log("error:", error)
 
-    if (!data) {
+    if (!data || data.length === 0) {
       return res.status(401).json({ message: 'User not found' });
     }
 
     const user = data[0];
 
-    if (data.password !== password) {
+    if (user.password !== password) {
       return res.status(401).json({ message: 'Incorrect password' });
     }
 
     res.json({
       success: true,
-      user: { user_id: user.user_id,
-      username: user.username }
+      user: { 
+        user_id: user.user_id,
+        username: user.username,
+        faculty: user.faculty,
+        year: user.year
+      }
     });
 
   } catch (error) {
@@ -132,6 +136,78 @@ app.get('/commu/get', async (req, res) => {
     res.status(500).json({ error: 'Internal server error' })
   }
 })
+
+//Profile: 
+
+//Profile: get post from commu
+app.get('/commu/get/by-user/:user_id', async (req, res) => {
+  try {
+    const user_id = Number(req.params.user_id);
+    const { data, error } = await supabase
+      .from('commuPost')
+      .select('post_id, title, detail, contact, user_id')
+      .eq('user_id', user_id)
+      .order('post_id', { ascending: false });
+
+    if (error) return res.status(500).json({ error: error.message });
+    res.json(data);
+  } catch (err) {
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+//Profile: edit post
+app.put('/commu/post/:post_id', async (req, res) => {
+  try {
+    const post_id = Number(req.params.post_id);
+    const { title, detail, contact, user_id } = req.body;
+    const uid = Number(user_id);
+
+    if (!uid) {
+      return res.status(400).json({ error: 'user_id is required' });
+    }
+
+    const { data, error } = await supabase
+      .from('commuPost')
+      .update({ title, detail, contact })
+      .eq('post_id', post_id)
+      .eq('user_id', uid)
+      .select();
+
+    if (error) return res.status(500).json({ error: error.message });
+    if (!data || data.length === 0) {
+      return res.status(403).json({ error: 'Not found or not the owner' });
+    }
+
+    res.json({ success: true, data: data[0] });
+  } catch (err) {
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+//Profile: delete post
+app.delete('/commu/delete/:post_id', async (req, res) => {
+  try {
+    const post_id = Number(req.params.post_id);
+    const { user_id } = req.body;
+    const uid = Number(user_id);
+
+    if (!uid) {
+      return res.status(400).json({ error: 'user_id is required' });
+    }
+
+    const { error } = await supabase
+      .from('commuPost')
+      .delete()
+      .eq('post_id', post_id)
+      .eq('user_id', uid);
+
+    if (error) return res.status(500).json({ error: error.message });
+    res.json({ success: true });
+  } catch (err) {
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
 
 app.get('/shirt/info/get', async (req, res) => {
   try {

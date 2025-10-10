@@ -1,15 +1,31 @@
 import "./commuForm.css";
-import { useState } from "react";
-import { useNavigate } from 'react-router-dom';
+import { useState, useEffect } from "react";
+import { useNavigate, useLocation } from 'react-router-dom';
 import axios from "axios";
 
 export default function CommuForm() {
   const navigate = useNavigate();
+  const location = useLocation();
+  const isEdit = location.state?.mode === "edit";
+  const editingPost = location.state?.post || null;
+  const user = JSON.parse(localStorage.getItem("user") || "{}");
+  const user_id = Number(user?.user_id);
+
   const [formData, setFormData] = useState({
     title: '',
     detail: '',
     contact: ''
   });
+
+  useEffect(() => {
+    if (isEdit && editingPost) {
+      setFormData({
+        title: editingPost.title || '',
+        detail: editingPost.detail || '',
+        contact: editingPost.contact || ''
+      });
+    }
+  }, [isEdit, editingPost]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -17,33 +33,42 @@ export default function CommuForm() {
   };
 
   const handleSubmit = async (e) => {
-  e.preventDefault();
-  try {
-    const currentUser = JSON.parse(localStorage.getItem('user'));
-    const userId = Number(currentUser?.user_id);
-    if (!userId) {
-      alert('กรุณาเข้าสู่ระบบก่อนโพสต์');
+    e.preventDefault();
+  if (!user_id) {
+      alert("กรุณาเข้าสู่ระบบก่อนโพสต์/แก้ไข");
       return;
     }
 
-    const payload = { ...formData, user_id: userId };
-    const commu_response = await axios.post('http://localhost:8000/commu/post', payload);
+    try {
+      if (isEdit && editingPost?.post_id) {
+        await axios.put(`http://localhost:8000/commu/post/${editingPost.post_id}`, {
+          ...formData,
+          user_id
+        });
+        alert("แก้ไขโพสต์สำเร็จ!");
+      } else {
+        await axios.post('http://localhost:8000/commu/post', {
+          ...formData,
+          user_id
+        });
+        alert("โพสต์สำเร็จ!");
+      }
 
-    alert("โพสต์สำเร็จ!");
-    setTimeout(() => navigate('/commu'), 500);
-  } catch (error) {
-    console.error(error);
-    alert("ERROR!!\nไม่สามารถสร้างโพสต์ได้");
-  }
-};
+      setTimeout(() => {
+        navigate('/userprofile');
+      }, 400);
 
-
-
+    } catch (error) {
+      console.error(error);
+      alert("ERROR!!\nโพสต์ไม่สำเร็จ");
+    }
+  };
 
   return (
     <div className="form-body">
       <div className="form-box">
-        <h2 className="form-header">Create Post</h2>
+        <h2 className="form-header">{isEdit ? "Edit Post" : "Create Post"}</h2>
+
         <form onSubmit={handleSubmit}>
           <div className="form">
             <label className="form-label">หัวข้อโพสต์</label>
@@ -53,6 +78,7 @@ export default function CommuForm() {
               type="text"
               placeholder="Rockstar Jersey, TU Jersey…"
               onChange={handleChange}
+              value={formData.title}
               required
             />
           </div>
@@ -65,6 +91,7 @@ export default function CommuForm() {
               placeholder="เสื้อเจอร์ซีย์สำหรับคนคูล ๆ เย็นสบาย…"
               rows="3"
               onChange={handleChange}
+              value={formData.detail}
               required
             />
           </div>
@@ -77,12 +104,15 @@ export default function CommuForm() {
               type="url"
               placeholder="https://www.facebook.com/"
               onChange={handleChange}
+              value={formData.contact}
               required
             />
           </div>
 
           <div style={{ textAlign: "center" }}>
-            <button className="submit-btn" type="submit">SUBMIT</button>
+            <button className="submit-btn" type="submit">
+              {isEdit ? "UPDATE" : "SUBMIT"}
+            </button>
           </div>
         </form>
       </div>

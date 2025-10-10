@@ -310,3 +310,85 @@
         opacity: 0;
     }
 }
+
+/* ขอคลอดปุ่มหน่อยน้า */
+.up-post-actions {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.up-btn {
+  font-family: 'Kanit', sans-serif;
+  font-size: 1.6rem;
+  line-height: 1;
+  padding: 0.9rem 1.6rem;
+  border-radius: 14px;
+  border: 2px solid #000;
+  background: #FFF4DF;
+  cursor: pointer;
+  transition: transform .08s ease, box-shadow .12s ease, background .12s ease;
+  user-select: none;
+}
+
+.up-btn:active {
+  transform: translateY(1px);
+  box-shadow: none;
+}
+
+.up-post-edit {
+  background: #FFF4DF;         
+  box-shadow: 2px 3px 0 #000;
+}
+
+.up-post-edit:hover {
+  background: #ffe9bf;
+}
+
+.up-post-delete {
+  background: #ffe5e5;      
+  box-shadow: 2px 3px 0 #000;
+}
+
+.up-post-delete:hover {
+  background: #ffd1d1;
+}
+
+.up-post-edit:disabled,
+.up-post-delete:disabled,
+.up-btn:disabled {
+  opacity: .6;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+@media (max-width: 640px) {
+  .up-btn {
+    font-size: 1.4rem;
+    padding: 0.8rem 1.2rem;
+  }
+}
+
+.up-loading,
+.up-error,
+.up-empty {
+  text-align: center;
+  font-family: 'Kanit', sans-serif;
+  font-size: 1.8rem;
+  padding: 2rem 0;
+}
+
+.up-error {
+  color: #DF2D3B;
+}
+
+@media (max-width: 1200px) {
+  .up-fav-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (max-width: 768px) {
+  .up-fav-grid {
+    grid-template-columns: 1fr;
+  }
+}

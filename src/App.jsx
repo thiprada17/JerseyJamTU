@@ -19,6 +19,10 @@ import Display from './frontend/ShirtDisplay';
 import Sellerform from './frontend/sellerform';
 import MixAndMatch from './frontend/MixAndMatch';
 import Closet from './frontend/Closetmm';
+import UserProfile from './frontend/user-profile/user-profile';
+
+
+
 function App() {
 
   return (
