@@ -47,7 +47,7 @@ export default function Login({ scrollToHome, scrollToSignup }) {
         console.log(data)
 
         if (data.success) {
-          const user = data.data;
+          const user = data.user;
 
 
           localStorage.setItem("user_id", user.user_id);
