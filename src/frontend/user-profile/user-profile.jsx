@@ -10,7 +10,7 @@ import Toast from "../component/Toast.jsx";
 
 export default function UserProfile() {
     const navigate = useNavigate();
-
+  const user_id = localStorage.getItem("user_id");
     const username = localStorage.getItem("username")
     const faculty = localStorage.getItem("faculty")
     const year = localStorage.getItem("year")
