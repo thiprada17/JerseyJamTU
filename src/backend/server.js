@@ -425,22 +425,22 @@ app.get('/category/:folder/info/get', async (req, res) => {
 //   }
 // });
 
-// // commu get
-// app.get('/commu/get', async (req, res) => {
-//   try {
-//     const [results] = await conn.query('SELECT * FROM commupost');
+// commu get
+app.get('/commu/get', async (req, res) => {
+  try {
+    const [results] = await conn.query('SELECT * FROM commupost');
 
-//     res.json(results)
-//     // console.log(results)
+    res.json(results)
+    console.log(results)
 
-//   } catch (error) {
-//     console.error(error);
-//     res.status(500).json({
-//       message: "Error while fetching posts",
-//       errorMessage: error.message
-//     });
-//   }
-// });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({
+      message: "Error while fetching posts",
+      errorMessage: error.message
+    });
+  }
+});
 
 
 const port = 8000;
