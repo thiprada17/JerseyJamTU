@@ -8,8 +8,7 @@ export default function CommuForm() {
   const location = useLocation();
   const isEdit = location.state?.mode === "edit";
   const editingPost = location.state?.post || null;
-  const user = JSON.parse(localStorage.getItem("user") || "{}");
-  const user_id = Number(user?.user_id);
+  const user_id = Number(localStorage.getItem("user_id"));
 
   const [formData, setFormData] = useState({
     title: '',
