@@ -316,42 +316,51 @@
   display: flex;
   gap: 1rem;
   margin-top: 1rem;
+    justify-content: flex-end;
 }
 
 .up-btn {
   font-family: 'Kanit', sans-serif;
-  font-size: 1.6rem;
-  line-height: 1;
-  padding: 0.9rem 1.6rem;
+  font-size: 1.8rem;
+  padding: 1rem 2.2rem;
   border-radius: 14px;
-  border: 2px solid #000;
-  background: #FFF4DF;
+  border: 2px solid #000; 
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
   cursor: pointer;
-  transition: transform .08s ease, box-shadow .12s ease, background .12s ease;
-  user-select: none;
+  transition: all 0.2s ease;
+  box-shadow: 2px 4px 0 rgba(0, 0, 0, 0.5);
+  text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.5);
+  letter-spacing: 0.5px;
+}
+
+.up-post-edit {
+  background-color: #fff7d6;
+  color: #2f2f2f;
+}
+
+.up-post-edit:hover {
+    background-color: #ffecb3;
+  transform: translateY(-2px);
+  box-shadow: 2px 6px 10px rgba(0, 0, 0, 0.2);
+}
+
+.up-post-delete {
+  background-color: #ff6b6b;
+  color: white;
+}
+
+.up-post-delete:hover {
+  background-color: #fa5252;
+  transform: translateY(-2px);
+  box-shadow: 2px 6px 10px rgba(0, 0, 0, 0.2);
 }
 
 .up-btn:active {
   transform: translateY(1px);
   box-shadow: none;
-}
-
-.up-post-edit {
-  background: #FFF4DF;         
-  box-shadow: 2px 3px 0 #000;
-}
-
-.up-post-edit:hover {
-  background: #ffe9bf;
-}
-
-.up-post-delete {
-  background: #ffe5e5;      
-  box-shadow: 2px 3px 0 #000;
-}
-
-.up-post-delete:hover {
-  background: #ffd1d1;
 }
 
 .up-post-edit:disabled,
