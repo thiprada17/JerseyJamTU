@@ -21,6 +21,8 @@ import MixAndMatch from './frontend/MixAndMatch';
 import Closet from './frontend/Closetmm';
 import UserProfile from './frontend/user-profile/user-profile';
 
+import SevenDayMatch from './frontend/main/News/sevenDayMatch';
+
 
 
 function App() {
@@ -42,6 +44,8 @@ function App() {
           {/* <Route path="/" element={<SignIn />} />
           <Route path="/signup" element={<SignUp />} /> */}
           <Route path='/userprofile' element = {<UserProfile />} />
+          <Route path='/sevenDayMatch' element = {<SevenDayMatch />} />
+          
         </Routes>
       </Router>
 
