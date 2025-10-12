@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 export default function ShirtDisplay() {
     const navigate = useNavigate();
     const location = useLocation();
+      const user_id = localStorage.getItem("user_id");
     const { id } = location.state;
     console.log(id)
 
@@ -46,6 +47,8 @@ export default function ShirtDisplay() {
         setIsFavorited(!isFavorited);
 
 const favData = {
+user_id: user_id,
+  shirt_id: shirtData.id,
   shirt_name: shirtData.shirt_name,
   shirt_pic: shirtData.shirt_pic
 };
