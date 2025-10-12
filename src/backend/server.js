@@ -31,7 +31,8 @@ const supabaseUrl = 'https://zdhjexmsbgozpxroeaud.supabase.co';
 const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpkaGpleG1zYmdvenB4cm9lYXVkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTgxODU3NTUsImV4cCI6MjA3Mzc2MTc1NX0.E_NmaPHl2jK_h8CTHqzfF5K8cTUMehs7Bf9nHdjLizM";
 const supabaseServiceRoleKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpkaGpleG1zYmdvenB4cm9lYXVkIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc1ODE4NTc1NSwiZXhwIjoyMDczNzYxNzU1fQ.y2rLVTGLD5anVMLup17ib5RqS7XrekDr4XVE8Pa2kts';
 if (!supabaseServiceRoleKey) {
-  console.error("⚠️ SUPABASE_SERVICE_ROLE_KEY is missing. Please set it in your .env file!");}
+  console.error("⚠️ SUPABASE_SERVICE_ROLE_KEY is missing. Please set it in your .env file!");
+}
 const supabase = createClient(supabaseUrl, supabaseKey)
 const supabaseAdmin = createClient(supabaseUrl, supabaseServiceRoleKey); // admin client for private buckets ka man pen public fake
 
@@ -85,7 +86,7 @@ app.post('/create/login', async (req, res) => {
 
     res.json({
       success: true,
-      user: { 
+      user: {
         user_id: user.user_id,
         username: user.username,
         faculty: user.faculty,
@@ -262,7 +263,7 @@ app.post('/shirt/info/post', async (req, res) => {
       shirt_close_date,
       shirt_detail,
       shirt_url,
-      shirt_pic 
+      shirt_pic
     } = req.body;
 
     const { data, error } = await supabase
@@ -286,6 +287,39 @@ app.post('/shirt/info/post', async (req, res) => {
     res.json({ message: 'Shirt info added successfully', data });
   } catch (err) {
     console.error('Unexpected error:', err);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+app.post('/shirt/fav/post', async (req, res) => {
+  try {
+    console.log('Insert shirt info:', req.body);
+
+    const {
+      shirt_name,
+      shirt_pic,
+      user_id,
+      shirt_id
+    } = req.body;
+
+    const { data, error } = await supabase
+      .from('favShirt')
+      .insert([{
+        shirt_name,
+        shirt_pic,
+        user_id,
+        shirt_id
+      }])
+      .select();
+
+    if (error) {
+      console.error('Supabase insert error:', error);
+      return res.status(500).json({ error: error.message });
+    }
+
+    res.json({ message: 'Shirt info added yayy', data });
+  } catch (err) {
+    console.error('error:', err);
     res.status(500).json({ error: 'Internal server error' });
   }
 });

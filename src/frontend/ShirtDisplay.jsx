@@ -23,7 +23,7 @@ export default function ShirtDisplay() {
                 });
 
                 const data = await response.json();
-                setshirtData(data);
+                setshirtData(data[0]);
 
                 console.log(data);
             } catch (error) {
@@ -42,8 +42,26 @@ export default function ShirtDisplay() {
 
     const [isFavorited, setIsFavorited] = useState(false);
 
-    const toggleFavorite = () => {
+    const toggleFavorite = async () => {
         setIsFavorited(!isFavorited);
+
+const favData = {
+  shirt_name: shirtData.shirt_name,
+  shirt_pic: shirtData.shirt_pic
+};
+        try {
+            const response = await fetch("http://localhost:8000/shirt/fav/post", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(favData)
+      });
+
+            const data = await response.json();
+
+            console.log(data);
+        } catch (error) {
+            console.error("Error fetching posts:", error);
+        }
     };
 
 
@@ -54,7 +72,7 @@ export default function ShirtDisplay() {
                     &lt; back
                 </button>
             </div>
-            {shirtData.map((shirtData) => (
+            {shirtData && (
                 <div className="shirtDisplay-container" key={shirtData.id}>
 
                     <div className="shirtDisplay-wrapper">
@@ -118,7 +136,7 @@ export default function ShirtDisplay() {
                         </div>
                     </div>
                 </div>
-            ))}
+            )}
         </>
     );
 
