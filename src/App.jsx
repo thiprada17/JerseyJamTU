@@ -23,6 +23,7 @@ import UserProfile from './frontend/user-profile/user-profile';
 
 import SevenDayMatch from './frontend/main/News/sevenDayMatch';
 import JerseyWith from './frontend/main/News/jerseyWith';
+import CollarJersey from './frontend/main/News/collarJersey';
 
 
 
@@ -47,7 +48,8 @@ function App() {
           <Route path='/userprofile' element = {<UserProfile />} />
           <Route path='/sevenDayMatch' element = {<SevenDayMatch />} />
           <Route path='/jerseyWith' element = {<JerseyWith />} />
-          
+          <Route path='/collarJersey' element = {<CollarJersey />} />
+
         </Routes>
       </Router>
 
