@@ -22,6 +22,7 @@ import Closet from './frontend/Closetmm';
 import UserProfile from './frontend/user-profile/user-profile';
 
 import SevenDayMatch from './frontend/main/News/sevenDayMatch';
+import JerseyWith from './frontend/main/News/jerseyWith';
 
 
 
@@ -45,6 +46,7 @@ function App() {
           <Route path="/signup" element={<SignUp />} /> */}
           <Route path='/userprofile' element = {<UserProfile />} />
           <Route path='/sevenDayMatch' element = {<SevenDayMatch />} />
+          <Route path='/jerseyWith' element = {<JerseyWith />} />
           
         </Routes>
       </Router>
