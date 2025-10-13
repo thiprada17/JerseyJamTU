@@ -61,7 +61,7 @@ export default function personalcolor() {
         <div className="perC-from">
           <span className="perC-from1">แหล่งที่มา</span>
           <br />
-          <span className="perC*from2">สีเสื้อมงคล 2568 แจกตารางสีเสริมดวงดี รับทรัพย์ เพิ่มความปังตลอดปี! - phusuda </span>
+          <span className="perC*from2">ชวนเช็ก Personal Color หาโทนสีประจำตัวที่ใช่ จะแต่งลุคไหนก็เกิด! - cosmenet</span>
         </div>
         {/*Footer*/}
         <footer className="perC-footer">

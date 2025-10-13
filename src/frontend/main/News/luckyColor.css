@@ -1,0 +1,298 @@
+@font-face {
+  font-family: "Kanit";
+  src: url("Kanit-Regular.ttf");
+}
+
+@font-face {
+  font-family: "KanitB";
+  src: url("Kanit-Bold.ttf");
+}
+
+@font-face {
+  font-family: "KanitM";
+  src: url("Kanit-Medium.ttf");
+}
+
+@font-face {
+  font-family: "KanitS";
+  src: url("Kanit-SemiBold.ttf");
+}
+
+.LuckyC-blog-container {
+  font-family: "Prompt", sans-serif;
+  background-color: #fffef8;
+  color: #111;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+/*Top Bar*/
+.LuckyC-top-bar {
+  width: 100%;
+  height: 107px;
+  background-color: #d7eef6;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  border-bottom: 2px solid #c02c38;
+  box-sizing: border-box;
+}
+
+.LuckyC-top {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+}
+
+.LuckyC-bar {
+  width: 100%;
+  max-width: 2000px;
+  height: 30px;
+  display: flex;
+  margin-left: 3%;
+  margin-right: 3%;
+  border: 2px solid #c02c38;
+  background-color: #fdf8f0;
+  box-sizing: border-box;
+  border-radius: 20px;
+  position: relative;
+}
+
+.LuckyC-bar-by {
+  width: 50%;
+  height: 100%;
+  display: flex;
+  background-color: #df2d3b;
+  box-sizing: border-box;
+  border-radius: 20px;
+  position: absolute;
+  right: 100;
+  align-items: center;
+  margin-left: 50%;
+}
+
+/*ปุ่ม*/
+.LuckyC-home-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background-color: #ffd3d3;
+  cursor: pointer;
+  margin-right: 3%;
+}
+
+.LuckyC-btn-icon {
+  display: flex;
+  align-items: center;
+  width: 50%;
+  aspect-ratio: 1 / 1;
+  max-width: 60px;
+  height: 60px;
+}
+
+.LuckyC-home-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background-color: #ffd3d3;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.LuckyC-home-btn.animate {
+  animation: bounce 0.4s ease;
+}
+
+@keyframes bounce {
+  0% {
+    transform: scale(1);
+  }
+  30% {
+    transform: scale(1.2);
+  }
+  60% {
+    transform: scale(0.9);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/*------------------------*/
+
+/*Content*/
+.LuckyC-post-on {
+  font-family: "KanitS";
+  color: #000000;
+  font-size: 17px;
+  margin-left: 15px;
+  margin-right: 15px;
+}
+
+.LuckyC-expost-on {
+  font-family: "KanitM";
+  color: #000000;
+  font-size: 17px;
+}
+
+.LuckyC-by {
+  font-family: "KanitS";
+  color: #ffffff;
+  font-size: 17px;
+  margin-left: 15px;
+  margin-right: 15px;
+}
+
+.LuckyC-exby {
+  font-family: "KanitM";
+  color: #ffffff;
+  font-size: 17px;
+}
+/*-----------------------*/
+/*---------------------------*/
+
+/*Body*/
+.LuckyC-content {
+  text-align: center;
+  margin-top: 20px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.LuckyC-header-img {
+  width: 100%;
+  max-width: 812px;
+  height: 402px;
+  border-radius: 31px;
+  box-shadow: 0 3px 9px rgba(0, 0, 0, 0.1);
+  display: block;
+  margin: auto;
+}
+
+/*Blog Title*/
+.LuckyC-blog-title1 {
+  font-family: "KanitB";
+  color: #000000;
+  margin-top: 50px;
+  font-size: 70px;
+  line-height: 1.3;
+  text-align: center;
+}
+
+.LuckyC-blog-topic {
+    text-align: left;
+    font-family: 'kanitM';
+    color: #DF2D3B;
+    font-size: 3rem;
+    padding-left: 4rem;
+    padding-right: 2rem;
+    margin-top: 2rem;
+}
+
+.LuckyC-blog-content{
+    text-align: left;
+    font-family: 'kanit';
+
+    font-size: 1.5rem;
+    padding-left: 4rem;
+    padding-right: 4rem;
+    padding-bottom: 2rem;
+}
+
+ul.LuckyC-blog-content {
+  list-style-type:circle;
+  color: #000000;
+margin-left: 4rem;
+}
+
+/*-----------------------*/
+
+.LuckyC-style-section {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.LuckyC-style-item {
+  position: relative;
+  max-width: 700px;
+  width: 100%;
+}
+
+.LuckyC-style-img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 10px;
+}
+
+/*Day*/
+.LuckyC-day-list {
+  position: absolute;
+  bottom: 50px;
+  right: -60px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.LuckyC-day {
+  font-family: "KanitM";
+  color: #000000;
+  border-radius: 20px;
+  text-align: center;
+  border: 2px solid #000000;
+  font-size: 12px;
+}
+
+
+/*แหล่งที่มา*/
+.LuckyC-from {
+  position: relative;
+  text-align: left;
+  align-self: flex-start;
+  margin-left: 3%;
+  margin-bottom: 3%;
+}
+.LuckyC-from1 {
+  font-family: "KanitS";
+  color: #000000;
+  font-size: 32px;
+  line-height: 2;
+  position: relative;
+}
+
+.LuckyC-from2 {
+  font-family: "Kanit";
+  color: #000000;
+  font-size: 15px;
+  padding: 0 0 50px;
+}
+/*----------------------------------------*/
+
+/*Footer*/
+.LuckyC-footer {
+  width: 100%;
+  height: 97px;
+  background-color: #d7eef6;
+  text-align: left;
+  border-top: 2px solid #c02c38;
+}
+
+.LuckyC-logo {
+  font-family: "KanitB";
+  color: #e43333;
+  font-size: 64px;
+  margin-left: 2%;
+}
+/*--------------------------*/
+/*--------------------------------------------*/
