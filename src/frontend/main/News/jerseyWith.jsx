@@ -7,7 +7,7 @@ import jersey2 from "../../../assets/jersey2.png";
 import jersey3 from "../../../assets/jersey3.png";
 import jersey4 from "../../../assets/jersey4.png";
 
-export default function jerseyWith() {
+export default function JerseyWith() {
   const [clicked, setClicked] = useState(false);
 
   const handleClick = () => {

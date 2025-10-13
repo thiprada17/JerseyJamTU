@@ -24,6 +24,7 @@ import UserProfile from './frontend/user-profile/user-profile';
 import SevenDayMatch from './frontend/main/News/sevenDayMatch';
 import JerseyWith from './frontend/main/News/jerseyWith';
 import PersonalColor from './frontend/main/News/personalcolor';
+import CollarJersey from './frontend/main/News/collarJersey';
 
 
 
