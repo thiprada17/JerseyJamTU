@@ -217,7 +217,7 @@
 }
 
 .up-post-photo {
-    background-color: #525251;
+    background-color:#ffffff;
     height: 70rem;
     overflow: hidden;
     margin: 10px;
@@ -255,9 +255,13 @@
     justify-content: center;
 
     background-color: #FFF4DF;
-    width: 10rem;
-    border-radius: 25px;
+    width: 9rem;
+    border-radius: 22px;
     border: 1px solid black;
+
+    font-size: 1.2rem;
+    font-weight: 600;
+    padding: 0.4rem 0.6rem;
 
 }
 

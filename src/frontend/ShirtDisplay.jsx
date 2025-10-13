@@ -1,39 +1,39 @@
 import { useState, useEffect } from 'react';
 import './shirtDisplay.css';
 import defaultJerseyImage from '../assets/sampleShirt.png';
-import { useLocation } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 export default function ShirtDisplay() {
     const navigate = useNavigate();
     const location = useLocation();
     const user_id = localStorage.getItem("user_id");
-    const { id } = location.state;
+    const { id } = location.state || {};
     console.log(id)
 
+    useEffect(() => {
+        if (!id) {
+            navigate(-1);
+        }
+    }, [id, navigate]);
+
     const handleBack = () => {
-        navigate(-1); // ย้อนกลับไปอัน่ก่อน
+        navigate(-1); // ย้อนกลับไปอันก่อน
     };
-    const [shirtData, setshirtData] = useState([]);
+    const [shirtData, setshirtData] = useState({});
 
     useEffect(() => {
         const fetchPosts = async () => {
             try {
-                const response = await fetch(`http://localhost:8000/shirt/info/get/${id}`, {
-                    method: 'GET'
-                });
-
+                const response = await fetch(`http://localhost:8000/shirt/info/get/${id}`);
                 const data = await response.json();
-                setshirtData(data[0]);
-
-                console.log(data);
+                setshirtData(data[0] || {});
             } catch (error) {
                 console.error("Error fetching posts:", error);
             }
         };
 
         fetchPosts();
-    }, []);
+    }, [id]); 
 
 
 
@@ -46,6 +46,8 @@ export default function ShirtDisplay() {
     useEffect(() => {
         const CheckIsFavMai = async () => {
             try {
+                if (!user_id || !id) return;
+
                 const response = await fetch("http://localhost:8000/shirt/fav/check", {
                     method: "POST",
                     headers: {
@@ -64,21 +66,26 @@ export default function ShirtDisplay() {
             }
         };
         CheckIsFavMai();
-    }, []);
+    }, [id, user_id]);
 
     const toggleFavorite = async () => {
+        if (!user_id) {
+            alert("กรุณาเข้าสู่ระบบ");
+            return;
+        }
+        if (!id) return;
 
         const favData = {
             user_id: user_id,
-            shirt_id: shirtData.id,
+            shirt_id: id,
             shirt_name: shirtData.shirt_name,
             shirt_pic: shirtData.shirt_pic
         };
-
         const favdelData = {
             user_id: user_id,
-            shirt_id: shirtData.id,
+            shirt_id: id,
         };
+
         try {
             if (!isFavorited) {
                 const response = await fetch("http://localhost:8000/shirt/fav/post", {
@@ -86,26 +93,18 @@ export default function ShirtDisplay() {
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify(favData)
                 });
-
                 const data = await response.json();
-
                 console.log(data);
-
             } else {
                 const response = await fetch("http://localhost:8000/shirt/fav/del", {
                     method: "DELETE",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify(favdelData)
                 });
-
-
                 const data = await response.json();
-
                 console.log(data);
             }
-
             setIsFavorited(!isFavorited);
-
         } catch (error) {
             console.error("Fav posts:", error);
         }
