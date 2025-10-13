@@ -116,7 +116,6 @@ app.post('/commu/post', async (req, res) => {
     console.error('Supabase insert error:', error);
     return res.status(500).json({ error: error.message });
   }
-
   res.json({
     message: 'Insert Success',
     data: data
@@ -206,6 +205,30 @@ app.delete('/commu/delete/:post_id', async (req, res) => {
     if (error) return res.status(500).json({ error: error.message });
     res.json({ success: true });
   } catch (err) {
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+//Profile: fav jersey >> user profile
+app.get('/shirt/fav/get/:user_id', async (req, res) => {
+  try {
+    const uid = Number(req.params.user_id);
+    if (!uid) return res.status(400).json({ error: 'user_id is required' });
+
+    const { data, error } = await supabase
+      .from('favShirt')
+      .select('shirt_id, shirt_name, shirt_pic')
+      .eq('user_id', uid)
+      .order('fav_id', { ascending: false });
+
+    if (error) {
+      console.error('fav list error:', error);
+      return res.status(500).json({ error: error.message });
+    }
+
+    res.json(data || []);
+  } catch (err) {
+    console.error('error:', err);
     res.status(500).json({ error: 'Internal server error' });
   }
 });
@@ -318,6 +341,69 @@ app.post('/shirt/fav/post', async (req, res) => {
     }
 
     res.json({ message: 'Shirt info added yayy', data });
+  } catch (err) {
+    console.error('error:', err);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+app.delete('/shirt/fav/del', async (req, res) => {
+  try {
+    console.log('Del shirt info:', req.body);
+
+    const {
+      user_id,
+      shirt_id
+    } = req.body;
+
+
+    const { error } = await supabase
+      .from('favShirt')
+      .delete()
+      .eq('user_id', Number(user_id))
+      .eq('shirt_id', Number(shirt_id));
+
+
+    if (error) {
+      console.error('delete error:', error);
+      return res.status(500).json({ error: error.message });
+    }
+
+    res.json({ message: 'Shirt info delete T T' });
+  } catch (err) {
+    console.error('error:', err);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+app.post('/shirt/fav/check', async (req, res) => {
+  try {
+    console.log('shirt info:', req.body);
+
+    const {
+      user_id,
+      shirt_id
+    } = req.body;
+
+    const { data, error } = await supabase
+      .from('favShirt')
+      .select('*')
+      .eq('user_id', Number(user_id))
+      .eq('shirt_id', Number(shirt_id));
+
+    if (error) {
+      console.error('checck error:', error);
+      return res.status(500).json({ error: error.message });
+    }
+
+    console.log("check data " + data.length)
+
+    if (data.length != 0) {
+      res.json(true); 
+    } else {
+      res.json(false);
+    }
+
   } catch (err) {
     console.error('error:', err);
     res.status(500).json({ error: 'Internal server error' });
@@ -460,21 +546,21 @@ app.get('/category/:folder/info/get', async (req, res) => {
 // });
 
 // commu get
-app.get('/commu/get', async (req, res) => {
-  try {
-    const [results] = await conn.query('SELECT * FROM commupost');
+//app.get('/commu/get', async (req, res) => {
+//  try {
+//    const [results] = await conn.query('SELECT * FROM commupost');
 
-    res.json(results)
-    console.log(results)
+//    res.json(results)
+//    console.log(results)
 
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({
-      message: "Error while fetching posts",
-      errorMessage: error.message
-    });
-  }
-});
+//  } catch (error) {
+//    console.error(error);
+//    res.status(500).json({
+//      message: "Error while fetching posts",
+//      errorMessage: error.message
+//    });
+//  }
+//});
 
 
 const port = 8000;

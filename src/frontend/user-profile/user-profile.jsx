@@ -29,6 +29,8 @@ export default function UserProfile() {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [favLoading, setFavLoading] = useState(false);
+  const [favError, setFavError] = useState("");
 
   //get post **get by userid**
   useEffect(() => {
@@ -50,12 +52,33 @@ export default function UserProfile() {
         setLoading(false);
       } catch (e) {
         console.error(e);
-        setError("ดึงข้อมูลไม่สำเร็จ");
+        setError("");
         setLoading(false);
       }
     };
     run();
   }, [user_id]);
+
+  const fetchFavs = async () => {
+    if (!user_id) return;
+    try {
+      setFavLoading(true);
+      setFavError("");
+      const res = await axios.get(`http://localhost:8000/shirt/fav/get/${user_id}`);
+      setFavs(res.data || []);
+    } catch (e) {
+      console.error(e);
+      setFavError("");
+    } finally {
+      setFavLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    if (activeTab === 1) {
+      fetchFavs();
+    }
+  }, [activeTab, user_id]);
 
   //delete post
   const handleDeletePost = async (post_id) => {
@@ -107,37 +130,38 @@ export default function UserProfile() {
         <div className={tab1Class} onClick={() => setActiveTab(1)}>Your fav</div>
         <div className={tab2Class} onClick={() => setActiveTab(2)}>Your post</div>
       </div>
-      {loading && <div className="up-loading">กำลังโหลด...</div>}
-      {!loading && error && <div className="up-error">{error}</div>}
+      {!loading && error === "กรุณาเข้าสู่ระบบ" && (
+        <div className="up-error">{error}</div> )}
 
       <div className="up-content-tabs">
         {/* Your fav */}
         <div className={activeTab === 1 ? "up-content active-content" : "up-content"}>
           <div className="up-fav-grid">
-            {favs.length === 0 && <div className="up-empty">ยังไม่มีรายการถูกใจ</div>}
-            {favs.map((item) => (
+            {!favLoading && !favError && favs.length === 0 && (
+              <div className="up-empty">ยังไม่มีรายการถูกใจ</div>)}
+            {!favLoading && !favError && favs.map((item) => (
               <Link
-                key={item.shirt_id}
-                to="/display"
-                state={{ id: item.shirt_id }}
-                style={{ textDecoration: "none", color: "black" }}
-              >
+              key={item.shirt_id}
+              to="/display"
+              state={{ id: item.shirt_id }}
+              style={{ textDecoration: "none", color: "black" }} >
                 <div className="up-fav-post">
                   <div className="up-post-photo">
                     <img src={item.shirt_pic} alt={item.shirt_name} />
                   </div>
                   <div className="up-fav-detail">
-                    <div className="up-fav-detail-name">{item.shirt_name}</div>
-                    <button className="up-fav-cmore">
-                      see more <br /> Detail
-                    </button>
+                      <div className="up-fav-detail-name">{item.shirt_name}</div>
+                      <button className="up-fav-cmore">
+                        see more <br /> Detail
+                      </button>
+                    </div>
                   </div>
-                </div>
               </Link>
             ))}
           </div>
         </div>
-        {/* Your post (เฉพาะของตัวเอง) */}
+
+        {/* Your post */}
         <div className={activeTab === 2 ? "up-content active-content" : "up-content"}>
           <div className="commu-grid">
             {posts.length === 0 && <div className="up-empty">ยังไม่มีโพสต์</div>}
