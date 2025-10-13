@@ -9,7 +9,7 @@ export default function SevenDayMatch() {
 
   const handleClick = () => {
     setClicked(true);
-    setTimeout(() => setClicked(false), 500); // กลับเป็นปกติหลัง 0.5 วิ
+    setTimeout(() => setClicked(false), 500);
   };
   return (
     <div className="blog-container">
@@ -25,40 +25,45 @@ export default function SevenDayMatch() {
             </div>
           </div>
         </div>
-    <button type="button" className={`home-btn ${clicked ? "animate" : ""}`} onClick={handleClick}>
-      <span className="btn-icon">
-        <img src={homeIcon} alt="styles" className="home-icon" />
-      </span>
-    </button>
-    </div>
+        <button
+          type="button"
+          className={`home-btn ${clicked ? "animate" : ""}`}
+          onClick={handleClick}
+        >
+          <span className="btn-icon">
+            <img src={homeIcon} alt="styles" className="home-icon" />
+          </span>
+        </button>
+      </div>
       {/*Body*/}
-    <div className="content">
-      <img src={microwaveImg} alt="header" className="header-img" />
-      <h1 className="blog-title1">1 อาทิตย์ 7 สไตล์ </h1>
-      <h1 className="blog-title2">แมตซ์เสื้อเจอร์ซีย์</h1>
-      <div className="style-section">
-        <div class="style-item">
-          <img src={group185Img} alt="styles" className="style-img" />
-          <div className="day-list">
-            <div className="day monday">วันจันทร์</div>
-            <div className="day tuesday">วันอังคาร</div>
-            <div className="day wednesday">วันพุธ</div>
-            <div className="day thursday">วันพฤหัสบดี</div>
-            <div className="day friday">วันศุกร์</div>
-            <div className="day saturday">วันเสาร์</div>
-            <div className="day sunday">วันอาทิตย์</div>
+      <div className="content">
+        <img src={microwaveImg} alt="header" className="header-img" />
+        <h1 className="blog-title1">1 อาทิตย์ 7 สไตล์ </h1>
+        <h1 className="blog-title2">แมตซ์เสื้อเจอร์ซีย์</h1>
+        <div className="style-section">
+          <div class="style-item">
+            <img src={group185Img} alt="styles" className="style-img" />
+            <div className="day-list">
+              <div className="day monday">วันจันทร์</div>
+              <div className="day tuesday">วันอังคาร</div>
+              <div className="day wednesday">วันพุธ</div>
+              <div className="day thursday">วันพฤหัสบดี</div>
+              <div className="day friday">วันศุกร์</div>
+              <div className="day saturday">วันเสาร์</div>
+              <div className="day sunday">วันอาทิตย์</div>
+            </div>
           </div>
         </div>
+        <div className="from">
+          <span className="from1">แหล่งที่มา</span>
+          <br />
+          <span className="from2">ให้ทาย</span>
+        </div>
+        {/*Footer*/}
+        <footer className="footer">
+          <span className="logo">JerseyJam</span>
+        </footer>
       </div>
-      <div className="from">
-        <span className="from1">แหล่งที่มา</span><br/>
-        <span className="from2">ให้ทาย</span>
-      </div>
-      {/*Footer*/}
-      <footer className="footer">
-        <span className="logo">JerseyJam</span>
-      </footer>
     </div>
-  </div>
   );
 }
