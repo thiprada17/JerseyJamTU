@@ -324,6 +324,69 @@ app.post('/shirt/fav/post', async (req, res) => {
   }
 });
 
+app.delete('/shirt/fav/del', async (req, res) => {
+  try {
+    console.log('Del shirt info:', req.body);
+
+    const {
+      user_id,
+      shirt_id
+    } = req.body;
+
+
+    const { error } = await supabase
+      .from('favShirt')
+      .delete()
+      .eq('user_id', user_id)
+      .eq('shirt_id', shirt_id);
+
+
+    if (error) {
+      console.error('delete error:', error);
+      return res.status(500).json({ error: error.message });
+    }
+
+    res.json({ message: 'Shirt info delete T T' });
+  } catch (err) {
+    console.error('error:', err);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+app.post('/shirt/fav/check', async (req, res) => {
+  try {
+    console.log('shirt info:', req.body);
+
+    const {
+      user_id,
+      shirt_id
+    } = req.body;
+
+    const { data, error } = await supabase
+      .from('favShirt')
+      .select('*')
+      .eq('user_id', user_id)
+      .eq('shirt_id', shirt_id);
+
+    if (error) {
+      console.error('checck error:', error);
+      return res.status(500).json({ error: error.message });
+    }
+
+    console.log("check data " + data.length)
+
+    if (data.length != 0) {
+      res.json(true); 
+    } else {
+      res.json(false);
+    }
+
+  } catch (err) {
+    console.error('error:', err);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
 app.get('/category/:folder/info/get', async (req, res) => {
   try {
     const folder = req.params.folder;

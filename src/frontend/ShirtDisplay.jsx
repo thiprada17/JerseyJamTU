@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 export default function ShirtDisplay() {
     const navigate = useNavigate();
     const location = useLocation();
-      const user_id = localStorage.getItem("user_id");
+    const user_id = localStorage.getItem("user_id");
     const { id } = location.state;
     console.log(id)
 
@@ -43,27 +43,71 @@ export default function ShirtDisplay() {
 
     const [isFavorited, setIsFavorited] = useState(false);
 
+    useEffect(() => {
+        const CheckIsFavMai = async () => {
+            try {
+                const response = await fetch("http://localhost:8000/shirt/fav/check", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        user_id: user_id,
+                        shirt_id: id
+                    })
+                });
+
+                const data = await response.json();
+                setIsFavorited(data);
+            } catch (error) {
+                console.error("Error checking favorite status:", error);
+            }
+        };
+        CheckIsFavMai();
+    }, []);
+
     const toggleFavorite = async () => {
-        setIsFavorited(!isFavorited);
 
-const favData = {
-user_id: user_id,
-  shirt_id: shirtData.id,
-  shirt_name: shirtData.shirt_name,
-  shirt_pic: shirtData.shirt_pic
-};
+        const favData = {
+            user_id: user_id,
+            shirt_id: shirtData.id,
+            shirt_name: shirtData.shirt_name,
+            shirt_pic: shirtData.shirt_pic
+        };
+
+        const favdelData = {
+            user_id: user_id,
+            shirt_id: shirtData.id,
+        };
         try {
-            const response = await fetch("http://localhost:8000/shirt/fav/post", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(favData)
-      });
+            if (!isFavorited) {
+                const response = await fetch("http://localhost:8000/shirt/fav/post", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(favData)
+                });
 
-            const data = await response.json();
+                const data = await response.json();
 
-            console.log(data);
+                console.log(data);
+
+            } else {
+                const response = await fetch("http://localhost:8000/shirt/fav/del", {
+                    method: "DELETE",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(favdelData)
+                });
+
+
+                const data = await response.json();
+
+                console.log(data);
+            }
+
+            setIsFavorited(!isFavorited);
+
         } catch (error) {
-            console.error("Error fetching posts:", error);
+            console.error("Fav posts:", error);
         }
     };
 
