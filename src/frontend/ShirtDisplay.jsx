@@ -3,6 +3,8 @@ import './shirtDisplay.css';
 import defaultJerseyImage from '../assets/sampleShirt.png';
 import { useLocation } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
+import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
+
 
 export default function ShirtDisplay() {
     const navigate = useNavigate();
@@ -124,11 +126,17 @@ export default function ShirtDisplay() {
 
                     <div className="shirtDisplay-wrapper">
                         <div className="shirtDisplay-left">
-                            <button
+                            {/* <button
                                 className={`shirtDisplay-heartButton ${isFavorited ? 'active' : ''}`}
                                 onClick={toggleFavorite}
                             >
                                 {isFavorited ? '❤️' : '🤍'}
+                            </button> */}
+
+                            <button className="shirtDisplay-heartButton" onClick={toggleFavorite}>
+                                <AiFillHeart
+                                    className={`heart-icon ${isFavorited ? 'favorited' : ''}`}
+                                />
                             </button>
                             <h1 className="shirtDisplay-title">{shirtData.shirt_name}</h1>
                             <div className="shirtDisplay-priceWrapper">
