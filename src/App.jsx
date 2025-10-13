@@ -50,6 +50,7 @@ function App() {
           <Route path='/blog/sevenDayMatch' element = {<SevenDayMatch />} />
           <Route path='/blog/jerseyWith' element = {<JerseyWith />} />
           <Route path='/blog/personalColor' element = {<PersonalColor />} />
+          <Route path='/blog/collarJersey' element = {<CollarJersey />} />
           
         </Routes>
       </Router>
