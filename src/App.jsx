@@ -23,6 +23,7 @@ import UserProfile from './frontend/user-profile/user-profile';
 
 import SevenDayMatch from './frontend/main/News/sevenDayMatch';
 import JerseyWith from './frontend/main/News/jerseyWith';
+import PersonalColor from './frontend/main/News/personalcolor';
 
 
 
@@ -45,8 +46,9 @@ function App() {
           {/* <Route path="/" element={<SignIn />} />
           <Route path="/signup" element={<SignUp />} /> */}
           <Route path='/userprofile' element = {<UserProfile />} />
-          <Route path='/sevenDayMatch' element = {<SevenDayMatch />} />
-          <Route path='/jerseyWith' element = {<JerseyWith />} />
+          <Route path='/blog/sevenDayMatch' element = {<SevenDayMatch />} />
+          <Route path='/blog/jerseyWith' element = {<JerseyWith />} />
+          <Route path='/blog/personalColor' element = {<PersonalColor />} />
           
         </Routes>
       </Router>
