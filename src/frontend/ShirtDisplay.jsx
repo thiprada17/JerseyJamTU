@@ -35,7 +35,7 @@ export default function ShirtDisplay() {
         };
 
         fetchPosts();
-    }, [id]); 
+    }, [id]);
 
 
 
@@ -69,6 +69,15 @@ export default function ShirtDisplay() {
         };
         CheckIsFavMai();
     }, [id, user_id]);
+
+    // แปลงรูปแบบวันที่แบบงงๆ
+    const formatDate = (dateString) => {
+        if (!dateString) return "";
+        const parts = dateString.split("-");
+        if (parts.length !== 3) return dateString;
+        return `${parts[2]}-${parts[1]}-${parts[0]}`; // DD/MM/YYYY นา
+    };
+
 
     const toggleFavorite = async () => {
         if (!user_id) {
@@ -152,13 +161,14 @@ export default function ShirtDisplay() {
 
                             <div className="shirtDisplay-datesWrapper">
                                 <div className="shirtDisplay-dateBox">
-                                    <p>{shirtData.shirt_open_date}</p>
+
+                                    <p>{formatDate(shirtData.shirt_open_date)}</p>
                                     <p>-----------------</p>
                                     <span>วันที่เปิดขาย</span>
                                 </div>
                                 <div className="shirtDisplay-separator"></div>
                                 <div className="shirtDisplay-dateBox shirtDisplay-endDateBox">
-                                    <p>{shirtData.shirt_close_date}</p>
+                                    <p>{formatDate(shirtData.shirt_close_date)}</p>
                                     <p>-----------------</p>
                                     <span>วันที่ปิดขาย</span>
                                 </div>

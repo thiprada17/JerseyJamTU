@@ -67,10 +67,12 @@ export default function Main() {
   }, []);
 
   useEffect(() => {
-    if (location.state?.showLoginToast) {
-      setShowToast(true);
-    }
-  }, [location.state]);
+  if (location.state?.showLoginToast) {
+    setShowToast(true);
+    setTimeout(() => setShowToast(false), 2000);
+  }
+}, [location.state]);
+
 
   return (
     <div className="main-body">

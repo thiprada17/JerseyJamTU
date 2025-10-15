@@ -217,3 +217,15 @@
 .sellerform-floatingButton:hover {
   transform: rotate(180deg) scale(1.05);
 }
+
+.sellerform-input-wrapper {
+  position: relative;
+  flex: 1;
+  display: block;
+}
+
+.sellerform-input-wrapper input[type="text"] {
+  width: 100%;
+  box-sizing: border-box;
+}
+

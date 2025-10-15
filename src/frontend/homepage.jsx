@@ -1,11 +1,12 @@
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useState } from "react";
 import SignIn from "./Login";
 import SignUp from "./SignUp";
 import "./homepage.css";
 import cartImg from "../assets/cart.png";
 import backgroundImg from "../assets/homepage.png";
 import speakerImg from "../assets/speaker.png";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
+import Toast from "./component/Toast";
 
 
 export default function Homepage() {
@@ -13,7 +14,8 @@ export default function Homepage() {
     const homeRef = useRef(null);
     const signupRef = useRef(null);
     const navigate = useNavigate();
-
+    const location = useLocation();
+    const [showToast, setShowToast] = useState(false);
     const scrollToSection = (ref) => {
         if (ref.current) {
             ref.current.scrollIntoView({ behavior: "smooth" });
@@ -28,12 +30,21 @@ export default function Homepage() {
 
     const speakText = (text) => {
         const utterance = new SpeechSynthesisUtterance(text);
-        utterance.lang = "en-US";  
+        utterance.lang = "en-US";
         speechSynthesis.speak(utterance);
     };
 
+    useEffect(() => {
+        if (location.state?.showSuccessToast) {
+            setShowToast(true);
+            setTimeout(() => setShowToast(false), 3000);
+        }
+    }, [location.state]);
+
+
     return (
         <div className="homepage-container">
+            {showToast && <Toast message="✅ Add Jersey success!" />}
             <div ref={loginRef} className="section login-section">
                 <SignIn scrollToHome={() => scrollToSection(homeRef)} />
             </div>
@@ -56,7 +67,7 @@ export default function Homepage() {
             </div>
         </div>
     );
-    
+
 }
 
 
