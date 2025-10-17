@@ -10,6 +10,7 @@
   font-size: 2rem;
   z-index: 9999;
   animation: slideInRight 0.5s ease forwards;
+  font-family: 'Kanit', sans-serif;
 }
 
 .custom-toast-login.hide {

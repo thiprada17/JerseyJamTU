@@ -8,7 +8,7 @@ export default function Toast({ message }) {
   useEffect(() => {
     const showTimer = setTimeout(() => {
       setVisible(true);
-    }, 400);
+    }, 300);
 
     const hideTimer = setTimeout(() => {
       if (toastRef.current) {
