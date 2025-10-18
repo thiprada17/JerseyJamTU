@@ -235,19 +235,32 @@ app.get('/shirt/fav/get/:user_id', async (req, res) => {
 
 app.get('/shirt/info/get', async (req, res) => {
   try {
+
+    // เช็คว่าเชื่อม supabase ได้มั้ย
+    if (!supabase) {
+      return res.status(500).json({ error: 'Supabase dead (not connect)' });
+    }
+
     const { data, error } = await supabase
       .from('shirtInfo')
       .select('*')
       .order('id', { ascending: false }); // เรียงล่าสุดขึ้นก่อน
 
+    // เช็ค error
     if (error) {
-      console.error('Supabase select error:', error);
+      console.error('error:', error);
       return res.status(500).json({ error: error.message });
     }
 
-    res.json(data);
+    // เช็คว่ามีข้อมูลมั้ย
+    if (!data || data.length === 0) {
+      return res.status(404).json({ message: 'No shirt info found' });
+    }
+
+    res.json("Shirt info jaa" + data);
+
   } catch (err) {
-    console.error('Unexpected error:', err);
+    console.error('catch error:', err);
     res.status(500).json({ error: 'Internal server error' });
   }
 });
@@ -399,7 +412,7 @@ app.post('/shirt/fav/check', async (req, res) => {
     console.log("check data " + data.length)
 
     if (data.length != 0) {
-      res.json(true); 
+      res.json(true);
     } else {
       res.json(false);
     }
@@ -415,17 +428,27 @@ app.get('/category/:folder/info/get', async (req, res) => {
     const folder = req.params.folder;
     console.log("Request for folder:", folder)
 
+    // เช็คว่าชื่อโฟลเดอร์จากพารัมถูกมั้ย
+    if (!folder || typeof folder !== 'string') {
+      return res.status(400).json({ error: 'folder name invalid' });
+    }
+
     // check private key
     if (!supabaseServiceRoleKey) {
       return res.status(500).json({ error: 'Service Role Key not configured' });
     }
+
     const { data: files, error: listError } = await supabaseAdmin.storage
       .from('closet')
       .list(folder, { limit: 100, offset: 0 });
+
+    // เช็ค error จากการดึงข้อมูล
     if (listError) {
       console.error('Supabase list error:', listError);
       return res.status(500).json({ error: listError.message });
     }
+
+    // ไม่มีไฟล์ในโฟลเดอร์เลยให้ส่ง array ว่าง [] ไป
     if (!files || files.length === 0) {
       console.log(`No files found in folder ${folder}`);
       return res.json([]);
@@ -439,6 +462,8 @@ app.get('/category/:folder/info/get', async (req, res) => {
           const { data: signedURLData, error: urlError } = await supabaseAdmin.storage
             .from('closet')
             .createSignedUrl(`${folder}/${file.name}`, 60 * 60); //สร้าบแบบใช้ชั่วคราวได้ ประมาณ 1 ชม
+
+          // error ระหว่างสร้าง url
           if (urlError) {
             console.error('Signed URL error:', urlError);
             return null;
@@ -451,6 +476,7 @@ app.get('/category/:folder/info/get', async (req, res) => {
     );
 
     res.json(images.filter(Boolean));
+    
   } catch (err) {
     console.error('Unexpected error:', err);
     res.status(500).json({ error: 'Internal server error' });
