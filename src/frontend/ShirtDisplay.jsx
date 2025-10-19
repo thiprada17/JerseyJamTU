@@ -75,7 +75,7 @@ export default function ShirtDisplay() {
         if (!dateString) return "";
         const parts = dateString.split("-");
         if (parts.length !== 3) return dateString;
-        return `${parts[2]}-${parts[1]}-${parts[0]}`; // DD/MM/YYYY นา
+        return `${parts[2]}/${parts[1]}/${parts[0]}`; // DD/MM/YYYY นา
     };
 
 
