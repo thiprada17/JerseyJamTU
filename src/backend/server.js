@@ -257,7 +257,7 @@ app.get('/shirt/info/get', async (req, res) => {
       return res.status(404).json({ message: 'No shirt info found' });
     }
 
-    res.json("Shirt info jaa" + data);
+    res.json(data);
 
   } catch (err) {
     console.error('catch error:', err);
@@ -427,6 +427,11 @@ app.get('/category/:folder/info/get', async (req, res) => {
   try {
     const folder = req.params.folder;
     console.log("Request for folder:", folder)
+
+        // เช็คว่าเชื่อม supabase ได้มั้ย
+    if (!supabase) {
+      return res.status(500).json({ error: 'Supabase dead (not connect)' });
+    }
 
     // เช็คว่าชื่อโฟลเดอร์จากพารัมถูกมั้ย
     if (!folder || typeof folder !== 'string') {
