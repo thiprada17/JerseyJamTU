@@ -12,6 +12,11 @@ app.use(cors())
 app.use(bodyParser.json())
 app.use(express.json());
 
+// security **
+const bcrypt = require('bcrypt')
+const jwt = require('jsonwebtoken')
+const session = require('express-session')
+const secret = 'ความลับไม่บอกหรอก'
 // let conn = null
 // const initMySQL = async () => {
 //   conn = await mysql.createConnection({
@@ -43,9 +48,30 @@ app.post('/add-user/register', async (req, res) => {
     console.log('Request body:', req.body);
     const { username, email, password, faculty, year } = req.body;
 
+    const { data : Checkemail } = await supabase
+    .from('users')
+    .select('email')
+    .eq('email', email)
+    .maybeSingle() // ถ้าใช้ซิงเกิ้ลเฉยๆไม่เจอมันจะ error
+
+      const { data : Checkusername } = await supabase
+    .from('users')
+    .select('username')
+    .eq('username', username)
+    .maybeSingle()
+
+    if(Checkemail) {
+      return res.status(400).json({ error: 'Email already registered' });
+    }
+
+    if(Checkusername) {
+      return res.status(400).json({ error: 'Username already registered' });
+    }
+
+    const passwordHash = await bcrypt.hash(password, 10)
     const { data, error } = await supabase
       .from('users')
-      .insert([{ username, email, password, faculty, year }])
+      .insert([{ username, email, password : passwordHash, faculty, year }])
       .select('user_id, username, email');
 
     if (error) {
@@ -74,31 +100,64 @@ app.post('/create/login', async (req, res) => {
     console.log("data :", data)
     console.log("error:", error)
 
+    if (error) {
+      console.error(error);
+      return res.status(500).json({ message: 'Server error' });
+    }
+
     if (!data || data.length === 0) {
       return res.status(401).json({ message: 'User not found' });
     }
 
-    const user = data[0];
+    const supabase_user_data = data[0];
+    const supabase_password = supabase_user_data.password;
 
-    if (user.password !== password) {
-      return res.status(401).json({ message: 'Incorrect password' });
-    }
+    const match = await bcrypt.compare(password, supabase_password)
+
+    if(!match) {
+      return res.status(401).json({ message: 'Password Incorrect😭'})
+  }
+
+  // jwt token
+  const token = jwt.sign({ email : supabase_user_data.email, role: 'admin' },  secret, {expiresIn: '1h'})
 
     res.json({
       success: true,
       user: {
-        user_id: user.user_id,
-        username: user.username,
-        faculty: user.faculty,
-        year: user.year
+        user_id: supabase_user_data.user_id,
+        username: supabase_user_data.username,
+        faculty: supabase_user_data.faculty,
+        year: supabase_user_data.year,
+        token
       }
     });
 
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: 'Server error' });
+    res.status(500).json({ message: 'Server error' ,message: error.message});
   }
 });
+
+// กำลังก่อสร้างยังไม่เสด
+app.get('/authen/users', async (req, res) => {
+  try {
+    const authHeader = req.headers['authorization']; 
+    let authToken = ''
+
+
+    if (authHeader){
+      authToken = authHeader.split(' ')[1]
+    }
+        const veri = jwt.verify(authToken, secret)
+    console.log('Auth Token:', veri);
+    
+res.json({ message: 'ysyyy' })
+
+  } catch (error) {
+    
+  }
+
+})
 
 // commu post
 app.post('/commu/post', async (req, res) => {
@@ -245,7 +304,7 @@ app.get('/shirt/info/get', async (req, res) => {
       .from('shirtInfo')
       .select('*')
       .order('id', { ascending: false }); // เรียงล่าสุดขึ้นก่อน
-
+ 
     // เช็ค error
     if (error) {
       console.error('error:', error);
@@ -428,19 +487,14 @@ app.get('/category/:folder/info/get', async (req, res) => {
     const folder = req.params.folder;
     console.log("Request for folder:", folder)
 
-        // เช็คว่าเชื่อม supabase ได้มั้ย
+    // เช็คว่าเชื่อม supabase ได้มั้ย
     if (!supabase) {
       return res.status(500).json({ error: 'Supabase dead (not connect)' });
     }
 
     // เช็คว่าชื่อโฟลเดอร์จากพารัมถูกมั้ย
-    if (!folder || typeof folder !== 'string') {
+    if (!folder || typeof folder !== 'string' ) {
       return res.status(400).json({ error: 'folder name invalid' });
-    }
-
-    // check private key
-    if (!supabaseServiceRoleKey) {
-      return res.status(500).json({ error: 'Service Role Key not configured' });
     }
 
     const { data: files, error: listError } = await supabaseAdmin.storage
@@ -452,6 +506,7 @@ app.get('/category/:folder/info/get', async (req, res) => {
       console.error('Supabase list error:', listError);
       return res.status(500).json({ error: listError.message });
     }
+
 
     // ไม่มีไฟล์ในโฟลเดอร์เลยให้ส่ง array ว่าง [] ไป
     if (!files || files.length === 0) {

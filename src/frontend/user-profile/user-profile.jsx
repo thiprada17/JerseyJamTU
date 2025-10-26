@@ -9,33 +9,31 @@ import { useLocation } from "react-router-dom";
 import Toast from "../component/Toast.jsx";
 
 export default function UserProfile() {
-  const navigate = useNavigate();
+    const navigate = useNavigate();
   const user_id = localStorage.getItem("user_id");
-  const username = localStorage.getItem("username")
-  const faculty = localStorage.getItem("faculty")
-  const year = localStorage.getItem("year")
+    const username = localStorage.getItem("username")
+    const faculty = localStorage.getItem("faculty")
+    const year = localStorage.getItem("year")
 
-  const [activeTab, setActiveTab] = useState(1);
-  let tab1Class = "up-tab";
-  if (activeTab === 1) {
-    tab1Class += " active-tabs";
-  }
-  let tab2Class = "up-tab";
-  if (activeTab === 2) {
-    tab2Class += " active-tabs";
-  }
+    const [activeTab, setActiveTab] = useState(1);
+    let tab1Class = "up-tab";
+    if (activeTab === 1) {
+        tab1Class += " active-tabs";
+    }
+    let tab2Class = "up-tab";
+    if (activeTab === 2) {
+        tab2Class += " active-tabs";
+    }
 
-  const [favs, setFavs] = useState([]);
-  const [posts, setPosts] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState("");
-  const [favLoading, setFavLoading] = useState(false);
-  const [favError, setFavError] = useState("");
+    const [favs, setFavs] = useState([]);
+    const [posts, setPosts] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState("");
 
-  //get post **get by userid**
-  useEffect(() => {
+    //get post **get by userid**
+    useEffect(() => {
     const run = async () => {
-      //อย่าเพิ่งเกิด ไปเกิดใหม่ใน sprint 4 น้าาา
+    //อย่าเพิ่งเกิด ไปเกิดใหม่ใน sprint 4 น้าาา
       if (!user_id) {
         setError("กรุณาเข้าสู่ระบบ");
         setLoading(false);
@@ -52,33 +50,12 @@ export default function UserProfile() {
         setLoading(false);
       } catch (e) {
         console.error(e);
-        setError("");
+        setError("ดึงข้อมูลไม่สำเร็จ");
         setLoading(false);
       }
     };
     run();
   }, [user_id]);
-
-  const fetchFavs = async () => {
-    if (!user_id) return;
-    try {
-      setFavLoading(true);
-      setFavError("");
-      const res = await axios.get(`http://localhost:8000/shirt/fav/get/${user_id}`);
-      setFavs(res.data || []);
-    } catch (e) {
-      console.error(e);
-      setFavError("");
-    } finally {
-      setFavLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    if (activeTab === 1) {
-      fetchFavs();
-    }
-  }, [activeTab, user_id]);
 
   //delete post
   const handleDeletePost = async (post_id) => {
@@ -130,38 +107,35 @@ export default function UserProfile() {
         <div className={tab1Class} onClick={() => setActiveTab(1)}>Your fav</div>
         <div className={tab2Class} onClick={() => setActiveTab(2)}>Your post</div>
       </div>
-      {!loading && error === "กรุณาเข้าสู่ระบบ" && (
-        <div className="up-error">{error}</div> )}
+      {loading && <div className="up-loading">กำลังโหลด...</div>}
+      {!loading && error && <div className="up-error">{error}</div>}
 
       <div className="up-content-tabs">
         {/* Your fav */}
         <div className={activeTab === 1 ? "up-content active-content" : "up-content"}>
           <div className="up-fav-grid">
-            {!favLoading && !favError && favs.length === 0 && (
-              <div className="up-empty">ยังไม่มีรายการถูกใจ</div>)}
-            {!favLoading && !favError && favs.map((item) => (
+            {favs.length === 0 && <div className="up-empty">ยังไม่มีรายการถูกใจ</div>}
+            {favs.map((item) => (
               <Link
-              key={item.shirt_id}
-              to="/display"
-              state={{ id: item.shirt_id }}
-              style={{ textDecoration: "none", color: "black" }} >
+                key={item.shirt_id}
+                to="/display"
+                state={{ id: item.shirt_id }}              >
                 <div className="up-fav-post">
                   <div className="up-post-photo">
                     <img src={item.shirt_pic} alt={item.shirt_name} />
                   </div>
                   <div className="up-fav-detail">
-                      <div className="up-fav-detail-name">{item.shirt_name}</div>
-                      <button className="up-fav-cmore">
-                        see more <br /> Detail
-                      </button>
-                    </div>
+                    <div className="up-fav-detail-name">{item.shirt_name}</div>
+                    <button className="up-fav-cmore">
+                      see more <br /> Detail
+                    </button>
                   </div>
+                </div>
               </Link>
             ))}
           </div>
         </div>
-
-        {/* Your post */}
+        {/* Your post (เฉพาะของตัวเอง) */}
         <div className={activeTab === 2 ? "up-content active-content" : "up-content"}>
           <div className="commu-grid">
             {posts.length === 0 && <div className="up-empty">ยังไม่มีโพสต์</div>}
@@ -185,20 +159,19 @@ export default function UserProfile() {
                 <div className="up-post-actions">
                   <button
                     type="button"
-                    className="up-btn up-post-edit"
+                    className="up-post-edit"
                     onClick={() => handleEditPost(post)}
                   >
                     Edit
                   </button>
                   <button
                     type="button"
-                    className="up-btn up-post-delete"
+                    className="up-post-delete"
                     onClick={() => handleDeletePost(post.post_id)}
                   >
                     Delete
                   </button>
                 </div>
-
               </div>
             ))}
           </div>

@@ -54,6 +54,7 @@ export default function Login({ scrollToHome, scrollToSignup }) {
           localStorage.setItem("username", user.username);
           localStorage.setItem("faculty", user.faculty);
           localStorage.setItem("year", user.year);
+                    localStorage.setItem("token", user.token);
 
           setTimeout(() => {
             navigate('/main', { state: { showLoginToast: true } });
