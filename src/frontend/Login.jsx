@@ -114,8 +114,8 @@ export default function Login({ scrollToHome, scrollToSignup }) {
 
           <button type="submit" className="btn-login">Log in</button>
 
-          <p className="signup-text">
-            Don’t have an account? <span className="signup-link">Sign Up</span>
+          <p className="signup-text" >
+            Don’t have an account? <span className="signup-link" onClick={scrollToSignup}>Sign Up</span>
           </p>
         </form>
       </div>

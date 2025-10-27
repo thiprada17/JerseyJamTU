@@ -6,7 +6,7 @@ import BackgroundSignup from "../assets/background-signup.png";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import Toast from './component/Toast';
 
-export default function SignUp({ scrollToHome }) {
+export default function SignUp({ scrollToHome,scrollToLogIn }) {
   const nevigate = useNavigate();
   const [showToast, setShowToast] = useState(false);
   const [successMessage, setSuccessMessage] = useState("");
@@ -155,7 +155,7 @@ export default function SignUp({ scrollToHome }) {
           <div className="signup-actions">
             <button type="submit" className="btn-login">Sign up</button>
             <p className="signup-text">
-              Already have an account? <span className="signup-link">Log in</span>
+              Already have an account? <span className="signup-link" onClick={scrollToLogIn}>Log in</span>
             </p>
             {successMessage && (
               <p className="success-message">{successMessage}</p>
