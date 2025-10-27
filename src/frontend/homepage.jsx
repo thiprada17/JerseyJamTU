@@ -61,7 +61,7 @@ export default function Homepage() {
                 <div className="action-buttons">
                     <button className="signup-btn" onClick={() => scrollToSection(signupRef)}> Sign Up </button>
                     <button className="login-btn" onClick={() => scrollToSection(loginRef)}> Login</button>
-                    <button className="login-btn" onClick={() => navigate('/sellerform')}> Seller </button>
+                    <button className="login-btn" onClick={() => navigate('/sellerform')}> Add Shirt </button>
                 </div>
             </div>
 
