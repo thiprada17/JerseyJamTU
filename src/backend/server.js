@@ -9,6 +9,10 @@ const bodyParser = require('body-parser')
 
 const app = express()
 app.use(cors())
+// app.use(cors({
+//   credentials: true,
+//   origin: ['']
+// }))
 app.use(bodyParser.json())
 app.use(express.json());
 
@@ -17,6 +21,8 @@ const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 const session = require('express-session')
 const secret = 'ความลับไม่บอกหรอก'
+
+
 // let conn = null
 // const initMySQL = async () => {
 //   conn = await mysql.createConnection({
@@ -151,10 +157,18 @@ app.get('/authen/users', async (req, res) => {
         const veri = jwt.verify(authToken, secret)
     console.log('Auth Token:', veri);
     
-res.json({ message: 'ysyyy' })
+    res.json({
+      success: true,
+      message: "Token is valid",
+      user: veri, 
+    });
 
   } catch (error) {
-    
+        console.error("Auth failed:", error.message);
+    res.status(401).json({
+      success: false,
+      message: "Invalid or expired token"
+    });
   }
 
 })

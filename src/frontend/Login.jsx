@@ -54,7 +54,18 @@ export default function Login({ scrollToHome, scrollToSignup }) {
           localStorage.setItem("username", user.username);
           localStorage.setItem("faculty", user.faculty);
           localStorage.setItem("year", user.year);
-                    localStorage.setItem("token", user.token);
+          localStorage.setItem("token", user.token);
+
+          const authToken = localStorage.getItem('token')
+
+
+          const authen = await fetch('http://localhost:8000/authen/users', {
+        method: 'GET',
+        headers: { 'authorization': `Bearer ${authToken}` }
+      });
+
+      const authenData = await authen.json();
+console.log(authenData);
 
           setTimeout(() => {
             navigate('/main', { state: { showLoginToast: true } });
