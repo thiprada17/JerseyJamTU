@@ -4,7 +4,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
 
 const LIMITS = { title: 25, detail: 250, contact: 150 };
-const WARN_AT = Math.max(10, Math.ceil(LIMITS.detail * 0.1)); // เตือนเมื่อเหลือน้อยกว่า 10% หรืออย่างน้อย 10
+const WARN_AT = Math.max(10, Math.ceil(LIMITS.detail * 0.1));
 
 export default function CommuForm() {
   const navigate = useNavigate();
@@ -34,13 +34,11 @@ export default function CommuForm() {
     e.preventDefault();
     if (!user_id) return alert("กรุณาเข้าสู่ระบบก่อนโพสต์/แก้ไข");
 
-    // กันการกรอกช่องว่างล้วน + ตรวจลิมิต detail
     const t = (formData.title || "").trim();
     const d = (formData.detail || "").trim();
     const c = (formData.contact || "").trim();
-
     if (!t || !d || !c) return alert("กรุณากรอกข้อมูลให้ครบถ้วน");
-    if (LIMITS.detail - d.length < 0) return alert("ข้อความยาวเกินตัวอักษาที่กำหนด");
+    if (LIMITS.detail - d.length < 0) return alert("รายละเอียดเกินลิมิต กรุณาลดจำนวนอักษร");
 
     try {
       if (isEdit && editingPost?.post_id) {
@@ -67,16 +65,6 @@ export default function CommuForm() {
     }
   };
 
-  // ทำ mirror เพื่อไฮไลต์ส่วนเกินของ detail
-  const mirroredHTML = (() => {
-    const esc = (s = "") =>
-      s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
-    const safe = esc(formData.detail);
-    const keep = safe.slice(0, LIMITS.detail);
-    const over = safe.slice(LIMITS.detail);
-    return over ? `${keep}<mark class="jj-over">${over}</mark>` : keep;
-  })();
-
   return (
     <div className="form-body">
       <div className="form-box">
@@ -93,29 +81,21 @@ export default function CommuForm() {
               value={formData.title}
               onChange={onChange}
               required
-              maxLength={LIMITS.title}   // จำกัดตัวอักษรเฉพาะหัวข้อ
+              maxLength={LIMITS.title}
             />
           </div>
 
           <div className="form">
             <label className="form-label">รายละเอียดโพสต์</label>
-            <div className="jj-overflow" style={{ "--jj-pad": "12px" }}>
-              <div
-                className="jj-mirror"
-                aria-hidden
-                dangerouslySetInnerHTML={{ __html: mirroredHTML }}
-              />
-              <textarea
-                name="detail"
-                className="form-input jj-textarea"
-                placeholder="เสื้อเจอร์ซีย์สำหรับคนคูล ๆ เย็นสบาย…"
-                rows={4}
-                value={formData.detail}
-                onChange={onChange}
-                required
-                // ไม่มี maxLength จะให้ไฮไลต์น่ะ
-              />
-            </div>
+            <textarea
+              name="detail"
+              className="form-input"
+              placeholder="เสื้อเจอร์ซีย์สำหรับคนคูล ๆ เย็นสบาย…"
+              rows={4}
+              value={formData.detail}
+              onChange={onChange}
+              required
+            />
             <small
               className={`jj-counter ${
                 remainDetail < 0 ? "jj-danger" : remainDetail <= WARN_AT ? "jj-warn" : "jj-ok"
@@ -135,7 +115,7 @@ export default function CommuForm() {
               value={formData.contact}
               onChange={onChange}
               required
-              maxLength={LIMITS.contact}  // จำกัดตัวอักษรเฉพาะช่องทางการติดต่อ
+              maxLength={LIMITS.contact}
             />
           </div>
 
