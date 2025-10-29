@@ -99,3 +99,27 @@
     background: #5a55e0;
     transform: translateY(-2px); 
 }
+
+.field-rel { position: relative; }
+.overlay-wrap { position: relative; }
+.mirror {
+  position: absolute; inset: 0;
+  padding: 12px; border-radius: 8px;
+  white-space: pre-wrap; word-wrap: break-word; overflow-wrap: break-word;
+  font: inherit; line-height: inherit; color: transparent; pointer-events: none;
+}
+.mirror mark.overflow { background:#ffdbe1; color: transparent; }
+
+.with-overlay { background: transparent; position: relative; }
+
+.char-counter {
+  position: absolute; right: 10px; bottom: 8px;
+  font-size: 12px; font-weight: 600; user-select: none;
+}
+.char-counter.ok   { color:#6b7280; }
+.char-counter.warn { color:#ffd416; }
+.char-counter.danger { color:#ef4444; }
+.overlay-wrap.has-over .with-overlay {
+  border-color:#ef4444 !important;
+  box-shadow:0 0 0 2px rgba(239,68,68,.1);
+}
