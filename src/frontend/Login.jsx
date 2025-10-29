@@ -4,9 +4,11 @@ import arrowIcon from "../assets/arrow.png";
 import pinkshape from "../assets/pink-shape.png";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { useNavigate } from 'react-router-dom';
+import Notification from './component/Notification';
 
 export default function Login({ scrollToHome, scrollToSignup }) {
   const navigate = useNavigate();
+  const [notification, setNotification] = useState({ message: "", type: "error" });
 
   const [userData, setuserData] = useState({
     username: '',
@@ -54,25 +56,63 @@ export default function Login({ scrollToHome, scrollToSignup }) {
           localStorage.setItem("username", user.username);
           localStorage.setItem("faculty", user.faculty);
           localStorage.setItem("year", user.year);
-                    localStorage.setItem("token", user.token);
+          localStorage.setItem("token", user.token);
+
+          //  setNotification({
+          //   // message: "ล็อกอินสำเร็จ! ยินดีต้อนรับกลับมาค่ะ 🌸",
+          //   // type: "success"
+          // });
 
           setTimeout(() => {
             navigate('/main', { state: { showLoginToast: true } });
-          }, 1500);
+          }, 1200);
         } else {
-          alert(data.message || "Login failed.");
+          console.log("Login failed:", data.message);
+          setNotification({
+  message: "เกิดข้อผิดพลาดจากเซิร์ฟเวอร์\nกรุณาลองใหม่อีกครั้งค่ะ",
+  type: "error"
+});
+
         }
       } else {
-        const text = await response.text();
-        alert("Login failed: Unexpected server response.");
+        console.log("Unexpected server response");
+        setNotification({
+          message: "เกิดข้อผิดพลาดจากเซิร์ฟเวอร์\nกรุณาลองใหม่อีกครั้งค่ะ",
+          type: "error"
+        });
       }
     } catch (error) {
-      alert('Login Fail: ' + error.message);
+      console.error("Login error:", error);
+      setNotification({
+  message: "ไม่สามารถเชื่อมต่อเซิร์ฟเวอร์ได้\nกรุณาลองใหม่อีกครั้งค่ะ",
+  type: "error"
+});
     }
   };
 
+          //       setTimeout(() => {
+          //         navigate('/main', { state: { showLoginToast: true } });
+          //       }, 1500);
+          //     } else {
+          //       alert(data.message || "Login failed.");
+          //     }
+          //   } else {
+          //     const text = await response.text();
+          //     alert("Login failed: Unexpected server response.");
+          //   }
+          // } catch (error) {
+          //   alert('Login Fail: ' + error.message);
+          //   }
+          // };
+
+
   return (
     <div className="login-page">
+      <Notification
+        type={notification.type}
+        message={notification.message}
+        onClose={() => setNotification({ message: "", type: "error" })}
+      />
       <div className="background-text">Login</div>
 
       <div className="signin-container">
@@ -114,8 +154,8 @@ export default function Login({ scrollToHome, scrollToSignup }) {
 
           <button type="submit" className="btn-login">Log in</button>
 
-          <p className="signup-text">
-            Don’t have an account? <span className="signup-link">Sign Up</span>
+          <p className="signup-text" >
+            Don’t have an account? <span className="signup-link" onClick={scrollToSignup}>Sign Up</span>
           </p>
         </form>
       </div>

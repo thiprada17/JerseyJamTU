@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "./sellerform.css";
 import blueLayer from "../assets/bg.png"
 import { useNavigate } from "react-router-dom";
 import { supabase } from "./supabaseClient";
 import greyArrow from "../assets/grey_arrow.png"
 import Toast from "./component/Toast";
+import { FaTag, FaPlusCircle, FaTimes } from "react-icons/fa";
 
 export default function SellerForm() {
   const navigate = useNavigate();
@@ -80,12 +81,32 @@ export default function SellerForm() {
   };
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
+  const { name, value } = e.target;
+
+  if (name === "shirt_price") {
+    if (value === "") {
+      setFormData((prev) => ({
+        ...prev,
+        [name]: "",
+      }));
+    } else {
+      let num = Number(value);
+      if (num < 0) num = 0;
+      if (num > 1000) num = 1000;
+
+      setFormData((prev) => ({
+        ...prev,
+        [name]: num,
+      }));
+    }
+  } else {
     setFormData((prev) => ({
       ...prev,
       [name]: value,
     }));
-  };
+  }
+};
+
 
 
   // const handleSubmit = async (e) => {
@@ -131,69 +152,105 @@ export default function SellerForm() {
   //   }
   // };
 
- const handleSubmit = async (e) => {
-  e.preventDefault();
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-  let imageUrl = "";
+    let imageUrl = "";
 
-  if (imageFile) {
-    const fileExt = imageFile.name.split(".").pop();
-    const fileName = `${Date.now()}.${fileExt}`;
-    const filePath = `shirt/${fileName}`;
+    if (imageFile) {
+      const fileExt = imageFile.name.split(".").pop();
+      const fileName = `${Date.now()}.${fileExt}`;
+      const filePath = `shirt/${fileName}`;
 
-    // อัปโหลดไฟล์ไป Supabase
-    const { data: uploadData, error: uploadError } = await supabase
-      .storage
-      .from("shirt_images")
-      .upload(filePath, imageFile);
+      // อัปโหลดไฟล์ไป Supabase
+      const { data: uploadData, error: uploadError } = await supabase
+        .storage
+        .from("shirt_images")
+        .upload(filePath, imageFile);
 
-    if (uploadError) {
-      console.error("Upload error:", uploadError.message);
-      alert("Upload failed: " + uploadError.message);
-      return;
+      if (uploadError) {
+        console.error("Upload error:", uploadError.message);
+        alert("Upload failed: " + uploadError.message);
+        return;
+      }
+
+      // ดึง public URL ของไฟล์
+      const { data: publicData } = supabase
+        .storage
+        .from("shirt_images")
+        .getPublicUrl(filePath);
+
+      imageUrl = publicData.publicUrl;
     }
 
-    // ดึง public URL ของไฟล์
-    const { data: publicData } = supabase
-      .storage
-      .from("shirt_images")
-      .getPublicUrl(filePath);
+    // ส่ง backend
+    const payload = {
+      shirt_name: formData.shirt_name,
+      shirt_price: Number(formData.shirt_price),
+      shirt_open_date: formData.shirt_open_date_raw,
+      shirt_close_date: formData.shirt_close_date_raw,
+      shirt_detail: formData.shirt_detail,
+      shirt_url: formData.shirt_url,
+      shirt_pic: imageUrl,
+    };
 
-    imageUrl = publicData.publicUrl; 
-  }
+    try {
+      const response = await fetch("http://localhost:8000/shirt/info/post", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
 
-  // ส่ง backend
-  const payload = {
-    shirt_name: formData.shirt_name,
-    shirt_price: Number(formData.shirt_price),
-    shirt_open_date: formData.shirt_open_date_raw,
-    shirt_close_date: formData.shirt_close_date_raw,
-    shirt_detail: formData.shirt_detail,
-    shirt_url: formData.shirt_url,
-    shirt_pic: imageUrl,
+      const result = await response.json();
+
+      if (response.ok) {
+        setShowToast(true);
+        setTimeout(() => {
+          navigate("/", { state: { showSuccessToast: true } });
+        }, 3000);
+      } else {
+        alert("Warning Mistakes: " + result.error);
+      }
+    } catch (err) {
+      alert("Connection Error");
+    }
   };
 
-  try {
-    const response = await fetch("http://localhost:8000/shirt/info/post", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(payload),
-    });
+  const [availableTags] = useState([
+    "คณะวิศวกรรมศาสตร์",
+    "คณะวิทยาศาสตร์",
+    "คณะสถาปัตยกรรมศาสตร์",
+    "คณะรัฐศาสตร์",
+    "คณะศิลปศาสตร์",
+    "คณะเศรษฐศาสตร์",
+  ]);
+  const [selectedTags, setSelectedTags] = useState([]);
+  const [showTagList, setShowTagList] = useState(false);
 
-    const result = await response.json();
-
-    if (response.ok) {
-      setShowToast(true);
-      setTimeout(() => {
-        navigate("/", { state: { showSuccessToast: true } });
-      }, 3000);
+  const toggleTag = (tag) => {
+    if (selectedTags.includes(tag)) {
+      setSelectedTags(selectedTags.filter((t) => t !== tag));
     } else {
-      alert("Warning Mistakes: " + result.error);
+      setSelectedTags([...selectedTags, tag]);
     }
-  } catch (err) {
-    alert("Connection Error");
-  }
-};
+  };
+
+  const removeTag = (tag) => {
+    setSelectedTags(selectedTags.filter((t) => t !== tag));
+  };
+
+  const tagBoxRef = useRef(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (tagBoxRef.current && !tagBoxRef.current.contains(event.target)) {
+        setShowTagList(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
 
 
   return (
@@ -246,20 +303,11 @@ export default function SellerForm() {
                 type="number"
                 className="sellerform-input"
                 placeholder="350"
+                min={0}       
+                max={1000}   
               />
-            </label>
 
-            {/* <label className="sellerform-row">
-              <span className="sellerform-label">วันเปิดขาย</span>
-              <input
-                type="date"
-                name="shirt_open_date"
-                value={formData.shirt_open_date}
-                onChange={handleChange}
-                className="sellerform-input"
-                lang="en"
-              />
-            </label> */}
+            </label>
             <label className="sellerform-row">
               <span className="sellerform-label">วันเปิดขาย</span>
               <div className="sellerform-input-wrapper">
@@ -368,7 +416,51 @@ export default function SellerForm() {
                 placeholder="https://example.com/order-form"
                 required
               />
+              <div className="sellerform-block" ref={tagBoxRef}>
+                <span className="sellerform-labelTop">แท็ก</span>
+                <div className="tag-input-box" onClick={() => setShowTagList(!showTagList)}>
+                  <FaTag className="tag-icon" />
+                  <div className="tag-selected-list">
+                    {selectedTags.length > 0 ? (
+                      selectedTags.map((tag, index) => (
+                        <span key={index} className="tag-chip">
+                          {tag}
+                          <FaTimes
+                            className="tag-remove"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              removeTag(tag);
+                            }}
+                          />
+                        </span>
+                      ))
+                    ) : (
+                      <span className="tag-placeholder">เลือกแท็กที่เกี่ยวข้อง...</span>
+                    )}
+                  </div>
 
+                  {showTagList && (
+                    <div className="tag-dropdown">
+                      {availableTags.map((tag, index) => (
+                        <div
+                          key={index}
+                          className="tag-option"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            toggleTag(tag);
+                          }}
+                        >
+                          <span>{tag}</span>
+                          <FaPlusCircle
+                            className={`tag-add-icon ${selectedTags.includes(tag) ? "selected" : ""
+                              }`}
+                          />
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              </div>
               <div className="sellerform-submitWrapper">
                 <button type="submit" className="sellerform-submitBtn">
                   Submit
