@@ -5,6 +5,7 @@ import arrowIcon from "../assets/arrow.png";
 import BackgroundSignup from "../assets/background-signup.png";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import Toast from './component/Toast';
+import Notification from './component/Notification';
 
 export default function SignUp({ scrollToHome,scrollToLogIn }) {
   const nevigate = useNavigate();
@@ -19,7 +20,6 @@ export default function SignUp({ scrollToHome,scrollToLogIn }) {
   });
 
   const [showPassword, setShowPassword] = useState(false);
-
   const togglePassword = () => {
     setShowPassword(!showPassword);
   };
@@ -32,7 +32,7 @@ export default function SignUp({ scrollToHome,scrollToLogIn }) {
       [name]: value
     }));
 
-    console.log({ name, value });
+    // console.log({ name, value });
   };
 
   const handleSubmit = async (e) => {
@@ -45,6 +45,8 @@ export default function SignUp({ scrollToHome,scrollToLogIn }) {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(userData),
       });
+          const result = await response.json();
+
 
       if (response.ok) {
         console.log("Insert success");
@@ -53,20 +55,31 @@ export default function SignUp({ scrollToHome,scrollToLogIn }) {
 
         setTimeout(() => {
           scrollToHome();
-        }, 500);
+        }, 1000);
 
         setTimeout(() => {
           setShowToast(false);
         }, 2500);
       } else {
         console.error('Failed to register user');
-        alert("ผิดพลาดในการลงทะเบียน");
-      }
-
-    } catch (error) {
-      console.error('Error sending data:', error);
+        setNotification({
+        message: result.error || "Registration failed. Please try again.",
+        type: "error",
+      });
     }
-  };
+  } catch (error) {
+    console.error("Error sending data:", error);
+    setNotification({
+      message: "Error to connect to the server. Please try again later.",
+      type: "error",
+    });
+  }
+};
+  const [notification, setNotification] = useState({
+  message: "",
+  type: "error", 
+});
+
 
   return (
     <div
@@ -170,6 +183,15 @@ export default function SignUp({ scrollToHome,scrollToLogIn }) {
           onClose={() => setShowToast(false)}
         />
       )}
+
+      {notification.message && (
+  <Notification
+    type={notification.type}
+    message={notification.message}
+    onClose={() => setNotification({ message: "", type: "error" })}
+  />
+)}
+
     </div>
   );
 }
