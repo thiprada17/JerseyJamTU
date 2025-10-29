@@ -100,26 +100,50 @@
     transform: translateY(-2px); 
 }
 
-.field-rel { position: relative; }
-.overlay-wrap { position: relative; }
-.mirror {
-  position: absolute; inset: 0;
-  padding: 12px; border-radius: 8px;
-  white-space: pre-wrap; word-wrap: break-word; overflow-wrap: break-word;
-  font: inherit; line-height: inherit; color: transparent; pointer-events: none;
+.jj-overflow {
+    position: relative;
+    --jj-pad: 12px;
 }
-.mirror mark.overflow { background:#ffdbe1; color: transparent; }
 
-.with-overlay { background: transparent; position: relative; }
+.form-input.jj-textarea {
+    background: transparent !important;
+    position: relative;
+    z-index: 1;
+    box-sizing: border-box;
+    padding: var(--jj-pad);
+    line-height: 1.5;
+}
 
-.char-counter {
-  position: absolute; right: 10px; bottom: 8px;
-  font-size: 12px; font-weight: 600; user-select: none;
+.jj-mirror {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    box-sizing: border-box;
+    padding: var(--jj-pad);
+    white-space: pre-wrap;
+    word-break: break-word;
+    overflow-wrap: anywhere;
+    font: inherit;
+    line-height: 1.5;
+    color: transparent;
+    background: transparent;
+    border-radius: 8px;
 }
-.char-counter.ok   { color:#6b7280; }
-.char-counter.warn { color:#ffd416; }
-.char-counter.danger { color:#ef4444; }
-.overlay-wrap.has-over .with-overlay {
-  border-color:#ef4444 !important;
-  box-shadow:0 0 0 2px rgba(239,68,68,.1);
+
+.jj-mirror .jj-over {
+    background: #ffdbe1;
+    color: transparent;
 }
+
+.jj-counter {
+    display: block;
+    text-align: right;
+    margin-top: 6px;
+    font-size: 12px;
+    font-weight: 600;
+    font-family: 'Kanit';
+}
+.jj-counter.jj-ok    { color: #6b7280; }
+.jj-counter.jj-warn  { color: #ffd416; }
+.jj-counter.jj-danger{ color: #ef4444; }
