@@ -9,31 +9,31 @@ import { useLocation } from "react-router-dom";
 import Toast from "../component/Toast.jsx";
 
 export default function UserProfile() {
-    const navigate = useNavigate();
+  const navigate = useNavigate();
   const user_id = localStorage.getItem("user_id");
-    const username = localStorage.getItem("username")
-    const faculty = localStorage.getItem("faculty")
-    const year = localStorage.getItem("year")
+  const username = localStorage.getItem("username")
+  const faculty = localStorage.getItem("faculty")
+  const year = localStorage.getItem("year")
 
-    const [activeTab, setActiveTab] = useState(1);
-    let tab1Class = "up-tab";
-    if (activeTab === 1) {
-        tab1Class += " active-tabs";
-    }
-    let tab2Class = "up-tab";
-    if (activeTab === 2) {
-        tab2Class += " active-tabs";
-    }
+  const [activeTab, setActiveTab] = useState(1);
+  let tab1Class = "up-tab";
+  if (activeTab === 1) {
+    tab1Class += " active-tabs";
+  }
+  let tab2Class = "up-tab";
+  if (activeTab === 2) {
+    tab2Class += " active-tabs";
+  }
 
-    const [favs, setFavs] = useState([]);
-    const [posts, setPosts] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState("");
+  const [favs, setFavs] = useState([]);
+  const [posts, setPosts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
 
-    //get post **get by userid**
-    useEffect(() => {
+  //get post **get by userid**
+  useEffect(() => {
     const run = async () => {
-    //อย่าเพิ่งเกิด ไปเกิดใหม่ใน sprint 4 น้าาา
+      //อย่าเพิ่งเกิด ไปเกิดใหม่ใน sprint 4 น้าาา
       if (!user_id) {
         setError("กรุณาเข้าสู่ระบบ");
         setLoading(false);
@@ -159,14 +159,14 @@ export default function UserProfile() {
                 <div className="up-post-actions">
                   <button
                     type="button"
-                    className="up-post-edit"
+                    className="up-btn up-post-edit"
                     onClick={() => handleEditPost(post)}
                   >
                     Edit
                   </button>
                   <button
                     type="button"
-                    className="up-post-delete"
+                    className="up-btn up-post-delete"
                     onClick={() => handleDeletePost(post.post_id)}
                   >
                     Delete
