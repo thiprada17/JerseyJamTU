@@ -7,7 +7,7 @@ import { FaEye, FaEyeSlash } from "react-icons/fa";
 import Toast from './component/Toast';
 import Notification from './component/Notification';
 
-export default function SignUp({ scrollToHome,scrollToLogIn }) {
+export default function SignUp({ scrollToHome, scrollToLogIn }) {
   const nevigate = useNavigate();
   const [showToast, setShowToast] = useState(false);
   const [successMessage, setSuccessMessage] = useState("");
@@ -45,7 +45,7 @@ export default function SignUp({ scrollToHome,scrollToLogIn }) {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(userData),
       });
-          const result = await response.json();
+      const result = await response.json();
 
 
       if (response.ok) {
@@ -56,29 +56,25 @@ export default function SignUp({ scrollToHome,scrollToLogIn }) {
         setTimeout(() => {
           scrollToHome();
         }, 1000);
-
-        setTimeout(() => {
-          setShowToast(false);
-        }, 2500);
       } else {
         console.error('Failed to register user');
         setNotification({
-        message: result.error || "Registration failed. Please try again.",
+          message: result.error || "Registration failed. Please try again.",
+          type: "error",
+        });
+      }
+    } catch (error) {
+      console.error("Error sending data:", error);
+      setNotification({
+        message: "Error to connect to the server. Please try again later.",
         type: "error",
       });
     }
-  } catch (error) {
-    console.error("Error sending data:", error);
-    setNotification({
-      message: "Error to connect to the server. Please try again later.",
-      type: "error",
-    });
-  }
-};
+  };
   const [notification, setNotification] = useState({
-  message: "",
-  type: "error", 
-});
+    message: "",
+    type: "error",
+  });
 
 
   return (
@@ -185,12 +181,12 @@ export default function SignUp({ scrollToHome,scrollToLogIn }) {
       )}
 
       {notification.message && (
-  <Notification
-    type={notification.type}
-    message={notification.message}
-    onClose={() => setNotification({ message: "", type: "error" })}
-  />
-)}
+        <Notification
+          type={notification.type}
+          message={notification.message}
+          onClose={() => setNotification({ message: "", type: "error" })}
+        />
+      )}
 
     </div>
   );

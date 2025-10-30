@@ -98,7 +98,7 @@ app.post('/create/login', async (req, res) => {
     const { username, password } = req.body;
 
     //ดึง password ผู้ใช้ที่ตรงกับ username
-    const { data, error } = await supabase
+    const { data, error } = await supabaseAdmin
       .from('users')
       .select('user_id, username, password, faculty, year')
       .eq('username', username)
@@ -179,7 +179,7 @@ app.post('/commu/post', async (req, res) => {
   const { user_id, title, detail, contact } = req.body;
   console.log(title, detail, contact)
 
-  const { data, error } = await supabase
+  const { data, error } = await supabaseAdmin
     .from('commuPost')
     .insert([{ user_id, title, detail, contact }])
     .select()
@@ -198,7 +198,7 @@ app.post('/commu/post', async (req, res) => {
 //commu get
 app.get('/commu/get', async (req, res) => {
   try {
-    const { data, error } = await supabase
+    const { data, error } = await supabaseAdmin
       .from('commuPost')
       .select('post_id, title, detail, contact, user_id')
       .order('post_id', { ascending: false }); // เรียงจากล่าสุดก่อน
@@ -216,7 +216,7 @@ app.get('/commu/get', async (req, res) => {
 app.get('/commu/get/by-user/:user_id', async (req, res) => {
   try {
     const user_id = Number(req.params.user_id);
-    const { data, error } = await supabase
+    const { data, error } = await supabaseAdmin
       .from('commuPost')
       .select('post_id, title, detail, contact, user_id')
       .eq('user_id', user_id)
@@ -240,7 +240,7 @@ app.put('/commu/post/:post_id', async (req, res) => {
       return res.status(400).json({ error: 'user_id is required' });
     }
 
-    const { data, error } = await supabase
+    const { data, error } = await supabaseAdmin
       .from('commuPost')
       .update({ title, detail, contact })
       .eq('post_id', post_id)
@@ -269,7 +269,7 @@ app.delete('/commu/delete/:post_id', async (req, res) => {
       return res.status(400).json({ error: 'user_id is required' });
     }
 
-    const { error } = await supabase
+    const { error } = await supabaseAdmin
       .from('commuPost')
       .delete()
       .eq('post_id', post_id)
@@ -288,7 +288,7 @@ app.get('/shirt/fav/get/:user_id', async (req, res) => {
     const uid = Number(req.params.user_id);
     if (!uid) return res.status(400).json({ error: 'user_id is required' });
 
-    const { data, error } = await supabase
+    const { data, error } = await supabaseAdmin
       .from('favShirt')
       .select('shirt_id, shirt_name, shirt_pic')
       .eq('user_id', uid)
@@ -314,7 +314,7 @@ app.get('/shirt/info/get', async (req, res) => {
       return res.status(500).json({ error: 'Supabase dead (not connect)' });
     }
 
-    const { data, error } = await supabase
+    const { data, error } = await supabaseAdmin
       .from('shirtInfo')
       .select('*')
       .order('id', { ascending: false }); // เรียงล่าสุดขึ้นก่อน
@@ -343,7 +343,7 @@ app.get('/shirt/info/get/:id', async (req, res) => {
   let id = req.params.id
   console.log(id)
   try {
-    let { data, error } = await supabase
+    let { data, error } = await supabaseAdmin
       .from('shirtInfo')
       .select('*')
       .eq('id', id)
@@ -375,7 +375,7 @@ app.post('/shirt/info/post', async (req, res) => {
       shirt_pic
     } = req.body;
 
-    const { data, error } = await supabase
+    const { data, error } = await supabaseAdmin
       .from('shirtInfo')
       .insert([{
         shirt_name,
@@ -411,7 +411,7 @@ app.post('/shirt/fav/post', async (req, res) => {
       shirt_id
     } = req.body;
 
-    const { data, error } = await supabase
+    const { data, error } = await supabaseAdmin
       .from('favShirt')
       .insert([{
         shirt_name,
@@ -443,7 +443,7 @@ app.delete('/shirt/fav/del', async (req, res) => {
     } = req.body;
 
 
-    const { error } = await supabase
+    const { error } = await supabaseAdmin
       .from('favShirt')
       .delete()
       .eq('user_id', Number(user_id))
@@ -471,7 +471,7 @@ app.post('/shirt/fav/check', async (req, res) => {
       shirt_id
     } = req.body;
 
-    const { data, error } = await supabase
+    const { data, error } = await supabaseAdmin
       .from('favShirt')
       .select('*')
       .eq('user_id', Number(user_id))

@@ -3,17 +3,28 @@ import { useState } from "react";
 import { Link } from 'react-router-dom';
 import axios from "axios";
 import "./commu.css";
-import viewBg from "../../assets/view-bg.png";
+// import viewBg from "../../assets/view-bg.png";
 import popup from "../../assets/popup-commu.png";
 import home_icon from "../../assets/home_icon.png";
 import profile_icon from "../../assets/profile-icon.png";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
+import Toast from "../component/Toast";
 
 export default function Commu() {
   const navigate = useNavigate();
   const [posts, setPosts] = useState([]);
+  const location = useLocation();
   // console.log(posts)
   const username = localStorage.getItem("username");
+  const [showToast, setShowToast] = useState(false);
+  useEffect(() => {
+    if (location.state?.postSuccess) {
+      setShowToast(true);
+      // ล้าง state กัน toast เด้งซ้ำ
+      window.history.replaceState({}, document.title);
+    }
+  }, [location.state]);
+
   useEffect(() => {
     const verify = async () => {
       try {
@@ -80,6 +91,14 @@ export default function Commu() {
 
   return (
     <div className="commu-body">
+      {showToast && (
+        <Toast
+          message="✅ Post Success!"
+          duration={3000}
+          onClose={() => setShowToast(false)}
+        />
+      )}
+
       <div className="commu-navbar">
         <Link className="commu-navbar-user" to="/userprofile">
           <img src={profile_icon} alt="profile" className="commu-navbar-user-icon" />

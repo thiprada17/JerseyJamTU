@@ -15,7 +15,7 @@ export default function CommuForm() {
 
   const [formData, setFormData] = useState({ title: "", detail: "", contact: "" });
 
-    useEffect(() => {
+  useEffect(() => {
     const verify = async () => {
       try {
         const authToken = localStorage.getItem('token');
@@ -103,7 +103,9 @@ export default function CommuForm() {
         });
         alert("โพสต์สำเร็จ!");
       }
-      setTimeout(() => navigate("/userprofile"), 400);
+      // setTimeout(() => navigate("/userprofile"), 400);
+      setTimeout(() => { navigate("/commu", { state: { postSuccess: true } }); }, 400);
+
     } catch (err) {
       console.error(err);
       alert("ERROR!!\nโพสต์ไม่สำเร็จ");
@@ -142,9 +144,8 @@ export default function CommuForm() {
               required
             />
             <small
-              className={`jj-counter ${
-                remainDetail < 0 ? "jj-danger" : remainDetail <= WARN_AT ? "jj-warn" : "jj-ok"
-              }`}
+              className={`jj-counter ${remainDetail < 0 ? "jj-danger" : remainDetail <= WARN_AT ? "jj-warn" : "jj-ok"
+                }`}
             >
               {remainDetail}
             </small>

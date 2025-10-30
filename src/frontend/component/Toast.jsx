@@ -1,31 +1,23 @@
-import React, { useEffect, useRef, useState } from "react";
-import "./toast.css";
+import { useEffect, useState } from "react";
+import "./Toast.css";
 
-export default function Toast({ message }) {
-  const toastRef = useRef(null);
-  const [visible, setVisible] = useState(false);
+export default function Toast({ message, duration = 3000, onClose }) {
+  const [isHiding, setIsHiding] = useState(false);
 
   useEffect(() => {
-    const showTimer = setTimeout(() => {
-      setVisible(true);
-    }, 300);
-
-    const hideTimer = setTimeout(() => {
-      if (toastRef.current) {
-        toastRef.current.classList.add("hide");
-      }
-    }, 3000); // 500 delay + 2500 display
+    const hideTimer = setTimeout(() => setIsHiding(true), duration - 500);
+    const closeTimer = setTimeout(() => {
+      onClose?.();
+    }, duration);
 
     return () => {
-      clearTimeout(showTimer);
       clearTimeout(hideTimer);
+      clearTimeout(closeTimer);
     };
-  }, []);
-
-  if (!visible) return null;
+  }, [duration, onClose]);
 
   return (
-    <div className="custom-toast-login" ref={toastRef}>
+    <div className={`custom-toast-login ${isHiding ? "hide" : ""}`}>
       {message}
     </div>
   );

@@ -37,14 +37,20 @@ export default function Homepage() {
     useEffect(() => {
         if (location.state?.showSuccessToast) {
             setShowToast(true);
-            setTimeout(() => setShowToast(false), 3000);
         }
     }, [location.state]);
 
 
+
     return (
         <div className="homepage-container">
-            {showToast && <Toast message="✅ Add Jersey success!" />}
+            {showToast && (
+                <Toast
+                    message="✅ Add Jersey success!"
+                    duration={3000}
+                    onClose={() => setShowToast(false)}
+                />
+            )}
             <div ref={loginRef} className="section login-section">
                 <SignIn
                     scrollToHome={() => scrollToSection(homeRef)}
