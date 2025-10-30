@@ -54,30 +54,30 @@ app.post('/add-user/register', async (req, res) => {
     console.log('Request body:', req.body);
     const { username, email, password, faculty, year } = req.body;
 
-    const { data : Checkemail } = await supabase
-    .from('users')
-    .select('email')
-    .eq('email', email)
-    .maybeSingle() // ถ้าใช้ซิงเกิ้ลเฉยๆไม่เจอมันจะ error
+    const { data: Checkemail } = await supabase
+      .from('users')
+      .select('email')
+      .eq('email', email)
+      .maybeSingle() // ถ้าใช้ซิงเกิ้ลเฉยๆไม่เจอมันจะ error
 
-      const { data : Checkusername } = await supabase
-    .from('users')
-    .select('username')
-    .eq('username', username)
-    .maybeSingle()
+    const { data: Checkusername } = await supabase
+      .from('users')
+      .select('username')
+      .eq('username', username)
+      .maybeSingle()
 
-    if(Checkemail) {
+    if (Checkemail) {
       return res.status(400).json({ error: 'Email already registered' });
     }
 
-    if(Checkusername) {
+    if (Checkusername) {
       return res.status(400).json({ error: 'Username already registered' });
     }
 
     const passwordHash = await bcrypt.hash(password, 10)
     const { data, error } = await supabase
       .from('users')
-      .insert([{ username, email, password : passwordHash, faculty, year }])
+      .insert([{ username, email, password: passwordHash, faculty, year }])
       .select('user_id, username, email');
 
     if (error) {
@@ -120,12 +120,12 @@ app.post('/create/login', async (req, res) => {
 
     const match = await bcrypt.compare(password, supabase_password)
 
-    if(!match) {
-      return res.status(401).json({ message: 'Password Incorrect😭'})
-  }
+    if (!match) {
+      return res.status(401).json({ message: 'Password Incorrect😭' })
+    }
 
-  // jwt token
-  const token = jwt.sign({ email : supabase_user_data.email, role: 'admin' },  secret, {expiresIn: '1h'})
+    // jwt token
+    const token = jwt.sign({ email: supabase_user_data.email, role: 'admin' }, secret, { expiresIn: '1h' })
 
     res.json({
       success: true,
@@ -140,31 +140,31 @@ app.post('/create/login', async (req, res) => {
 
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: 'Server error' ,message: error.message});
+    res.status(500).json({ message: 'Server error', message: error.message });
   }
 });
 
 // กำลังก่อสร้างยังไม่เสด
 app.get('/authen/users', async (req, res) => {
   try {
-    const authHeader = req.headers['authorization']; 
+    const authHeader = req.headers['authorization'];
     let authToken = ''
 
 
-    if (authHeader){
+    if (authHeader) {
       authToken = authHeader.split(' ')[1]
     }
-        const veri = jwt.verify(authToken, secret)
+    const veri = jwt.verify(authToken, secret)
     console.log('Auth Token:', veri);
-    
+
     res.json({
       success: true,
       message: "Token is valid",
-      user: veri, 
+      user: veri,
     });
 
   } catch (error) {
-        console.error("Auth failed:", error.message);
+    console.error("Auth failed:", error.message);
     res.status(401).json({
       success: false,
       message: "Invalid or expired token"
@@ -318,7 +318,7 @@ app.get('/shirt/info/get', async (req, res) => {
       .from('shirtInfo')
       .select('*')
       .order('id', { ascending: false }); // เรียงล่าสุดขึ้นก่อน
- 
+
     // เช็ค error
     if (error) {
       console.error('error:', error);
@@ -375,7 +375,7 @@ app.post('/shirt/info/post', async (req, res) => {
       shirt_pic
     } = req.body;
 
-    const { data, error } = await supabaseAdmin
+    const { data: newShirt, error } = await supabaseAdmin
       .from('shirtInfo')
       .insert([{
         shirt_name,
@@ -386,14 +386,16 @@ app.post('/shirt/info/post', async (req, res) => {
         shirt_url,
         shirt_pic
       }])
-      .select();
+      .select()
+      .single();
 
     if (error) {
       console.error('Supabase insert error:', error);
       return res.status(500).json({ error: error.message });
     }
 
-    res.json({ message: 'Shirt info added successfully', data });
+    res.json({ success: true, shirt_id: newShirt.id });
+
   } catch (err) {
     console.error('Unexpected error:', err);
     res.status(500).json({ error: 'Internal server error' });
@@ -496,6 +498,51 @@ app.post('/shirt/fav/check', async (req, res) => {
   }
 });
 
+//tags
+app.post('/shirt/tag/add', async (req, res) => {
+  try {
+    const { shirt_id, tag_name } = req.body;
+
+    //หา tag ว่ามียุมั้ย
+    let { data: tagData, error: tagError } = await supabaseAdmin
+      .from('tags')
+      // .select('tag_id')
+      .select()
+      .eq('tag_name', tag_name)
+      .maybeSingle();
+
+    if (tagError) throw tagError;
+    if (!shirt_id) {
+      throw new Error('shirt_id is null');
+    }
+
+    //ถ้าไม่มีก็สร้างใหม่
+    if (!tagData) {
+      const { data: newTag, error: createError } = await supabaseAdmin
+        .from('tags')
+        .insert([{ tag_name }])
+        .select()
+        .single();
+
+      if (createError) throw createError;
+      tagData = newTag;
+    }
+
+    //เชื่อมเสื้อกับแท็ก
+    const { error: linkError } = await supabaseAdmin
+      .from('shirt_tags')
+      .insert([{ shirt_id, tag_id: tagData.tag_id }]);
+
+    if (linkError) throw linkError;
+
+    res.json({ success: true, message: 'Tag added successfully' });
+  } catch (err) {
+    console.error('Add tag error:', err);
+    res.status(500).json({ success: false, error: err.message });
+  }
+});
+
+
 app.get('/category/:folder/info/get', async (req, res) => {
   try {
     const folder = req.params.folder;
@@ -507,7 +554,7 @@ app.get('/category/:folder/info/get', async (req, res) => {
     }
 
     // เช็คว่าชื่อโฟลเดอร์จากพารัมถูกมั้ย
-    if (!folder || typeof folder !== 'string' ) {
+    if (!folder || typeof folder !== 'string') {
       return res.status(400).json({ error: 'folder name invalid' });
     }
 
@@ -550,7 +597,7 @@ app.get('/category/:folder/info/get', async (req, res) => {
     );
 
     res.json(images.filter(Boolean));
-    
+
   } catch (err) {
     console.error('Unexpected error:', err);
     res.status(500).json({ error: 'Internal server error' });

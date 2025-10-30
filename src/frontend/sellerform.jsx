@@ -32,10 +32,6 @@ export default function SellerForm() {
     shirt_url: "",
   });
 
-
-
-
-
   // const handleUpload = async (e) => {
   //   const file = e.target.files[0];
   //   if (file) {
@@ -208,10 +204,26 @@ export default function SellerForm() {
       const result = await response.json();
 
       if (response.ok) {
+        console.log("Tags to send:", selectedTags);
         setShowToast(true);
         setTimeout(() => {
           navigate("/", { state: { showSuccessToast: true } });
         }, 3000);
+
+        const shirtId = result.shirt_id;
+        if (!shirtId) {
+  console.error("No shirt_id returned from server");
+  return;
+}
+
+      //ส่งแท็กแต่ละอันไปbackend
+      for (const tag of selectedTags) {
+        await fetch("http://localhost:8000/shirt/tag/add", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ shirt_id: shirtId, tag_name: tag }),
+        });
+      }
       } else {
         alert("Warning Mistakes: " + result.error);
       }
