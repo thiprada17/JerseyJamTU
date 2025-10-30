@@ -8,7 +8,14 @@ import MainNews from "./MainNews.jsx"
 import FeatureFolder from "./FeatureFolder.jsx"
 import { useLocation } from "react-router-dom";
 import Toast from "../component/Toast.jsx";
+<<<<<<< Updated upstream
 import { useNavigate } from 'react-router-dom';
+=======
+import filterIcon from "../../assets/sort.png";
+import Filter from "./Filter.jsx";
+import "./Filter.css";
+
+>>>>>>> Stashed changes
 
 export default function Main() {
   // const posts = [
@@ -24,6 +31,7 @@ export default function Main() {
   const [showToast, setShowToast] = useState(false);
   const username = localStorage.getItem("username");
 
+<<<<<<< Updated upstream
 
   useEffect(() => {
     const verify = async () => {
@@ -69,6 +77,14 @@ export default function Main() {
     verify();
   }, [navigate]);
 
+=======
+  const [showFilter, setShowFilter] = useState(false);
+  const [filters, setFilters] = useState({ faculties: [], price: null });
+  const handleApplyFilter = (selectedFilters) => {
+    setFilters(selectedFilters);
+    console.log("Filters applied:", selectedFilters);
+  };
+>>>>>>> Stashed changes
 
   // ก้อนนี้คือเพิ่มอนิเมชั่นเล่นๆนะ ไม่ชอบเดะเอาออก มันคือ เฟดตอนเข้า
   const postRefs = useRef([]);
@@ -146,14 +162,31 @@ export default function Main() {
 
       <MainNews />
       <FeatureFolder />
+
+      {/* Popup Filter Panel */} 
+      {showFilter && ( 
+        <div className="filter-container"> 
+          <Filter 
+            onClose={() => setShowFilter(false)} 
+            onApply={handleApplyFilter} 
+          /> 
+        </div> 
+      )}
+
       <div className="main-container">
-        <div className="main-posttext">ALL JERSEY</div>
+        <div className="main-header">
+          <div className="main-posttext">ALL JERSEY</div>
+          <button className="filters-button" onClick={() => setShowFilter(true)}>
+            <img src={filterIcon} alt="Filter Icon" className="filters-icon" />
+            <span className="filters-text">Filters</span>
+          </button>
+        </div>
+
         <div className="main-grid">
           {posts.map((post) => (
             <Link to="/display" state={{ id: post.id }} style={{ textDecoration: 'none', color: 'black' }}>
               <div key={post.id} className="main-post">
                 <div className="main-post-photo">
-
                   <img src={post.shirt_pic} alt={post.shirt_name} />
                 </div>
                 <div className="main-post-detail-card">
@@ -161,9 +194,7 @@ export default function Main() {
                   <div className="price">{post.shirt_price} ฿</div>
                 </div>
               </div>
-
             </Link>
-
           ))}
           {/* {posts.map((post, index) => (
             <Link
@@ -186,7 +217,6 @@ export default function Main() {
               </div>
             </Link>
           ))} */}
-
         </div>
       </div>
     </div>

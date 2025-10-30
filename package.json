@@ -22,7 +22,11 @@
     "express-session": "^1.18.2",
     "flowbite": "^3.1.2",
     "html2canvas": "^1.4.1",
+<<<<<<< Updated upstream
     "jsonwebtoken": "^9.0.2",
+=======
+    "lucide-react": "^0.548.0",
+>>>>>>> Stashed changes
     "react": "^19.1.1",
     "react-bootstrap": "^2.10.10",
     "react-dom": "^19.1.1",

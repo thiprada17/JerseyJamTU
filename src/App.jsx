@@ -15,6 +15,7 @@ import CommuForm from './frontend/commu/commuForm';
 import Main from './frontend/main/Main';
 import MainNews from './frontend/main/MainNews';
 import Display from './frontend/ShirtDisplay';
+import Filter from './frontend/main/Filter';
 
 import Sellerform from './frontend/sellerform';
 import MixAndMatch from './frontend/MixAndMatch';
@@ -26,7 +27,6 @@ import JerseyWith from './frontend/main/News/jerseyWith';
 import PersonalColor from './frontend/main/News/personalcolor';
 import CollarJersey from './frontend/main/News/collarJersey';
 import LuckyColor from './frontend/main/News/luckuColor';
-
 
 
 function App() {
@@ -53,6 +53,8 @@ function App() {
           <Route path='/blog/personalColor' element = {<PersonalColor />} />
           <Route path='/blog/collarJersey' element = {<CollarJersey />} />
           <Route path='/blog/luckycolor' element = {<LuckyColor />} />
+
+          <Route path='/filter' element = {<Filter/>} />
         </Routes>
       </Router>
 
