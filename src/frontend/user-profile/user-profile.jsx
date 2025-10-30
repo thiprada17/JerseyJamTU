@@ -77,7 +77,7 @@ export default function UserProfile() {
   //get post **get by userid**
   useEffect(() => {
     const run = async () => {
-
+  
       if (!user_id) {
         setError("กรุณาเข้าสู่ระบบ");
         setLoading(false);
@@ -203,14 +203,14 @@ export default function UserProfile() {
                 <div className="up-post-actions">
                   <button
                     type="button"
-                    className="up-post-edit"
+                    className="up-btn up-post-edit"
                     onClick={() => handleEditPost(post)}
                   >
                     Edit
                   </button>
                   <button
                     type="button"
-                    className="up-post-delete"
+                    className="up-btn up-post-delete"
                     onClick={() => handleDeletePost(post.post_id)}
                   >
                     Delete

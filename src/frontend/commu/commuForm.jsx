@@ -1,20 +1,19 @@
 import "./commuForm.css";
 import { useState, useEffect } from "react";
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
+
+const LIMITS = { title: 25, detail: 250, contact: 150 };
+const WARN_AT = Math.max(10, Math.ceil(LIMITS.detail * 0.1));
 
 export default function CommuForm() {
   const navigate = useNavigate();
-  const location = useLocation();
-  const isEdit = location.state?.mode === "edit";
-  const editingPost = location.state?.post || null;
+  const { state } = useLocation();
+  const isEdit = state?.mode === "edit";
+  const editingPost = state?.post || null;
   const user_id = Number(localStorage.getItem("user_id"));
 
-  const [formData, setFormData] = useState({
-    title: '',
-    detail: '',
-    contact: ''
-  });
+  const [formData, setFormData] = useState({ title: "", detail: "", contact: "" });
 
     useEffect(() => {
     const verify = async () => {
@@ -64,52 +63,52 @@ export default function CommuForm() {
   useEffect(() => {
     if (isEdit && editingPost) {
       setFormData({
-        title: editingPost.title || '',
-        detail: editingPost.detail || '',
-        contact: editingPost.contact || ''
+        title: editingPost.title || "",
+        detail: editingPost.detail || "",
+        contact: editingPost.contact || "",
       });
     }
   }, [isEdit, editingPost]);
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
-  };
+  const onChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
+
+  const remainDetail = LIMITS.detail - formData.detail.length;
+  const submitDisabled = remainDetail < 0;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-  if (!user_id) {
-      alert("กรุณาเข้าสู่ระบบก่อนโพสต์/แก้ไข");
-      return;
-    }
+    if (!user_id) return alert("กรุณาเข้าสู่ระบบก่อนโพสต์/แก้ไข");
+
+    const t = (formData.title || "").trim();
+    const d = (formData.detail || "").trim();
+    const c = (formData.contact || "").trim();
+    if (!t || !d || !c) return alert("กรุณากรอกข้อมูลให้ครบถ้วน");
+    if (LIMITS.detail - d.length < 0) return alert("รายละเอียดเกินลิมิต กรุณาลดจำนวนอักษร");
 
     try {
       if (isEdit && editingPost?.post_id) {
         await axios.put(`http://localhost:8000/commu/post/${editingPost.post_id}`, {
-          ...formData,
-          user_id
+          title: t,
+          detail: d,
+          contact: c,
+          user_id,
         });
         alert("แก้ไขโพสต์สำเร็จ!");
       } else {
-        await axios.post('http://localhost:8000/commu/post', {
-          ...formData,
-          user_id
+        await axios.post("http://localhost:8000/commu/post", {
+          title: t,
+          detail: d,
+          contact: c,
+          user_id,
         });
         alert("โพสต์สำเร็จ!");
       }
-
-      setTimeout(() => {
-        navigate('/userprofile');
-      }, 400);
-
-    } catch (error) {
-      console.error(error);
+      setTimeout(() => navigate("/userprofile"), 400);
+    } catch (err) {
+      console.error(err);
       alert("ERROR!!\nโพสต์ไม่สำเร็จ");
     }
   };
-
-
-
 
   return (
     <div className="form-body">
@@ -124,9 +123,10 @@ export default function CommuForm() {
               className="form-input"
               type="text"
               placeholder="Rockstar Jersey, TU Jersey…"
-              onChange={handleChange}
               value={formData.title}
+              onChange={onChange}
               required
+              maxLength={LIMITS.title}
             />
           </div>
 
@@ -136,11 +136,18 @@ export default function CommuForm() {
               name="detail"
               className="form-input"
               placeholder="เสื้อเจอร์ซีย์สำหรับคนคูล ๆ เย็นสบาย…"
-              rows="3"
-              onChange={handleChange}
+              rows={4}
               value={formData.detail}
+              onChange={onChange}
               required
             />
+            <small
+              className={`jj-counter ${
+                remainDetail < 0 ? "jj-danger" : remainDetail <= WARN_AT ? "jj-warn" : "jj-ok"
+              }`}
+            >
+              {remainDetail}
+            </small>
           </div>
 
           <div className="form">
@@ -150,14 +157,15 @@ export default function CommuForm() {
               className="form-input"
               type="url"
               placeholder="https://www.facebook.com/"
-              onChange={handleChange}
               value={formData.contact}
+              onChange={onChange}
               required
+              maxLength={LIMITS.contact}
             />
           </div>
 
           <div style={{ textAlign: "center" }}>
-            <button className="submit-btn" type="submit">
+            <button className="submit-btn" type="submit" disabled={submitDisabled}>
               {isEdit ? "UPDATE" : "SUBMIT"}
             </button>
           </div>
