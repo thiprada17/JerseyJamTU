@@ -195,6 +195,7 @@ export default function SellerForm() {
       shirt_detail: formData.shirt_detail,
       shirt_url: formData.shirt_url,
       shirt_pic: imageUrl,
+      // tags: selectedTags,
     };
 
     try {

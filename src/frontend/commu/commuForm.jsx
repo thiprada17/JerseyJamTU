@@ -2,11 +2,13 @@ import "./commuForm.css";
 import { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
+import Notification from "../component/Notification";
 
 const LIMITS = { title: 25, detail: 250, contact: 150 };
 const WARN_AT = Math.max(10, Math.ceil(LIMITS.detail * 0.1));
 
 export default function CommuForm() {
+  const [notification, setNotification] = useState({ message: "", type: "" });
   const navigate = useNavigate();
   const { state } = useLocation();
   const isEdit = state?.mode === "edit";
@@ -21,7 +23,11 @@ export default function CommuForm() {
         const authToken = localStorage.getItem('token');
 
         if (!authToken) {
-          window.alert('token not found');
+          // window.alert('token not found');
+          setNotification({
+            message: "Token not found, กรุณาเข้าสู่ระบบใหม่",
+            type: "error",
+          });
           navigate('/');
           return
         }
@@ -33,7 +39,11 @@ export default function CommuForm() {
 
         if (!authen.ok) {
           console.error('authen fail', authen.status);
-          window.alert('authen fail');
+          // window.alert('authen fail');
+          setNotification({
+            message: "Authentication ล้มเหลว กรุณาเข้าสู่ระบบใหม่",
+            type: "warning",
+          });
           navigate('/');
           return
         }
@@ -42,7 +52,11 @@ export default function CommuForm() {
         console.log('auth ' + authenData.success);
 
         if (!authenData && !authenData.data && !authenData.data.success) {
-          window.alert('token not pass');
+          // window.alert('token not pass');
+            setNotification({
+            message: "Token หมดอายุ กรุณาเข้าสู่ระบบอีกครั้ง",
+            type: "error",
+          });
           localStorage.clear();
           navigate('/');
           return
@@ -50,7 +64,11 @@ export default function CommuForm() {
 
       } catch (error) {
         console.error('verify error:', error);
-        window.alert('verify error');
+        // window.alert('verify error');
+        setNotification({
+          message: "เกิดข้อผิดพลาดในการตรวจสอบสิทธิ์",
+          type: "error",
+        });
         navigate('/');
 
       }
@@ -77,13 +95,32 @@ export default function CommuForm() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!user_id) return alert("กรุณาเข้าสู่ระบบก่อนโพสต์/แก้ไข");
+    // if (!user_id) return alert("กรุณาเข้าสู่ระบบก่อนโพสต์/แก้ไข");
+    if (!user_id) {
+      setNotification({
+        message: "⚠️ กรุณาเข้าสู่ระบบก่อนโพสต์หรือแก้ไข",
+        type: "warning",
+      });
+      return;
+    }
 
     const t = (formData.title || "").trim();
     const d = (formData.detail || "").trim();
     const c = (formData.contact || "").trim();
-    if (!t || !d || !c) return alert("กรุณากรอกข้อมูลให้ครบถ้วน");
-    if (LIMITS.detail - d.length < 0) return alert("รายละเอียดเกินลิมิต กรุณาลดจำนวนอักษร");
+    // if (!t || !d || !c) return alert("กรุณากรอกข้อมูลให้ครบถ้วน");
+    if (!t || !d || !c) {
+      setNotification({
+        message: "กรุณากรอกข้อมูลให้ครบทุกช่อง",
+        type: "warning",
+      });
+      return;
+    }
+    // if (LIMITS.detail - d.length < 0) return alert("รายละเอียดเกินลิมิต กรุณาลดจำนวนอักษร");
+    if (LIMITS.detail - d.length < 0) {
+      setNotification({
+        message: "รายละเอียดเกินลิมิต กรุณาลดจำนวนอักษร",type: "error",});
+      return;
+    }
 
     try {
       if (isEdit && editingPost?.post_id) {
@@ -93,7 +130,11 @@ export default function CommuForm() {
           contact: c,
           user_id,
         });
-        alert("แก้ไขโพสต์สำเร็จ!");
+        // alert("แก้ไขโพสต์สำเร็จ!");
+        setNotification({
+          message: "แก้ไขโพสต์สำเร็จ!",
+          type: "success",
+        });
       } else {
         await axios.post("http://localhost:8000/commu/post", {
           title: t,
@@ -101,19 +142,34 @@ export default function CommuForm() {
           contact: c,
           user_id,
         });
-        alert("โพสต์สำเร็จ!");
+        // alert("โพสต์สำเร็จ!");
+        setNotification({
+          message: "โพสต์สำเร็จ!",
+          type: "success",
+        });
       }
       // setTimeout(() => navigate("/userprofile"), 400);
       setTimeout(() => { navigate("/commu", { state: { postSuccess: true } }); }, 400);
 
     } catch (err) {
       console.error(err);
-      alert("ERROR!!\nโพสต์ไม่สำเร็จ");
+      // alert("ERROR!!\nโพสต์ไม่สำเร็จ");
+      setNotification({
+        message: "ERROR: โพสต์ไม่สำเร็จ\nกรุณาลองใหม่อีกครั้ง",
+        type: "error",
+      });
     }
   };
 
   return (
     <div className="form-body">
+      {notification.message && (
+        <Notification
+          type={notification.type}
+          message={notification.message}
+          onClose={() => setNotification({ message: "", type: "" })}
+        />
+      )}
       <div className="form-box">
         <h2 className="form-header">{isEdit ? "Edit Post" : "Create Post"}</h2>
 

@@ -7,6 +7,7 @@ import usericon from "../../assets/profile-icon2.png";
 import home_icon from "../../assets/home_icon.png";
 import { useLocation } from "react-router-dom";
 import Toast from "../component/Toast.jsx";
+import ConfirmBox from "../component/ConfirmBox.jsx";
 
 export default function UserProfile() {
   const navigate = useNavigate();
@@ -14,6 +15,8 @@ export default function UserProfile() {
   const username = localStorage.getItem("username")
   const faculty = localStorage.getItem("faculty")
   const year = localStorage.getItem("year")
+  const [showConfirm, setShowConfirm] = useState(false);
+  const [selectedPost, setSelectedPost] = useState(null);
 
   useEffect(() => {
     const verify = async () => {
@@ -77,7 +80,7 @@ export default function UserProfile() {
   //get post **get by userid**
   useEffect(() => {
     const run = async () => {
-  
+
       if (!user_id) {
         setError("กรุณาเข้าสู่ระบบ");
         setLoading(false);
@@ -102,18 +105,47 @@ export default function UserProfile() {
   }, [user_id]);
 
   //delete post
-  const handleDeletePost = async (post_id) => {
-    const ok = window.confirm("ต้องการลบโพสต์นี้หรือไม่?");
-    if (!ok) return;
+  // const handleDeletePost = async (post_id) => {
+  //   // const ok = window.confirm("ต้องการลบโพสต์นี้หรือไม่?");
+  //   if (!ok) return;
+  //   try {
+  //     await axios.delete(`http://localhost:8000/commu/delete/${post_id}`, {
+  //       data: { user_id },
+  //     });
+  //     setPosts((prev) => prev.filter((p) => p.post_id !== post_id));
+  //   } catch (e) {
+  //     console.error(e);
+  //     alert("ลบโพสต์ไม่สำเร็จ!");
+  //   }finally {
+  //     setShowConfirm(false);
+  //     setSelectedPost(null);
+  //   }
+  // };
+
+  const handleAskDelete = (post_id) => {
+    setSelectedPost(post_id);
+    setShowConfirm(true);
+  };
+
+  const handleConfirmDelete = async () => {
+    if (!selectedPost) return;
     try {
-      await axios.delete(`http://localhost:8000/commu/delete/${post_id}`, {
+      await axios.delete(`http://localhost:8000/commu/delete/${selectedPost}`, {
         data: { user_id },
       });
-      setPosts((prev) => prev.filter((p) => p.post_id !== post_id));
+      setPosts((prev) => prev.filter((p) => p.post_id !== selectedPost));
     } catch (e) {
       console.error(e);
       alert("ลบโพสต์ไม่สำเร็จ!");
+    } finally {
+      setShowConfirm(false);
+      setSelectedPost(null);
     }
+  };
+
+  const handleCancelDelete = () => {
+    setShowConfirm(false);
+    setSelectedPost(null);
   };
 
   // edit post + back to commu
@@ -123,6 +155,13 @@ export default function UserProfile() {
 
   return (
     <div className="up-body">
+      {showConfirm && (
+        <ConfirmBox
+          message="คุณต้องการลบโพสต์นี้ใช่หรือไม่?"
+          onConfirm={handleConfirmDelete}
+          onCancel={handleCancelDelete}
+        />
+      )}
       <div className="up-top">
         <div className="up-top-container">
           <Link to="/main">
@@ -211,7 +250,8 @@ export default function UserProfile() {
                   <button
                     type="button"
                     className="up-btn up-post-delete"
-                    onClick={() => handleDeletePost(post.post_id)}
+                    // onClick={() => handleDeletePost(post.post_id)}
+                    onClick={() => handleAskDelete(post.post_id)}
                   >
                     Delete
                   </button>
