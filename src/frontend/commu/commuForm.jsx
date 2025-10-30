@@ -16,6 +16,51 @@ export default function CommuForm() {
     contact: ''
   });
 
+    useEffect(() => {
+    const verify = async () => {
+      try {
+        const authToken = localStorage.getItem('token');
+
+        if (!authToken) {
+          window.alert('token not found');
+          navigate('/');
+          return
+        }
+
+        const authen = await fetch('http://localhost:8000/authen/users', {
+          method: 'GET',
+          headers: { authorization: `Bearer ${authToken}` }
+        });
+
+        if (!authen.ok) {
+          console.error('authen fail', authen.status);
+          window.alert('authen fail');
+          navigate('/');
+          return
+        }
+
+        const authenData = await authen.json();
+        console.log('auth ' + authenData.success);
+
+        if (!authenData && !authenData.data && !authenData.data.success) {
+          window.alert('token not pass');
+          localStorage.clear();
+          navigate('/');
+          return
+        }
+
+      } catch (error) {
+        console.error('verify error:', error);
+        window.alert('verify error');
+        navigate('/');
+
+      }
+    };
+
+    verify();
+  }, [navigate]);
+
+
   useEffect(() => {
     if (isEdit && editingPost) {
       setFormData({

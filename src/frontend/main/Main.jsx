@@ -8,6 +8,7 @@ import MainNews from "./MainNews.jsx"
 import FeatureFolder from "./FeatureFolder.jsx"
 import { useLocation } from "react-router-dom";
 import Toast from "../component/Toast.jsx";
+import { useNavigate } from 'react-router-dom';
 
 export default function Main() {
   // const posts = [
@@ -16,11 +17,58 @@ export default function Main() {
   //     { id: 3, name: "Shirt name", price: 350, img: "chelsea.jpg" },
   //     { id: 4, name: "Shirt name", price: 350, img: "barca.jpg" },
   // ];
+  const navigate = useNavigate();
   const [posts, setPosts] = useState([]);
   const location = useLocation();
   const toastRef = useRef(null);
   const [showToast, setShowToast] = useState(false);
   const username = localStorage.getItem("username");
+
+
+  useEffect(() => {
+    const verify = async () => {
+      try {
+        const authToken = localStorage.getItem('token');
+
+        if (!authToken) {
+          window.alert('token not found');
+          navigate('/');
+          return
+        }
+
+        const authen = await fetch('http://localhost:8000/authen/users', {
+          method: 'GET',
+          headers: { authorization: `Bearer ${authToken}` }
+        });
+
+        if (!authen.ok) {
+          console.error('authen fail', authen.status);
+          window.alert('authen fail');
+          navigate('/');
+          return
+        }
+
+        const authenData = await authen.json();
+        console.log('auth ' + authenData.success);
+
+        if (!authenData && !authenData.data && !authenData.data.success) {
+          window.alert('token not pass');
+          localStorage.clear();
+          navigate('/');
+          return
+        }
+
+      } catch (error) {
+        console.error('verify error:', error);
+        window.alert('verify error');
+        navigate('/');
+
+      }
+    };
+
+    verify();
+  }, [navigate]);
+
 
   // ก้อนนี้คือเพิ่มอนิเมชั่นเล่นๆนะ ไม่ชอบเดะเอาออก มันคือ เฟดตอนเข้า
   const postRefs = useRef([]);
@@ -67,11 +115,11 @@ export default function Main() {
   }, []);
 
   useEffect(() => {
-  if (location.state?.showLoginToast) {
-    setShowToast(true);
-    setTimeout(() => setShowToast(false), 2000);
-  }
-}, [location.state]);
+    if (location.state?.showLoginToast) {
+      setShowToast(true);
+      setTimeout(() => setShowToast(false), 2000);
+    }
+  }, [location.state]);
 
 
   return (

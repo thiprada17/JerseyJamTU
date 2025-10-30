@@ -7,11 +7,58 @@ import viewBg from "../../assets/view-bg.png";
 import popup from "../../assets/popup-commu.png";
 import home_icon from "../../assets/home_icon.png";
 import profile_icon from "../../assets/profile-icon.png";
+import { useNavigate } from 'react-router-dom';
 
 export default function Commu() {
+  const navigate = useNavigate();
   const [posts, setPosts] = useState([]);
   // console.log(posts)
-    const username = localStorage.getItem("username");
+  const username = localStorage.getItem("username");
+  useEffect(() => {
+    const verify = async () => {
+      try {
+        const authToken = localStorage.getItem('token');
+
+        if (!authToken) {
+          window.alert('token not found');
+          navigate('/');
+          return
+        }
+
+        const authen = await fetch('http://localhost:8000/authen/users', {
+          method: 'GET',
+          headers: { authorization: `Bearer ${authToken}` }
+        });
+
+        if (!authen.ok) {
+          console.error('authen fail', authen.status);
+          window.alert('authen fail');
+          navigate('/');
+          return
+        }
+
+        const authenData = await authen.json();
+        console.log('auth ' + authenData.success);
+
+        if (!authenData && !authenData.data && !authenData.data.success) {
+          window.alert('token not pass');
+          localStorage.clear();
+          navigate('/');
+          return
+        }
+
+      } catch (error) {
+        console.error('verify error:', error);
+        window.alert('verify error');
+        navigate('/');
+
+      }
+    };
+
+    verify();
+  }, [navigate]);
+
+
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -24,7 +71,7 @@ export default function Commu() {
       } catch (error) {
         console.error("Error fetching posts:", error);
 
-        
+
       }
     };
 

@@ -9,31 +9,75 @@ import { useLocation } from "react-router-dom";
 import Toast from "../component/Toast.jsx";
 
 export default function UserProfile() {
-    const navigate = useNavigate();
+  const navigate = useNavigate();
   const user_id = localStorage.getItem("user_id");
-    const username = localStorage.getItem("username")
-    const faculty = localStorage.getItem("faculty")
-    const year = localStorage.getItem("year")
+  const username = localStorage.getItem("username")
+  const faculty = localStorage.getItem("faculty")
+  const year = localStorage.getItem("year")
 
-    const [activeTab, setActiveTab] = useState(1);
-    let tab1Class = "up-tab";
-    if (activeTab === 1) {
-        tab1Class += " active-tabs";
-    }
-    let tab2Class = "up-tab";
-    if (activeTab === 2) {
-        tab2Class += " active-tabs";
-    }
+  useEffect(() => {
+    const verify = async () => {
+      try {
+        const authToken = localStorage.getItem('token');
 
-    const [favs, setFavs] = useState([]);
-    const [posts, setPosts] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState("");
+        if (!authToken) {
+          window.alert('token not found');
+          navigate('/');
+          return
+        }
 
-    //get post **get by userid**
-    useEffect(() => {
+        const authen = await fetch('http://localhost:8000/authen/users', {
+          method: 'GET',
+          headers: { authorization: `Bearer ${authToken}` }
+        });
+
+        if (!authen.ok) {
+          console.error('authen fail', authen.status);
+          window.alert('authen fail');
+          navigate('/');
+          return
+        }
+
+        const authenData = await authen.json();
+        console.log('auth ' + authenData.success);
+
+        if (!authenData && !authenData.data && !authenData.data.success) {
+          window.alert('token not pass');
+          localStorage.clear();
+          navigate('/');
+          return
+        }
+
+      } catch (error) {
+        console.error('verify error:', error);
+        window.alert('verify error');
+        navigate('/');
+
+      }
+    };
+
+    verify();
+  }, [navigate]);
+
+  const [activeTab, setActiveTab] = useState(1);
+  let tab1Class = "up-tab";
+  if (activeTab === 1) {
+    tab1Class += " active-tabs";
+  }
+  let tab2Class = "up-tab";
+  if (activeTab === 2) {
+    tab2Class += " active-tabs";
+  }
+
+  const [favs, setFavs] = useState([]);
+  const [posts, setPosts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
+
+  //get post **get by userid**
+  useEffect(() => {
     const run = async () => {
-    //อย่าเพิ่งเกิด ไปเกิดใหม่ใน sprint 4 น้าาา
+
       if (!user_id) {
         setError("กรุณาเข้าสู่ระบบ");
         setLoading(false);
