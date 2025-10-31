@@ -604,6 +604,57 @@ app.get('/category/:folder/info/get', async (req, res) => {
   }
 });
 
+app.post('/shirt/fillter', async (req, res) => {
+  try {
+
+    let { selectedTagIds = [], minPrice, maxPrice } = req.body;
+
+    minPrice = minPrice ?? 0;
+    maxPrice = maxPrice ?? 10000;
+
+    console.log('selectedTagIds:', selectedTagIds, 'minPrice:', minPrice, 'maxPrice:', maxPrice);
+
+    if (!Array.isArray(selectedTagIds)) {
+      return res.status(400).json({ error: 'selectedTagIds must be an array' });
+    }
+
+    let { data: shirts, error: priceError } = await supabaseAdmin
+      .from('shirtInfo')
+      .select('*')
+      .gte('shirt_price', minPrice)
+      .lte('shirt_price', maxPrice);
+
+    console.log(shirts)
+
+    if (priceError) return res.status(500).json({ error: priceError.message });
+
+    if (selectedTagIds.length > 0) {
+      const { data: tagData, error: tagError } = await supabaseAdmin
+        .from('shirt_tags')
+        .select('shirt_id')
+        .in('tag_id', selectedTagIds);
+
+      console.log(tagData)
+
+      if (tagError) return res.status(500).json({ error: tagError.message });
+
+      const tagShirtIds = new Set(tagData.map(d => d.shirt_id));
+      console.log(tagShirtIds)
+
+      shirts = shirts.filter(shirt => tagShirtIds.has(shirt.id));
+    }
+
+    
+
+    res.json(shirts || []);
+
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+
 //อันนี้เทสยิงข้อมูล mock นะ
 // app.post('/shirt/info/post', async (req, res) => {
 //   try {
