@@ -9,6 +9,14 @@ import { useLocation } from "react-router-dom";
 import Toast from "../component/Toast.jsx";
 import ConfirmBox from "../component/ConfirmBox.jsx";
 
+const getFacultyShort = (s) => {
+  if (!s) return "";
+  const str = String(s).trim();
+  const mParen = str.match(/\(([^()]+)\)\s*$/);
+  if (mParen) return mParen[1].trim();
+  return str;
+};
+
 export default function UserProfile() {
   const navigate = useNavigate();
   const user_id = localStorage.getItem("user_id");
@@ -104,6 +112,33 @@ export default function UserProfile() {
     run();
   }, [user_id]);
 
+  const fetchFavs = async () => {
+    if (!user_id) {
+      setError("กรุณาเข้าสู่ระบบ");
+      return;
+    }
+    try {
+      const res = await axios.get(
+        `http://localhost:8000/shirt/fav/get/${user_id}`
+      );
+      setFavs(res.data || []);
+    } catch (e) {
+      console.error(e);
+      setError("ดึงรายการถูกใจไม่สำเร็จ");
+    }
+  };
+
+  useEffect(() => {
+    fetchFavs();
+  }, [user_id]);
+
+  // refresh favs แบบเรียลไทม์ ja
+  useEffect(() => {
+    const onFavChanged = () => fetchFavs();
+    window.addEventListener("fav-updated", onFavChanged);
+    return () => window.removeEventListener("fav-updated", onFavChanged);
+  }, []);
+
   //delete post
   // const handleDeletePost = async (post_id) => {
   //   // const ok = window.confirm("ต้องการลบโพสต์นี้หรือไม่?");
@@ -180,16 +215,31 @@ export default function UserProfile() {
             </div>
             <div className="up-faculty">
               <div className="up-faculty-topic">faculty</div>
-              <div className="up-faculty-name">{faculty}</div>
+              <div className="up-faculty-name">{getFacultyShort(faculty)}</div>
             </div>
           </div>
         </div>
       </div>
 
       <div className="up-tabs">
-        <div className={tab1Class} onClick={() => setActiveTab(1)}>Your fav</div>
-        <div className={tab2Class} onClick={() => setActiveTab(2)}>Your post</div>
+        <div
+          className={tab1Class}
+           onClick={() => {
+            setActiveTab(1);
+            fetchFavs();
+          }}
+        >
+          Your fav
+        </div>
+
+        <div
+          className={tab2Class}
+          onClick={() => setActiveTab(2)}
+        >
+          Your post
+        </div>
       </div>
+
       {loading && <div className="up-loading">กำลังโหลด...</div>}
       {!loading && error && <div className="up-error">{error}</div>}
 

@@ -66,6 +66,7 @@ export default function ShirtDisplay() {
     const handleBack = () => {
         navigate(-1); // ย้อนกลับไปอันก่อน
     };
+
     const [shirtData, setshirtData] = useState({});
 
     useEffect(() => {
@@ -248,5 +249,4 @@ export default function ShirtDisplay() {
             )}
         </>
     );
-
 }
