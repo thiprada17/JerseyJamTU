@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./personalcolor.css";
 import microwaveImg from "../../../assets/microwave-personal.png";
 import perImg from "../../../assets/personalcolor.png";
-import homeIcon from "../../../assets/house-fill.png";
+import homeIcon from "../../../assets/news_houseIcon.png";
 
 export default function personalcolor() {
   const [clicked, setClicked] = useState(false);

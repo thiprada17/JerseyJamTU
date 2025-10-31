@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./jerseyWith.css";
 import microwaveImg from "../../../assets/microwave-jersey.png";
-import homeIcon from "../../../assets/house-fill.png";
+import homeIcon from "../../../assets/news_houseIcon.png";
 import jersey1 from "../../../assets/jersey1.png";
 import jersey2 from "../../../assets/jersey2.png";
 import jersey3 from "../../../assets/jersey3.png";

@@ -4,6 +4,7 @@ import defaultJerseyImage from '../assets/sampleShirt.png';
 import { useLocation } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { AiFillHeart } from "react-icons/ai";
+import { FaTag } from "react-icons/fa";
 
 export default function ShirtDisplay() {
     const navigate = useNavigate();
@@ -13,49 +14,49 @@ export default function ShirtDisplay() {
     console.log(id)
 
     useEffect(() => {
-    const verify = async () => {
-      try {
-        const authToken = localStorage.getItem('token');
+        const verify = async () => {
+            try {
+                const authToken = localStorage.getItem('token');
 
-        if (!authToken) {
-          window.alert('token not found');
-          navigate('/');
-          return
-        }
+                if (!authToken) {
+                    window.alert('token not found');
+                    navigate('/');
+                    return
+                }
 
-        const authen = await fetch('http://localhost:8000/authen/users', {
-          method: 'GET',
-          headers: { authorization: `Bearer ${authToken}` }
-        });
+                const authen = await fetch('http://localhost:8000/authen/users', {
+                    method: 'GET',
+                    headers: { authorization: `Bearer ${authToken}` }
+                });
 
-        if (!authen.ok) {
-          console.error('authen fail', authen.status);
-          window.alert('authen fail');
-          navigate('/');
-          return
-        }
+                if (!authen.ok) {
+                    console.error('authen fail', authen.status);
+                    window.alert('authen fail');
+                    navigate('/');
+                    return
+                }
 
-        const authenData = await authen.json();
-        console.log('auth ' + authenData.success);
+                const authenData = await authen.json();
+                console.log('auth ' + authenData.success);
 
-        if (!authenData && !authenData.data && !authenData.data.success) {
-          window.alert('token not pass');
-          localStorage.clear();
-          navigate('/');
-          return
-        }
+                if (!authenData && !authenData.data && !authenData.data.success) {
+                    window.alert('token not pass');
+                    localStorage.clear();
+                    navigate('/');
+                    return
+                }
 
-      } catch (error) {
-        console.error('verify error:', error);
-        window.alert('verify error');
-        navigate('/');
+            } catch (error) {
+                console.error('verify error:', error);
+                window.alert('verify error');
+                navigate('/');
 
-      }
-    };
+            }
+        };
 
-    verify();
-  }, [navigate]);
-    
+        verify();
+    }, [navigate]);
+
 
     useEffect(() => {
         if (!id) {
@@ -167,6 +168,20 @@ export default function ShirtDisplay() {
         }
     };
 
+    const [tags, setTags] = useState([]);
+
+    useEffect(() => {
+        const fetchTags = async () => {
+            try {
+                const response = await fetch(`http://localhost:8000/shirt/tag/get/${id}`);
+                const data = await response.json();
+                setTags(data || []);
+            } catch (error) {
+                console.error("Error fetching tags:", error);
+            }
+        };
+        if (id) fetchTags();
+    }, [id]);
 
     return (
         <>
@@ -202,9 +217,26 @@ export default function ShirtDisplay() {
                                 </div>
                             </div>
                             <div className="shirtDisplay-descriptionBox">
-                                {shirtData.shirt_detail}
-                            </div>
+                                <div className="shirtDisplay-descriptionText">
+                                    {shirtData.shirt_detail}
+                                </div>
 
+                                {/* tags na */}
+                                <div className="shirtDisplay-tagContainer">
+                                    <FaTag className="shirtDisplay-tagIcon" />
+                                    <div className="shirtDisplay-tagList">
+                                        {tags.length > 0 ? (
+                                            tags.map((tag, index) => (
+                                                <span key={index} className="shirtDisplay-tag">
+                                                    {tag.tag_name}
+                                                </span>
+                                            ))
+                                        ) : (
+                                            <span className="shirtDisplay-noTag">ไม่มีแท็ก</span>
+                                        )}
+                                    </div>
+                                </div>
+                            </div>
                             <div className="shirtDisplay-datesWrapper">
                                 <div className="shirtDisplay-dateBox">
 
