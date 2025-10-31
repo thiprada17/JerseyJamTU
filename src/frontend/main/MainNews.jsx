@@ -8,6 +8,7 @@ import news2 from "../../assets/news2.png";
 import news3 from "../../assets/news3.png";
 import news4 from "../../assets/news4.png";
 import news5 from "../../assets/news5.png";
+import { Link } from "react-router-dom";
 
 const PrevArrow = ({ onClick }) => (
   <div
@@ -63,11 +64,11 @@ const settings = {
 };
 
   const slides = [
-    { id: 1, img: news1 },
-    { id: 2, img: news2 },
-    { id: 3, img: news3 },
-    { id: 4, img: news4 },
-    { id: 5, img: news5 },
+    { id: 1, img: news1, link: "/blog/luckycolor"},
+    { id: 2, img: news2, link: "/blog/collarJersey" },
+    { id: 3, img: news3, link: "/blog/personalColor" },
+    { id: 4, img: news4, link: "/blog/jerseyWith" },
+    { id: 5, img: news5, link: "/blog/sevenDayMatch" },
   ];
 
   return (

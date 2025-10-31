@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./sevenDayMatch.css";
 import microwaveImg from "../../../assets/microwave-seven.png";
 import group185Img from "../../../assets/sevenoutfits.png";
-import homeIcon from "../../../assets/house-fill.png";
+import homeIcon from "../../../assets/news_houseIcon.png";
 
 export default function SevenDayMatch() {
   const [clicked, setClicked] = useState(false);

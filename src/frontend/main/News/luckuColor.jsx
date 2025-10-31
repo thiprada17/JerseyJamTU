@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./luckyColor.css";
 import microwaveImg from "../../../assets/microwave-lucky.png";
 import tableImg from "../../../assets/luckyTable.png";
-import homeIcon from "../../../assets/house-fill.png";
+import homeIcon from "../../../assets/news_houseIcon.png";
 
 export default function luckyColor() {
     const [clicked, setClicked] = useState(false);
