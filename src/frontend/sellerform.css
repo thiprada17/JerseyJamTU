@@ -351,3 +351,22 @@
     transform: translateY(0);
   }
 }
+
+.sellerform-input::placeholder,
+.sellerform-inputLink::placeholder,
+.tag-placeholder,
+textarea.sellerform-input::placeholder {
+  color: #bfbfbf;
+  opacity: 1;
+  font-style: italic;
+}
+
+.sellerform-input::-webkit-input-placeholder {
+  color: #bfbfbf;
+}
+.sellerform-input:-ms-input-placeholder {
+  color: #bfbfbf;
+}
+.sellerform-input::-ms-input-placeholder {
+  color: #bfbfbf;
+}
