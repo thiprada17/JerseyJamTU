@@ -267,8 +267,6 @@ export default function SellerForm() {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-
-
   return (
     <>
       <div className="sellerform-app">
@@ -314,16 +312,32 @@ export default function SellerForm() {
               <span className="sellerform-label">ราคาเสื้อ</span>
               <input
                 name="shirt_price"
-                value={formData.shirt_price}
-                onChange={handleChange}
                 type="number"
                 className="sellerform-input"
                 placeholder="350"
-                min={0}       
-                max={1000}   
-              />
+                value={formData.shirt_price}
+                onChange={(e) => {
+                  let value = e.target.value;
+                  if (value === "") {
+                    setFormData((prev) => ({ ...prev, shirt_price: "" }));
+                    return;
+                  }
 
+                  let num = Number(value);
+                  if (num < 0) num = 0;
+                  if (num > 1000) num = 1000;
+
+                  setFormData((prev) => ({ ...prev, shirt_price: num }));
+                }}
+                onInput={(e) => {
+                  if (e.target.value > 1000) e.target.value = 1000; // ป้องกันการพิมพ์เกิน
+                  if (e.target.value < 0) e.target.value = 0;
+                }}
+                min={0}
+                max={1000}
+              />
             </label>
+
             <label className="sellerform-row">
               <span className="sellerform-label">วันเปิดขาย</span>
               <div className="sellerform-input-wrapper">
