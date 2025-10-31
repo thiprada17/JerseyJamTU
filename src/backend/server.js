@@ -542,6 +542,43 @@ app.post('/shirt/tag/add', async (req, res) => {
   }
 });
 
+//ดึงแท้กเสื้อ
+app.get('/shirt/tag/get/:shirt_id', async (req, res) => {
+  try {
+    const { shirt_id } = req.params;
+
+    //ดึง tag_id ทั้งหมดของเสื้อตัวเน้จ
+    const { data: shirtTags, error: shirtTagsError } = await supabaseAdmin
+      .from('shirt_tags')
+      .select('tag_id')
+      .eq('shirt_id', shirt_id);
+
+    if (shirtTagsError) throw shirtTagsError;
+
+    // ถ้าเสื้อนี้ไม่มีแท้ก
+    if (!shirtTags || shirtTags.length === 0) {
+      return res.json([]);
+    }
+
+    // แปลง tag_id ที่ได้เป็น array
+    const tagIds = shirtTags.map(item => item.tag_id);
+
+    // ดึงชื่อแท็กทั้งหมดจากตาราง tags
+    const { data: tagsData, error: tagsError } = await supabaseAdmin
+      .from('tags')
+      .select('tag_name')
+      .in('tag_id', tagIds);
+
+    if (tagsError) throw tagsError;
+
+    res.json(tagsData);
+  } catch (err) {
+    console.error('Get tags error:', err);
+    res.status(500).json({ error: err.message });
+  }
+});
+
+
 
 app.get('/category/:folder/info/get', async (req, res) => {
   try {
