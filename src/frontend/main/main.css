@@ -344,7 +344,7 @@
   align-items: center;
 }
 
-.tags {
+/* .tags {
   display: inline-block;
   font-size: 1.4rem;
   color: white;
@@ -353,6 +353,28 @@
   border: 2px solid #000;
   padding: 0.4rem 1rem;
   font-family: 'KanitL';
+} */
+.tags-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem; /* ช่องว่างระหว่าง icon กับ tags */
+}
+
+.tags-container {
+  display: flex;
+  gap: 0.5rem; /* ช่องว่างระหว่างแท็กแต่ละแท็ก */
+  flex-wrap: wrap; /* ถ้าแท็กเยอะจะขึ้นบรรทัดใหม่ */
+}
+
+.tag-item {
+  font-size: 1.4rem;
+  color: white;
+  background-color: #FF3A4A;
+  border-radius: 25px;
+  border: 2px solid #000;
+  padding: 0.4rem 1rem;
+  font-family: 'KanitL';
+  display: inline-block;
 }
 
 .tag-icon {

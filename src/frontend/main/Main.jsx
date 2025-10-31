@@ -120,11 +120,20 @@ export default function Main() {
     fetchPosts();
   }, []);
 
+  // useEffect(() => {
+  //   if (location.state?.showLoginToast) {
+  //     setShowToast(true);
+  //   }
+  // }, [location.state]);
+
   useEffect(() => {
-    if (location.state?.showLoginToast) {
-      setShowToast(true);
-    }
-  }, [location.state]);
+  const showToastFlag = localStorage.getItem("showLoginToast");
+  if (showToastFlag === "true") {
+    setShowToast(true);
+    localStorage.removeItem("showLoginToast");
+  }
+}, []);
+
 
   /// fillterrrrrrrrrrrr
   const [showFilter, setShowFilter] = useState(false);
@@ -143,7 +152,6 @@ export default function Main() {
       maxPrice = max;
     }
 
-
     for (let i = 0; i < faculties.length; i++) {
       if (faculties[i] === "วิทยาศาสตร์") {
         TagID.push(1);
@@ -160,8 +168,6 @@ export default function Main() {
       }
     }
 
-
-
     try {
       const res = await fetch('http://localhost:8000/shirt/fillter', {
         method: 'POST',
@@ -176,7 +182,30 @@ export default function Main() {
       console.error('Error fetching filtered posts:', err);
     }
   };
-
+  useEffect(() => {
+    const fetchTagsForPosts = async () => {
+      try {
+        const postsWithTags = await Promise.all(
+          fillterposts.map(async (post) => {
+            try {
+              const res = await fetch(`http://localhost:8000/shirt/tag/get/${post.id}`);
+              if (!res.ok) throw new Error("Failed to fetch tags");
+              const tags = await res.json();
+              return { ...post, tags }; // เพิ่ม tags เข้า post จ้า
+            } catch (err) {
+              console.error(`Error fetching tags for post ${post.id}:`, err);
+              return { ...post, tags: [] };
+            }
+          })
+        );
+        setfillterPosts(postsWithTags);
+      } catch (err) {
+        console.error("Error fetching tags for all posts:", err);
+      }};
+    if (fillterposts.length > 0) {
+      fetchTagsForPosts();
+    }
+  }, [fillterposts]);
 
   return (
     <div className="main-body">
@@ -241,37 +270,20 @@ export default function Main() {
                   <div className="shirt-bottom-detail">
                     <div className="tags-wrapper">
                       <img src={tagIcon} alt="tag icon" className="tag-icon" />
-                      <div className="tags">testtttttttt</div>
+                      <div className="tags-container">
+                        {post.tags && post.tags.length > 0 ? (
+                          <span className="tag-item">{post.tags[0].tag_name}</span>
+                        ) : (
+                          <span className="tag-item">ไม่มีแท็ก</span>
+                        )}
+                      </div>
                     </div>
                     <div className="price">{post.shirt_price} ฿</div>
-
                   </div>
-
                 </div>
               </div>
             </Link>
           ))}
-          {/* {posts.map((post, index) => (
-            <Link
-              to="/display"
-              state={{ id: post.id }}
-              key={post.id}
-              style={{ textDecoration: 'none', color: 'black' }}
-            >
-              <div
-                ref={el => postRefs.current[index] = el}
-                className="main-post fade-in-up"
-              >
-                <div className="main-post-photo">
-                  <img src={post.shirt_pic} alt={post.shirt_name} />
-                </div>
-                <div className="main-post-detail-card">
-                  <div className="shirt-name">{post.shirt_name}</div>
-                  <div className="price">{post.shirt_price} ฿</div>
-                </div>
-              </div>
-            </Link>
-          ))} */}
         </div>
       </div>
     </div>

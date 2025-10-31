@@ -73,10 +73,14 @@ console.log(authenData);
           //   // message: "ล็อกอินสำเร็จ! ยินดีต้อนรับกลับมาค่ะ 🌸",
           //   // type: "success"
           // });
+          
 
-          setTimeout(() => {
-            navigate('/main', { state: { showLoginToast: true } });
-          }, 1200);
+          // setTimeout(() => {
+          //   navigate('/main', { state: { showLoginToast: true } });
+          // }, 1200);
+          localStorage.setItem("showLoginToast", "true");
+navigate('/main');
+
         } else {
           console.log("Login failed:", data.message);
           setNotification({
