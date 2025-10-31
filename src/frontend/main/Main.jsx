@@ -9,6 +9,10 @@ import FeatureFolder from "./FeatureFolder.jsx"
 import { useLocation } from "react-router-dom";
 import Toast from "../component/Toast.jsx";
 import { useNavigate } from 'react-router-dom';
+import filterIcon from "../../assets/sort.png";
+import Filter from "./Filter.jsx";
+import "./Filter.css";
+
 
 export default function Main() {
   // const posts = [
@@ -19,6 +23,7 @@ export default function Main() {
   // ];
   const navigate = useNavigate();
   const [posts, setPosts] = useState([]);
+  const [fillterposts, setfillterPosts] = useState([]);
   const location = useLocation();
   const toastRef = useRef(null);
   const [showToast, setShowToast] = useState(false);
@@ -106,6 +111,7 @@ export default function Main() {
 
         const data = await response.json();
         setPosts(data);
+        setfillterPosts(data);
       } catch (error) {
         console.error("Error fetching posts:", error);
       }
@@ -119,6 +125,56 @@ export default function Main() {
       setShowToast(true);
     }
   }, [location.state]);
+
+  /// fillterrrrrrrrrrrr
+  const [showFilter, setShowFilter] = useState(false);
+  const handleApplyFilter = async (selectedFilters) => {
+
+    const TagID = []
+    const { faculties, price } = selectedFilters; // array ของชื่อแท็ก
+
+    console.log(faculties)
+
+    let minPrice = 0;
+    let maxPrice = 10000;
+    if (price) {
+      const [min, max] = price.split('-').map(p => parseInt(p));
+      minPrice = min;
+      maxPrice = max;
+    }
+
+
+    for (let i = 0; i < faculties.length; i++) {
+      if (faculties[i] === "วิทยาศาสตร์") {
+        TagID.push(1);
+      } else if (faculties[i] === "รัฐศาสตร์") {
+        TagID.push(2);
+      } else if (faculties[i] === "วิศวกรรมศาสตร์") {
+        TagID.push(3);
+      } else if (faculties[i] === "สถาปัตยกรรมศาสตร์") {
+        TagID.push(4);
+      } else if (faculties[i] === "เศรษฐศาสตร์") {
+        TagID.push(5);
+      }
+    }
+
+
+
+    try {
+      const res = await fetch('http://localhost:8000/shirt/fillter', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ selectedTagIds: TagID, minPrice, maxPrice })
+      });
+
+      const data = await res.json();
+
+      setfillterPosts(data);
+    } catch (err) {
+      console.error('Error fetching filtered posts:', err);
+    }
+  };
+
 
   return (
     <div className="main-body">
@@ -146,14 +202,36 @@ export default function Main() {
 
       <MainNews />
       <FeatureFolder />
-      <div className="main-container">
-        <div className="main-posttext">ALL JERSEY</div>
-        <div className="main-grid">
-          {posts.map((post) => (
-            <Link to="/display" state={{ id: post.id }} style={{ textDecoration: 'none', color: 'black' }}>
-              <div key={post.id} className="main-post">
-                <div className="main-post-photo">
 
+      {/* Popup Filter Panel */}
+      {showFilter && (
+        <div className="filter-container">
+          <Filter
+            onClose={() => setShowFilter(false)}
+            onApply={handleApplyFilter}
+          />
+        </div>
+      )}
+
+      <div className="main-container">
+        <div className="main-header">
+          <div className="main-posttext">ALL JERSEY</div>
+          <button className="filters-button" onClick={() => setShowFilter(true)}>
+            <img src={filterIcon} alt="Filter Icon" className="filters-icon" />
+            <span className="filters-text">Filters</span>
+          </button>
+        </div>
+
+        <div className="main-grid">
+          {fillterposts.map((post) => (
+            <Link
+              to="/display"
+              state={{ id: post.id }}
+              key={post.id} // ต้องมี key
+              style={{ textDecoration: 'none', color: 'black' }}
+            >
+              <div className="main-post">
+                <div className="main-post-photo">
                   <img src={post.shirt_pic} alt={post.shirt_name} />
                 </div>
                 <div className="main-post-detail-card">
@@ -161,9 +239,7 @@ export default function Main() {
                   <div className="price">{post.shirt_price} ฿</div>
                 </div>
               </div>
-
             </Link>
-
           ))}
           {/* {posts.map((post, index) => (
             <Link
@@ -186,7 +262,6 @@ export default function Main() {
               </div>
             </Link>
           ))} */}
-
         </div>
       </div>
     </div>
