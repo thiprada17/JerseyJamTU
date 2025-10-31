@@ -14,13 +14,18 @@ import sJ from "../../../assets/collar_s-jersey.png";
 import hJ from "../../../assets/collar_h-jersey.png";
 import recJ from "../../../assets/collar_rec-jersey.png";
 import dJ from "../../../assets/collar_d-jersey.png";
+import { useNavigate } from "react-router-dom";
 
 export default function CollarJersey() {
   const [clicked, setClicked] = useState(false);
+  const navigate = useNavigate();
 
   const handleClick = () => {
     setClicked(true);
-    setTimeout(() => setClicked(false), 500);
+    setTimeout(() => {
+            setClicked(false); 
+            navigate("/main"); 
+    }, 200);
   };
 
   return (

@@ -3,14 +3,20 @@ import "./personalcolor.css";
 import microwaveImg from "../../../assets/microwave-personal.png";
 import perImg from "../../../assets/personalcolor.png";
 import homeIcon from "../../../assets/news_houseIcon.png";
+import { useNavigate } from "react-router-dom";
 
 export default function personalcolor() {
   const [clicked, setClicked] = useState(false);
+  const navigate = useNavigate();
 
   const handleClick = () => {
     setClicked(true);
-    setTimeout(() => setClicked(false), 500);
+    setTimeout(() => {
+            setClicked(false); 
+            navigate("/main"); 
+    }, 200);
   };
+
   return (
     <div className="perC-blog-container">
       {/*top bar*/}

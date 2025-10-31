@@ -6,13 +6,18 @@ import jersey1 from "../../../assets/jersey1.png";
 import jersey2 from "../../../assets/jersey2.png";
 import jersey3 from "../../../assets/jersey3.png";
 import jersey4 from "../../../assets/jersey4.png";
+import { useNavigate } from "react-router-dom";
 
 export default function JerseyWith() {
   const [clicked, setClicked] = useState(false);
+  const navigate = useNavigate();
 
   const handleClick = () => {
     setClicked(true);
-    setTimeout(() => setClicked(false), 500);
+    setTimeout(() => {
+            setClicked(false); 
+            navigate("/main"); 
+    }, 200);
   };
 
   return (

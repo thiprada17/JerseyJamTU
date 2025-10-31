@@ -3,13 +3,18 @@ import "./luckyColor.css";
 import microwaveImg from "../../../assets/microwave-lucky.png";
 import tableImg from "../../../assets/luckyTable.png";
 import homeIcon from "../../../assets/news_houseIcon.png";
+import { useNavigate } from "react-router-dom";
 
 export default function luckyColor() {
     const [clicked, setClicked] = useState(false);
+    const navigate = useNavigate();
 
     const handleClick = () => {
         setClicked(true);
-        setTimeout(() => setClicked(false), 500);
+        setTimeout(() => {
+            setClicked(false); 
+            navigate("/main"); 
+        }, 200);
     };
     return (
         <div className="LuckyC-blog-container">

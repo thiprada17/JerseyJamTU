@@ -3,14 +3,20 @@ import "./sevenDayMatch.css";
 import microwaveImg from "../../../assets/microwave-seven.png";
 import group185Img from "../../../assets/sevenoutfits.png";
 import homeIcon from "../../../assets/news_houseIcon.png";
+import { useNavigate } from "react-router-dom";
 
 export default function SevenDayMatch() {
   const [clicked, setClicked] = useState(false);
+  const navigate = useNavigate();
 
   const handleClick = () => {
     setClicked(true);
-    setTimeout(() => setClicked(false), 500);
+    setTimeout(() => {
+            setClicked(false); 
+            navigate("/main"); 
+    }, 200);
   };
+
   return (
     <div className="blog-container">
       {/*top bar*/}
