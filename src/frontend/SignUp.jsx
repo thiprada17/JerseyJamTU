@@ -35,9 +35,38 @@ export default function SignUp({ scrollToHome, scrollToLogIn }) {
     // console.log({ name, value });
   };
 
+  const FACULTIES = [
+  "วิศวกรรมศาสตร์(TSE)", "นิติศาสตร์(LAW)", "พาณิชยศาสตร์และการบัญชี(BBA)",
+  "สังคมสงเคราะห์ศาสตร์(BSW)", "รัฐศาสตร์(POLSCI)", "เศรษฐศาสตร์(ECON)",
+  "สังคมวิทยาและมานุษยวิทยา(SOC-ANT)", "ศิลปศาสตร์(LArts)", "วารสารศาสตร์และสื่อสารมวลชน(JC)",
+  "วิทยาศาสตร์และเทคโนโลยี(SCI)", "สถาปัตยกรรมศาสตร์(TDS)", "ศิลปกรรมศาสตร์(FA)",
+  "แพทยศาสตร์(MED)", "สหเวชศาสตร์(AHS)", "ทันตแพทยศาสตร์(DENT)", "พยาบาลศาสตร์(NS)",
+  "สาธารณสุขศาสตร์(FPH)", "เภสัชศาสตร์(Pharmacy)", "วิทยาการเรียนรู้และศึกษาศาสตร์(LSEd)",
+  "วิทยาลัยนวัตกรรม(CITU)", "วิทยาลัยสหวิทยาการ(CIS)",
+  "วิทยาลัยโลกคดีศึกษา(SGS)", "สถาบันเทคโนโลยีนานาชาติสิรินธร(SIIT)",
+  "วิทยาลัยนานาชาติ ปรีดี พนมยงค์(PBIC)"
+  ];
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log('ข้อมูลผู้ลงทะเบียน:', userData);
+
+    const thaiRegex = /[\u0E00-\u0E7F]/;
+    if (thaiRegex.test(userData.email) || !userData.email.includes("@")) {
+      setNotification({
+        message: "กรุณากรอก email ให้ถูกต้อง",
+        type: "error",
+      });
+      return;
+    }
+
+    if (userData.faculty && !FACULTIES.includes(userData.faculty)) {
+      setNotification({
+        message: "กรุณาเลือกคณะจากรายการที่กำหนด",
+        type: "error",
+      });
+      return;
+    }
 
     try {
       const response = await fetch('http://localhost:8000/add-user/register', {
@@ -110,6 +139,8 @@ export default function SignUp({ scrollToHome, scrollToLogIn }) {
               onChange={handleChange}
               placeholder="Enter email"
               required
+              pattern="^[^\u0E00-\u0E7F\s]*@.+$"
+              title="Email ต้องไม่มีภาษาไทย และต้องมี @"
             />
           </div>
         </div>
@@ -122,9 +153,15 @@ export default function SignUp({ scrollToHome, scrollToLogIn }) {
               name="faculty"
               value={userData.faculty}
               onChange={handleChange}
-              placeholder="Enter faculty"
+              placeholder="Select faculty"
               required
+              list="faculty-options"
             />
+            <datalist id="faculty-options">
+              {FACULTIES.map(f => (
+                <option key={f} value={f} />
+              ))}
+            </datalist>
           </div>
           <div className="input-group">
             <label>Year:</label>
@@ -135,6 +172,8 @@ export default function SignUp({ scrollToHome, scrollToLogIn }) {
               onChange={handleChange}
               placeholder="Enter year"
               required
+              min={1}
+              max={8}
             />
           </div>
         </div>
