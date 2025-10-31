@@ -224,7 +224,7 @@ export default function UserProfile() {
       <div className="up-tabs">
         <div
           className={tab1Class}
-           onClick={() => {
+          onClick={() => {
             setActiveTab(1);
             fetchFavs();
           }}
@@ -249,22 +249,25 @@ export default function UserProfile() {
           <div className="up-fav-grid">
             {favs.length === 0 && <div className="up-empty">ยังไม่มีรายการถูกใจ</div>}
             {favs.map((item) => (
-              <Link
-                key={item.shirt_id}
-                to="/display"
-                state={{ id: item.shirt_id }}              >
-                <div className="up-fav-post">
-                  <div className="up-post-photo">
-                    <img src={item.shirt_pic} alt={item.shirt_name} />
-                  </div>
-                  <div className="up-fav-detail">
-                    <div className="up-fav-detail-name">{item.shirt_name}</div>
-                    <button className="up-fav-cmore">
-                      see more <br /> Detail
-                    </button>
-                  </div>
+
+              <div className="up-fav-post">
+                <div className="up-post-photo">
+                  <img src={item.shirt_pic} alt={item.shirt_name} />
                 </div>
-              </Link>
+                <div className="up-fav-detail">
+                  <div className="up-fav-detail-name">{item.shirt_name}</div>
+                  <Link
+                  className="up-fav-cmore"
+                    key={item.shirt_id}
+                    to="/display"
+                    state={{ id: item.shirt_id }} >
+                    <div>
+                      see more <br /> Detail
+                    </div>
+                  </Link>
+                </div>
+              </div>
+
             ))}
           </div>
         </div>
