@@ -12,7 +12,7 @@
   position: absolute; /* อยู่ภายใน container */
   top: 100%;           /* อยู่ใต้ปุ่ม */
   right: 0;            /* ชิดขวา */
-  width: 60rem;        /* กำหนดความกว้าง */
+  width: 70rem;        /* กำหนดความกว้าง */
   max-width: 90vw;
   background: white;
   border: 2px solid #000;
@@ -55,7 +55,7 @@
 /* Faculty Grid */
 .faculty-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
   gap: 8px;
   border: 1.7px solid #D9D9D9;
   background: #fff;
@@ -65,19 +65,24 @@
 
 .faculty-item {
   font-family: "Kanit";
-  font-size: 12px;
+  font-size: 10px;
   text-align: center;
-  padding: 6px 8px;
+  padding: 4px 8px;           /* padding รอบข้อความ */
   border-radius: 5px;
   background: #EFEEEA;
-  color: #000000;
+  color: #323232;
 
   cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 35px;
+  display: flex;               /* flex เพื่อจัดกลางแนวตั้งและแนวนอน */
+  align-items: center;         /* กึ่งกลางแนวตั้ง */
+  justify-content: center;     /* กึ่งกลางแนวนอน */
   width: 100%;
+  height: auto;                /* สูงตามเนื้อหา */
+  min-height: 30px;            /* ความสูงขั้นต่ำของกล่อง */
+  white-space: normal;         
+  word-wrap: break-word;
+  box-sizing: border-box;      
+  line-height: 1.2em;          /* ทำให้บรรทัดไม่สูงเกิน */
   transition: all 0.2s ease;
 }
 
