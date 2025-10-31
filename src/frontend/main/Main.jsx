@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import "./main.css";
 import profile_icon from "../../assets/profile-icon.png";
 import topic from "../../assets/main-topic.png";
+import tagIcon from "../../assets/tags-fill.png";
 import MainNews from "./MainNews.jsx"
 import FeatureFolder from "./FeatureFolder.jsx"
 import { useLocation } from "react-router-dom";
@@ -154,6 +155,8 @@ export default function Main() {
         TagID.push(4);
       } else if (faculties[i] === "เศรษฐศาสตร์") {
         TagID.push(5);
+      } else if (faculties[i] === "ศิลปศาสตร์") {
+        TagID.push(6);
       }
     }
 
@@ -235,7 +238,15 @@ export default function Main() {
                 </div>
                 <div className="main-post-detail-card">
                   <div className="shirt-name">{post.shirt_name}</div>
-                  <div className="price">{post.shirt_price} ฿</div>
+                  <div className="shirt-bottom-detail">
+                    <div className="tags-wrapper">
+                      <img src={tagIcon} alt="tag icon" className="tag-icon" />
+                      <div className="tags">testtttttttt</div>
+                    </div>
+                    <div className="price">{post.shirt_price} ฿</div>
+
+                  </div>
+
                 </div>
               </div>
             </Link>
