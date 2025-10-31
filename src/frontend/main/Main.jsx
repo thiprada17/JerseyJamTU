@@ -26,7 +26,6 @@ export default function Main() {
   const [posts, setPosts] = useState([]);
   const [fillterposts, setfillterPosts] = useState([]);
   const location = useLocation();
-  const toastRef = useRef(null);
   const [showToast, setShowToast] = useState(false);
   const username = localStorage.getItem("username");
 

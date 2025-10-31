@@ -78,7 +78,10 @@ const settings = {
       <div key={s.id} style={{ padding: "0 10px" }}>
         <div className="slick-slide-item">
           <div className="main-news-frame">
+            <Link to={s.link}>
+
             <img src={s.img} className="main-news-img" alt={`Slide ${s.id}`} />
+            </Link>
           </div>
         </div>
       </div>
