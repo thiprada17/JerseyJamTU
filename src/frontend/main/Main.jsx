@@ -99,27 +99,61 @@ export default function Main() {
   }, [posts]);
   // สุดตรงนี้จ้า
   // Fetch posts on component mount
+  // useEffect(() => {
+  //   async function fetchPosts() {
+  //     try {
+  //       const response = await fetch('http://localhost:8000/shirt/info/get', {
+  //         method: 'GET',
+  //       });
+
+  //       if (!response.ok) {
+  //         throw new Error("Failed to fetch posts");
+  //       }
+
+  //       const data = await response.json();
+  //       setPosts(data);
+  //       setfillterPosts(data);
+  //     } catch (error) {
+  //       console.error("Error fetching posts:", error);
+  //     }
+  //   }
+
+  //   fetchPosts();
+  // }, []);
+
   useEffect(() => {
-    async function fetchPosts() {
-      try {
-        const response = await fetch('http://localhost:8000/shirt/info/get', {
-          method: 'GET',
-        });
+  async function fetchPosts() {
+    try {
+      const response = await fetch('http://localhost:8000/shirt/info/get', {
+        method: 'GET',
+      });
 
-        if (!response.ok) {
-          throw new Error("Failed to fetch posts");
-        }
-
-        const data = await response.json();
-        setPosts(data);
-        setfillterPosts(data);
-      } catch (error) {
-        console.error("Error fetching posts:", error);
+      if (!response.ok) {
+        throw new Error("Failed to fetch posts");
       }
-    }
 
-    fetchPosts();
-  }, []);
+      const data = await response.json();
+      const postsWithTags = await Promise.all(
+        data.map(async (post) => {
+          try {
+            const resTag = await fetch(`http://localhost:8000/shirt/tag/get/${post.id}`);
+            const tags = await resTag.json();
+            return { ...post, tags };
+          } catch {
+            return { ...post, tags: [] };
+          }
+        })
+      );
+
+      setPosts(postsWithTags);
+      setfillterPosts(postsWithTags);
+    } catch (error) {
+      console.error("Error fetching posts:", error);
+    }
+  }
+  fetchPosts();
+}, []);
+
 
   useEffect(() => {
     if (location.state?.showLoginToast) {
@@ -252,7 +286,6 @@ export default function Main() {
 
                     </div>
                     <div className="price">{post.shirt_price} ฿</div>
-
                   </div>
                 </div>
               </div>
