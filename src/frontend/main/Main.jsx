@@ -26,6 +26,7 @@ export default function Main() {
   const [posts, setPosts] = useState([]);
   const [fillterposts, setfillterPosts] = useState([]);
   const location = useLocation();
+  const toastRef = useRef(null);
   const [showToast, setShowToast] = useState(false);
   const username = localStorage.getItem("username");
 
@@ -120,92 +121,63 @@ export default function Main() {
     fetchPosts();
   }, []);
 
-  // useEffect(() => {
-  //   if (location.state?.showLoginToast) {
-  //     setShowToast(true);
-  //   }
-  // }, [location.state]);
-
   useEffect(() => {
-  const showToastFlag = localStorage.getItem("showLoginToast");
-  if (showToastFlag === "true") {
-    setShowToast(true);
-    localStorage.removeItem("showLoginToast");
-  }
-}, []);
-
+    if (location.state?.showLoginToast) {
+      setShowToast(true);
+    }
+  }, [location.state]);
 
   /// fillterrrrrrrrrrrr
   const [showFilter, setShowFilter] = useState(false);
-  const handleApplyFilter = async (selectedFilters) => {
-
-    const TagID = []
-    const { faculties, price } = selectedFilters; // array ของชื่อแท็ก
-
-    console.log(faculties)
-
-    let minPrice = 0;
-    let maxPrice = 10000;
-    if (price) {
-      const [min, max] = price.split('-').map(p => parseInt(p));
-      minPrice = min;
-      maxPrice = max;
-    }
-
-    for (let i = 0; i < faculties.length; i++) {
-      if (faculties[i] === "วิทยาศาสตร์") {
-        TagID.push(1);
-      } else if (faculties[i] === "รัฐศาสตร์") {
-        TagID.push(2);
-      } else if (faculties[i] === "วิศวกรรมศาสตร์") {
-        TagID.push(3);
-      } else if (faculties[i] === "สถาปัตยกรรมศาสตร์") {
-        TagID.push(4);
-      } else if (faculties[i] === "เศรษฐศาสตร์") {
-        TagID.push(5);
-      } else if (faculties[i] === "ศิลปศาสตร์") {
-        TagID.push(6);
-      }
-    }
-
+ const handleApplyFilter = async (selectedFilters) => {
     try {
+      const TagID = [];
+      const { faculties, price } = selectedFilters;
+
+      let minPrice = 0;
+      let maxPrice = 10000;
+      if (price) {
+        const [min, max] = price.split('-').map(p => parseInt(p));
+        minPrice = min;
+        maxPrice = max;
+      }
+
+      faculties.forEach(faculty => {
+        if(faculty === "วิทยาศาสตร์") TagID.push(1);
+        if(faculty === "รัฐศาสตร์") TagID.push(2);
+        if(faculty === "วิศวกรรมศาสตร์") TagID.push(3);
+        if(faculty === "สถาปัตยกรรมศาสตร์") TagID.push(4);
+        if(faculty === "เศรษฐศาสตร์") TagID.push(5);
+        if(faculty === "ศิลปศาสตร์") TagID.push(6);
+      });
+
+      // fetch filtered shirts
       const res = await fetch('http://localhost:8000/shirt/fillter', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ selectedTagIds: TagID, minPrice, maxPrice })
       });
+      let data = await res.json();
 
-      const data = await res.json();
+      // fetch tags พร้อมกับแต่ละ post
+      const postsWithTags = await Promise.all(
+        data.map(async (post) => {
+          try {
+            const resTag = await fetch(`http://localhost:8000/shirt/tag/get/${post.id}`);
+            const tags = await resTag.json();
+            return { ...post, tags };
+          } catch {
+            return { ...post, tags: [] };
+          }
+        })
+      );
 
-      setfillterPosts(data);
+      setfillterPosts(postsWithTags); // อัพเดตครั้งเดียว
     } catch (err) {
-      console.error('Error fetching filtered posts:', err);
+      console.error(err);
     }
   };
-  useEffect(() => {
-    const fetchTagsForPosts = async () => {
-      try {
-        const postsWithTags = await Promise.all(
-          fillterposts.map(async (post) => {
-            try {
-              const res = await fetch(`http://localhost:8000/shirt/tag/get/${post.id}`);
-              if (!res.ok) throw new Error("Failed to fetch tags");
-              const tags = await res.json();
-              return { ...post, tags }; // เพิ่ม tags เข้า post จ้า
-            } catch (err) {
-              console.error(`Error fetching tags for post ${post.id}:`, err);
-              return { ...post, tags: [] };
-            }
-          })
-        );
-        setfillterPosts(postsWithTags);
-      } catch (err) {
-        console.error("Error fetching tags for all posts:", err);
-      }};
-    if (fillterposts.length > 0) {
-      fetchTagsForPosts();
-    }
-  }, [fillterposts]);
+
 
   return (
     <div className="main-body">
@@ -277,13 +249,36 @@ export default function Main() {
                           <span className="tag-item">ไม่มีแท็ก</span>
                         )}
                       </div>
+                      <div className="price">{post.shirt_price} ฿</div>
+
                     </div>
-                    <div className="price">{post.shirt_price} ฿</div>
+
                   </div>
                 </div>
               </div>
             </Link>
           ))}
+          {/* {posts.map((post, index) => (
+            <Link
+              to="/display"
+              state={{ id: post.id }}
+              key={post.id}
+              style={{ textDecoration: 'none', color: 'black' }}
+            >
+              <div
+                ref={el => postRefs.current[index] = el}
+                className="main-post fade-in-up"
+              >
+                <div className="main-post-photo">
+                  <img src={post.shirt_pic} alt={post.shirt_name} />
+                </div>
+                <div className="main-post-detail-card">
+                  <div className="shirt-name">{post.shirt_name}</div>
+                  <div className="price">{post.shirt_price} ฿</div>
+                </div>
+              </div>
+            </Link>
+          ))} */}
         </div>
       </div>
     </div>

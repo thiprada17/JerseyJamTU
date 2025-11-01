@@ -678,11 +678,10 @@ app.post('/shirt/fillter', async (req, res) => {
       const tagShirtIds = new Set(tagData.map(d => d.shirt_id));
       console.log(tagShirtIds)
 
-
       shirts = shirts.filter(shirt => tagShirtIds.has(shirt.id));
     }
 
-    
+
 
     res.json(shirts || []);
 
