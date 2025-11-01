@@ -129,7 +129,7 @@ export default function Main() {
 
   /// fillterrrrrrrrrrrr
   const [showFilter, setShowFilter] = useState(false);
- const handleApplyFilter = async (selectedFilters) => {
+  const handleApplyFilter = async (selectedFilters) => {
     try {
       const TagID = [];
       const { faculties, price } = selectedFilters;
@@ -143,12 +143,12 @@ export default function Main() {
       }
 
       faculties.forEach(faculty => {
-        if(faculty === "วิทยาศาสตร์") TagID.push(1);
-        if(faculty === "รัฐศาสตร์") TagID.push(2);
-        if(faculty === "วิศวกรรมศาสตร์") TagID.push(3);
-        if(faculty === "สถาปัตยกรรมศาสตร์") TagID.push(4);
-        if(faculty === "เศรษฐศาสตร์") TagID.push(5);
-        if(faculty === "ศิลปศาสตร์") TagID.push(6);
+        if (faculty === "วิทยาศาสตร์") TagID.push(1);
+        if (faculty === "รัฐศาสตร์") TagID.push(2);
+        if (faculty === "วิศวกรรมศาสตร์") TagID.push(3);
+        if (faculty === "สถาปัตยกรรมศาสตร์") TagID.push(4);
+        if (faculty === "เศรษฐศาสตร์") TagID.push(5);
+        if (faculty === "ศิลปศาสตร์") TagID.push(6);
       });
 
       // fetch filtered shirts
@@ -249,9 +249,9 @@ export default function Main() {
                           <span className="tag-item">ไม่มีแท็ก</span>
                         )}
                       </div>
-                      <div className="price">{post.shirt_price} ฿</div>
 
                     </div>
+                    <div className="price">{post.shirt_price} ฿</div>
 
                   </div>
                 </div>
