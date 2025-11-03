@@ -162,6 +162,7 @@ export default function Main() {
   }, [location.state]);
 
   /// fillterrrrrrrrrrrr
+    /// fillterrrrrrrrrrrr
   const [showFilter, setShowFilter] = useState(false);
   const handleApplyFilter = async (selectedFilters) => {
     try {
@@ -176,13 +177,14 @@ export default function Main() {
         maxPrice = max;
       }
 
-      faculties.forEach(faculty => {
-        if (faculty === "วิทยาศาสตร์") TagID.push(1);
-        if (faculty === "รัฐศาสตร์") TagID.push(2);
-        if (faculty === "วิศวกรรมศาสตร์") TagID.push(3);
-        if (faculty === "สถาปัตยกรรมศาสตร์") TagID.push(4);
-        if (faculty === "เศรษฐศาสตร์") TagID.push(5);
-        if (faculty === "ศิลปศาสตร์") TagID.push(6);
+      const prefixedFaculties = faculties.map(fac => `คณะ${fac}`);
+      prefixedFaculties.forEach(faculty => {
+        if (faculty === "คณะวิทยาศาสตร์") TagID.push(1);
+        if (faculty === "คณะรัฐศาสตร์") TagID.push(2);
+        if (faculty === "คณะวิศวกรรมศาสตร์") TagID.push(3);
+        if (faculty === "คณะสถาปัตยกรรมศาสตร์") TagID.push(4);
+        if (faculty === "คณะเศรษฐศาสตร์") TagID.push(5);
+        if (faculty === "คณะศิลปศาสตร์") TagID.push(6);
       });
 
       // fetch filtered shirts
