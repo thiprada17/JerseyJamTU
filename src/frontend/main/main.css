@@ -260,7 +260,8 @@
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 2rem;
   row-gap: 2rem;
-  justify-items: center;
+  justify-items: start;
+  justify-content: start;
   padding: 2rem;
   margin-left: auto;
   margin-right: 10px;
@@ -289,8 +290,6 @@
   z-index: 10;
 
 }
-
-
 
 .main-post-photo {
   background-color: #f8f8f8;
@@ -452,4 +451,13 @@
   100% {
     transform: translateY(0);
   }
+}
+.no-results {
+  text-align: center;
+  font-size: 2.7rem;
+  color: #666;
+  margin: 40px 0;
+  font-family: 'Kanit', sans-serif;
+  grid-column: 1 / -1;
+  justify-self: center;
 }

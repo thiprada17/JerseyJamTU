@@ -139,8 +139,6 @@ export default function SignUp({ scrollToHome, scrollToLogIn }) {
               onChange={handleChange}
               placeholder="Enter email"
               required
-              pattern="^[^\u0E00-\u0E7F\s]*@.+$"
-              title="Email ต้องไม่มีภาษาไทย และต้องมี @"
             />
           </div>
         </div>

@@ -122,37 +122,37 @@ export default function Main() {
   // }, []);
 
   useEffect(() => {
-  async function fetchPosts() {
-    try {
-      const response = await fetch('http://localhost:8000/shirt/info/get', {
-        method: 'GET',
-      });
+    async function fetchPosts() {
+      try {
+        const response = await fetch('http://localhost:8000/shirt/info/get', {
+          method: 'GET',
+        });
 
-      if (!response.ok) {
-        throw new Error("Failed to fetch posts");
+        if (!response.ok) {
+          throw new Error("Failed to fetch posts");
+        }
+
+        const data = await response.json();
+        const postsWithTags = await Promise.all(
+          data.map(async (post) => {
+            try {
+              const resTag = await fetch(`http://localhost:8000/shirt/tag/get/${post.id}`);
+              const tags = await resTag.json();
+              return { ...post, tags };
+            } catch {
+              return { ...post, tags: [] };
+            }
+          })
+        );
+
+        setPosts(postsWithTags);
+        setfillterPosts(postsWithTags);
+      } catch (error) {
+        console.error("Error fetching posts:", error);
       }
-
-      const data = await response.json();
-      const postsWithTags = await Promise.all(
-        data.map(async (post) => {
-          try {
-            const resTag = await fetch(`http://localhost:8000/shirt/tag/get/${post.id}`);
-            const tags = await resTag.json();
-            return { ...post, tags };
-          } catch {
-            return { ...post, tags: [] };
-          }
-        })
-      );
-
-      setPosts(postsWithTags);
-      setfillterPosts(postsWithTags);
-    } catch (error) {
-      console.error("Error fetching posts:", error);
     }
-  }
-  fetchPosts();
-}, []);
+    fetchPosts();
+  }, []);
 
 
   useEffect(() => {
@@ -260,37 +260,40 @@ export default function Main() {
         </div>
 
         <div className="main-grid">
-          {fillterposts.map((post) => (
-            <Link
-              to="/display"
-              state={{ id: post.id }}
-              key={post.id} // ต้องมี key
-              style={{ textDecoration: 'none', color: 'black' }}
-            >
-              <div className="main-post">
-                <div className="main-post-photo">
-                  <img src={post.shirt_pic} alt={post.shirt_name} />
-                </div>
-                <div className="main-post-detail-card">
-                  <div className="shirt-name">{post.shirt_name}</div>
-                  <div className="shirt-bottom-detail">
-                    <div className="tags-wrapper">
-                      <img src={tagIcon} alt="tag icon" className="tag-icon" />
-                      <div className="tags-container">
-                        {post.tags && post.tags.length > 0 ? (
-                          <span className="tag-item">{post.tags[0].tag_name}</span>
-                        ) : (
-                          <span className="tag-item">ไม่มีแท็ก</span>
-                        )}
+          {fillterposts.length === 0 ? (
+            <div className="no-results">ไม่พบรายการที่ค้นหา</div>
+          ) : (
+            fillterposts.map((post) => (
+              <Link
+                to="/display"
+                state={{ id: post.id }}
+                key={post.id} // ต้องมี key
+                style={{ textDecoration: 'none', color: 'black' }}
+              >
+                <div className="main-post">
+                  <div className="main-post-photo">
+                    <img src={post.shirt_pic} alt={post.shirt_name} />
+                  </div>
+                  <div className="main-post-detail-card">
+                    <div className="shirt-name">{post.shirt_name}</div>
+                    <div className="shirt-bottom-detail">
+                      <div className="tags-wrapper">
+                        <img src={tagIcon} alt="tag icon" className="tag-icon" />
+                        <div className="tags-container">
+                          {post.tags && post.tags.length > 0 ? (
+                            <span className="tag-item">{post.tags[0].tag_name}</span>
+                          ) : (
+                            <span className="tag-item">ไม่มีแท็ก</span>
+                          )}
+                        </div>
                       </div>
-
+                      <div className="price">{post.shirt_price} ฿</div>
                     </div>
-                    <div className="price">{post.shirt_price} ฿</div>
                   </div>
                 </div>
-              </div>
-            </Link>
-          ))}
+              </Link>
+            ))
+          )}
           {/* {posts.map((post, index) => (
             <Link
               to="/display"

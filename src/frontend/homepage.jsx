@@ -8,7 +8,6 @@ import speakerImg from "../assets/speaker.png";
 import { useNavigate, useLocation } from "react-router-dom";
 import Toast from "./component/Toast";
 
-
 export default function Homepage() {
     const loginRef = useRef(null);
     const homeRef = useRef(null);
