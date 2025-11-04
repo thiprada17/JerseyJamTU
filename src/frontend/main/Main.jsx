@@ -155,11 +155,14 @@ export default function Main() {
   }, []);
 
 
-  useEffect(() => {
-    if (location.state?.showLoginToast) {
-      setShowToast(true);
-    }
-  }, [location.state]);
+useEffect(() => {
+  const showToast = sessionStorage.getItem("showLoginToast");
+  
+  if (showToast) {
+    setShowToast(true);
+    sessionStorage.removeItem("showLoginToast");  // ลบข้อมูลหลังจากแสดง Toast
+  }
+}, []);
 
   /// fillterrrrrrrrrrrr
     /// fillterrrrrrrrrrrr

@@ -79,7 +79,10 @@ console.log(authenData);
           //   navigate('/main', { state: { showLoginToast: true } });
           // }, 1200);
           localStorage.setItem("showLoginToast", "true");
+sessionStorage.setItem("showLoginToast", "true");  // เก็บใน sessionStorage
 navigate('/main');
+
+
 
         } else {
           console.log("Login failed:", data.message);
