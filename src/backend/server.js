@@ -503,7 +503,7 @@ app.post('/shirt/tag/add', async (req, res) => {
   try {
     const { shirt_id, tag_name } = req.body;
 
-    //หา tag ว่ามียุมั้ย
+    //หา tag ว่ามีอยู่มั้ย
     let { data: tagData, error: tagError } = await supabaseAdmin
       .from('tags')
       // .select('tag_id')

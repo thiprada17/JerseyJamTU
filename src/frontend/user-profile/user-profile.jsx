@@ -20,9 +20,9 @@ const getFacultyShort = (s) => {
 export default function UserProfile() {
   const navigate = useNavigate();
   const user_id = localStorage.getItem("user_id");
-  const username = localStorage.getItem("username")
-  const faculty = localStorage.getItem("faculty")
-  const year = localStorage.getItem("year")
+  const username = localStorage.getItem("username");
+  const faculty = localStorage.getItem("faculty");
+  const year = localStorage.getItem("year");
   const [showConfirm, setShowConfirm] = useState(false);
   const [selectedPost, setSelectedPost] = useState(null);
 
@@ -30,23 +30,22 @@ export default function UserProfile() {
     const verify = async () => {
       try {
         const authToken = localStorage.getItem('token');
-
         if (!authToken) {
           window.alert('token not found');
           navigate('/');
-          return
+          return;
         }
 
         const authen = await fetch('http://localhost:8000/authen/users', {
           method: 'GET',
-          headers: { authorization: `Bearer ${authToken}` }
+          headers: { authorization: `Bearer ${authToken}` },
         });
 
         if (!authen.ok) {
           console.error('authen fail', authen.status);
           window.alert('authen fail');
           navigate('/');
-          return
+          return;
         }
 
         const authenData = await authen.json();
@@ -56,14 +55,13 @@ export default function UserProfile() {
           window.alert('token not pass');
           localStorage.clear();
           navigate('/');
-          return
+          return;
         }
 
       } catch (error) {
         console.error('verify error:', error);
         window.alert('verify error');
         navigate('/');
-
       }
     };
 
@@ -72,23 +70,17 @@ export default function UserProfile() {
 
   const [activeTab, setActiveTab] = useState(1);
   let tab1Class = "up-tab";
-  if (activeTab === 1) {
-    tab1Class += " active-tabs";
-  }
+  if (activeTab === 1) tab1Class += " active-tabs";
   let tab2Class = "up-tab";
-  if (activeTab === 2) {
-    tab2Class += " active-tabs";
-  }
+  if (activeTab === 2) tab2Class += " active-tabs";
 
   const [favs, setFavs] = useState([]);
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
-  //get post **get by userid**
   useEffect(() => {
     const run = async () => {
-
       if (!user_id) {
         setError("กรุณาเข้าสู่ระบบ");
         setLoading(false);
@@ -97,7 +89,6 @@ export default function UserProfile() {
       try {
         setLoading(true);
         setError("");
-
         const res = await axios.get(
           `http://localhost:8000/commu/get/by-user/${user_id}`
         );
@@ -132,30 +123,11 @@ export default function UserProfile() {
     fetchFavs();
   }, [user_id]);
 
-  // refresh favs แบบเรียลไทม์ ja
   useEffect(() => {
     const onFavChanged = () => fetchFavs();
     window.addEventListener("fav-updated", onFavChanged);
     return () => window.removeEventListener("fav-updated", onFavChanged);
   }, []);
-
-  //delete post
-  // const handleDeletePost = async (post_id) => {
-  //   // const ok = window.confirm("ต้องการลบโพสต์นี้หรือไม่?");
-  //   if (!ok) return;
-  //   try {
-  //     await axios.delete(`http://localhost:8000/commu/delete/${post_id}`, {
-  //       data: { user_id },
-  //     });
-  //     setPosts((prev) => prev.filter((p) => p.post_id !== post_id));
-  //   } catch (e) {
-  //     console.error(e);
-  //     alert("ลบโพสต์ไม่สำเร็จ!");
-  //   }finally {
-  //     setShowConfirm(false);
-  //     setSelectedPost(null);
-  //   }
-  // };
 
   const handleAskDelete = (post_id) => {
     setSelectedPost(post_id);
@@ -183,7 +155,6 @@ export default function UserProfile() {
     setSelectedPost(null);
   };
 
-  // edit post + back to commu
   const handleEditPost = (post) => {
     navigate("/commu/form", { state: { mode: "edit", post } });
   };
@@ -197,6 +168,7 @@ export default function UserProfile() {
           onCancel={handleCancelDelete}
         />
       )}
+
       <div className="up-top">
         <div className="up-top-container">
           <Link to="/main">
@@ -240,79 +212,82 @@ export default function UserProfile() {
         </div>
       </div>
 
-      {loading && <div className="up-loading">กำลังโหลด...</div>}
-      {!loading && error && <div className="up-error">{error}</div>}
+      {loading && <div className="up-empty">กำลังโหลด...</div>}
+      {!loading && error && <div className="up-empty">{error}</div>}
 
       <div className="up-content-tabs">
         {/* Your fav */}
-        <div className={activeTab === 1 ? "up-content active-content" : "up-content"}>
-          <div className="up-fav-grid">
-            {favs.length === 0 && <div className="up-empty">ยังไม่มีรายการถูกใจ</div>}
-            {favs.map((item) => (
-
-              <div className="up-fav-post">
-                <div className="up-post-photo">
-                  <img src={item.shirt_pic} alt={item.shirt_name} />
-                </div>
-                <div className="up-fav-detail">
-                  <div className="up-fav-detail-name">{item.shirt_name}</div>
-                  <Link
-                  className="up-fav-cmore"
-                    key={item.shirt_id}
-                    to="/display"
-                    state={{ id: item.shirt_id }} >
-                    <div>
-                      see more <br /> Detail
+        {activeTab === 1 && (
+          <div className="up-content active-content">
+            {favs.length === 0 ? (
+              <div className="up-empty">ยังไม่มีรายการถูกใจ</div>
+            ) : (
+              <div className="up-fav-grid">
+                {favs.map((item) => (
+                  <div className="up-fav-post" key={item.shirt_id}>
+                    <div className="up-post-photo">
+                      <img src={item.shirt_pic} alt={item.shirt_name} />
                     </div>
-                  </Link>
-                </div>
+                    <div className="up-fav-detail">
+                      <div className="up-fav-detail-name">{item.shirt_name}</div>
+                      <Link
+                        className="up-fav-cmore"
+                        to="/display"
+                        state={{ id: item.shirt_id }}
+                      >
+                        <div>see more<br />details</div>
+                      </Link>
+                    </div>
+                  </div>
+                ))}
               </div>
-
-            ))}
+            )}
           </div>
-        </div>
-        {/* Your post (เฉพาะของตัวเอง) */}
-        <div className={activeTab === 2 ? "up-content active-content" : "up-content"}>
-          <div className="commu-grid">
-            {posts.length === 0 && <div className="up-empty">ยังไม่มีโพสต์</div>}
+        )}
 
-            {posts.map((post) => (
-              <div className="commu-post bg-slate-50" key={post.post_id}>
-                <div className="commu-post-topic">{post.title ?? "No Title"}</div>
-                <div className="commu-post-detail">{post.detail ?? "No detail"}</div>
-                <div className="commu-post-contact">
-                  ช่องทางการติดต่อ :{" "}
-                  {post.contact ? (
-                    <a href={post.contact} target="_blank" rel="noreferrer">
-                      {post.contact}
-                    </a>
-                  ) : (
-                    "No Contact"
-                  )}
-                </div>
-
-                {/* edit+delete button */}
-                <div className="up-post-actions">
-                  <button
-                    type="button"
-                    className="up-btn up-post-edit"
-                    onClick={() => handleEditPost(post)}
-                  >
-                    Edit
-                  </button>
-                  <button
-                    type="button"
-                    className="up-btn up-post-delete"
-                    // onClick={() => handleDeletePost(post.post_id)}
-                    onClick={() => handleAskDelete(post.post_id)}
-                  >
-                    Delete
-                  </button>
-                </div>
+        {/* Your post */}
+        {activeTab === 2 && (
+          <div className="up-content active-content">
+            {posts.length === 0 ? (
+              <div className="up-empty">ยังไม่มีโพสต์</div>
+            ) : (
+              <div className="commu-grid">
+                {posts.map((post) => (
+                  <div className="commu-post bg-slate-50" key={post.post_id}>
+                    <div className="commu-post-topic">{post.title ?? "No Title"}</div>
+                    <div className="commu-post-detail">{post.detail ?? "No detail"}</div>
+                    <div className="commu-post-contact">
+                      ช่องทางการติดต่อ:{" "}
+                      {post.contact ? (
+                        <a href={post.contact} target="_blank" rel="noreferrer">
+                          {post.contact}
+                        </a>
+                      ) : (
+                        "No Contact"
+                      )}
+                    </div>
+                    <div className="up-post-actions">
+                      <button
+                        type="button"
+                        className="up-btn up-post-edit"
+                        onClick={() => handleEditPost(post)}
+                      >
+                        Edit
+                      </button>
+                      <button
+                        type="button"
+                        className="up-btn up-post-delete"
+                        onClick={() => handleAskDelete(post.post_id)}
+                      >
+                        Delete
+                      </button>
+                    </div>
+                  </div>
+                ))}
               </div>
-            ))}
+            )}
           </div>
-        </div>
+        )}
       </div>
     </div>
   );

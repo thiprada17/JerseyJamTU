@@ -1,6 +1,5 @@
 @import "tailwindcss";
 
-
 @font-face {
     font-family: 'PG';
     src: url('./PG Newport DEMO.ttf');
@@ -21,18 +20,15 @@
     src: url('Kanit-Bold.ttf');
 }
 
-
 @font-face {
     font-family: 'Nec';
-    src: url('Nectarine.ttf')
+    src: url('Nectarine.ttf');
 }
 
 @font-face {
     font-family: 'thi';
-    src: url('thierry.ttf')
+    src: url('thierry.ttf');
 }
-
-
 
 .up-body {
     background-color: white;
@@ -51,12 +47,9 @@
     text-align: center;
     border-bottom: 1px solid black;
     font-size: clamp(3rem, 2.5vw, 1.5rem);
-
     justify-content: center;
     justify-items: center;
     align-items: center;
-
-
     overflow-wrap: break-word;
     word-break: break-word;
 }
@@ -92,25 +85,18 @@
 }
 
 .up-username-name {
-    font-size: 2rem;
+    font-size: 4rem;
     font-family: 'KanitEB';
     font-weight: 700;
-    font-size: 4rem;
     line-height: 54px;
-
     color: #FFFFFF;
-
     -webkit-text-stroke: 2px #000000;
-    /* ใส่ stroke สีดำ */
-
 }
-
 
 .up-top-box {
     display: flex;
     box-sizing: border-box;
     align-items: center;
-
     height: 20rem;
     width: 58rem;
     font-family: 'Kanit', sans-serif;
@@ -130,23 +116,17 @@
 
 .up-year-num {
     font-family: 'KanitEB';
-    font-weight: 10rem;
     font-size: 5rem;
-        line-height: 5rem;
-
+    line-height: 5rem;
     color: #FFF4DF;
-
     -webkit-text-stroke: 2px #000000;
 }
 
 .up-faculty-name {
     font-family: 'KanitEB';
-    font-weight: 10rem;
     font-size: 5rem;
     line-height: 5rem;
-
     color: #FFF4DF;
-
     -webkit-text-stroke: 2px #000000;
 }
 
@@ -164,9 +144,7 @@
     height: 6rem;
     width: 100%;
     border: 2px solid #000000;
-
     cursor: pointer;
-
 }
 
 .active-tabs {
@@ -182,20 +160,15 @@
     background-size: cover;
     background-position: top center;
     padding: 5rem;
-
 }
 
 .active-content {
     display: block;
 }
 
-
-
 .up-fav-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    /* grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); */
- 
     row-gap: 5rem;
     justify-items: center;
     padding: 2rem;
@@ -217,7 +190,7 @@
 }
 
 .up-post-photo {
-    background-color:#ffffff;
+    background-color: #ffffff;
     height: 70rem;
     overflow: hidden;
     margin: 10px;
@@ -245,7 +218,6 @@
     flex: 1;
     display: flex;
     align-items: center;
-
     font-size: 2rem;
 }
 
@@ -253,24 +225,21 @@
     display: flex;
     align-items: center;
     justify-content: center;
-
     background-color: #FFF4DF;
-    width: 9rem;
+    width: 10rem;
+    height: 6rem;
     border-radius: 22px;
     border: 1px solid black;
-
-    font-size: 1.2rem;
+    font-size: 1.4rem;
     font-weight: 600;
-    padding: 0.4rem 0.6rem;
-  color: black !important;
-  text-decoration: none !important;
+    text-align: center;
+    color: black !important;
+    text-decoration: none !important;
 }
 
-
-
 .up-fav-cmore a {
-  color: inherit !important;
-  text-decoration: none !important;
+    color: inherit !important;
+    text-decoration: none !important;
 }
 
 .shirt-name {
@@ -280,93 +249,110 @@
     text-align: left;
 }
 
-/* ขอคลอดปุ่มหน่อยน้า */
 .up-post-actions {
-  display: flex;
-  gap: 1rem;
-  margin-top: 1rem;
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
     justify-content: flex-end;
 }
 
 .up-btn {
-  font-family: 'Kanit', sans-serif;
-  font-size: 1.8rem;
-  padding: 1rem 2.2rem;
-  border-radius: 14px;
-  border: 2px solid #000; 
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.6rem;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  box-shadow: 2px 4px 0 rgba(0, 0, 0, 0.5);
-  text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.5);
-  letter-spacing: 0.5px;
+    font-family: 'Kanit', sans-serif;
+    font-size: 1.8rem;
+    padding: 1rem 2.2rem;
+    border-radius: 14px;
+    border: 2px solid #000;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 2px 4px 0 rgba(0, 0, 0, 0.5);
+    text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.5);
+    letter-spacing: 0.5px;
 }
 
 .up-post-edit {
-  background-color: #fff7d6;
-  color: #2f2f2f;
+    background-color: #fff7d6;
+    color: #2f2f2f;
 }
 
 .up-post-edit:hover {
     background-color: #ffecb3;
-  transform: translateY(-2px);
-  box-shadow: 2px 6px 10px rgba(0, 0, 0, 0.2);
+    transform: translateY(-2px);
+    box-shadow: 2px 6px 10px rgba(0, 0, 0, 0.2);
 }
 
 .up-post-delete {
-  background-color: #ff6b6b;
-  color: white;
+    background-color: #ff6b6b;
+    color: white;
 }
 
 .up-post-delete:hover {
-  background-color: #fa5252;
-  transform: translateY(-2px);
-  box-shadow: 2px 6px 10px rgba(0, 0, 0, 0.2);
+    background-color: #fa5252;
+    transform: translateY(-2px);
+    box-shadow: 2px 6px 10px rgba(0, 0, 0, 0.2);
 }
 
 .up-btn:active {
-  transform: translateY(1px);
-  box-shadow: none;
+    transform: translateY(1px);
+    box-shadow: none;
 }
 
 .up-post-edit:disabled,
 .up-post-delete:disabled,
 .up-btn:disabled {
-  opacity: .6;
-  cursor: not-allowed;
-  box-shadow: none;
+    opacity: .6;
+    cursor: not-allowed;
+    box-shadow: none;
 }
 
 @media (max-width: 640px) {
-  .up-btn {
-    font-size: 1.4rem;
-    padding: 0.8rem 1.2rem;
-  }
+    .up-btn {
+        font-size: 1.4rem;
+        padding: 0.8rem 1.2rem;
+    }
 }
 
 .up-loading,
 .up-error,
 .up-empty {
-  text-align: center;
-  font-family: 'Kanit', sans-serif;
-  font-size: 1.8rem;
-  padding: 2rem 0;
+    text-align: center;
+    font-family: 'Kanit', sans-serif;
+    font-size: 2.5rem;
+    font-weight: 700;
+    padding: 4rem 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50vh;
 }
 
 .up-error {
-  color: #DF2D3B;
+    color: #DF2D3B;
 }
 
 @media (max-width: 1200px) {
-  .up-fav-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
+    .up-fav-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
 }
+
 @media (max-width: 768px) {
-  .up-fav-grid {
-    grid-template-columns: 1fr;
-  }
+    .up-fav-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.up-empty {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Kanit';
+  font-size: 2.4rem;
+  font-weight: 700;
+  color: #747171;
+  height: 50vh;
+  text-align: center;
 }
