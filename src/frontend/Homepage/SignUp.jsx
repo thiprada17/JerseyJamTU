@@ -1,11 +1,11 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import "./signup.css";
-import arrowIcon from "../assets/arrow.png";
-import BackgroundSignup from "../assets/background-signup.png";
+import arrowIcon from "../../assets/arrow.png";
+import BackgroundSignup from "../../assets/background-signup.png";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
-import Toast from './component/Toast';
-import Notification from './component/Notification';
+import Toast from '../component/Toast';
+import Notification from '../component/Notification';
 
 export default function SignUp({ scrollToHome, scrollToLogIn }) {
   const nevigate = useNavigate();

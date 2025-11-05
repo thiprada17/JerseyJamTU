@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useRef } from "react";
 import "./sellerform.css";
-import blueLayer from "../assets/bg.png"
+import blueLayer from "../../assets/bg.png"
 import { useNavigate } from "react-router-dom";
-import { supabase } from "./supabaseClient";
-import greyArrow from "../assets/grey_arrow.png"
-import Toast from "./component/Toast";
+import { supabase } from "../supabaseClient";
+import greyArrow from "../../assets/grey_arrow.png"
+import Toast from "../component/Toast";
 import { FaTag, FaPlusCircle, FaTimes } from "react-icons/fa";
 
 export default function SellerForm() {
@@ -12,14 +12,7 @@ export default function SellerForm() {
   const [image, setImage] = useState(null);
   const [showToast, setShowToast] = useState(false);
   const [imageFile, setImageFile] = useState(null); // เก็บไฟล์ไว้ใช้ตอน submit จ้า
-  // const [formData, setFormData] = useState({
-  //   shirt_name: "",
-  //   shirt_price: "",
-  //   shirt_open_date: "",
-  //   shirt_close_date: "",
-  //   shirt_detail: "",
-  //   shirt_url: "",
-  // });
+
   const [formData, setFormData] = useState({
     shirt_name: "",
     shirt_price: "",
@@ -32,43 +25,6 @@ export default function SellerForm() {
     shirt_url: "",
   });
 
-  // const handleUpload = async (e) => {
-  //   const file = e.target.files[0];
-  //   if (file) {
-  //     const imageUrl = URL.createObjectURL(file);
-  //     setImage(imageUrl); // ใช้ URL preview
-  //   }
-
-  //   const fileExt = file.name.split('.').pop();
-  //   const fileName = `${Date.now()}.${fileExt}`;
-  //   const filePath = `shirt/${fileName}`;
-
-  //   console.log("File selected:", file);
-
-  //   //อัปโหลดรูปไป Supabase Bucket
-  //   const { data: uploadData, error: uploadError } = await supabase
-  //     .storage
-  //     .from("shirt_images")
-  //     .upload(filePath, file);
-
-  //   if (uploadError) {
-  //     console.error("Upload error:", uploadError.message);
-  //     toast.error("Upload failed: " + uploadError.message);
-  //     return;
-  //   }
-
-  //   //ดึง URL ของรูป
-  //   const { data: publicData } = supabase
-  //     .storage
-  //     .from("shirt_images")
-  //     .getPublicUrl(filePath);
-
-  //   //ใส่ URL ของรูปใน Image
-  //   if (publicData?.publicUrl) {
-  //     setImage(publicData.publicUrl);
-  //     console.log("Image uploaded & public URL:", publicData.publicUrl);
-  //   }
-  // };
 
   const handleUpload = (e) => {
     const file = e.target.files[0];
@@ -105,8 +61,6 @@ export default function SellerForm() {
     }));
   }
 };
-
-
 
   // const handleSubmit = async (e) => {
   //   e.preventDefault();

@@ -9,17 +9,17 @@ import 'react-toastify/dist/ReactToastify.css';
 
 // import Login from "./pages/Login";
 // import Register from "./pages/Register";
-import Homepage from './frontend/homepage';
-import Commu from './frontend/commu/commu';
-import CommuForm from './frontend/commu/commuForm';
+import Homepage from './frontend/Homepage/homepage';
+import Commu from './frontend/main/Features/commu/commu';
+import CommuForm from './frontend/main/Features/commu/commuForm';
 import Main from './frontend/main/Main';
 import MainNews from './frontend/main/MainNews';
-import Display from './frontend/ShirtDisplay';
+import Display from './frontend/DisplayShirt/ShirtDisplay';
 import Filter from './frontend/main/Filter';
 
-import Sellerform from './frontend/sellerform';
-import MixAndMatch from './frontend/MixAndMatch';
-import Closet from './frontend/Closetmm';
+import Sellerform from './frontend/Homepage/sellerform';
+import MixAndMatch from './frontend/main/Features/Mix&Match/MixAndMatch';
+import Closet from './frontend/main/Features/Mix&Match/Closetmm';
 import UserProfile from './frontend/user-profile/user-profile';
 
 import SevenDayMatch from './frontend/main/News/sevenDayMatch';

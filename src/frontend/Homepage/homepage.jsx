@@ -2,11 +2,11 @@ import { useRef, useEffect, useState } from "react";
 import SignIn from "./Login";
 import SignUp from "./SignUp";
 import "./homepage.css";
-import cartImg from "../assets/cart.png";
-import backgroundImg from "../assets/homepage.png";
-import speakerImg from "../assets/speaker.png";
+import cartImg from "../../assets/cart.png";
+import backgroundImg from "../../assets/homepage.png";
+import speakerImg from "../../assets/speaker.png";
 import { useNavigate, useLocation } from "react-router-dom";
-import Toast from "./component/Toast";
+import Toast from "../component/Toast";
 
 export default function Homepage() {
     const loginRef = useRef(null);

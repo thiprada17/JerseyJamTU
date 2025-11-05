@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import "./mixAndmatch.css";
-import greyArrow from "../assets/grey_arrow.png";
+import greyArrow from "../../../../assets/grey_arrow.png";
 import html2canvas from "html2canvas";
-import Toast from "./component/Toast";
+import Toast from "../../../component/Toast";
 
 const polaroidFrames = [
   { id: 1, className: "frame frame1ass" },

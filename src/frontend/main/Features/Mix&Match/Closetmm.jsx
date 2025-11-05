@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import "./closetmm.css";
-import greyArrow from "../assets/grey_arrow.png";
+import greyArrow from "../../../../assets/grey_arrow.png";
 
 export default function Closetmm() {
   const navigate = useNavigate();
@@ -65,25 +65,6 @@ useEffect(() => {
   useEffect(() => {
     console.log("Closetmm mount, location.state:", location.state);
   }, []);
-  // พี่ขอเก็บไว้ก่อนนะ
-  // useEffect(() => {
-  //   if (category === "Jersey") {
-  //     async function fetchShirts() {
-  //       try {
-  //         const response = await fetch(`http://localhost:8000/shirt/info/get`);
-  //         if (!response.ok) throw new Error("Failed to fetch shirt info");
-  //         const data = await response.json();
-  //         setItems(data);
-  //       } catch (error) {
-  //         console.error("Closetmm fetch error:", error);
-  //         setItems([]);
-  //       }
-  //     }
-  //     fetchShirts();
-  //   } else {
-  //     setItems([]);
-  //   }
-  // }, [category]);
 
   useEffect(() => {
     async function fetchItems() {

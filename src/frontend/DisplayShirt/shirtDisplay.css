@@ -196,8 +196,8 @@
 }
 
 .shirtDisplay-dateBox p {
-  margin: 2px 0;      /* ลดช่องว่างบน–ล่าง */
-  line-height: 1.2;   /* กำหนดระยะบรรทัดให้แน่นขึ้น */
+  margin: 2px 0;      /* ช่องบ่างบน */
+  line-height: 1.2;   /* ระยะบรรทัด*/
 }
 
 

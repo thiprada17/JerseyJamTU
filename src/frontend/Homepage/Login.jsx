@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import "./login.css";
-import arrowIcon from "../assets/arrow.png";
-import pinkshape from "../assets/pink-shape.png";
+import arrowIcon from "../../assets/arrow.png";
+import pinkshape from "../../assets/pink-shape.png";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { useNavigate } from 'react-router-dom';
-import Notification from './component/Notification';
+import Notification from '../component/Notification';
 
 export default function Login({ scrollToHome, scrollToSignup }) {
   const navigate = useNavigate();
@@ -70,7 +70,7 @@ export default function Login({ scrollToHome, scrollToSignup }) {
 console.log(authenData);
 
           //  setNotification({
-          //   // message: "ล็อกอินสำเร็จ! ยินดีต้อนรับกลับมาค่ะ 🌸",
+          //   // message: "ล็อกอินสำเร็จ! ยินดีต้อนรับกลับมาค่ะ",
           //   // type: "success"
           // });
           

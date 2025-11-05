@@ -2,7 +2,7 @@ import "./commuForm.css";
 import { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
-import Notification from "../component/Notification";
+import Notification from "../../../component/Notification";
 
 const LIMITS = { title: 25, detail: 250, contact: 150 };
 const WARN_AT = Math.max(10, Math.ceil(LIMITS.detail * 0.1));
