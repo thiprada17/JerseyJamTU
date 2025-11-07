@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
 import Notification from "../../../component/Notification";
+import greyArrow from "../../../../assets/grey_arrow.png";
 
 const LIMITS = { title: 25, detail: 250, contact: 150 };
 const WARN_AT = Math.max(10, Math.ceil(LIMITS.detail * 0.1));
@@ -92,6 +93,9 @@ export default function CommuForm() {
 
   const remainDetail = LIMITS.detail - formData.detail.length;
   const submitDisabled = remainDetail < 0;
+      const handleBack = () => {
+        navigate(-1); // ย้อนกลับไปอันก่อน
+    };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -170,6 +174,12 @@ export default function CommuForm() {
           onClose={() => setNotification({ message: "", type: "" })}
         />
       )}
+
+ 
+                <button className="commuForm-backButton" onClick={handleBack}>
+                    &lt; back
+                </button>
+              
       <div className="form-box">
         <h2 className="form-header">{isEdit ? "Edit Post" : "Create Post"}</h2>
 

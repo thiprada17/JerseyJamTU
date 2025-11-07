@@ -20,7 +20,21 @@
     background: rgba(255,255,255,0.5);
     z-index: 0;
 }
+.commuForm-backButton {
+  font-size: 2rem;
+  font-family: 'Kanit', sans-serif;
+  cursor: pointer;
+  padding: 1rem 2rem;
+  color: #6660D4;
+  transition: color 0.2s ease;
+  position: absolute;
+  left: 0;
+  top: 0;
+}
 
+.commuForm-backButton:hover {
+  color: #d62828;
+}
 .form-box {
     position: relative;
     z-index: 1;
