@@ -213,10 +213,49 @@ body {
   opacity: 1;
 }
 
-/* เมื่อกำหนด class .hide ด้วย JavaScript */
 .custom-toast-login.hide {
   animation: slideOutRight 0.5s ease forwards;
   opacity: 0;
+}
+
+.login-email-wrapper {
+  display: flex;
+  align-items: center;
+  width: 65%;
+  background-color: #EFEEEA;
+  border: 1px solid black;
+  border-radius: 999px !important;
+  padding: 1rem; 
+  box-sizing: border-box;
+}
+
+.login-email-wrapper input {
+  flex: 1;
+  font-size: 1.8rem;
+  border: none;          
+  outline: none;        
+  background: transparent;
+  margin: 0;             
+  line-height: 1.7rem;
+  box-sizing: border-box;
+  color: #333;
+  padding: 0.3rem 0.5rem; 
+}
+
+.login-email-wrapper input::placeholder {
+  color: #888;
+}
+.login-email-wrapper input:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+.login-email-domain {
+  font-size: 1.8rem;
+  color: #555;
+  margin-left: 0.3rem;
+  pointer-events: none;
+  user-select: none;
 }
 
 @keyframes slideInRight {
@@ -240,3 +279,4 @@ body {
     opacity: 0;
   }
 }
+

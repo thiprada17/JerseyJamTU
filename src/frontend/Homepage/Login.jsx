@@ -12,6 +12,7 @@ export default function Login({ scrollToHome, scrollToSignup }) {
 
   const [userData, setuserData] = useState({
     username: '',
+    // email: '',
     password: ''
   });
 
@@ -62,34 +63,34 @@ export default function Login({ scrollToHome, scrollToSignup }) {
 
 
           const authen = await fetch('http://localhost:8000/authen/users', {
-        method: 'GET',
-        headers: { 'authorization': `Bearer ${authToken}` }
-      });
+            method: 'GET',
+            headers: { 'authorization': `Bearer ${authToken}` }
+          });
 
-      const authenData = await authen.json();
-console.log(authenData);
+          const authenData = await authen.json();
+          console.log(authenData);
 
           //  setNotification({
           //   // message: "ล็อกอินสำเร็จ! ยินดีต้อนรับกลับมาค่ะ",
           //   // type: "success"
           // });
-          
+
 
           // setTimeout(() => {
           //   navigate('/main', { state: { showLoginToast: true } });
           // }, 1200);
           localStorage.setItem("showLoginToast", "true");
-sessionStorage.setItem("showLoginToast", "true");  // เก็บใน sessionStorage
-navigate('/main');
+          sessionStorage.setItem("showLoginToast", "true");  // เก็บใน sessionStorage
+          navigate('/main');
 
 
 
         } else {
           console.log("Login failed:", data.message);
           setNotification({
-  message: "เกิดข้อผิดพลาดจากเซิร์ฟเวอร์\nกรุณาลองใหม่อีกครั้งค่ะ",
-  type: "error"
-});
+            message: "เกิดข้อผิดพลาดจากเซิร์ฟเวอร์\nกรุณาลองใหม่อีกครั้งค่ะ",
+            type: "error"
+          });
 
         }
       } else {
@@ -102,27 +103,11 @@ navigate('/main');
     } catch (error) {
       console.error("Login error:", error);
       setNotification({
-  message: "ไม่สามารถเชื่อมต่อเซิร์ฟเวอร์ได้\nกรุณาลองใหม่อีกครั้งค่ะ",
-  type: "error"
-});
+        message: "ไม่สามารถเชื่อมต่อเซิร์ฟเวอร์ได้\nกรุณาลองใหม่อีกครั้งค่ะ",
+        type: "error"
+      });
     }
   };
-
-          //       setTimeout(() => {
-          //         navigate('/main', { state: { showLoginToast: true } });
-          //       }, 1500);
-          //     } else {
-          //       alert(data.message || "Login failed.");
-          //     }
-          //   } else {
-          //     const text = await response.text();
-          //     alert("Login failed: Unexpected server response.");
-          //   }
-          // } catch (error) {
-          //   alert('Login Fail: ' + error.message);
-          //   }
-          // };
-
 
   return (
     <div className="login-page">
@@ -138,17 +123,19 @@ navigate('/main');
 
         <form className="signin-form" onSubmit={handleSubmit}>
           <div className="input-group">
-            <label htmlFor="username">Username:</label>
-            <input
-              type="text"
-              id="username"
-              name="username"
-              value={userData.username}
-              onChange={handleChange}
-              placeholder="Enter username"
-            />
+            <label htmlFor="email">Email:</label>
+            <div className="login-email-wrapper">
+              <input
+                type="text"
+                id="username"
+                name="username"
+                value={userData.username}
+                onChange={handleChange}
+                placeholder="Enter email"
+              />
+              <span className="login-email-domain">@dome.tu.ac.th</span>
+            </div>
           </div>
-
           <div className="input-group">
             <label htmlFor="password">Password:</label>
             <div className="password-wrapper">
