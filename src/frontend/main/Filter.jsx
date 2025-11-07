@@ -1,6 +1,7 @@
 import { useState } from "react";
 import "./Filter.css";
-import checkIcon from "../../assets/checkIcon.png";  
+import checkIcon from "../../assets/checkIcon.png"; 
+import backIcon from "../../assets/filter_back.png";
 
 export default function Filter({ onClose, onApply }) {
   const faculties = [
@@ -44,6 +45,13 @@ export default function Filter({ onClose, onApply }) {
 
   return (
     <div className="filter-panel open">
+      <img
+      src={backIcon}
+      alt="back"
+      className="back-button"
+      onClick={onClose}
+      />
+      
       {/* คณะ */}
       <div className="filter-section">
         <h3 className="filter-title">คณะ</h3>
