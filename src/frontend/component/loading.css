@@ -1,6 +1,6 @@
 .loading-overlay {
   position: absolute;
-  top: 60px; /* ✅ เว้นจาก topbar (ปรับตามความสูงของ topbar) */
+  top: 60px; /* เว้นจาก topbar*/
   left: 0;
   width: 100%;
   height: calc(100% - 60px);
