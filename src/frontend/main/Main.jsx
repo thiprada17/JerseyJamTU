@@ -257,7 +257,10 @@ useEffect(() => {
       <div className="main-container">
         <div className="main-header">
           <div className="main-posttext">ALL JERSEY</div>
-          <button className="filters-button" onClick={() => setShowFilter(true)}>
+          <button
+            className="filters-button"
+            onClick={() => setShowFilter((prev) => !prev)} // toggle เปิด/ปิด
+          >
             <img src={filterIcon} alt="Filter Icon" className="filters-icon" />
             <span className="filters-text">Filters</span>
           </button>

@@ -32,20 +32,6 @@
   pointer-events: auto;
 }
 
-.back-button {
-  position: absolute;
-  top: 15px;
-  right: 18px;
-  width: 28px;
-  height: 28px;
-  cursor: pointer;
-  transition: transform 0.2s ease;
-}
-
-.back-button:hover {
-  transform: scale(1.1);
-}
-
 .filter-header {
   display: flex;
   justify-content: space-between;

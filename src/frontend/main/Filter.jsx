@@ -45,13 +45,6 @@ export default function Filter({ onClose, onApply }) {
 
   return (
     <div className="filter-panel open">
-      <img
-      src={backIcon}
-      alt="back"
-      className="back-button"
-      onClick={onClose}
-      />
-      
       {/* คณะ */}
       <div className="filter-section">
         <h3 className="filter-title">คณะ</h3>
