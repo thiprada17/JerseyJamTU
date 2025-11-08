@@ -1,6 +1,7 @@
 import { useState } from "react";
 import "./Filter.css";
-import checkIcon from "../../assets/checkIcon.png";  
+import checkIcon from "../../assets/checkIcon.png"; 
+import backIcon from "../../assets/filter_back.png";
 
 export default function Filter({ onClose, onApply }) {
   const faculties = [

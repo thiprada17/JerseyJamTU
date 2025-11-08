@@ -7,7 +7,6 @@ import topic from "../../assets/main-topic.png";
 import tagIcon from "../../assets/tags-fill.png";
 import MainNews from "./MainNews.jsx"
 import FeatureFolder from "./FeatureFolder.jsx"
-import { useLocation } from "react-router-dom";
 import Toast from "../component/Toast.jsx";
 import { useNavigate } from 'react-router-dom';
 import filterIcon from "../../assets/sort.png";
@@ -25,11 +24,9 @@ export default function Main() {
   const navigate = useNavigate();
   const [posts, setPosts] = useState([]);
   const [fillterposts, setfillterPosts] = useState([]);
-  const location = useLocation();
-  const toastRef = useRef(null);
   const [showToast, setShowToast] = useState(false);
   const username = localStorage.getItem("username");
-
+  const filterRef = useRef(null); //ฝ้าย ๆ ลองทำ ลบได้
 
   useEffect(() => {
     const verify = async () => {
@@ -155,14 +152,14 @@ export default function Main() {
   }, []);
 
 
-useEffect(() => {
-  const showToast = sessionStorage.getItem("showLoginToast");
-  
-  if (showToast) {
-    setShowToast(true);
-    sessionStorage.removeItem("showLoginToast");  // ลบข้อมูลหลังจากแสดง Toast
-  }
-}, []);
+  useEffect(() => {
+    const showToast = sessionStorage.getItem("showLoginToast");
+
+    if (showToast) {
+      setShowToast(true);
+      sessionStorage.removeItem("showLoginToast");  // ลบข้อมูลหลังจากแสดง Toast
+    }
+  }, []);
 
   /// fillterrrrrrrrrrrr
   const [showFilter, setShowFilter] = useState(false);
@@ -216,6 +213,23 @@ useEffect(() => {
     }
   };
 
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (filterRef.current && !filterRef.current.contains(event.target)) {
+        setShowFilter(false);
+      }
+    }
+    if (showFilter) {
+      document.addEventListener("mousedown", handleClickOutside);
+    } else {
+      document.removeEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [showFilter]);
+
 
   return (
     <div className="main-body">
@@ -247,17 +261,22 @@ useEffect(() => {
       {/* Popup Filter Panel */}
       {showFilter && (
         <div className="filter-container">
-          <Filter
-            onClose={() => setShowFilter(false)}
-            onApply={handleApplyFilter}
-          />
+          <div ref={filterRef}> {/*ชั้นทดลองทำ ลบได้*/}
+            <Filter
+              onClose={() => setShowFilter(false)}
+              onApply={handleApplyFilter}
+            />
+          </div>
         </div>
       )}
 
       <div className="main-container">
         <div className="main-header">
           <div className="main-posttext">ALL JERSEY</div>
-          <button className="filters-button" onClick={() => setShowFilter(true)}>
+          <button
+            className="filters-button"
+            onClick={() => setShowFilter((prev) => !prev)} // toggle เปิด/ปิด
+          >
             <img src={filterIcon} alt="Filter Icon" className="filters-icon" />
             <span className="filters-text">Filters</span>
           </button>

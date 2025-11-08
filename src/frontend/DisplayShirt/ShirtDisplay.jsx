@@ -5,6 +5,9 @@ import { useLocation } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { AiFillHeart } from "react-icons/ai";
 import { FaTag } from "react-icons/fa";
+import '../component/loading.css';
+import { FaTshirt } from "react-icons/fa";
+
 
 export default function ShirtDisplay() {
     const navigate = useNavigate();
@@ -12,6 +15,7 @@ export default function ShirtDisplay() {
     const user_id = localStorage.getItem("user_id");
     const { id } = location.state || {};
     console.log(id)
+    
 
     useEffect(() => {
         const verify = async () => {
@@ -69,6 +73,7 @@ export default function ShirtDisplay() {
     };
 
     const [shirtData, setshirtData] = useState({});
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         const fetchPosts = async () => {
@@ -78,6 +83,8 @@ export default function ShirtDisplay() {
                 setshirtData(data[0] || {});
             } catch (error) {
                 console.error("Error fetching posts:", error);
+            } finally {
+        setLoading(false); 
             }
         };
 
@@ -183,6 +190,7 @@ export default function ShirtDisplay() {
         if (id) fetchTags();
     }, [id]);
 
+
     return (
         <>
             <div className="shirtDisplay-topBar">
@@ -190,6 +198,12 @@ export default function ShirtDisplay() {
                     &lt; back
                 </button>
             </div>
+            {loading && (
+        <div className="loading-overlay">
+          <div className="spinner-border text-warning" role="status"></div>
+          <p className="loading-text">loading...</p>
+        </div>
+      )}
             {shirtData && (
                 <div className="shirtDisplay-container" key={shirtData.id}>
 
@@ -256,25 +270,24 @@ export default function ShirtDisplay() {
                             </button>
                         </div>
                         <div className="shirtDisplay-right">
-                            <div className="shirtDisplay-imageContainer">
-                                {/* <div className="shirtDisplay-countdownBadge">
-                                    <span className="shirtDisplay-countdownTextTop">เหลืออีก</span>
-
-                                    <div className="shirtDisplay-countdownRow">
-                                        <div className="shirtDisplay-countdownCircle">
-                                            <span className="shirtDisplay-countdownNumber">{shirtData.daysLeft}</span>
-                                        </div>
-                                        <span className="shirtDisplay-dayLabel">วัน</span>
-                                    </div>
-
-                                    <span className="shirtDisplay-countdownTextBottom">ก่อนปิดขาย</span>
-                                </div> */}
+                            {/* <div className="shirtDisplay-imageContainer">
                                 <img
                                     src={shirtData.shirt_pic || defaultJerseyImage}
                                     alt="jersey"
                                     className="shirtDisplay-image"
                                 />
-                            </div>
+                            </div> */}
+                            <div className="shirtDisplay-imageContainer">
+  {shirtData.shirt_pic ? (
+    <img
+      src={shirtData.shirt_pic}
+      alt={shirtData.shirt_name}
+      className="shirtDisplay-image"
+    />
+  ) : (
+    <FaTshirt className="shirt-placeholder-icon" />
+  )}
+</div>
                         </div>
                     </div>
                 </div>
