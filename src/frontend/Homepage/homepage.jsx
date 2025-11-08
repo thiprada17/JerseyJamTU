@@ -16,15 +16,11 @@ export default function Homepage() {
     const location = useLocation();
     const [showToast, setShowToast] = useState(false);
     const scrollToSection = (ref) => {
-        if (ref.current) {
-            ref.current.scrollIntoView({ behavior: "smooth" });
-        }
+        ref?.current?.scrollIntoView({ behavior: "smooth", block: "start" });
     };
 
     useEffect(() => {
-        if (homeRef.current) {
-            homeRef.current.scrollIntoView({ behavior: "instant" });
-        }
+        homeRef.current?.scrollIntoView({ behavior: "auto", block: "start" });
     }, []);
 
     const speakText = (text) => {
@@ -79,5 +75,3 @@ export default function Homepage() {
     );
 
 }
-
-

@@ -125,10 +125,16 @@ body {
   outline: none;
   box-sizing: border-box;
   width: 100%;
+  color: #333;
 }
 
 .password-wrapper input:focus {
   box-shadow: 0 0 6px rgba(0, 0, 0, 0.2);
+}
+
+.password-wrapper input::placeholder {
+  color: #888;
+  opacity: 1;
 }
 
 .toggle-password {
@@ -225,26 +231,28 @@ body {
   background-color: #EFEEEA;
   border: 1px solid black;
   border-radius: 999px !important;
-  padding: 1rem; 
+  padding: 1rem;
   box-sizing: border-box;
 }
 
 .login-email-wrapper input {
   flex: 1;
   font-size: 1.8rem;
-  border: none;          
-  outline: none;        
+  border: none;
+  outline: none;
   background: transparent;
-  margin: 0;             
+  margin: 0;
   line-height: 1.7rem;
   box-sizing: border-box;
   color: #333;
-  padding: 0.3rem 0.5rem; 
+  padding: 0.3rem 0.5rem;
 }
 
 .login-email-wrapper input::placeholder {
   color: #888;
+  opacity: 1;
 }
+
 .login-email-wrapper input:focus {
   outline: none;
   box-shadow: none;
@@ -279,4 +287,3 @@ body {
     opacity: 0;
   }
 }
-

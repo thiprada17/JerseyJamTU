@@ -95,13 +95,19 @@ app.post('/add-user/register', async (req, res) => {
 // sign in
 app.post('/create/login', async (req, res) => {
   try {
-    const { username, password } = req.body;
+    const { username, email, password } = req.body;
 
-    //ดึง password ผู้ใช้ที่ตรงกับ username
-    const { data, error } = await supabaseAdmin
+    let query = supabaseAdmin
       .from('users')
-      .select('user_id, username, password, faculty, year')
-      .eq('username', username)
+      .select('user_id, username, email, password, faculty, year');
+
+    if (email && typeof email === 'string') {
+      query = query.eq('email', email);
+    } else {
+      query = query.eq('username', username);
+    }
+
+    const { data, error } = await query
 
     console.log("data :", data)
     console.log("error:", error)
@@ -802,5 +808,3 @@ const port = 8000;
 app.listen(port, () => {
   console.log('http server run at : ' + port)
 })
-
-

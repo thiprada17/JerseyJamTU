@@ -119,3 +119,9 @@
   flex: 0 0 60%;
   min-width: 0;
 }
+
+.signup-form-wrapper input::placeholder,
+.signup-form-wrapper textarea::placeholder {
+  color: #878585;
+  opacity: 1;
+}
