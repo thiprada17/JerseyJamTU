@@ -33,6 +33,14 @@ body {
   font-family: "Kanit", sans-serif;
 }
 
+.inputs-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  width: 100%;
+  z-index: 2;
+}
+
 .background-text {
   position: absolute;
   top: 50%;
@@ -48,19 +56,21 @@ body {
 
 .signin-container {
   position: relative;
-  width: 90%;
-  max-width: 1000px;
-  height: 90vh;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  z-index: 1;
+  height: 100vh;
+  width: 100%;
+  max-width: 1000px;
 }
 
 .pink-shape {
   width: 100%;
-  height: 100%;
+  height: auto;
   display: block;
+  margin: 0 auto;
+  z-index: 0;
 }
 
 .signin-form {
@@ -167,6 +177,14 @@ body {
   transform: translateY(-2px);
 }
 
+.submit-group {
+  width: 100%;
+  margin-top: 2rem;
+  display: flex;
+  justify-content: center;
+}
+
+
 .signup-text {
   margin-top: 10px;
   font-size: 2rem;
@@ -271,6 +289,7 @@ body {
     right: -100%;
     opacity: 0;
   }
+
   to {
     right: 2rem;
     opacity: 1;
@@ -282,8 +301,117 @@ body {
     right: 2rem;
     opacity: 1;
   }
+
   to {
     right: -100%;
     opacity: 0;
+  }
+}
+
+@media (max-width: 1024px) {
+  .signin-form {
+    max-width: 300px;
+    gap: 1rem;
+    padding: 1rem;
+  }
+
+  .input-group {
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+  }
+
+  .input-group label {
+    text-align: left;
+    width: 100%;
+    font-size: 2rem;
+  }
+
+  .input-group input,
+  .login-email-wrapper,
+  .password-wrapper input {
+    width: 100%;
+    font-size: 1.6rem;
+    padding: 0.8rem;
+  }
+
+  .btn-login {
+    padding: 1rem 4rem;
+    font-size: 1.4rem;
+  }
+
+  .signup-text {
+    font-size: 1.6rem;
+  }
+
+  .background-text {
+    font-size: 20rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .signin-form {
+    max-width: 60%;
+    gap: 1rem;
+  }
+
+  .inputs-wrapper {
+    gap: 1rem;
+  }
+
+  .input-group {
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+    gap: 0.5rem;
+  }
+
+  .input-group label {
+    font-size: 1.5rem;
+    width: 30%;
+    text-align: right;
+  }
+
+  .input-group input,
+  .login-email-wrapper input,
+  .password-wrapper input {
+    font-size: 1rem;
+    padding: 1.3rem;
+    width: 70%;
+  }
+
+  .toggle-password {
+    font-size: 1.5rem;
+    padding: 0 1.2rem;
+  }
+
+  .btn-login {
+    width: 100%;
+    font-size: 1.6rem;
+  }
+
+  .login-email-domain {
+    font-size: 1rem;
+  }
+
+  .login-email-wrapper {
+    flex: 1;
+    width: auto !important;
+    max-width: 70%;
+    padding: 1rem;
+    box-sizing: border-box;
+  }
+
+  .login-email-wrapper input {
+    font-size: 1rem;
+    padding: 0.3rem 0.5rem;
+  }
+
+  .submit-group {
+    position: static;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 0.5rem;
   }
 }

@@ -1,9 +1,18 @@
 .homepage-container {
-  height: 100vh;
   width: 100vw;
-  overflow: hidden;
+  min-height: 100vh;
   position: relative;
   font-family: sans-serif;
+  overflow: hidden;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden; 
+  touch-action: none; 
 }
 
 .action-buttons {
@@ -15,33 +24,32 @@
 }
 
 .signup-btn,
-.login-btn {
-  background: none;
-  border: none;
-  color: #333;
-  font-weight: 500;
-  font-size: 1.2rem;
-  cursor: pointer;
-  text-decoration: underline;
-  transition: color 0.2s ease;
-  padding: 4px 8px;
+.login-btn,
+.add-shirt-btn {
+  font-weight: 400;
   font-size: 4rem;
+  cursor: pointer;
+  transition: all 0.25s ease; 
+  padding: 0.5rem 1rem;
+  text-decoration: underline;
+  border-radius: 0; 
 }
 
 .signup-btn:hover,
 .login-btn:hover {
-  color: #000; 
+  color: #000;
 }
-
 
 .cart {
   position: absolute;
-  right: 6rem;                  
-  top: 45%;
+  right: 6vw;              
+  top: 50%;
   transform: translateY(-50%);
-  width: 30rem;    
-  transform-origin: center top;          
-animation: wiggle 3s cubic-bezier(0.445, 0.05, 0.55, 0.95) infinite;
+  width: 25vw;            
+  max-width: 30rem;
+  min-width: 10rem;
+  transform-origin: center top;
+  animation: wiggle 3s cubic-bezier(0.445, 0.05, 0.55, 0.95) infinite;
 }
 
 @keyframes wiggle {
@@ -55,36 +63,31 @@ animation: wiggle 3s cubic-bezier(0.445, 0.05, 0.55, 0.95) infinite;
   100% { transform: translateY(-50%) rotate(0deg); }
 }
 
-
-
 .section {
   height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
   background-size: cover;
+  background-repeat: no-repeat;
   background-position: center;
 }
 
-.login-section {
-  background-image: url("/assets/login-bg.jpg");
-}
-
 .home-section {
-  background-color: white;        
   position: relative;
-  height: 100vh;
+  width: 100%;
+  min-height: 100vh; 
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  margin: 0;                        
-  padding: 0                   
-}
-
-
-.signup-section {
-  background-image: url("/assets/signup-bg.jpg");
+  margin: 0;
+  padding: 0;
+  overflow: hidden; 
+  background-color: white;
+  background-size: cover; 
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 .speaker-icon {
@@ -97,7 +100,126 @@ animation: wiggle 3s cubic-bezier(0.445, 0.05, 0.55, 0.95) infinite;
   transition: transform 0.2s ease;
 }
 
-
 .speaker-icon:hover {
   transform: scale(1.2);
+}
+
+@media (max-width: 600px) {
+  .home-section {
+    background-size: contain; 
+    background-repeat: no-repeat;
+    background-position: center;
+    justify-content: flex-end;
+    padding-bottom: 2rem;
+  }
+
+  .action-buttons {
+    position: static;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    width: 100%;
+  }
+
+  .signup-btn,
+  .login-btn {
+    background: rgba(255, 255, 255, 0.85);
+    border: 2px solid #333;
+    color: #333;
+    border-radius: 12px;
+    width: 85%;
+    font-size: 2rem;
+  }
+
+  .signup-btn:hover,
+  .login-btn:hover {
+    background: #333;
+    color: #fff;
+  }
+
+  .add-shirt-btn {
+    font-size: 1.8rem;
+    width: 85%;
+    background-color: black;
+    color: white;
+    border-radius: 10px;
+    border: none;
+    padding: 0.8rem 0;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.25s ease;
+  }
+
+  .add-shirt-btn:hover {
+    background-color: #c3c3c3;
+    color: black;
+  }
+
+ .cart {
+    width: 30vw;          
+    max-width: 12rem;
+    right: 5%;           
+    top: 50%;           
+    transform: translateY(-50%);
+    animation: none;
+  }
+
+  .speaker-icon {
+    width: 3rem;
+    height: 3rem;
+    top: 1rem;
+    right: 1rem;
+  }
+}
+
+@media (min-width: 601px) and (max-width: 1024px) {
+  .home-section {
+    background-size: contain; 
+    background-repeat: no-repeat;
+    background-position: center;
+    justify-content: flex-end;
+    padding-bottom: 3rem;
+  }
+
+.action-buttons {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 2rem;
+  }
+
+  .signup-btn,
+  .login-btn,
+  .add-shirt-btn {
+    font-size: 3rem;
+  }
+
+  .cart {
+    width: 23vw;
+    max-width: 20rem;
+    top: 50%;
+    right: 5%;           
+    transform: translateY(-50%);
+  }
+
+  .speaker-icon {
+    width: 4rem;
+    height: 4rem;
+    top: 2rem;
+    right: 3rem;
+  }
+}
+
+@media (max-width: 1024px) {
+  .home-section {
+    background-size: contain; 
+    background-position: center;
+    background-repeat: no-repeat;
+    min-height: 100vh;       
+  }
 }
