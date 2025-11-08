@@ -308,7 +308,7 @@ body {
   }
 }
 
-@media (max-width: 1024px) {
+@media (max-width: 768px) {
   .signin-form {
     max-width: 300px;
     gap: 1rem;
@@ -338,6 +338,7 @@ body {
   .btn-login {
     padding: 1rem 4rem;
     font-size: 1.4rem;
+    width: 100%;
   }
 
   .signup-text {
@@ -349,14 +350,17 @@ body {
   }
 }
 
-@media (max-width: 600px) {
+@media (max-width: 450px) {
   .signin-form {
-    max-width: 60%;
-    gap: 1rem;
+    top: 52%;
+    transform: translate(-50%, -50%);
+
+    max-width: 65%;
+    gap: 0.1rem;
   }
 
   .inputs-wrapper {
-    gap: 1rem;
+    gap: 0.3rem;
   }
 
   .input-group {
@@ -388,6 +392,7 @@ body {
   .btn-login {
     width: 100%;
     font-size: 1.6rem;
+    margin-top: 0.2rem;
   }
 
   .login-email-domain {
@@ -412,6 +417,10 @@ body {
     width: 100%;
     display: flex;
     justify-content: center;
-    margin-top: 0.5rem;
+    margin-top: 0rem;
+  }
+
+  .signup-text {
+    font-size: 1.4rem;
   }
 }
