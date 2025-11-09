@@ -354,7 +354,6 @@ body {
   .signin-form {
     top: 52%;
     transform: translate(-50%, -50%);
-
     max-width: 65%;
     gap: 0.1rem;
   }

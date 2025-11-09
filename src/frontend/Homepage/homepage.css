@@ -42,8 +42,8 @@
 
 .cart {
   position: absolute;
-  right: 6vw;              
-  top: 50%;
+  right: 3%;              
+  top: 45%;
   transform: translateY(-50%);
   width: 25vw;            
   max-width: 30rem;
@@ -100,9 +100,7 @@
   transition: transform 0.2s ease;
 }
 
-.speaker-icon:hover {
-  transform: scale(1.2);
-}
+.speaker-icon:hover {transform: scale(1.2);}
 
 @media (max-width: 450px) {
   .home-section {
@@ -205,7 +203,7 @@
     width: 22vw;
     max-width: 18rem;
     top: 50%;
-    right: 5%;
+    right: 3%;
     transform: translateY(-50%);
   }
 
