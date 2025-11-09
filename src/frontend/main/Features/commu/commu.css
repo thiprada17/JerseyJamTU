@@ -1,32 +1,32 @@
 @import "tailwindcss";
 
-
 @font-face {
-  font-family: 'PG';
-  src: url('/fonts/PG-Newport-DEMO.ttf') format('truetype');
+  font-family: "PG";
+  src: url("/fonts/PG-Newport-DEMO.ttf") format("truetype");
 }
 
 @font-face {
-  font-family: 'Kanit';
-  src: url('/fonts/Kanit-Regular.ttf') format('truetype');
+  font-family: "Kanit";
+  src: url("/fonts/Kanit-Regular.ttf") format("truetype");
 }
 
 @font-face {
-  font-family: 'Nec';
-  src: url('/fonts/Nectarine.ttf') format('truetype');
+  font-family: "Nec";
+  src: url("/fonts/Nectarine.ttf") format("truetype");
 }
 
 @font-face {
-  font-family: 'thi';
-  src: url('/fonts/thierry.ttf') format('truetype');
+  font-family: "thi";
+  src: url("/fonts/thierry.ttf") format("truetype");
 }
 
 .commu-body {
-    background-color: white;
-    width: 100%;
-    min-height: 100vh;
-    margin: 0;
-    padding: 0;
+  background-color: white;
+  width: 100%;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
 }
 
 /* .commu-navbar {
@@ -49,175 +49,113 @@
 
 .commu-navbar {
   background-color: white;
-  width: 100%;
-  height: auto;
-  padding: 1rem 0.5rem;
-  text-align: center;
-  font-family: 'Nec', sans-serif;
+  font-family: "Nec", sans-serif;
   border-bottom: 1px solid black;
-  font-size: clamp(3rem, 2.5vw, 1.5rem);
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  max-width: 100%;
+  overflow: hidden;
 
   position: relative;
 }
 
 .commu-navbar-logo {
-  font-size: 3rem;
-  font-family: 'Nec', sans-serif;
+  font-family: "Nec", sans-serif;
 }
 
 .commu-navbar-user {
   display: flex;
   align-items: center;
   gap: 1rem;
-  position: absolute;
-  left: 2rem;
+
   text-decoration: none;
 }
 
 .commu-navbar-username {
-  font-family: 'Kanit', sans-serif;
-  font-size: 2rem;
+  font-family: "Kanit", sans-serif;
   color: #000;
 }
 
-.commu-navbar-user-icon {
-  width: 3rem;
-  height: 3rem;
-}
-
-.commu-navbar-home {
-  position: absolute;
-  right: 2rem;
-}
-
-.commu-navbar-home-icon {
-  width: 4rem;
-  height: 4rem;
-}
-
 .commu-topic {
-    width: 100%;
-    height: 60rem;
-    background-image: url('../../../../assets/view-bg.png');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
+  background-image: url("../../../../assets/view-bg.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
 }
 
 .commu-popup-container {
-    position: relative;
-    width: 50%;
-    max-width: 60rem;
-    margin: 0 auto;
+  position: relative;
+  margin: 0 auto;
+  display: block;
 }
 .commu-popup-img {
-    width: 100%;
-    height: auto;
-    display: block;
+  display: block;
 }
 
 .commu-popup-button {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 30%;
-    background: transparent;
-    border: none;
-    cursor: pointer;
-    border-radius: 0 0 25px 25px;
+  cursor: pointer;
+  border-radius: 0 0 25px 25px;
 }
 
 .commu-container {
-    min-height: 100vh;
-    background-image: url('../../../../assets/bg-commu.png');
-    background-repeat: repeat-y;
-    background-size: cover;
-    background-position: top center;
-    padding: 6rem;
+  min-height: 100vh;
+  background-image: url("../../../../assets/bg-commu.png");
+
 }
 
 .commu-posttext {
-    font-family: 'thi';
-    color: #DF2D3B;
-    font-size: 5rem;
-    font-weight: bold;
-    margin-bottom: 20px;
-}
-
-
-.commu-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 6rem;
+  font-family: "thi";
+  color: #df2d3b;
+  font-weight: bold;
 }
 
 .commu-post {
-    display: flex;
-    flex-direction: column;
-    min-height: 30rem;
-    height: auto;
-    border: 2px solid #000;
-    border-radius: 20px;
-    overflow: hidden;
-    background: white;
-    padding: 2rem;
-    box-shadow: 2px 4px 6px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  border: 2px solid #000;
+  overflow: hidden;
+  background: white;
+  box-shadow: 2px 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .commu-post-topic {
-    margin-bottom: 1rem;
-    padding: 1rem 2rem;
-    background-color: #FFF4DF;
-    border: 2px solid #000;
-    border-radius: 20px;
-    font-family: 'Kanit';
-    font-size: 3rem;
-    font-size: 3rem;
+  margin-bottom: 1rem;
+  padding: 1rem 2rem;
+  background-color: #fff4df;
+  border: 2px solid #000;
+  border-radius: 20px;
+  font-family: "Kanit";
 
-    height: auto;
-    min-width: 4rem;
-    text-align: center;
+  text-align: center;
 
-
-    word-wrap: break-word;
-    overflow-wrap: break-word;
-    white-space: normal;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  white-space: normal;
 }
 
-
 .commu-post-detail {
-    font-family: 'Kanit';
-    font-size: 2rem;
-    color: #444;
-    margin-top: 1rem;
-    margin-bottom: 1.5rem;
-    margin-left: 0.6rem;
+  font-family: "Kanit";
+  color: #444;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  margin-left: 0.6rem;
 
-    
-    word-wrap: break-word;
-    overflow-wrap: break-word;
-    white-space: normal;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  white-space: normal;
 }
 
 .commu-post-contact {
-    margin-top: auto;
-    font-size: 2rem;
-    margin-left: 0.6rem;
-    font-family: 'Kanit';
+  margin-top: auto;
+  margin-left: 0.6rem;
+  font-family: "Kanit";
 }
 
 .commu-post-contact a {
-    color: blue;
-    text-decoration: underline;
-    bottom: 1;
+  color: blue;
+  text-decoration: underline;
+  bottom: 1;
 }

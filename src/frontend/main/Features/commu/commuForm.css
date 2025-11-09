@@ -124,3 +124,4 @@ textarea.form-input {
 }
 .submit-btn:hover { background: #5a55e0; transform: translateY(-2px); }
 .submit-btn:disabled { background: #c7c8ff; cursor: not-allowed; transform: none; box-shadow: none; }
+
