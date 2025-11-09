@@ -57,7 +57,6 @@ useEffect(() => {
 
       }
     };
-
     verify();
   }, [navigate]);
 
