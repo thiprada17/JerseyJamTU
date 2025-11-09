@@ -1,9 +1,8 @@
-import { useState } from "react";
 import "./Filter.css";
-import checkIcon from "../../assets/checkIcon.png"; 
+import checkIcon from "../../assets/checkIcon.png";
 import backIcon from "../../assets/filter_back.png";
 
-export default function Filter({ onClose, onApply }) {
+export default function Filter({ onClose, onApply, onClear, value, onChange }) {
   const faculties = [
     "วิศวกรรมศาสตร์", "วิทยาศาสตร์", "แพทยศาสตร์", "พาณิชยศาสตร์",
     "นิติศาสตร์", "รัฐศาสตร์", "สถาปัตยกรรมศาสตร์", "ศิลปศาสตร์",
@@ -22,30 +21,33 @@ export default function Filter({ onClose, onApply }) {
     "500 บาท ขึ้นไป"
   ];
 
-  const [selectedFaculties, setSelectedFaculties] = useState([]);
-  const [selectedPrice, setSelectedPrice] = useState(null);
+  const selectedFaculties = value?.faculties || [];
+  const selectedPrice = value?.price || "";
 
   const toggleFaculty = (faculty) => {
-    setSelectedFaculties((prev) =>
-      prev.includes(faculty)
-        ? prev.filter((f) => f !== faculty)
-        : [...prev, faculty]
-    );
+    const next = selectedFaculties.includes(faculty)
+      ? selectedFaculties.filter((f) => f !== faculty)
+      : [...selectedFaculties, faculty];
+    onChange({ ...value, faculties: next });
+  };
+
+  const handleSelectPrice = (range) => {
+    onChange({ ...value, price: range });
   };
 
   const handleClearAll = () => {
-    setSelectedFaculties([]);
-    setSelectedPrice(null);
+    onChange({ faculties: [], price: "" });
+    if (onClear) onClear();
+    onClose();
   };
 
   const handleViewItems = () => {
-    onApply({ faculties: selectedFaculties, price: selectedPrice });
+    onApply(value);
     onClose();
   };
 
   return (
     <div className="filter-panel open">
-      {/* คณะ */}
       <div className="filter-section">
         <h3 className="filter-title">คณะ</h3>
         <div className="faculty-grid">
@@ -53,9 +55,7 @@ export default function Filter({ onClose, onApply }) {
             <div
               key={faculty}
               onClick={() => toggleFaculty(faculty)}
-              className={`faculty-item ${
-                selectedFaculties.includes(faculty) ? "selected" : ""
-              }`}
+              className={`faculty-item ${selectedFaculties.includes(faculty) ? "selected" : ""}`}
             >
               {faculty}
             </div>
@@ -63,7 +63,6 @@ export default function Filter({ onClose, onApply }) {
         </div>
       </div>
 
-      {/* ราคา */}
       <div className="filter-section">
         <h3 className="filter-title">ราคา</h3>
         <div className="price-list">
@@ -71,13 +70,9 @@ export default function Filter({ onClose, onApply }) {
             <label
               key={range}
               className="price-item"
-              onClick={() => setSelectedPrice(range)}
+              onClick={() => handleSelectPrice(range)}
             >
-              <div
-                className={`price-box ${
-                  selectedPrice === range ? "active" : ""
-                }`}
-              >
+              <div className={`price-box ${selectedPrice === range ? "active" : ""}`}>
                 {selectedPrice === range && (
                   <img src={checkIcon} alt="checked" className="check-icon" />
                 )}
@@ -88,14 +83,9 @@ export default function Filter({ onClose, onApply }) {
         </div>
       </div>
 
-      {/* ปุ่ม */}
       <div className="filter-buttons">
-        <button onClick={handleClearAll} className="btn-clear">
-          Clear all
-        </button>
-        <button onClick={handleViewItems} className="btn-view">
-          View items
-        </button>
+        <button onClick={handleClearAll} className="btn-clear">Clear all</button>
+        <button onClick={handleViewItems} className="btn-view">View items</button>
       </div>
     </div>
   );

@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import "./signup.css";
 import arrowIcon from "../../assets/arrow.png";
-import BackgroundSignup from "../../assets/background-signup.png";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import Toast from '../component/Toast';
 import Notification from '../component/Notification';
@@ -120,7 +119,6 @@ export default function SignUp({ scrollToHome, scrollToLogIn }) {
   return (
     <div
       className="signup-page"
-      style={{ backgroundImage: `url(${BackgroundSignup})` }}
     >
       <div className="signup-header">
         <button className="signup-back-btn" onClick={scrollToHome}>
@@ -129,7 +127,7 @@ export default function SignUp({ scrollToHome, scrollToLogIn }) {
       </div>
 
       <form className="signup-form-wrapper" onSubmit={handleSubmit} noValidate>
-        <div className="signup-form-row ">
+        <div className="signup-form-row row-username row-email">
           <div className="input-group" >
             <label>Username:</label>
             <input
@@ -154,7 +152,7 @@ export default function SignUp({ scrollToHome, scrollToLogIn }) {
           </div>
         </div>
 
-        <div className="signup-form-row">
+        <div className="signup-form-row row-faculty row-year">
           <div className="input-group">
             <label>Faculty:</label>
             <input
@@ -187,7 +185,7 @@ export default function SignUp({ scrollToHome, scrollToLogIn }) {
           </div>
         </div>
 
-        <div className="signup-form-row last-row">
+        <div className="signup-form-row last-row row-password-actions">
           <div className="input-group password-group">
             <label>Password:</label>
             <div className="password-wrapper">
@@ -208,7 +206,6 @@ export default function SignUp({ scrollToHome, scrollToLogIn }) {
               </button>
             </div>
           </div>
-
           <div className="signup-actions">
             <button type="submit" className="btn-login">Sign up</button>
             <p className="signup-text">

@@ -85,7 +85,7 @@ export default function Login({ scrollToHome, scrollToSignup }) {
       if (contentType.includes("application/json")) {
         try {
           data = await response.json();
-        } catch (_) {}
+        } catch (_) { }
       }
 
       if (response.ok && data?.success) {
@@ -131,44 +131,47 @@ export default function Login({ scrollToHome, scrollToSignup }) {
         <img src={pinkshape} alt="Pink Shape" className="pink-shape" />
 
         <form className="signin-form" onSubmit={handleSubmit} noValidate>
-          <div className="input-group">
-            <label htmlFor="username">Email:</label>
-            <div className="login-email-wrapper">
-              <input
-                type="text"
-                id="username"
-                name="username"
-                value={userData.username}
-                onChange={handleChange}
-                placeholder="Enter email"
-                required
-              />
-              <span className="login-email-domain">@dome.tu.ac.th</span>
+          <div className="inputs-wrapper">
+            <div className="input-group">
+              <label htmlFor="username">Email:</label>
+              <div className="login-email-wrapper">
+                <input
+                  type="text"
+                  id="username"
+                  name="username"
+                  value={userData.username}
+                  onChange={handleChange}
+                  placeholder="Enter email"
+                  required
+                />
+                <span className="login-email-domain">@dome.tu.ac.th</span>
+              </div>
+            </div>
+            <div className="input-group">
+              <label htmlFor="password">Password:</label>
+              <div className="password-wrapper">
+                <input
+                  type={showPassword ? "text" : "password"}
+                  id="password"
+                  name="password"
+                  value={userData.password}
+                  onChange={handleChange}
+                  placeholder="Enter password"
+                  required
+                />
+                <button
+                  type="button"
+                  className="toggle-password"
+                  onClick={togglePassword}
+                >
+                  {showPassword ? <FaEyeSlash /> : <FaEye />}
+                </button>
+              </div>
             </div>
           </div>
-          <div className="input-group">
-            <label htmlFor="password">Password:</label>
-            <div className="password-wrapper">
-              <input
-                type={showPassword ? "text" : "password"}
-                id="password"
-                name="password"
-                value={userData.password}
-                onChange={handleChange}
-                placeholder="Enter password"
-                required
-              />
-              <button
-                type="button"
-                className="toggle-password"
-                onClick={togglePassword}
-              >
-                {showPassword ? <FaEyeSlash /> : <FaEye />}
-              </button>
-            </div>
+          <div className="submit-group">
+            <button type="submit" className="btn-login">Log in</button>
           </div>
-
-          <button type="submit" className="btn-login">Log in</button>
 
           <p className="signup-text">
             Don’t have an account? <span className="signup-link" onClick={scrollToSignup}>Sign Up</span>

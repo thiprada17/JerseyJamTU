@@ -8,7 +8,6 @@ import { FaTag } from "react-icons/fa";
 import '../component/loading.css';
 import { FaTshirt } from "react-icons/fa";
 
-
 export default function ShirtDisplay() {
     const navigate = useNavigate();
     const location = useLocation();
@@ -16,7 +15,6 @@ export default function ShirtDisplay() {
     const { id } = location.state || {};
     console.log(id)
     
-
     useEffect(() => {
         const verify = async () => {
             try {
@@ -209,14 +207,8 @@ export default function ShirtDisplay() {
 
                     <div className="shirtDisplay-wrapper">
                         <div className="shirtDisplay-left">
-                            {/* <button
-                                className={`shirtDisplay-heartButton ${isFavorited ? 'active' : ''}`}
-                                onClick={toggleFavorite}
-                            >
-                                {isFavorited ? '❤️' : '🤍'}
-                            </button> */}
-
-                            <button className="shirtDisplay-heartButton" onClick={toggleFavorite}>
+                            {/* ปุ่มหัวใจเดิม */}
+                            <button className="shirtDisplay-heartButton heart-desktop" onClick={toggleFavorite}>
                                 <AiFillHeart
                                     className={`heart-icon ${isFavorited ? 'favorited' : ''}`}
                                 />
@@ -270,24 +262,27 @@ export default function ShirtDisplay() {
                             </button>
                         </div>
                         <div className="shirtDisplay-right">
-                            {/* <div className="shirtDisplay-imageContainer">
-                                <img
-                                    src={shirtData.shirt_pic || defaultJerseyImage}
-                                    alt="jersey"
-                                    className="shirtDisplay-image"
-                                />
-                            </div> */}
                             <div className="shirtDisplay-imageContainer">
-  {shirtData.shirt_pic ? (
-    <img
-      src={shirtData.shirt_pic}
-      alt={shirtData.shirt_name}
-      className="shirtDisplay-image"
-    />
-  ) : (
-    <FaTshirt className="shirt-placeholder-icon" />
-  )}
-</div>
+                              {shirtData.shirt_pic ? (
+                                <img
+                                  src={shirtData.shirt_pic}
+                                  alt={shirtData.shirt_name}
+                                  className="shirtDisplay-image"
+                                />
+                              ) : (
+                                <FaTshirt className="shirt-placeholder-icon" />
+                              )}
+
+                              {/* ปุ่มหัวใจทรศ */}
+                              <button
+                                className="shirtDisplay-heartButton heart-mobile"
+                                onClick={toggleFavorite}
+                              >
+                                <AiFillHeart
+                                  className={`heart-icon ${isFavorited ? 'favorited' : ''}`}
+                                />
+                              </button>
+                            </div>
                         </div>
                     </div>
                 </div>
