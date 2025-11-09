@@ -3,18 +3,17 @@
   min-height: 100vh;
   position: relative;
   font-family: sans-serif;
-  overflow: hidden;
 }
 
-/* อ่ะๆพี่ขอเทส */
 
 .homepage-body {
   margin: 0;
   padding: 0;
   width: 100%;
   height: 100%;
-  overflow: hidden; 
+  overflow: hidden !important; 
   touch-action: none; 
+
 }
 
 .action-buttons {
