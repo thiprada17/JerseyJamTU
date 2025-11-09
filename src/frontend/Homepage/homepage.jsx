@@ -38,6 +38,10 @@ export default function Homepage() {
 
 
     return (
+        <div className="homepage-body">
+
+
+
         <div className="homepage-container">
             {showToast && (
                 <Toast
@@ -72,6 +76,7 @@ export default function Homepage() {
                     scrollToLogIn={() => scrollToSection(loginRef)}
                 />            </div>
         </div>
+                </div>
     );
 
 }
