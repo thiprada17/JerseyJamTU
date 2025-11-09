@@ -127,7 +127,7 @@ html, body {
 
   .signup-btn,
   .login-btn {
-    display: block !important; /* 🔥 บังคับให้ปุ่มเต็มบรรทัด */
+    display: block !important;
     width: 90% !important;
     font-size: 1.8rem !important;
     padding: 0.8rem 0 !important;
@@ -180,13 +180,13 @@ html, body {
     background-repeat: no-repeat;
     background-position: center;
     justify-content: flex-end;
-    padding-bottom: 2.5rem; /* เดิม 2.5rem → เพิ่มพื้นที่ให้ปุ่มไม่โดนบัง */
-    position: relative;   /* ให้ position absolute ของปุ่มทำงานได้ถูกต้อง */
-  }
+    padding-bottom: 2.5rem; 
+    position: relative; 
+ }  
 
   .action-buttons {
     position: absolute;
-    bottom: 2rem; /* เดิม 1.5rem → ยกปุ่มขึ้นมาอีกหน่อย */
+    bottom: 2rem;
     left: 50%;
     transform: translateX(-50%);
     display: flex;
