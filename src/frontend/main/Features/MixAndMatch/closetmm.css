@@ -1,0 +1,280 @@
+@font-face {
+  font-family: 'Kanit';
+  src: url('./main/Kanit-Regular.ttf');
+}
+
+.closet-container {
+  display: flex;
+  height: 100vh;
+  font-family: sans-serif;
+}
+
+.closet-left {
+  flex: 4;
+  padding: 40px;
+  color: black;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  position: relative;
+  overflow: hidden;
+  background-color: #f6f3ef;
+  height: 100vh;
+  box-sizing: border-box;
+}
+
+.closet-left::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 100%;
+  transform: translate(-50%, -50%);
+  width: 30rem;
+  height: 30rem;
+  background: radial-gradient(circle,
+      #b9957c 0%,
+      #7a5c3d 80%,
+      #5a3f23 100%);
+  border-radius: 50%;
+  z-index: 0;
+}
+
+.closet-right {
+  flex: 6;
+  overflow-y: scroll;
+  background-color: #fefefe;
+}
+
+.closet-title {
+  font-size: 11rem;
+  font-weight: bold;
+  margin-bottom: 20px;
+  font-family: 'Kanit';
+}
+
+
+.closet-category-bar {
+  display: flex;
+  gap: 1rem;
+  position: absolute;
+  bottom: 1rem;
+  left: 2rem;
+  right: 2rem;
+  border-bottom: 2px solid #ddd;
+  background-color: transparent;
+  z-index: 10;
+}
+
+.closet-category-bar::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  height: 3px;
+  width: var(--underline-width, 60px);
+  background-color: black;
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  transform: translateX(var(--underline-offset, 0px));
+  will-change: transform, width;
+}
+
+.category-button {
+  position: relative;
+  border: none;
+  background: none;
+  font-size: 20px;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 10px 15px;
+  color: #555;
+  transition: color 0.3s;
+}
+
+.category-button.active {
+  font-weight: bold;
+  color: black;
+  border-bottom: 3px solid black;
+}
+
+.mam-floatingButton {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 3.5rem;
+  height: 3.5rem;
+  cursor: pointer;
+  transition: transform 0.4s ease;
+  z-index: 20;
+}
+
+.mam-floatingButton:hover {
+  transform: translateY(-50%) rotate(180deg) scale(1.05);
+}
+
+.closet-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.closet-item {
+  cursor: pointer;
+  transition: transform 0.2s ease;
+  border: 1px solid #797979;
+  border-radius: 0.5rem;
+  background-color: #fff;
+  height: 35rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.closet-item:hover {
+  transform: scale(1.05);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* .closet-item img {
+  width: 100%;
+  border-radius: 10px;
+  object-fit: cover;
+} */
+
+.closet-item img {
+  width: 130%;
+  height: 130%;
+  object-fit: contain;
+  object-position: center;
+  border-radius: 10px;
+  display: block;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.closet-item:hover img {
+  transform: scale(1.05);
+}
+
+@media (max-width: 768px) {
+  .closet-container {
+    flex-direction: column;
+    height: auto;
+  }
+
+  .closet-left {
+    flex: none;
+    width: 100%;
+    height: auto;
+    padding: 2rem;
+    align-items: center;
+    text-align: center;
+  }
+
+  .closet-left::before {
+    display: none;
+  }
+
+  .closet-title {
+    font-size: 6rem;
+    margin-bottom: 1rem;
+  }
+
+  .closet-category-bar {
+    position: static;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-bottom: 2px solid #ddd;
+    margin-bottom: 1rem;
+  }
+
+  .closet-category-bar::after {
+    display: none;
+  }
+
+  .mam-floatingButton {
+    width: 3rem;
+    height: 3rem;
+    position: absolute;
+    top: 2rem;
+    right: 2rem;
+    transform: none;
+  }
+
+  .closet-right {
+    flex: none;
+    width: 100%;
+    height: auto;
+    overflow-y: visible;
+    padding: 1rem;
+    background-color: #f6f3ef;
+  }
+
+  .closet-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+
+  .closet-item {
+    height: 20rem;
+  }
+}
+
+@media (max-width: 450px) {
+  .closet-container {
+    flex-direction: column;
+    height: auto;
+  }
+
+  .closet-left {
+    padding: 1.5rem;
+    align-items: center;
+    text-align: center;
+  }
+
+  .closet-title {
+    font-size: 3.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .closet-category-bar {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5rem;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 0.5rem;
+  }
+
+  .closet-category-bar::after {
+    display: none;
+  }
+
+  .category-button {
+    font-size: 1.2rem;
+    padding: 0.5rem 1rem;
+  }
+
+  .mam-floatingButton {
+    width: 2.5rem;
+    height: 2.5rem;
+    top: 1rem;
+    right: 1rem;
+  }
+
+  .closet-right {
+    padding: 1rem;
+    background-color: #f6f3ef;
+  }
+
+  .closet-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .closet-item {
+    height: 18rem;
+  }
+
+  .closet-item img {
+    border-radius: 8px;
+  }
+}
