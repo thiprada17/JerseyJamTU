@@ -370,3 +370,23 @@ textarea.sellerform-input::placeholder {
 .sellerform-input::-ms-input-placeholder {
   color: #bfbfbf;
 }
+
+@media (max-width: 450px) {
+  .sellerform-floatingButton {
+    width: 3rem;
+    height: 3rem;
+    right: 1.5rem;
+    bottom: 1.5rem;
+  }
+  
+}
+
+@media (max-width: 768px) {
+  .sellerform-floatingButton {
+    width: 4rem;
+    height: 4rem;
+    right: 2rem;
+    bottom: 2rem;
+  }
+  
+}

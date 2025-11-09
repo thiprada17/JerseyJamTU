@@ -18,8 +18,8 @@ import Display from './frontend/DisplayShirt/ShirtDisplay';
 import Filter from './frontend/main/Filter';
 
 import Sellerform from './frontend/Homepage/sellerform';
-import MixAndMatch from './frontend/main/Features/Mix&Match/MixAndMatch';
-import Closet from './frontend/main/Features/Mix&Match/Closetmm';
+import MixAndMatch from './frontend/main/Features/MixAndMatch/MixAndMatch';
+import Closet from './frontend/main/Features/MixAndMatch/Closetmm';
 import UserProfile from './frontend/user-profile/user-profile';
 
 import SevenDayMatch from './frontend/main/News/sevenDayMatch';

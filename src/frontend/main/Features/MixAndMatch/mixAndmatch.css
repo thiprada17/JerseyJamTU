@@ -6,10 +6,11 @@
 .mixandmatch-container {
   position: relative;
   width: 100%;
+  background-image: url("../../../../assets/bg-mixandmatch.png");
+  background-repeat: no-repeat; 
+  background-size: cover; 
+  background-position: top center;
   height: 100vh;
-  background-image: url("../../../../assets/m&m-bg.png");
-  background-repeat: no-repeat;
-  background-size: cover;
   overflow: hidden;
 }
 
@@ -181,4 +182,155 @@
     transform: scale(1);
     opacity: 1;
   }
+}
+
+@media (max-width: 768px) {
+  .mixandmatch-container {
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+    background-color: #fffff0;
+  }
+
+  .frame {
+    border-width: 0.6rem;
+  }
+
+  .frame1ass {
+    width: 14rem;
+    height: 16rem;
+    top: 6%;
+    left: 12%;
+  }
+
+  .frameShirt {
+    width: 26rem;
+    height: 18rem;
+    top: 14%;
+    left: 32%;
+  }
+
+  .frameLeg {
+    width: 22rem;
+    height: 30rem;
+    top: 40%;
+    left: 35%;
+  }
+
+  .frame2ass {
+    width: 15rem;
+    height: 13rem;
+    top: 10%;
+    right: 12%;
+  }
+
+  .frameShoe {
+    width: 18rem;
+    height: 11rem;
+    bottom: 10%;
+    right: 15%;
+  }
+
+  .frame3ass {
+    width: 13rem;
+    height: 13rem;
+    bottom: 15%;
+    left: 15%;
+  }
+
+  .mam-btn {
+    font-size: 1.6rem;
+    padding: 10px 16px;
+    bottom: 2rem;
+    left: 2rem;
+  }
+
+  .confirm-box {
+    width: 75%;
+    padding: 2.5rem;
+  }
+
+  .confirm-box p {font-size: 1.6rem;}
+
+  .confirm-btns button {
+    font-size: 1.3rem;
+    padding: 7px 14px;
+  }
+}
+
+@media (max-width: 450px) {
+  .mixandmatch-container {
+    background-image: url("../../../../assets/bg-mixandmatch.png");
+  background-repeat: no-repeat; 
+  background-size: cover; 
+  background-position: top center;
+  height: 100vh; 
+  background-color: #FFFFF0; 
+  }
+
+  .frame {border-width: 0.4rem;}
+  .frame1ass {
+    width: 10rem;
+    height: 12rem;
+    top: 5%;
+    left: 15%;
+  }
+
+  .frameShirt {
+    width: 18rem;
+    height: 13rem;
+    top: 20%;
+    left: 25%;
+  }
+
+  .frameLeg {
+    width: 14rem;
+    height: 20rem;
+    top: 40%;
+    left: 30%;
+  }
+
+  .frame2ass {
+    width: 12rem;
+    height: 10rem;
+    top: 9%;
+    right: 10%;
+  }
+
+  .frameShoe {
+    width: 12rem;
+    height: 9rem;
+    bottom: 22%;
+    right: 12%;
+  }
+
+  .frame3ass {
+    width: 9rem;
+    height: 10rem;
+    bottom: 18%;
+    left: 12%;
+  }
+
+  .mam-btn {
+    font-size: 1.2rem;
+    padding: 8px 12px;
+    bottom: 2rem;
+    left: 1rem;
+  }
+
+  .confirm-box {
+    width: 90%;
+    padding: 1.5rem;
+    bottom: 1.5rem;
+  }
+
+  .confirm-box p {
+    font-size: 1.2rem;
+  }
+
+  .confirm-btns button {
+    font-size: 1rem;
+    padding: 5px 10px;
+  }
+
 }
