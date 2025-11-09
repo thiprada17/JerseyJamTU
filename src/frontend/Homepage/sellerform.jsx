@@ -6,12 +6,14 @@ import { supabase } from "../supabaseClient";
 import greyArrow from "../../assets/grey_arrow.png"
 import Toast from "../component/Toast";
 import { FaTag, FaPlusCircle, FaTimes } from "react-icons/fa";
+import Notification from "../component/Notification"; // << เพิ่ม
 
 export default function SellerForm() {
   const navigate = useNavigate();
   const [image, setImage] = useState(null);
   const [showToast, setShowToast] = useState(false);
   const [imageFile, setImageFile] = useState(null); // เก็บไฟล์ไว้ใช้ตอน submit จ้า
+  const [notification, setNotification] = useState({ message: "", type: "error" }); // << เพิ่ม
 
   const [formData, setFormData] = useState({
     shirt_name: "",
@@ -108,6 +110,14 @@ export default function SellerForm() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    // << เพิ่ม: validate วันปิดต้องมากกว่าวันเปิด (noti แทน alert)
+    const o = formData.shirt_open_date_raw;
+    const c = formData.shirt_close_date_raw;
+    if (!o || !c || c <= o) {
+      setNotification({ message: "กรุณากรอกวันที่ให้ถูกต้อง: วันปิดต้องมากกว่าวันเปิด", type: "error" });
+      return;
+    }
+
     let imageUrl = "";
 
     if (imageFile) {
@@ -123,7 +133,7 @@ export default function SellerForm() {
 
       if (uploadError) {
         console.error("Upload error:", uploadError.message);
-        alert("Upload failed: " + uploadError.message);
+        setNotification({ message: "อัปโหลดรูปไม่สำเร็จ: " + uploadError.message, type: "error" }); // << แทน alert
         return;
       }
 
@@ -166,9 +176,9 @@ export default function SellerForm() {
 
         const shirtId = result.shirt_id;
         if (!shirtId) {
-  console.error("No shirt_id returned from server");
-  return;
-}
+          console.error("No shirt_id returned from server");
+          return;
+        }
 
       //ส่งแท็กแต่ละอันไปbackend
       for (const tag of selectedTags) {
@@ -179,10 +189,10 @@ export default function SellerForm() {
         });
       }
       } else {
-        alert("Warning Mistakes: " + result.error);
+        setNotification({ message: "กรอกข้อมูลไม่ถูกต้อง: " + (result?.error || ""), type: "error" }); // << แทน alert
       }
     } catch (err) {
-      alert("Connection Error");
+      setNotification({ message: "เชื่อมต่อเซิร์ฟเวอร์ไม่ได้ กรุณาลองใหม่อีกครั้ง", type: "error" }); // << แทน alert
     }
   };
 
@@ -224,6 +234,13 @@ export default function SellerForm() {
   return (
     <>
       <div className="sellerform-app">
+        {/* << เพิ่ม Notification ให้เด้งบนหน้านี้ */}
+        <Notification
+          type={notification.type}
+          message={notification.message}
+          onClose={() => setNotification({ message: "", type: "error" })}
+        />
+
         <div className="sellerform-layers">
           {/* <img src={greenLayer} alt="green" className="sellerform-layer green" />
   <img src={creamLayer} alt="cream" className="sellerform-layer cream" /> */}
@@ -307,14 +324,25 @@ export default function SellerForm() {
                   type="date"
                   id="hiddenDateOpen"
                   style={{ position: 'absolute', opacity: 0, pointerEvents: 'none' }}
+                  min={formData.shirt_open_date_raw || undefined}
                   onChange={(e) => {
                     const [year, month, day] = e.target.value.split("-");
                     const formatted = `${day}/${month}/${year}`;
-                    setFormData((prev) => ({
-                      ...prev,
-                      shirt_open_date_display: formatted,
-                      shirt_open_date_raw: e.target.value,
-                    }));
+                    const raw = e.target.value;
+                    
+                    setFormData((prev) => {
+                      const next = {
+                        ...prev,
+                        shirt_open_date_display: formatted,
+                        shirt_open_date_raw: raw,
+                      };
+                      
+                      if (prev.shirt_close_date_raw && prev.shirt_close_date_raw <= raw) {
+                        next.shirt_close_date_display = "";
+                        next.shirt_close_date_raw = "";
+                      }
+                      return next;
+                    });
                   }}
                 />
               </div>
@@ -343,6 +371,7 @@ export default function SellerForm() {
                   type="date"
                   id="hiddenDateClose"
                   style={{ position: 'absolute', opacity: 0, pointerEvents: 'none' }}
+                  min={formData.shirt_open_date_raw || undefined} // << เพิ่ม: กันเลือกวันปิดก่อนวันเปิด
                   onChange={(e) => {
                     const [year, month, day] = e.target.value.split("-");
                     const formatted = `${day}/${month}/${year}`;

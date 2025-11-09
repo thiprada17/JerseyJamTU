@@ -7,7 +7,6 @@ import topic from "../../assets/main-topic.png";
 import tagIcon from "../../assets/tags-fill.png";
 import MainNews from "./MainNews.jsx"
 import FeatureFolder from "./FeatureFolder.jsx"
-import { useLocation } from "react-router-dom";
 import Toast from "../component/Toast.jsx";
 import { useNavigate } from 'react-router-dom';
 import filterIcon from "../../assets/sort.png";
@@ -25,11 +24,12 @@ export default function Main() {
   const navigate = useNavigate();
   const [posts, setPosts] = useState([]);
   const [fillterposts, setfillterPosts] = useState([]);
-  const location = useLocation();
-  const toastRef = useRef(null);
+  const [selectedFilters, setSelectedFilters] = useState({ faculties: [], price: "" });
+  const [filterApplied, setFilterApplied] = useState(false);
   const [showToast, setShowToast] = useState(false);
   const username = localStorage.getItem("username");
-
+  const filterRef = useRef(null); //ฝ้าย ๆ ลองทำ ลบได้
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const verify = async () => {
@@ -124,6 +124,7 @@ export default function Main() {
   useEffect(() => {
     async function fetchPosts() {
       try {
+        setIsLoading(true);
         const response = await fetch('http://localhost:8000/shirt/info/get', {
           method: 'GET',
         });
@@ -147,36 +148,55 @@ export default function Main() {
 
         setPosts(postsWithTags);
         setfillterPosts(postsWithTags);
+        setFilterApplied(false);
       } catch (error) {
         console.error("Error fetching posts:", error);
+      } finally {
+        setIsLoading(false);
       }
     }
     fetchPosts();
   }, []);
 
 
-useEffect(() => {
-  const showToast = sessionStorage.getItem("showLoginToast");
-  
-  if (showToast) {
-    setShowToast(true);
-    sessionStorage.removeItem("showLoginToast");  // ลบข้อมูลหลังจากแสดง Toast
-  }
-}, []);
+  useEffect(() => {
+    const showToast = sessionStorage.getItem("showLoginToast");
+
+    if (showToast) {
+      setShowToast(true);
+      sessionStorage.removeItem("showLoginToast");  // ลบข้อมูลหลังจากแสดง Toast
+    }
+  }, []);
 
   /// fillterrrrrrrrrrrr
   const [showFilter, setShowFilter] = useState(false);
-  const handleApplyFilter = async (selectedFilters) => {
+  const handleApplyFilter = async (incomingFilters) => {
     try {
+      setSelectedFilters(incomingFilters);
       const TagID = [];
-      const { faculties, price } = selectedFilters;
+      const { faculties, price } = incomingFilters;
+      const hasAnyFilter =
+        (faculties && faculties.length > 0) ||
+        (typeof price === "string" && price.trim() !== "");
+
+      if (!hasAnyFilter) {
+        setfillterPosts(posts);
+        setFilterApplied(false);
+        return;
+      }
 
       let minPrice = 0;
-      let maxPrice = 10000;
+      let maxPrice = 1000;
       if (price) {
-        const [min, max] = price.split('-').map(p => parseInt(p));
-        minPrice = min;
-        maxPrice = max;
+        if (price.includes('-')) {
+          const [min, max] = price.split('-').map(p => parseInt(p, 10));
+          minPrice = isNaN(min) ? 0 : min;
+          maxPrice = isNaN(max) ? 1000 : max;
+        } else {
+          const n = parseInt(price, 10);
+          minPrice = isNaN(n) ? 0 : n;
+          maxPrice = 1000;
+        }
       }
 
       const prefixedFaculties = faculties.map(fac => `คณะ${fac}`);
@@ -188,6 +208,12 @@ useEffect(() => {
         if (faculty === "คณะเศรษฐศาสตร์") TagID.push(5);
         if (faculty === "คณะศิลปศาสตร์") TagID.push(6);
       });
+
+      if (faculties.length > 0 && TagID.length === 0) {
+        setfillterPosts([]);
+        setFilterApplied(true);
+        return;
+      }
 
       // fetch filtered shirts
       const res = await fetch('http://localhost:8000/shirt/fillter', {
@@ -210,11 +236,35 @@ useEffect(() => {
         })
       );
 
-      setfillterPosts(postsWithTags); // อัพเดตครั้งเดียว
+      setfillterPosts(postsWithTags);
+      setFilterApplied(true);
     } catch (err) {
       console.error(err);
     }
   };
+
+  const handleClearFilters = () => {
+    setSelectedFilters({ faculties: [], price: "" });
+    setfillterPosts(posts);
+    setFilterApplied(false);
+  };
+
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (filterRef.current && !filterRef.current.contains(event.target)) {
+        setShowFilter(false);
+      }
+    }
+    if (showFilter) {
+      document.addEventListener("mousedown", handleClickOutside);
+    } else {
+      document.removeEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [showFilter]);
 
 
   return (
@@ -247,25 +297,36 @@ useEffect(() => {
       {/* Popup Filter Panel */}
       {showFilter && (
         <div className="filter-container">
-          <Filter
-            onClose={() => setShowFilter(false)}
-            onApply={handleApplyFilter}
-          />
+          <div ref={filterRef}> {/*ชั้นทดลองทำ ลบได้*/}
+            <Filter
+              onClose={() => setShowFilter(false)}
+              onApply={handleApplyFilter}
+              onClear={handleClearFilters}
+              value={selectedFilters}
+              onChange={setSelectedFilters}
+            />
+          </div>
         </div>
       )}
 
       <div className="main-container">
         <div className="main-header">
           <div className="main-posttext">ALL JERSEY</div>
-          <button className="filters-button" onClick={() => setShowFilter(true)}>
+          <button
+            className="filters-button"
+            onClick={() => setShowFilter((prev) => !prev)} // toggle เปิด/ปิด
+          >
             <img src={filterIcon} alt="Filter Icon" className="filters-icon" />
             <span className="filters-text">Filters</span>
           </button>
         </div>
 
         <div className="main-grid">
-          {fillterposts.length === 0 ? (
-            <div className="no-results">ไม่พบรายการที่ค้นหา</div>
+          {!isLoading && (
+            (filterApplied && fillterposts.length === 0) ||
+            (!filterApplied && posts.length === 0)
+          ) ? (
+            <div className="no-results">ไม่พบรายการเสื้อ</div>
           ) : (
             fillterposts.map((post) => (
               <Link

@@ -16,113 +16,107 @@ export default function Login({ scrollToHome, scrollToSignup }) {
   });
 
   const [showPassword, setShowPassword] = useState(false);
-
-  const togglePassword = () => {
-    setShowPassword(prevShowPassword => !prevShowPassword);
-  }
+  const togglePassword = () => setShowPassword(prev => !prev);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setuserData(prevState => ({ ...prevState, [name]: value }));
+    setuserData(prev => ({ ...prev, [name]: value }));
+  };
+
+  const mapBackendMessageToThai = (status, rawMessage = "") => {
+    const msg = String(rawMessage || "").toLowerCase();
+    if (msg.includes("invalid password") || msg.includes("wrong password")) {
+      return "รหัสผ่านไม่ถูกต้อง กรุณาลองใหม่อีกครั้ง";
+    }
+    if (msg.includes("user not found") || msg.includes("no user")) {
+      return "ไม่พบบัญชีผู้ใช้ กรุณาสมัครสมาชิก";
+    }
+    if (status === 401 || status === 403) {
+      return "รหัสผ่านไม่ถูกต้อง กรุณาลองใหม่อีกครั้ง";
+    }
+    if (status === 404) {
+      return "ไม่พบบัญชีผู้ใช้ กรุณาสมัครสมาชิก";
+    }
+    return "เกิดข้อผิดพลาดจากเซิร์ฟเวอร์\nกรุณาลองใหม่อีกครั้งค่ะ";
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    const local = userData.username.trim();
+    const password = userData.password;
+    const thaiRegex = /[\u0E00-\u0E7F]/;
+    const localPattern = /^[a-zA-Z0-9._%+-]+$/;
+
+    if (!local) {
+      setNotification({ message: "กรุณากรอก Email โดยไม่ต้องใส่ @dome.tu.ac.th", type: "error" });
+      return;
+    }
+    if (local.includes("@")) {
+      setNotification({ message: "กรุณากรอกเฉพาะส่วนหน้าของ Email", type: "error" });
+      return;
+    }
+    if (thaiRegex.test(local) || !localPattern.test(local)) {
+      setNotification({ message: "กรุณากรอก Email ให้ถูกต้อง", type: "error" });
+      return;
+    }
+
+    if (!password || password.length < 8) {
+      setNotification({ message: "รหัสผ่านต้องมีอย่างน้อย 8 ตัวอักษร", type: "error" });
+      return;
+    }
+    if (thaiRegex.test(password)) {
+      setNotification({ message: "รหัสผ่านห้ามมีอักษรภาษาไทย", type: "error" });
+      return;
+    }
+
+    const fullEmail = `${local}@dome.tu.ac.th`;
+
     try {
       const response = await fetch('http://localhost:8000/create/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(userData),
+        body: JSON.stringify({ email: fullEmail, password }),
       });
 
+      const contentType = response.headers.get("content-type") || "";
+      let data = null;
 
-      const contentType = response.headers.get("content-type");
-
-      if (!response.ok) {
-        throw new Error("Server responded with status: " + response.status);
+      if (contentType.includes("application/json")) {
+        try {
+          data = await response.json();
+        } catch (_) { }
       }
 
-      if (contentType && contentType.includes("application/json")) {
-        const data = await response.json();
+      if (response.ok && data?.success) {
+        const user = data.user || {};
+        localStorage.setItem("user_id", user.user_id || "");
+        localStorage.setItem("username", user.username || "");
+        localStorage.setItem("faculty", user.faculty || "");
+        localStorage.setItem("year", user.year || "");
+        localStorage.setItem("token", user.token || "");
 
-        console.log(data)
-
-        if (data.success) {
-          const user = data.user;
-
-
-          localStorage.setItem("user_id", user.user_id);
-          localStorage.setItem("username", user.username);
-          localStorage.setItem("faculty", user.faculty);
-          localStorage.setItem("year", user.year);
-          localStorage.setItem("token", user.token);
-
-          const authToken = localStorage.getItem('token')
-
-
-          const authen = await fetch('http://localhost:8000/authen/users', {
-        method: 'GET',
-        headers: { 'authorization': `Bearer ${authToken}` }
-      });
-
-      const authenData = await authen.json();
-console.log(authenData);
-
-          //  setNotification({
-          //   // message: "ล็อกอินสำเร็จ! ยินดีต้อนรับกลับมาค่ะ",
-          //   // type: "success"
-          // });
-          
-
-          // setTimeout(() => {
-          //   navigate('/main', { state: { showLoginToast: true } });
-          // }, 1200);
-          localStorage.setItem("showLoginToast", "true");
-sessionStorage.setItem("showLoginToast", "true");  // เก็บใน sessionStorage
-navigate('/main');
-
-
-
-        } else {
-          console.log("Login failed:", data.message);
-          setNotification({
-  message: "เกิดข้อผิดพลาดจากเซิร์ฟเวอร์\nกรุณาลองใหม่อีกครั้งค่ะ",
-  type: "error"
-});
-
-        }
-      } else {
-        console.log("Unexpected server response");
-        setNotification({
-          message: "เกิดข้อผิดพลาดจากเซิร์ฟเวอร์\nกรุณาลองใหม่อีกครั้งค่ะ",
-          type: "error"
+        const authToken = localStorage.getItem('token') || "";
+        const authen = await fetch('http://localhost:8000/authen/users', {
+          method: 'GET',
+          headers: { 'authorization': `Bearer ${authToken}` }
         });
+        await authen.json();
+
+        localStorage.setItem("showLoginToast", "true");
+        sessionStorage.setItem("showLoginToast", "true");
+        navigate('/main');
+      } else {
+        const message = mapBackendMessageToThai(response.status, data?.message);
+        setNotification({ message, type: "error" });
       }
     } catch (error) {
-      console.error("Login error:", error);
       setNotification({
-  message: "ไม่สามารถเชื่อมต่อเซิร์ฟเวอร์ได้\nกรุณาลองใหม่อีกครั้งค่ะ",
-  type: "error"
-});
+        message: "ไม่สามารถเชื่อมต่อเซิร์ฟเวอร์ได้\nกรุณาลองใหม่อีกครั้งค่ะ",
+        type: "error"
+      });
     }
   };
-
-          //       setTimeout(() => {
-          //         navigate('/main', { state: { showLoginToast: true } });
-          //       }, 1500);
-          //     } else {
-          //       alert(data.message || "Login failed.");
-          //     }
-          //   } else {
-          //     const text = await response.text();
-          //     alert("Login failed: Unexpected server response.");
-          //   }
-          // } catch (error) {
-          //   alert('Login Fail: ' + error.message);
-          //   }
-          // };
-
 
   return (
     <div className="login-page">
@@ -136,43 +130,50 @@ navigate('/main');
       <div className="signin-container">
         <img src={pinkshape} alt="Pink Shape" className="pink-shape" />
 
-        <form className="signin-form" onSubmit={handleSubmit}>
-          <div className="input-group">
-            <label htmlFor="username">Username:</label>
-            <input
-              type="text"
-              id="username"
-              name="username"
-              value={userData.username}
-              onChange={handleChange}
-              placeholder="Enter username"
-            />
-          </div>
-
-          <div className="input-group">
-            <label htmlFor="password">Password:</label>
-            <div className="password-wrapper">
-              <input
-                type={showPassword ? "text" : "password"}
-                id="password"
-                name="password"
-                value={userData.password}
-                onChange={handleChange}
-                placeholder="Enter password"
-              />
-              <button
-                type="button"
-                className="toggle-password"
-                onClick={togglePassword}
-              >
-                {showPassword ? <FaEyeSlash /> : <FaEye />}
-              </button>
+        <form className="signin-form" onSubmit={handleSubmit} noValidate>
+          <div className="inputs-wrapper">
+            <div className="input-group">
+              <label htmlFor="username">Email:</label>
+              <div className="login-email-wrapper">
+                <input
+                  type="text"
+                  id="username"
+                  name="username"
+                  value={userData.username}
+                  onChange={handleChange}
+                  placeholder="Enter email"
+                  required
+                />
+                <span className="login-email-domain">@dome.tu.ac.th</span>
+              </div>
+            </div>
+            <div className="input-group">
+              <label htmlFor="password">Password:</label>
+              <div className="password-wrapper">
+                <input
+                  type={showPassword ? "text" : "password"}
+                  id="password"
+                  name="password"
+                  value={userData.password}
+                  onChange={handleChange}
+                  placeholder="Enter password"
+                  required
+                />
+                <button
+                  type="button"
+                  className="toggle-password"
+                  onClick={togglePassword}
+                >
+                  {showPassword ? <FaEyeSlash /> : <FaEye />}
+                </button>
+              </div>
             </div>
           </div>
+          <div className="submit-group">
+            <button type="submit" className="btn-login">Log in</button>
+          </div>
 
-          <button type="submit" className="btn-login">Log in</button>
-
-          <p className="signup-text" >
+          <p className="signup-text">
             Don’t have an account? <span className="signup-link" onClick={scrollToSignup}>Sign Up</span>
           </p>
         </form>

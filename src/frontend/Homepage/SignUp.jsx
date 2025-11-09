@@ -31,30 +31,45 @@ export default function SignUp({ scrollToHome, scrollToLogIn }) {
       ...prevState,
       [name]: value
     }));
-
-    // console.log({ name, value });
   };
 
   const FACULTIES = [
-  "วิศวกรรมศาสตร์(TSE)", "นิติศาสตร์(LAW)", "พาณิชยศาสตร์และการบัญชี(BBA)",
-  "สังคมสงเคราะห์ศาสตร์(BSW)", "รัฐศาสตร์(POLSCI)", "เศรษฐศาสตร์(ECON)",
-  "สังคมวิทยาและมานุษยวิทยา(SOC-ANT)", "ศิลปศาสตร์(LArts)", "วารสารศาสตร์และสื่อสารมวลชน(JC)",
-  "วิทยาศาสตร์และเทคโนโลยี(SCI)", "สถาปัตยกรรมศาสตร์(TDS)", "ศิลปกรรมศาสตร์(FA)",
-  "แพทยศาสตร์(MED)", "สหเวชศาสตร์(AHS)", "ทันตแพทยศาสตร์(DENT)", "พยาบาลศาสตร์(NS)",
-  "สาธารณสุขศาสตร์(FPH)", "เภสัชศาสตร์(Pharmacy)", "วิทยาการเรียนรู้และศึกษาศาสตร์(LSEd)",
-  "วิทยาลัยนวัตกรรม(CITU)", "วิทยาลัยสหวิทยาการ(CIS)",
-  "วิทยาลัยโลกคดีศึกษา(SGS)", "สถาบันเทคโนโลยีนานาชาติสิรินธร(SIIT)",
-  "วิทยาลัยนานาชาติ ปรีดี พนมยงค์(PBIC)"
+    "วิศวกรรมศาสตร์(TSE)", "นิติศาสตร์(LAW)", "พาณิชยศาสตร์และการบัญชี(BBA)",
+    "สังคมสงเคราะห์ศาสตร์(BSW)", "รัฐศาสตร์(POLSCI)", "เศรษฐศาสตร์(ECON)",
+    "สังคมวิทยาและมานุษยวิทยา(SOC-ANT)", "ศิลปศาสตร์(LArts)", "วารสารศาสตร์และสื่อสารมวลชน(JC)",
+    "วิทยาศาสตร์และเทคโนโลยี(SCI)", "สถาปัตยกรรมศาสตร์(TDS)", "ศิลปกรรมศาสตร์(FA)",
+    "แพทยศาสตร์(MED)", "สหเวชศาสตร์(AHS)", "ทันตแพทยศาสตร์(DENT)", "พยาบาลศาสตร์(NS)",
+    "สาธารณสุขศาสตร์(FPH)", "เภสัชศาสตร์(Pharmacy)", "วิทยาการเรียนรู้และศึกษาศาสตร์(LSEd)",
+    "วิทยาลัยนวัตกรรม(CITU)", "วิทยาลัยสหวิทยาการ(CIS)",
+    "วิทยาลัยโลกคดีศึกษา(SGS)", "สถาบันเทคโนโลยีนานาชาติสิรินธร(SIIT)",
+    "วิทยาลัยนานาชาติ ปรีดี พนมยงค์(PBIC)"
   ];
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('ข้อมูลผู้ลงทะเบียน:', userData);
 
+    const emailPattern = /^[^\s@]+@dome\.tu\.ac\.th$/;
     const thaiRegex = /[\u0E00-\u0E7F]/;
-    if (thaiRegex.test(userData.email) || !userData.email.includes("@")) {
+
+    if (!emailPattern.test(userData.email)) {
       setNotification({
-        message: "กรุณากรอก email ให้ถูกต้อง",
+        message: "กรุณากรอกอีเมลที่ลงท้ายด้วย @dome.tu.ac.th เท่านั้น",
+        type: "error",
+      });
+      return;
+    }
+
+    if (userData.password.length < 8) {
+      setNotification({
+        message: "รหัสผ่านต้องมีอย่างน้อย 8 ตัวอักษร",
+        type: "error",
+      });
+      return;
+    }
+
+    if (thaiRegex.test(userData.password)) {
+      setNotification({
+        message: "รหัสผ่านห้ามมีอักษรภาษาไทย",
         type: "error",
       });
       return;
@@ -76,9 +91,7 @@ export default function SignUp({ scrollToHome, scrollToLogIn }) {
       });
       const result = await response.json();
 
-
       if (response.ok) {
-        console.log("Insert success");
         setShowToast(true);
         setuserData({ username: '', email: '', password: '', faculty: '', year: '' });
 
@@ -86,25 +99,23 @@ export default function SignUp({ scrollToHome, scrollToLogIn }) {
           scrollToHome();
         }, 1000);
       } else {
-        console.error('Failed to register user');
         setNotification({
           message: result.error || "Registration failed. Please try again.",
           type: "error",
         });
       }
     } catch (error) {
-      console.error("Error sending data:", error);
       setNotification({
         message: "Error to connect to the server. Please try again later.",
         type: "error",
       });
     }
   };
+
   const [notification, setNotification] = useState({
     message: "",
     type: "error",
   });
-
 
   return (
     <div
@@ -117,7 +128,7 @@ export default function SignUp({ scrollToHome, scrollToLogIn }) {
         </button>
       </div>
 
-      <form className="signup-form-wrapper" onSubmit={handleSubmit}>
+      <form className="signup-form-wrapper" onSubmit={handleSubmit} noValidate>
         <div className="signup-form-row ">
           <div className="input-group" >
             <label>Username:</label>
@@ -137,7 +148,7 @@ export default function SignUp({ scrollToHome, scrollToLogIn }) {
               name="email"
               value={userData.email}
               onChange={handleChange}
-              placeholder="Enter email"
+              placeholder="Enter email (@dome.tu.ac.th)"
               required
             />
           </div>
@@ -224,7 +235,6 @@ export default function SignUp({ scrollToHome, scrollToLogIn }) {
           onClose={() => setNotification({ message: "", type: "error" })}
         />
       )}
-
     </div>
   );
 }

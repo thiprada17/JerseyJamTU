@@ -16,15 +16,11 @@ export default function Homepage() {
     const location = useLocation();
     const [showToast, setShowToast] = useState(false);
     const scrollToSection = (ref) => {
-        if (ref.current) {
-            ref.current.scrollIntoView({ behavior: "smooth" });
-        }
+        ref?.current?.scrollIntoView({ behavior: "smooth", block: "start" });
     };
 
     useEffect(() => {
-        if (homeRef.current) {
-            homeRef.current.scrollIntoView({ behavior: "instant" });
-        }
+        homeRef.current?.scrollIntoView({ behavior: "auto", block: "start" });
     }, []);
 
     const speakText = (text) => {
@@ -66,7 +62,7 @@ export default function Homepage() {
                 <div className="action-buttons">
                     <button className="signup-btn" onClick={() => scrollToSection(signupRef)}> Sign Up </button>
                     <button className="login-btn" onClick={() => scrollToSection(loginRef)}> Login</button>
-                    <button className="login-btn" onClick={() => navigate('/sellerform')}> Add Shirt </button>
+                    <button className="add-shirt-btn" onClick={() => navigate('/sellerform')}> Add Shirt </button>
                 </div>
             </div>
 
@@ -79,5 +75,3 @@ export default function Homepage() {
     );
 
 }
-
-
