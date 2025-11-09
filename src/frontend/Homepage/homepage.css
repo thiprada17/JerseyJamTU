@@ -115,25 +115,27 @@ html, body {
   }
 
   .action-buttons {
-    position: static;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.8rem;
-    width: 90%;
-    margin: 0 auto;
+    position: relative !important;
+    display: flex !important;
+    flex-direction: column !important; 
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 1rem !important;
+    width: 100% !important;
+    margin: 0 !important;
   }
 
   .signup-btn,
   .login-btn {
-    font-size: 1.8rem;
-    width: 90%;
-    padding: 0.6rem 0;
-    text-align: center;
-    border-radius: 10px;
-    border: 2px solid #333;
-    background: rgba(255, 255, 255, 0.85);
-    color: #333;
+    display: block !important; /* 🔥 บังคับให้ปุ่มเต็มบรรทัด */
+    width: 90% !important;
+    font-size: 1.8rem !important;
+    padding: 0.8rem 0 !important;
+    text-align: center !important;
+    border-radius: 10px !important;
+    border: 2px solid #333 !important;
+    background: rgba(255, 255, 255, 0.85) !important;
+    color: #333 !important;
   }
 
   .signup-btn:hover,
@@ -143,7 +145,7 @@ html, body {
   }
 
   .add-shirt-btn {
-    font-size: 1.6rem;
+    font-size: 1rem;
     width: 90%;
     padding: 0.5rem 0;
     border-radius: 10px;
@@ -173,29 +175,29 @@ html, body {
   }
 }
 @media (max-width: 768px) {
-  .home-section {
-    background-size: contain; 
+ .home-section {
+    background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
     justify-content: flex-end;
-    padding-bottom: 2.5rem; 
+    padding-bottom: 2.5rem; /* เดิม 2.5rem → เพิ่มพื้นที่ให้ปุ่มไม่โดนบัง */
+    position: relative;   /* ให้ position absolute ของปุ่มทำงานได้ถูกต้อง */
   }
 
   .action-buttons {
     position: absolute;
-    bottom: 1.5rem; 
+    bottom: 2rem; /* เดิม 1.5rem → ยกปุ่มขึ้นมาอีกหน่อย */
     left: 50%;
     transform: translateX(-50%);
     display: flex;
     flex-direction: row;
     justify-content: center;
-    gap: 1.5rem; 
+    gap: 1.5rem;
   }
-
   .signup-btn,
   .login-btn,
   .add-shirt-btn {
-    font-size: 2.5rem; 
+    font-size: 2rem; 
     padding: 0.8rem 1.5rem;
   }
 
