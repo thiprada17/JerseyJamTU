@@ -309,7 +309,8 @@ export default function Main() {
         </div>
       )}
 
-      <div className="main-container">
+      <div className="main-container" >
+
         <div className="main-header">
           <div className="main-posttext">ALL JERSEY</div>
           <button
