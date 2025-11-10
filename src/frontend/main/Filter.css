@@ -160,3 +160,105 @@
   border: none;
   background: #DF2D3B;
 }
+
+@media (max-width: 1024px) {
+  .filter-panel {
+    width: 70rem;
+    max-width: 85vw;
+    margin-top: 10rem;
+    margin-right: 3rem;
+  }
+
+  .faculty-grid {
+    gap: 6px;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  }
+
+  .faculty-item {
+    font-size: 12px;
+    min-height: 28px;
+  }
+
+  .price-item {
+    font-size: 15px;
+  }
+
+  .btn-clear,
+  .btn-view {
+    font-size: 13px;
+    padding: 6px 12px;
+  }
+}
+
+@media (max-width: 768px) {
+  .filter-panel {
+    width: 80%;
+    right: 5%;
+    margin-top: 20rem;
+  }
+
+  .faculty-grid {
+    grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+    gap: 4px;
+    padding: 8px;
+  }
+
+  .faculty-item {
+    font-size: 10px;
+    min-height: 26px;
+    padding: 3px 6px;
+  }
+
+  .price-item {
+    font-size: 12px;
+  }
+
+  .btn-clear,
+  .btn-view {
+    font-size: 12px;
+    padding: 6px 10px;
+  }
+}
+
+@media (max-width: 450px) {
+  .filter-panel {
+    width: 80%;
+    right: 2.5%;
+    margin-top: 15rem;
+    padding: 15px;
+    border: 1px solid #000;
+  }
+
+  .faculty-grid {
+    grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+    gap: 3px;
+    padding: 6px;
+  }
+
+  .faculty-item {
+    font-size: 8px;
+    min-height: 24px;
+    padding: 2px 4px;
+  }
+
+  .price-item {
+    font-size: 11px;
+    gap: 4px;
+  }
+
+  .price-box {
+    width: 18px;
+    height: 18px;
+  }
+
+  .check-icon {
+    width: 12px;
+    height: 12px;
+  }
+
+  .btn-clear,
+  .btn-view {
+    font-size: 11px;
+    padding: 5px 10px;
+  }
+}
