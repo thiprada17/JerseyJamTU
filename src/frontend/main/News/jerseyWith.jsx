@@ -15,8 +15,8 @@ export default function JerseyWith() {
   const handleClick = () => {
     setClicked(true);
     setTimeout(() => {
-            setClicked(false); 
-            navigate("/main"); 
+      setClicked(false);
+      navigate("/main");
     }, 200);
   };
 
@@ -65,9 +65,8 @@ export default function JerseyWith() {
           <div className="box3">
             <span className="title-box3">อัง อัง อัง</span>
             <br />
-            <span className="tt-box3">กางเกงหรือกระเป๋า</span>
+            <span className="tt-box3">กางเกงหรือกระเป๋าโดเรม่อน</span>
             <br />
-            <span className="ttt-box3">โดเรม่อน</span>
             <img src={jersey3} alt="styles" className="j3" />
           </div>
           <div className="box4">
@@ -82,11 +81,11 @@ export default function JerseyWith() {
           <br />
           <span className="from2">เพื่อนในมอทุ่งรังสิตชื่อดัง</span>
         </div>
-        {/*Footer*/}
-        <footer className="footer">
-          <span className="logo">JerseyJam</span>
-        </footer>
       </div>
+      {/*Footer*/}
+      <footer className="footer">
+        <span className="logo">JerseyJam</span>
+      </footer>
     </div>
   );
 }
