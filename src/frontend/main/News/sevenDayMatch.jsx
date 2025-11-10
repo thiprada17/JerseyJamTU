@@ -12,8 +12,8 @@ export default function SevenDayMatch() {
   const handleClick = () => {
     setClicked(true);
     setTimeout(() => {
-            setClicked(false); 
-            navigate("/main"); 
+      setClicked(false);
+      navigate("/main");
     }, 200);
   };
 
@@ -65,11 +65,11 @@ export default function SevenDayMatch() {
           <br />
           <span className="from2">ให้ทาย</span>
         </div>
-        {/*Footer*/}
-        <footer className="footer">
-          <span className="logo">JerseyJam</span>
-        </footer>
       </div>
+      {/*Footer*/}
+      <footer className="footer">
+        <span className="logo">JerseyJam</span>
+      </footer>
     </div>
   );
 }
