@@ -75,14 +75,13 @@
 }
 
 .main-navbar {
+
   background-color: white;
   width: 100%;
   height: auto;
   padding: 1rem 0.5rem;
   text-align: center;
-  font-family: 'Nec', sans-serif;
   border-bottom: 1px solid black;
-  font-size: clamp(3rem, 2.5vw, 1.5rem);
 
   display: flex;
   justify-content: center;
@@ -108,11 +107,31 @@
 
 }
 
+.main-navbar-logo {
+  font-family: 'Nec', sans-serif;
+  text-align: center;
+  font-size: clamp(3rem, 2.5vw, 1.5rem);
+
+  justify-content: center;
+  align-items: center;
+  margin-top: 1rem;
+}
+
 .main-navbar-user-profile-icon {
   width: 3rem;
   height: 3rem;
 }
 
+.main-navbar-logout {
+  display: flex;
+  position: absolute;
+  right: 3rem;
+  font-family: 'Kanit';
+  font-size: 2.5rem;
+  color: #cb3f3f;
+  text-decoration: none;
+
+}
 
 .main-topic {
   width: 100%;
@@ -152,7 +171,12 @@
   position: relative;
   box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.2);
 
-  padding: 10rem;
+
+}
+
+.slide-wrapper {
+  padding: 0 25px;
+  box-sizing: border-box;
 }
 
 .slick-slide-item {
@@ -188,6 +212,27 @@
   box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
   z-index: 10;
 }
+
+.custom-prev,
+.custom-next {
+  position: absolute;
+  top: 50%;
+  z-index: 2;
+  cursor: pointer;
+  font-size: 2rem;
+  color: #3d3d3dff;
+  transform: translateY(-50%);
+}
+
+.custom-prev {
+  left: 31.5%;
+}
+
+.custom-next {
+  right: 31.5%;
+}
+
+
 
 .main-ff {
   display: flex;
@@ -241,8 +286,9 @@
   min-height: 100vh;
   background-image: url('../../assets/bg-commu.png');
   background-repeat: repeat-y;
+  background-repeat: repeat-x !important;
   background-size: cover;
-  background-position: top center;
+  background-position: center top;
   padding: 6rem;
 }
 
@@ -343,26 +389,20 @@
   align-items: center;
 }
 
-/* .tags {
-  display: inline-block;
-  font-size: 1.4rem;
-  color: white;
-  background-color: #FF3A4A;
-  border-radius: 25px;
-  border: 2px solid #000;
-  padding: 0.4rem 1rem;
-  font-family: 'KanitL';
-} */
+
 .tags-wrapper {
   display: flex;
   align-items: center;
-  gap: 0.5rem; /* ช่องว่างระหว่าง icon กับ tags */
+  gap: 0.5rem;
+  /* ช่องว่างระหว่าง icon กับ tags */
 }
 
 .tags-container {
   display: flex;
-  gap: 0.5rem; /* ช่องว่างระหว่างแท็กแต่ละแท็ก */
-  flex-wrap: wrap; /* ถ้าแท็กเยอะจะขึ้นบรรทัดใหม่ */
+  gap: 0.5rem;
+  /* ช่องว่างระหว่างแท็กแต่ละแท็ก */
+  flex-wrap: wrap;
+  /* ถ้าแท็กเยอะจะขึ้นบรรทัดใหม่ */
 }
 
 .tag-item {
@@ -452,6 +492,7 @@
     transform: translateY(0);
   }
 }
+
 .no-results {
   text-align: center;
   font-size: 2.7rem;
@@ -460,4 +501,457 @@
   font-family: 'Kanit', sans-serif;
   grid-column: 1 / -1;
   justify-self: center;
+}
+
+@media (max-width: 1024px) {
+  .main-navbar {
+    font-size: 2rem;
+    padding: 1rem;
+  }
+
+  .main-navbar-user {
+    left: 1rem;
+  }
+
+  .main-popup-container {
+    width: 70%;
+  }
+
+  .main-news {
+    padding: 2rem 1rem;
+  }
+
+
+  .main-news-frame {
+    max-width: 50vw;
+    margin: 0 auto;
+  }
+
+  .main-news-img {
+    width: 100%;
+    height: auto;
+  }
+
+  .slide-wrapper {
+    padding: 0 !important;
+  }
+
+
+  .custom-prev {
+    left: 31%;
+  }
+
+  .custom-next {
+    right: 31%;
+  }
+
+
+
+  .main-ff {
+    gap: 10rem;
+  }
+
+  .main-container {
+    padding: 3rem;
+    background-repeat: repeat-x !important;
+    background-repeat: repeat-y !important;
+    background-size: contain !important;
+    background-position: center top;
+  }
+
+
+  .main-grid {
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    padding: 1rem;
+    gap: 1.5rem;
+    justify-items: stretch;
+  }
+
+  .main-post {
+    margin: 2rem;
+    width: 100%;
+    height: auto;
+  }
+
+  .tag-item {
+    font-size: 1rem;
+    border-radius: 25px;
+    border: 2px solid #000;
+    padding: 0.4rem 1rem;
+  }
+
+  .tags-wrapper {
+    gap: 0.2rem;
+    /* ช่องว่างระหว่าง icon กับ tags */
+  }
+
+  .shirt-name {
+    font-size: 1.6rem;
+  }
+
+  .price {
+    font-size: 1.8rem;
+  }
+}
+
+
+@media (max-width: 768px) {
+
+  .main-navbar-user {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+  }
+
+  .main-navbar-user-profile-icon {
+    width: 2.5rem;
+    height: 2.5rem;
+    object-fit: cover;
+    display: block;
+  }
+
+  .main-navbar-user-username {
+    font-size: 2rem;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+
+
+  }
+
+  .main-navbar-logo {
+    font-size: 3rem;
+  }
+
+  .main-navbar-logout {
+    right: 2rem;
+    font-size: 2rem;
+
+  }
+
+
+  .main-topic {
+    height: 30rem;
+  }
+
+  .main-popup-container {
+    width: 55%;
+  }
+
+  .main-news-frame {
+    max-width: 50vw;
+    margin: 0 auto;
+  }
+
+  .main-news-img {
+    width: 100%;
+    height: auto;
+  }
+
+  .slide-wrapper {
+    padding: 0 !important;
+  }
+
+
+  .custom-prev {
+    left: 10%;
+  }
+
+  .custom-next {
+    right: 10%;
+  }
+
+
+  .main-ff {
+    padding: 2rem;
+    gap: 10rem;
+
+  }
+
+  .ff-button {
+    font-size: 1.5rem;
+    font-family: 'Kanit', sans-serif;
+    transition: transform 0.1s ease;
+
+  }
+
+  .ff-button img {
+    width: 8rem;
+
+  }
+
+  .filters-button {
+    width: 30%;
+    max-width: none;
+    justify-content: center;
+    margin-bottom: 1rem;
+  }
+
+  .main-header {
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .main-posttext {
+    font-size: 5rem;
+    text-align: center;
+  }
+
+  .main-container {
+    padding: 2rem 1rem;
+    background-repeat: repeat-x !important;
+    background-repeat: repeat-y !important;
+    background-size: contain !important;
+    background-position: center top;
+  }
+
+
+
+    .main-grid {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 0rem;
+    justify-items: center;
+  }
+
+  .main-post {
+    width: 28rem;
+    height: 35rem;
+    border: 1.8px solid #000;
+  }
+
+
+  .main-post-photo {
+    height: 45rem;
+  }
+
+  .main-post-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  .main-post-detail-card {
+    height: 15rem;
+  }
+
+
+  .shirt-name {
+    font-size: 1.8rem !important;
+  }
+
+
+  .tag-item {
+    font-size: 1rem;
+    gap: 0;
+    border: 1.5px solid #000;
+  }
+
+  .tag-icon {
+    width: 1.7rem;
+    height: 1.7rem;
+  }
+
+  .tags-wrapper {
+    gap: 0rem;
+  }
+
+  .tags-container {
+    gap: 0rem;
+  }
+
+  .price {
+    font-size: 1.8rem;
+  }
+
+
+
+}
+
+@media (max-width: 450px) {
+  .main-navbar-user {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+  }
+
+  .main-navbar-user-profile-icon {
+    width: 1.7rem;
+    height: 1.7rem;
+    object-fit: cover;
+    display: block;
+  }
+
+  .main-navbar-user-username {
+    font-size: 1rem;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    top: 0.2rem;
+  }
+
+  .main-navbar-logo {
+    font-size: 2rem;
+  }
+
+  .main-navbar-logout {
+    right: 2rem;
+    font-size: 1.2rem;
+
+  }
+
+  .main-topic {
+    height: 25rem;
+  }
+
+  .main-popup-container {
+    width: 70%;
+  }
+
+
+  .main-news-img {
+    width: 100%;
+    height: auto;
+  }
+
+  .slick-slide {
+    width: 100vw !important;
+    margin: 0 2vw !important;
+    display: flex !important;
+    justify-content: center !important;
+  }
+
+  .slick-track {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+  }
+
+  .main-news-frame {
+    width: 70vw !important;
+    margin: 0 auto !important;
+    display: flex;
+    justify-content: center;
+  }
+
+  .slide-wrapper {
+    padding: 0 !important;
+    display: flex !important;
+    justify-content: center !important;
+  }
+
+  .slick-slide-item {
+    transform: none !important;
+    opacity: 1 !important;
+  }
+
+
+  .custom-prev {
+    left: 15.5%;
+  }
+
+  .custom-next {
+    right: 15.5%;
+  }
+
+
+  .main-ff {
+    padding: 2rem;
+    gap: 5rem;
+
+  }
+
+  .ff-button {
+    font-size: 1.3rem;
+
+  }
+
+  .ff-button img {
+    width: 6.5rem;
+
+  }
+
+  .filters-button {
+    width: 30%;
+    max-width: none;
+    justify-content: center;
+  }
+
+  .main-header {
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .main-posttext {
+    font-size: 3rem;
+    text-align: center;
+  }
+
+  .main-container {
+    padding: 2rem 1rem;
+    background-size: contain;
+    background-position: center top;
+    background-repeat: repeat-x;
+  }
+
+
+
+  .main-grid {
+    grid-template-columns: 1fr;
+    gap: 0rem;
+    justify-items: center;
+  }
+
+  .main-post {
+    width: 20rem;
+    height: 25rem;
+    border: 1.5px solid #000;
+  }
+
+
+  .main-post-photo {
+    height: 45rem;
+  }
+
+  .main-post-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  .main-post-detail-card {
+    height: 20rem;
+  }
+
+
+  .shirt-name {
+    font-size: 1.5rem !important;
+  }
+
+
+  .tag-item {
+    font-size: 0.9rem;
+    gap: 0;
+    border: 1.5px solid #000;
+  }
+
+  .tag-icon {
+    width: 1rem;
+    height: 1rem;
+  }
+
+  .tags-wrapper {
+    gap: 0rem;
+  }
+
+  .tags-container {
+    gap: 0rem;
+  }
+
+  .price {
+    font-size: 1.5rem;
+  }
 }
