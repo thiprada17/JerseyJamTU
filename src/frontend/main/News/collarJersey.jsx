@@ -166,10 +166,11 @@ export default function CollarJersey() {
           </span>
         </div>
         {/*Footer*/}
-        <footer className="footer">
-          <span className="logo">JerseyJam</span>
-        </footer>
       </div>
+      
+      <footer className="footer">
+        <span className="logo">JerseyJam</span>
+      </footer>
     </div>
   );
 }
