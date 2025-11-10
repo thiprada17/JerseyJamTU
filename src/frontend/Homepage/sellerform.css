@@ -6,31 +6,15 @@
 .sellerform-app {
   font-family: "Kanit";
   font-weight: bold;
-  /* transform: scale(0.8); ปรับขนาดลง 80% */
-  /* transform-origin: top middle; กำหนดจุดยึดเวลาย่อ */
   min-height: 100vh;
   width: 100%;
   overflow-x: hidden;
+  overflow-y: hidden;
   position: relative;
   background-color: #fefefe;
-}
-.sellerform-layers {
-  position: absolute; 
-  top: 0;
-  left: 0;
-  width: 100%;
-  min-height: 100%;
-  z-index: 0;
-  overflow: hidden;
-}
-
-.sellerform-layer {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  min-height: 100vh;
-  object-fit: cover; 
+    background-image: url("../../assets/bg.png"); 
+  background-repeat: no-repeat; background-size: cover;
+  background-position: center top;
 }
 
 .sellerform-layer.green { z-index: 1; }
@@ -64,6 +48,7 @@
   max-width: 1200px;
   margin: 0 auto;
   padding: 7rem 20px 100px 20px; 
+   flex-wrap: wrap;
 }
 
 .sellerform-title,
@@ -80,10 +65,10 @@
 }
 
 .sellerform-polaroid {
-  width: 400px;
-  height: 500px;
+  width: 35rem;  /* 400px */
+  height: 45rem; /* 500px */
   background: white;
-  padding: 30px;
+  padding: 2.5rem;
   box-shadow: 0 6px 12px #302C2C;
   display: flex;
   align-items: center;
@@ -240,7 +225,7 @@
   display: flex;
   flex-wrap: wrap;             
   align-items: center;
-  border: 2px solid #ccc;
+  border: 1px solid #b0b0b0;
   border-radius: 15px;
   padding: 12px 12px;         
   background-color: #fff;
@@ -371,22 +356,96 @@ textarea.sellerform-input::placeholder {
   color: #bfbfbf;
 }
 
-@media (max-width: 450px) {
-  .sellerform-floatingButton {
+@media (max-width: 768px) {
+  .sellerform-title {
+    font-size: 7rem;
+    top: 6rem;
+  }
+
+  .sellerform-container {
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+  }
+
+  .sellerform-polaroid {
+    width: 20rem;
+    height: 24rem;
+    padding: 1.25rem;
+  }
+
+  .sellerform-uploadBtn {
+    padding: 0.75rem 2rem;
+    font-size: 1.5rem;
+  }
+
+  .sellerform-form {width: 100%;}
+
+  .sellerform-submitBtn {
+    width: 90%;
+    font-size: 1.4rem;
+    padding: 0.8rem 0;
+  }
+
+    .sellerform-floatingButton {
+    width: 4rem;
+    height: 4rem;
+    right: 2rem;
+    bottom: 2rem;
+  }
+}
+
+@media (max-width: 480px) {
+
+  .sellerform-title {
+    font-size: 4rem;
+    top: 6rem;
+  }
+
+  .sellerform-polaroid {
+    width: 14rem;
+    height: 18rem;
+  }
+
+  .sellerform-uploadBtn {
+    font-size: 1.2rem;
+    padding: 0.625rem 1.75rem;
+  }
+
+  .sellerform-input {
+    font-size: 0.875rem;
+    padding: 0.625rem;
+  }
+
+  .sellerform-submitBtn {font-size: 1.2rem;}
+
+    .sellerform-floatingButton {
     width: 3rem;
     height: 3rem;
     right: 1.5rem;
     bottom: 1.5rem;
   }
   
-}
-
-@media (max-width: 768px) {
-  .sellerform-floatingButton {
-    width: 4rem;
-    height: 4rem;
-    right: 2rem;
-    bottom: 2rem;
+  .tag-input-box {
+    min-height: 3rem; 
+    padding: 0.5rem 0.75rem;
+    border-radius: 9999px;
   }
-  
+
+  .tag-chip {
+    font-size: 0.9rem; 
+    padding: 0.25rem 0.6rem;
+  }
+
+  .tag-placeholder {font-size: 0.8rem;}
+
+  .tag-icon {
+    font-size: 1rem;
+    margin-right: 0.4rem;
+  }
+
+  .tag-option {
+    font-size: 0.9rem;
+    padding: 0.4rem 0.8rem;
+  }
 }

@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import "./sellerform.css";
-import blueLayer from "../../assets/bg.png"
+// import blueLayer from "../../assets/bg.png"
 import { useNavigate } from "react-router-dom";
 import { supabase } from "../supabaseClient";
 import greyArrow from "../../assets/grey_arrow.png"
@@ -26,7 +26,6 @@ export default function SellerForm() {
     shirt_detail: "",
     shirt_url: "",
   });
-
 
   const handleUpload = (e) => {
     const file = e.target.files[0];
@@ -63,49 +62,6 @@ export default function SellerForm() {
     }));
   }
 };
-
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
-
-  //   // const payload = {
-  //   //   ...formData,
-  //   //   shirt_pic: image || "", 
-  //   // };
-  //   const payload = {
-  //     shirt_name: formData.shirt_name,
-  //     shirt_price: Number(formData.shirt_price),
-  //     shirt_open_date: formData.shirt_open_date_raw,
-  //     shirt_close_date: formData.shirt_close_date_raw,
-  //     shirt_detail: formData.shirt_detail,
-  //     shirt_url: formData.shirt_url,
-  //     shirt_pic: image || "",
-  //   };
-  //   try {
-  //     const response = await fetch("http://localhost:8000/shirt/info/post", {
-  //       method: "POST",
-  //       headers: { "Content-Type": "application/json" },
-  //       body: JSON.stringify(payload),
-  //     });
-
-  //     const result = await response.json();
-
-  //     if (response.ok) {
-  //       setShowToast(true);
-
-  //       setTimeout(() => {
-  //         navigate("/");
-  //       }, 2000);
-
-  //       // setTimeout(() => {
-  //       //   setShowToast(false);
-  //       // }, 3000);
-  //     } else {
-  //       alert("Warning Mistakes: " + result.error);
-  //     }
-  //   } catch (err) {
-  //     alert("Connection Error");
-  //   }
-  // };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -241,11 +197,9 @@ export default function SellerForm() {
           onClose={() => setNotification({ message: "", type: "error" })}
         />
 
-        <div className="sellerform-layers">
-          {/* <img src={greenLayer} alt="green" className="sellerform-layer green" />
-  <img src={creamLayer} alt="cream" className="sellerform-layer cream" /> */}
+        {/* <div className="sellerform-layers">
           <img src={blueLayer} alt="blue" className="sellerform-layer blue" />
-        </div>
+        </div> */}
         {showToast && (<Toast message="✅ Add Jersey success!" />)}
         <h1 className="sellerform-title">Add Your Jersey</h1>
 
