@@ -122,7 +122,7 @@ export default function Commu() {
 
       <div className="commu-topic w-full h-96 sm:w-full sm:h-[60rem]">
         <div className="flex justify-center">
-          <div className="commu-popup-container relative w-11/12 max-w-md sm:w-2/3 sm:max-w-6xl md:w-1/2 md:max-w-5xl">
+          <div className="commu-popup-container relative w-11/12 max-w-mdd sm:w-2/3 sm:max-w-6xl md:w-1/2 md:max-w-5xl">
             <img
               src={popup}
               alt="Popup"

@@ -26,6 +26,7 @@
   flex-direction: column;
   align-items: center;
   width: 100%;
+  height: auto;
 }
 
 /*Top Bar*/
@@ -99,18 +100,6 @@
   aspect-ratio: 1 / 1;
   max-width: 60px;
   height: 60px;
-}
-
-.home-btn {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
-  background-color: #ffd3d3;
-  cursor: pointer;
-  transition: transform 0.2s ease;
 }
 
 .home-btn.animate {
@@ -224,8 +213,8 @@
   justify-content: center;
   position: relative;
 
-  align-items: center;    
-  margin: 3% auto;     
+  align-items: center;
+  margin: 3% auto;
   box-sizing: border-box;
 }
 
@@ -700,7 +689,7 @@
   font-family: "Kanit";
   color: #000000;
   font-size: clamp(1px, 3vw, 15px);
-  padding: 0 0 50px;
+  padding: 0 0 5px;
 
   white-space: nowrap;
   overflow: hidden;
@@ -723,3 +712,509 @@
   margin-left: 2%;
 }
 /*--------------------------------------------*/
+
+@media (max-width: 640px) {
+  .top-bar {
+    width: 100%;
+    height: 8rem;
+    border-bottom: 2px solid #c02c38;
+  }
+
+  .home-btn {
+    width: 4rem;
+    height: 4rem;
+
+    margin-right: 5%;
+  }
+
+  .btn-icon {
+    max-width: 4rem;
+    height: 4rem;
+  }
+  .bar {
+    width: 100%;
+    max-width: 60rem;
+    height: 3rem;
+
+    margin-left: 5%;
+    margin-right: 5%;
+
+    border-radius: 20px;
+    border: 2px solid #c02c38;
+  }
+
+  .bar-by {
+    width: 50%;
+    height: 100%;
+  }
+
+  .post-on {
+    font-size: 1.1rem;
+
+    margin-left: 3%;
+    margin-right: 3%;
+  }
+
+  .expost-on {
+    font-size: 1.1rem;
+  }
+
+  .by {
+    font-size: 1.1rem;
+
+    margin-left: 7%;
+    margin-right: 5%;
+  }
+
+  .exby {
+    font-size: 1.1rem;
+
+    margin-left: 3%;
+  }
+  .from1 {
+    font-size: 1.3rem;
+  }
+
+  .from2 {
+    font-size: 1.1rem;
+  }
+
+  .from3 {
+    font-size: 1.1rem;
+  }
+
+  .footer {
+    width: 100%;
+    height: 80%;
+  }
+
+  .logo {
+    font-size: 2rem;
+  }
+
+  .header-img {
+    width: 100%;
+    max-width: 30rem;
+    height: 15rem;
+    border-radius: 2rem;
+  }
+  .blog-title1 {
+    margin-top: 2rem;
+    font-size: 3rem;
+  }
+
+  .blog-title2 {
+    font-size: 3rem;
+    line-height: 1.3;
+    margin-bottom: 2rem;
+  }
+
+  .block {
+    max-width: 30rem;
+  }
+
+  .rec-face,
+  .d-face,
+  .s-face,
+  .h-face,
+  .r-face,
+  .o-face {
+    max-width: 15rem;
+    height: 15rem;
+    border: 1.5px solid #000000;
+  }
+
+  .rec-description,
+  .d-description,
+  .s-description,
+  .h-description,
+  .o-description,
+  .r-description {
+    max-width: 15rem;
+    height: 20rem;
+  }
+
+  .rec-num-block,
+  .d-num-block,
+  .s-num-block,
+  .h-num-block,
+  .o-num-block,
+  .r-num-block {
+    max-width: 4rem;
+    height: 5rem;
+  }
+
+  .rec-num,
+  .d-num,
+  .s-num,
+  .h-num,
+  .o-num,
+  .r-num {
+    font-size: 2rem;
+  }
+
+  .rec-thai-block,
+  .d-thai-block,
+  .s-thai-block,
+  .h-thai-block,
+  .o-thai-block,
+  .r-thai-block {
+    max-width: 12rem;
+    height: 5rem;
+  }
+
+  .rec-thainame,
+  .d-thainame,
+  .s-thainame,
+  .h-thainame,
+  .o-thainame,
+  .r-thainame {
+    font-size: 1.4rem;
+  }
+
+  .rec-pictures,
+  .d-pictures,
+  .s-pictures,
+  .h-pictures,
+  .o-pictures,
+  .r-pictures {
+    height: 10rem;
+  }
+}
+
+@media (min-width: 640px) {
+  .top-bar {
+    width: 100%;
+    height: 8rem;
+    border-bottom: 2px solid #c02c38;
+  }
+
+  .home-btn {
+    width: 4rem;
+    height: 4rem;
+
+    margin-right: 5%;
+  }
+
+  .btn-icon {
+    max-width: 4rem;
+    height: 4rem;
+  }
+  .bar {
+    width: 100%;
+    max-width: 90rem;
+    height: 3rem;
+
+    margin-left: 5%;
+    margin-right: 5%;
+
+    border-radius: 20px;
+    border: 2px solid #c02c38;
+  }
+
+  .bar-by {
+    width: 50%;
+    height: 100%;
+  }
+
+  .post-on {
+    font-size: 1.1rem;
+
+    margin-left: 3%;
+    margin-right: 3%;
+  }
+
+  .expost-on {
+    font-size: 1.1rem;
+  }
+
+  .by {
+    font-size: 1.1rem;
+
+    margin-left: 7%;
+    margin-right: 5%;
+  }
+
+  .exby {
+    font-size: 1.1rem;
+
+    margin-left: 3%;
+  }
+  .from1 {
+    font-size: 1.3rem;
+  }
+
+  .from2 {
+    font-size: 1.1rem;
+  }
+
+  .from3 {
+    font-size: 1.1rem;
+  }
+
+  .footer {
+    width: 100%;
+    height: 80%;
+  }
+
+  .logo {
+    font-size: 2rem;
+  }
+
+  .header-img {
+    width: 100%;
+    max-width: 40rem;
+    height: 20rem;
+    border-radius: 2rem;
+  }
+  .blog-title1 {
+    margin-top: 2rem;
+    font-size: 4rem;
+  }
+
+  .blog-title2 {
+    font-size: 4rem;
+    line-height: 1.3;
+    margin-bottom: 2rem;
+  }
+
+  .block {
+    max-width: 30rem;
+  }
+
+  .rec-face,
+  .d-face,
+  .s-face,
+  .h-face,
+  .r-face,
+  .o-face {
+    max-width: 15rem;
+    height: 15rem;
+    border: 1.5px solid #000000;
+  }
+
+  .rec-description,
+  .d-description,
+  .s-description,
+  .h-description,
+  .o-description,
+  .r-description {
+    max-width: 15rem;
+    height: 20rem;
+  }
+
+  .rec-num-block,
+  .d-num-block,
+  .s-num-block,
+  .h-num-block,
+  .o-num-block,
+  .r-num-block {
+    max-width: 4rem;
+    height: 5rem;
+  }
+
+  .rec-num,
+  .d-num,
+  .s-num,
+  .h-num,
+  .o-num,
+  .r-num {
+    font-size: 2rem;
+  }
+
+  .rec-thai-block,
+  .d-thai-block,
+  .s-thai-block,
+  .h-thai-block,
+  .o-thai-block,
+  .r-thai-block {
+    max-width: 12rem;
+    height: 5rem;
+  }
+
+  .rec-thainame,
+  .d-thainame,
+  .s-thainame,
+  .h-thainame,
+  .o-thainame,
+  .r-thainame {
+    font-size: 1.4rem;
+  }
+
+  .rec-pictures,
+  .d-pictures,
+  .s-pictures,
+  .h-pictures,
+  .o-pictures,
+  .r-pictures {
+    height: 10rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .top-bar {
+    width: 100%;
+    height: 8rem;
+    border-bottom: 2px solid #c02c38;
+  }
+
+  .home-btn {
+    width: 5rem;
+    height: 5rem;
+
+    margin-right: 5%;
+  }
+
+  .btn-icon {
+    max-width: 5rem;
+    height: 5rem;
+  }
+  .bar {
+    width: 100%;
+    max-width: 90rem;
+    height: 3rem;
+
+    margin-left: 5%;
+    margin-right: 5%;
+
+    border-radius: 20px;
+    border: 2px solid #c02c38;
+  }
+
+  .bar-by {
+    width: 50%;
+    height: 100%;
+  }
+
+  .post-on {
+    font-size: 2rem;
+
+    margin-left: 3%;
+    margin-right: 3%;
+  }
+
+  .expost-on {
+    font-size: 2rem;
+  }
+
+  .by {
+    font-size: 2rem;
+
+    margin-left: 7%;
+    margin-right: 5%;
+  }
+
+  .exby {
+    font-size: 2rem;
+
+    margin-left: 3%;
+  }
+  .from1 {
+    font-size: 2rem;
+  }
+
+  .from2 {
+    font-size: 1.5rem;
+  }
+
+  .from3 {
+    font-size: 1.5rem;
+  }
+
+  .footer {
+    width: 100%;
+  }
+
+  .logo {
+    font-size: 4rem;
+  }
+
+  .header-img {
+    width: 100%;
+    max-width: 70rem;
+    height: 35rem;
+    border-radius: 2rem;
+  }
+  .blog-title1 {
+    margin-top: 2rem;
+    font-size: 6rem;
+  }
+
+  .blog-title2 {
+    font-size: 6rem;
+    line-height: 1.3;
+    margin-bottom: 2rem;
+  }
+
+  .block {
+    max-width: 985px;
+  }
+
+  .rec-face,
+  .d-face,
+  .s-face,
+  .h-face,
+  .r-face,
+  .o-face {
+    max-width: 300px;
+    height: 300px;
+    border: 2px solid #000000;
+  }
+
+  .rec-description,
+  .d-description,
+  .s-description,
+  .h-description,
+  .o-description,
+  .r-description {
+    max-width: 421px;
+    height: 50px;
+  }
+
+  .rec-num-block,
+  .d-num-block,
+  .s-num-block,
+  .h-num-block,
+  .o-num-block,
+  .r-num-block {
+    max-width: 50px;
+    height: 50px;
+  }
+
+  .rec-num,
+  .d-num,
+  .s-num,
+  .h-num,
+  .o-num,
+  .r-num {
+    font-size: 32px;
+  }
+
+  .rec-thai-block,
+  .d-thai-block,
+  .s-thai-block,
+  .h-thai-block,
+  .o-thai-block,
+  .r-thai-block {
+    max-width: 371px;
+    height: 50px;
+  }
+
+  .rec-thainame,
+  .d-thainame,
+  .s-thainame,
+  .h-thainame,
+  .o-thainame,
+  .r-thainame {
+    font-size: 25px;
+  }
+
+  .rec-pictures,
+  .d-pictures,
+  .s-pictures,
+  .h-pictures,
+  .o-pictures,
+  .r-pictures {
+    height: 250px;
+  }
+}
