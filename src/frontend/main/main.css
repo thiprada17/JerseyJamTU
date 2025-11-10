@@ -484,7 +484,6 @@
   justify-self: center;
 }
 
-/* สำหรับ iPad หรือแท็บเล็ต */
 @media (max-width: 1024px) {
   .main-navbar {
     font-size: 2rem;
@@ -534,7 +533,12 @@
 
   .main-container {
     padding: 3rem;
+    background-repeat: repeat-x !important;
+        background-repeat: repeat-y !important;
+    background-size: contain !important;
+    background-position: center top;
   }
+
 
   .main-grid {
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -571,7 +575,6 @@
 }
 
 
-/* สำหรับมือถือแนวตั้ง */
 @media (max-width: 768px) {
 
   .main-navbar {
