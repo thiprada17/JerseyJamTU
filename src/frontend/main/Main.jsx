@@ -12,6 +12,7 @@ import { useNavigate } from 'react-router-dom';
 import filterIcon from "../../assets/sort.png";
 import Filter from "./Filter.jsx";
 import "./Filter.css";
+import { Button } from "bootstrap";
 
 
 export default function Main() {
@@ -266,6 +267,11 @@ export default function Main() {
     };
   }, [showFilter]);
 
+  function handleLogout() {
+  localStorage.removeItem("token");
+  navigate("/")
+}
+
 
   return (
     <div className="main-body">
@@ -283,7 +289,11 @@ export default function Main() {
           <div className="main-navbar-user-username">{username}</div>
         </Link>
         <div className="main-navbar-logo">JerseyJamTU</div>
+                <button className="main-navbar-logout" onClick={handleLogout}>
+        Log out
+        </button>
       </div>
+              
 
       <div className="main-topic">
         <div className="main-popup-container">
