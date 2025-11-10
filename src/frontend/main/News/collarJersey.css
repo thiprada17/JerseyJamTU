@@ -51,7 +51,8 @@
 .bar {
   width: 100%;
   max-width: 2000px;
-  height: 30px;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
   box-sizing: border-box;
 
   margin-left: 3%;
@@ -768,7 +769,6 @@
 
   .exby {
     font-size: 1.1rem;
-
     margin-left: 3%;
   }
   .from {
@@ -916,25 +916,25 @@
   }
 
   .post-on {
-    font-size: 1.1rem;
+    font-size: 1.5rem;
 
     margin-left: 3%;
     margin-right: 3%;
   }
 
   .expost-on {
-    font-size: 1.1rem;
+    font-size: 1.5rem;
   }
 
   .by {
-    font-size: 1.1rem;
+    font-size: 1.5rem;
 
     margin-left: 7%;
     margin-right: 5%;
   }
 
   .exby {
-    font-size: 1.1rem;
+    font-size: 1.5rem;
 
     margin-left: 3%;
   }
