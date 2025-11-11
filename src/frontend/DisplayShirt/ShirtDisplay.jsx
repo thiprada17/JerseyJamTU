@@ -55,10 +55,8 @@ export default function ShirtDisplay() {
 
             }
         };
-
         verify();
     }, [navigate]);
-
 
     useEffect(() => {
         if (!id) {
@@ -72,7 +70,6 @@ export default function ShirtDisplay() {
 
     const [shirtData, setshirtData] = useState({});
     const [loading, setLoading] = useState(true);
-
     useEffect(() => {
         const fetchPosts = async () => {
             try {
@@ -82,26 +79,22 @@ export default function ShirtDisplay() {
             } catch (error) {
                 console.error("Error fetching posts:", error);
             } finally {
-        setLoading(false); 
+                setLoading(false);
             }
         };
 
         fetchPosts();
     }, [id]);
 
-
-
     const handleOrderClick = () => {
         window.open(shirtData.shirt_url, '_blank', 'noopener,noreferrer');
     };
 
     const [isFavorited, setIsFavorited] = useState(false);
-
     useEffect(() => {
         const CheckIsFavMai = async () => {
             try {
                 if (!user_id || !id) return;
-
                 const response = await fetch("http://localhost:8000/shirt/fav/check", {
                     method: "POST",
                     headers: {
@@ -112,7 +105,6 @@ export default function ShirtDisplay() {
                         shirt_id: id
                     })
                 });
-
                 const data = await response.json();
                 setIsFavorited(data);
             } catch (error) {
@@ -130,14 +122,12 @@ export default function ShirtDisplay() {
         return `${parts[2]}/${parts[1]}/${parts[0]}`; // DD/MM/YYYY นา
     };
 
-
     const toggleFavorite = async () => {
         if (!user_id) {
             alert("กรุณาเข้าสู่ระบบ");
             return;
         }
         if (!id) return;
-
         const favData = {
             user_id: user_id,
             shirt_id: id,
@@ -174,7 +164,6 @@ export default function ShirtDisplay() {
     };
 
     const [tags, setTags] = useState([]);
-
     useEffect(() => {
         const fetchTags = async () => {
             try {
@@ -188,7 +177,6 @@ export default function ShirtDisplay() {
         if (id) fetchTags();
     }, [id]);
 
-
     return (
         <>
             <div className="shirtDisplay-topBar">
@@ -197,11 +185,11 @@ export default function ShirtDisplay() {
                 </button>
             </div>
             {loading && (
-        <div className="loading-overlay">
-          <div className="spinner-border text-warning" role="status"></div>
-          <p className="loading-text">loading...</p>
-        </div>
-      )}
+                <div className="loading-overlay loading-overlay--blur">
+                    <div className="spinner-border text-warning" role="status"></div>
+                    <p className="loading-text">Loading...</p>
+                </div>
+            )}
             {shirtData && (
                 <div className="shirtDisplay-container" key={shirtData.id}>
 
@@ -263,25 +251,25 @@ export default function ShirtDisplay() {
                         </div>
                         <div className="shirtDisplay-right">
                             <div className="shirtDisplay-imageContainer">
-                              {shirtData.shirt_pic ? (
-                                <img
-                                  src={shirtData.shirt_pic}
-                                  alt={shirtData.shirt_name}
-                                  className="shirtDisplay-image"
-                                />
-                              ) : (
-                                <FaTshirt className="shirt-placeholder-icon" />
-                              )}
+                                {shirtData.shirt_pic ? (
+                                    <img
+                                        src={shirtData.shirt_pic}
+                                        alt={shirtData.shirt_name}
+                                        className="shirtDisplay-image"
+                                    />
+                                ) : (
+                                    <FaTshirt className="shirt-placeholder-icon" />
+                                )}
 
-                              {/* ปุ่มหัวใจทรศ */}
-                              <button
-                                className="shirtDisplay-heartButton heart-mobile"
-                                onClick={toggleFavorite}
-                              >
-                                <AiFillHeart
-                                  className={`heart-icon ${isFavorited ? 'favorited' : ''}`}
-                                />
-                              </button>
+                                {/* ปุ่มหัวใจทรศ */}
+                                <button
+                                    className="shirtDisplay-heartButton heart-mobile"
+                                    onClick={toggleFavorite}
+                                >
+                                    <AiFillHeart
+                                        className={`heart-icon ${isFavorited ? 'favorited' : ''}`}
+                                    />
+                                </button>
                             </div>
                         </div>
                     </div>
