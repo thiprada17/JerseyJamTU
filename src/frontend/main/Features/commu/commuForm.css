@@ -145,7 +145,7 @@ textarea.form-input {
 @media (max-width: 640px) {
   .form-box {
     width: 75%;
-    height: 50rem;
+    height: 51rem;
   }
   .form-header {
     font-size: 3rem;
@@ -153,11 +153,10 @@ textarea.form-input {
     margin: -10px -2rem 1.5rem;
   }
   .form-label {
-    margin-bottom: 5px;
     font-size: 1.5rem;
   }
   .form-input {
-    font-size: 1rem;
+    font-size: 1.3rem;
   }
   .submit-btn {
     font-size: 1rem;
@@ -179,7 +178,7 @@ textarea.form-input {
     font-size: 2rem;
   }
   .form-input {
-    font-size: 1.5rem;
+    font-size: 2rem;
   }
   .submit-btn {
     font-size: 1.5rem;

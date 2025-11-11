@@ -153,7 +153,7 @@ export default function CommuForm() {
         });
       }
       // setTimeout(() => navigate("/userprofile"), 400);
-      setTimeout(() => { navigate("/commu", { state: { postSuccess: true } }); }, 400);
+      setTimeout(() => { navigate("/commu", { state: { postSuccess: true } }); }, 1000);
 
     } catch (err) {
       console.error(err);
@@ -164,6 +164,15 @@ export default function CommuForm() {
       });
     }
   };
+
+  useEffect(() => {
+  if (notification.message) {
+    const timer = setTimeout(() => {
+      setNotification({ message: "", type: "" });
+    }, 2000); 
+    return () => clearTimeout(timer); // เคีย timer ถ้าcompoถูกปัดทิ้ง หรือ noti เปลี่ยน
+  }
+}, [notification.message]);
 
   return (
     <div className="form-body">

@@ -89,13 +89,13 @@ export default function Commu() {
 
   return (
     <div className="commu-body">
-      {showToast && (
+      {/* {showToast && (
         <Toast
           message="✅ Post Success!"
           duration={3000}
           onClose={() => setShowToast(false)}
         />
-      )}
+      )} */}
 
       <div className="commu-navbar">
         <Link to="/main" className="commu-navbar-back">
