@@ -14,7 +14,7 @@ export default function Filter({ onClose, onApply, onClear, value, onChange }) {
   ];
 
   const priceRanges = [
-    "200 - 300 บาท",
+    "ต่ำกว่า 300 บาท",
     "300 - 400 บาท",
     "400 - 500 บาท",
     "500 - 600 บาท",

@@ -176,6 +176,7 @@ export default function Main() {
       setSelectedFilters(incomingFilters);
       const TagID = [];
       const { faculties, price } = incomingFilters;
+      console.log(price)
       const hasAnyFilter =
         (faculties && faculties.length > 0) ||
         (typeof price === "string" && price.trim() !== "");
@@ -189,16 +190,18 @@ export default function Main() {
       let minPrice = 0;
       let maxPrice = 1000;
       if (price) {
-        if (price.includes('-')) {
-          const [min, max] = price.split('-').map(p => parseInt(p, 10));
-          minPrice = isNaN(min) ? 0 : min;
-          maxPrice = isNaN(max) ? 1000 : max;
-        } else {
-          const n = parseInt(price, 10);
-          minPrice = isNaN(n) ? 0 : n;
+        if (price.includes("ต่ำกว่า")) {
+          maxPrice = parseInt(price.match(/\d+/)[0]);
+        } else if (price.includes("ขึ้นไป")) {
+          minPrice = parseInt(price.match(/\d+/)[0]);
           maxPrice = 1000;
+        } else if (price.includes("-")) {
+          const [min, max] = price.match(/\d+/g).map(Number);
+          minPrice = min;
+          maxPrice = max;
         }
       }
+      console.log(price)
 
       const prefixedFaculties = faculties.map(fac => `คณะ${fac}`);
       prefixedFaculties.forEach(faculty => {
@@ -268,9 +271,9 @@ export default function Main() {
   }, [showFilter]);
 
   function handleLogout() {
-  localStorage.removeItem("token");
-  navigate("/")
-}
+    localStorage.removeItem("token");
+    navigate("/")
+  }
 
 
   return (
@@ -289,11 +292,11 @@ export default function Main() {
           <div className="main-navbar-user-username">{username}</div>
         </Link>
         <div className="main-navbar-logo">JerseyJamTU</div>
-                <button className="main-navbar-logout" onClick={handleLogout}>
-        Log out
+        <button className="main-navbar-logout" onClick={handleLogout}>
+          Log out
         </button>
       </div>
-              
+
 
       <div className="main-topic">
         <div className="main-popup-container">
