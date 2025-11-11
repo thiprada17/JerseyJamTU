@@ -235,7 +235,7 @@ export default function UserProfile() {
                         to="/display"
                         state={{ id: item.shirt_id }}
                       >
-                        <div>see more<br />details</div>
+                        <span>see more details</span>
                       </Link>
                     </div>
                   </div>

@@ -135,6 +135,8 @@
     display: flex;
     justify-content: center;
     font-size: 2.5rem;
+    background: #DF2D3B;
+    color: #fff;
 }
 
 .up-tab {
@@ -148,8 +150,8 @@
 }
 
 .active-tabs {
-    background: #DF2D3B;
-    color: #fff;
+    background: #fff;
+    color: #000;
 }
 
 .up-content {
@@ -187,6 +189,8 @@
     overflow: hidden;
     background: #fff;
     box-shadow: 2px 3px 5px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
 }
 
 .up-post-photo {
@@ -195,7 +199,7 @@
     overflow: hidden;
     margin: 10px;
     justify-content: center;
-    border: 1px solid black;
+    border: 1.5px solid black;
     border-radius: 25px;
 }
 
@@ -356,3 +360,201 @@
   height: 50vh;
   text-align: center;
 }
+
+@media (max-width: 430px) {
+  .up-top {
+    height: 22rem;
+    padding: 1rem;
+    font-size: 1.6rem;
+    padding-bottom: 7px;
+  }
+
+  .up-home-icon {
+    width: 3.2rem;
+    margin: 1rem;
+  }
+
+  .up-top-container {
+    padding-top: 0.5rem;
+  }
+
+  .up-username {
+    top: 3.5rem;
+    gap: 8px;
+  }
+
+  .up-usericon {
+    width: 3.2rem;
+  }
+
+  .up-username-name {
+    font-size: 2.9rem;
+    line-height: 2.6rem;
+    -webkit-text-stroke: 1.5px #000;
+  }
+
+  .up-top-box {
+    margin-top: -2.7rem;
+    width: calc(100% - 3rem);
+    padding: 0 1.5rem;
+    gap: 2rem;
+    height: 10rem;
+    margin-bottom: 0;
+    width: 9;
+    border-width: 1.5px;
+    border-radius: 2.5rem;
+  }
+
+  .up-year, .up-faculty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .up-year-num,
+  .up-faculty-name {
+    font-size: 3rem;
+    line-height: 3.2rem;
+    -webkit-text-stroke: 1.5px #000;
+    color: #FFF4DF;
+  }
+
+  .up-tabs {
+    font-size: 1.9rem;
+    margin-top: -3.7rem;
+    position: relative;
+    z-index: 10;
+  }
+  .up-tab {
+    height: 4.5rem;
+    border-width: 1.5px;
+    margin-top: 0rem;
+  }
+
+  .up-content {
+    padding: 1.6rem 1.2rem;
+    min-height: auto;
+    background-size: 22px auto;
+  }
+
+  .up-fav-grid {
+    grid-template-columns: repeat(2, 1fr);
+    column-gap: 1.2rem;
+    row-gap: 1.6rem;
+    padding: 0;
+    margin: 0;
+  }
+
+  .up-fav-post {
+    width: 100%;
+    max-width: 180px; 
+    height: auto;
+    border-radius: 18px;
+  }
+
+  .up-post-photo {
+    height: 190px;
+    margin: 4px 6px;
+    border-radius: 18px;
+  }
+
+  .up-fav-detail {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 6px;
+    padding: 8px 10px 12px;
+    height: auto;
+  }
+
+  .up-fav-detail-name {
+    flex: unset;
+    width: 100%;
+    text-align: center;
+    font-size: 1.5rem;
+    display: block;
+    margin: 0;
+  }
+
+  .up-fav-cmore {
+    align-self: center;
+    width: 9.9rem;
+    height: 3rem;
+    font-size: 1.1rem;
+    line-height: 1.2;
+  }
+
+  
+  .up-btn {
+    font-size: 1.2rem;
+    padding: 0.6rem 1.2rem;
+    border-radius: 10px;
+    box-shadow: 1px 2px 0 rgba(0,0,0,.5);
+  }
+
+  .up-loading,
+  .up-error,
+  .up-empty {
+    font-size: 1.6rem;
+    padding: 2rem 0;
+    height: auto;
+  }
+
+  .commu-grid {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.8rem;
+  }
+  .commu-post {
+    width: 90%;
+    max-width: 300px;
+    padding: 0.8rem 1rem;
+    border: 1.5px solid #000;
+    border-radius: 12px;
+    background-color: #fff;
+    box-shadow: 2px 3px 5px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    height: auto;      
+  }
+  .commu-post-topic {
+    font-size: 1.6rem;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 0.3rem;
+  }
+  .commu-post-detail,
+  .commu-post-contact {
+    font-size: 1.4rem;
+    line-height: 1.4rem;
+  }
+  .up-post-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+ }
+}
+
+@media (max-width: 360px) {
+  .up-fav-grid {
+    grid-template-columns: 1fr;
+  }
+  .up-fav-post {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 430px) {
+  .up-content {
+    background-image: url('../../assets/dot_bg.png') !important;
+    background-repeat: repeat-y !important;
+    background-size: 100% auto;
+    background-position: top center;
+    background-attachment: scroll
+  }
+}
+

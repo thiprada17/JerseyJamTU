@@ -82,6 +82,18 @@ export default function SignUp({ scrollToHome, scrollToLogIn }) {
       return;
     }
 
+    const YEAR_OPTIONS = [
+      "1","2","3","4","5","6","7","8","อาจารย์","บุคลากร"
+    ];
+
+    if (userData.year && !YEAR_OPTIONS.includes(userData.year)) {
+      setNotification({
+        message: "กรุณาเลือกชั้นปี/สถานะจากรายการที่กำหนด",
+        type: "error",
+      });
+      return;
+    }
+
     try {
       const response = await fetch('http://localhost:8000/add-user/register', {
         method: 'POST',
@@ -117,9 +129,7 @@ export default function SignUp({ scrollToHome, scrollToLogIn }) {
   });
 
   return (
-    <div
-      className="signup-page"
-    >
+    <div className="signup-page">
       <div className="signup-header">
         <button className="signup-back-btn" onClick={scrollToHome}>
           <img src={arrowIcon} alt="Back" className="signup-arrow-icon" />
@@ -128,7 +138,7 @@ export default function SignUp({ scrollToHome, scrollToLogIn }) {
 
       <form className="signup-form-wrapper" onSubmit={handleSubmit} noValidate>
         <div className="signup-form-row row-username row-email">
-          <div className="input-group" >
+          <div className="input-group">
             <label>Username:</label>
             <input
               type="text"
@@ -170,18 +180,33 @@ export default function SignUp({ scrollToHome, scrollToLogIn }) {
               ))}
             </datalist>
           </div>
+
           <div className="input-group">
             <label>Year:</label>
             <input
-              type="number"
+              type="text"
               name="year"
               value={userData.year}
               onChange={handleChange}
-              placeholder="Enter year"
+              placeholder="Select year/status"
               required
-              min={1}
-              max={8}
+              list="year-options"
+              readOnly
+              onFocus={(e) => e.target.removeAttribute('readonly')}
+              onBlur={(e) => e.target.setAttribute('readonly', true)}
             />
+            <datalist id="year-options">
+              <option value="1" />
+              <option value="2" />
+              <option value="3" />
+              <option value="4" />
+              <option value="5" />
+              <option value="6" />
+              <option value="7" />
+              <option value="8" />
+              <option value="อาจารย์" />
+              <option value="บุคลากร" />
+            </datalist>
           </div>
         </div>
 
@@ -209,7 +234,8 @@ export default function SignUp({ scrollToHome, scrollToLogIn }) {
           <div className="signup-actions">
             <button type="submit" className="btn-login">Sign up</button>
             <p className="signup-text">
-              Already have an account? <span className="signup-link" onClick={scrollToLogIn}>Log in</span>
+              Already have an account?{" "}
+              <span className="signup-link" onClick={scrollToLogIn}>Log in</span>
             </p>
             {successMessage && (
               <p className="success-message">{successMessage}</p>
@@ -217,6 +243,7 @@ export default function SignUp({ scrollToHome, scrollToLogIn }) {
           </div>
         </div>
       </form>
+
       {showToast && (
         <Toast
           message="🎉 Sign up success!"
