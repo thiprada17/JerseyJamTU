@@ -25,10 +25,17 @@ export default function SignUp({ scrollToHome, scrollToLogIn }) {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
+    let value2 = value;
+
+    if (name === "year") {
+      if (value.startsWith("ปี ")) {
+        value2 = value.replace("ปี ", "");
+      }
+    }
 
     setuserData(prevState => ({
       ...prevState,
-      [name]: value
+      [name]: value2
     }));
   };
 
@@ -43,6 +50,8 @@ export default function SignUp({ scrollToHome, scrollToLogIn }) {
     "วิทยาลัยโลกคดีศึกษา(SGS)", "สถาบันเทคโนโลยีนานาชาติสิรินธร(SIIT)",
     "วิทยาลัยนานาชาติ ปรีดี พนมยงค์(PBIC)"
   ];
+
+  const YEARS = ["1", "2", "3", "4", "5", "6", "7", "8", "บุคลากร"];
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -186,7 +195,7 @@ export default function SignUp({ scrollToHome, scrollToLogIn }) {
             <input
               type="text"
               name="year"
-              value={userData.year}
+              value={userData.year}     
               onChange={handleChange}
               placeholder="Select year/status"
               required

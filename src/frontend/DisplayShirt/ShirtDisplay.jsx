@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import './shirtDisplay.css';
-import defaultJerseyImage from '../../assets/sampleShirt.png';
+// import defaultJerseyImage from '../../assets/sampleShirt.png';
 import { useLocation } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { AiFillHeart } from "react-icons/ai";
