@@ -14,11 +14,11 @@ export default function Filter({ onClose, onApply, onClear, value, onChange }) {
   ];
 
   const priceRanges = [
-    "0 - 100 บาท",
-    "100 - 200 บาท",
-    "200 - 300 บาท",
+    "ต่ำกว่า 300 บาท",
     "300 - 400 บาท",
-    "500 บาท ขึ้นไป"
+    "400 - 500 บาท",
+    "500 - 600 บาท",
+    "600 บาท ขึ้นไป"
   ];
 
   const selectedFaculties = value?.faculties || [];

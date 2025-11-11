@@ -25,10 +25,17 @@ export default function SignUp({ scrollToHome, scrollToLogIn }) {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
+    let value2 = value;
+
+    if (name === "year") {
+      if (value.startsWith("ปี ")) {
+        value2 = value.replace("ปี ", "");
+      }
+    }
 
     setuserData(prevState => ({
       ...prevState,
-      [name]: value
+      [name]: value2
     }));
   };
 
@@ -43,6 +50,8 @@ export default function SignUp({ scrollToHome, scrollToLogIn }) {
     "วิทยาลัยโลกคดีศึกษา(SGS)", "สถาบันเทคโนโลยีนานาชาติสิรินธร(SIIT)",
     "วิทยาลัยนานาชาติ ปรีดี พนมยงค์(PBIC)"
   ];
+
+  const YEARS = ["1", "2", "3", "4", "5", "6", "7", "8", "บุคลากร"];
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -77,6 +86,14 @@ export default function SignUp({ scrollToHome, scrollToLogIn }) {
     if (userData.faculty && !FACULTIES.includes(userData.faculty)) {
       setNotification({
         message: "กรุณาเลือกคณะจากรายการที่กำหนด",
+        type: "error",
+      });
+      return;
+    }
+
+    if (!YEARS.includes(userData.year)) {
+      setNotification({
+        message: "กรุณาเลือกชั้นปีจากรายการที่กำหนด",
         type: "error",
       });
       return;
@@ -170,18 +187,29 @@ export default function SignUp({ scrollToHome, scrollToLogIn }) {
               ))}
             </datalist>
           </div>
+
+
           <div className="input-group">
             <label>Year:</label>
             <input
-              type="number"
               name="year"
-              value={userData.year}
+              value={userData.year}     
               onChange={handleChange}
-              placeholder="Enter year"
+              placeholder="Select year"
+              list="year-options"
               required
-              min={1}
-              max={8}
             />
+            <datalist id="year-options">
+              <option value="ปี 1" />
+              <option value="ปี 2" />
+              <option value="ปี 3" />
+              <option value="ปี 4" />
+              <option value="ปี 5" />
+              <option value="ปี 6" />
+              <option value="ปี 7" />
+              <option value="ปี 8" />
+              <option value="บุคลากร" />
+            </datalist>
           </div>
         </div>
 
