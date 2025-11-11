@@ -17,7 +17,7 @@ export default function Closetmm() {
   const frameId = location.state?.frameId;
   const selectedImages = location.state?.selectedImages || {};
 
-useEffect(() => {
+  useEffect(() => {
     const verify = async () => {
       try {
         const authToken = localStorage.getItem('token');
@@ -67,6 +67,7 @@ useEffect(() => {
 
   useEffect(() => {
     async function fetchItems() {
+      setLoading(true);
       try {
         if (category === "Jersey") {
           const response = await fetch(`http://localhost:8000/shirt/info/get`);
@@ -83,11 +84,12 @@ useEffect(() => {
       } catch (error) {
         console.error("Closetmm fetch error:", error);
         setItems([]);
+      } finally {
+        setLoading(false);
       }
     }
     fetchItems();
   }, [category]);
-
 
   const handleSelect = (imageUrl) => {
     console.log("Closetmm: handleSelect for frameId", frameId, "imageUrl:", imageUrl);
@@ -148,18 +150,31 @@ useEffect(() => {
 
       <div className="closet-right">
         <div className="closet-grid">
-          {items.length === 0 && <h1 className="closet-title">ยังมะมีรูปจ้า</h1>}
-          {items.map((item, index) => (
-            <div
-              className="closet-item"
-              key={item.id || index}
-              onClick={() =>
-                handleSelect(item.url || item.shirt_pic)
-              }
-            >
-              <img src={item.url || item.shirt_pic} alt={item.shirt_name || item.name} />
+          {loading ? (
+            <div className="loading-overlay loading-grid-overlay">
+              <div className="spinner-border text-secondary" role="status"></div>
+              <div className="loading-text">Loading...</div>
             </div>
-          ))}
+          ) : (
+            <>
+              {items.length === 0 ? (
+                <h1 className="closet-title">ยังไม่มีรูปจ้า</h1>
+              ) : (
+                items.map((item, index) => (
+                  <div
+                    className="closet-item"
+                    key={item.id || index}
+                    onClick={() => handleSelect(item.url || item.shirt_pic)}
+                  >
+                    <img
+                      src={item.url || item.shirt_pic}
+                      alt={item.shirt_name || item.name}
+                    />
+                  </div>
+                ))
+              )}
+            </>
+          )}
         </div>
       </div>
     </div>

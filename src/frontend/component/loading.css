@@ -1,16 +1,15 @@
 .loading-overlay {
-  position: absolute;
-  top: 60px; /* เว้นจาก topbar*/
+  position: fixed;
+  top: 0;
   left: 0;
   width: 100%;
-  height: calc(100% - 60px);
-  background-color: rgba(255, 255, 255, 0.7);
+  height: 100%;
+  background: transparent;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  z-index: 50; /* อยู่เหนือเนื้อหาแต่ใต้ topbar */
-  backdrop-filter: blur(2px);
+  z-index: 9999;
   animation: fadeIn 0.3s ease-in;
 }
 
@@ -25,6 +24,21 @@
   font-weight: 600;
   color: #b58f00;
   animation: pulse 1.5s infinite;
+}
+
+.loading-grid-overlay {
+  position: absolute;
+  inset: 0; 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+  backdrop-filter: none;
+}
+
+.loading-overlay--blur {
+  background-color: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(3px);
 }
 
 @keyframes fadeIn {
