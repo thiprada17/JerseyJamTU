@@ -57,7 +57,7 @@
   font-size: clamp(3rem, 2.5vw, 1.5rem);
 
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
 
   position: relative;
@@ -72,9 +72,9 @@
   display: flex;
   align-items: center;
   gap: 1rem;
-  position: absolute;
-  left: 2rem;
+  margin-right: 2rem;
   text-decoration: none;
+  padding-bottom: 1rem;
 }
 
 .commu-navbar-username {
@@ -88,14 +88,29 @@
   height: 3rem;
 }
 
-.commu-navbar-home {
-  position: absolute;
-  right: 2rem;
+.commu-navbar-back {
+  position: relative;
+  text-decoration: none;
+  padding-top: 2.2rem;
 }
 
-.commu-navbar-home-icon {
-  width: 4rem;
-  height: 4rem;
+.commu-navbar-backButton {
+  background: none;
+  border: none;
+  font-size: 2.3rem;
+  font-family: "Kanit", sans-serif;
+  cursor: pointer;
+  color: #6660d4;
+  display: flex;
+  align-items: center;
+  transition: color 0.2s ease;
+  margin-left: 2rem;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.commu-navbar-backButton:hover {
+  color: #d62828;
 }
 
 .commu-topic {
@@ -206,6 +221,7 @@
 
 .commu-post-contact {
   margin-top: auto;
+  word-wrap: break-word;
   font-size: 2rem;
   margin-left: 0.6rem;
   font-family: "Kanit";
@@ -218,69 +234,209 @@
 }
 
 @media (max-width: 640px) {
-  .commu-navbar {
-    background-color: white;
-    width: 100%;
-    height: auto;
-    padding: 1rem 0.5rem;
-    text-align: center;
-    font-family: "Nec", sans-serif;
-    border-bottom: 1px solid black;
-    font-size: clamp(3rem, 2.5vw, 1.5rem);
-
-    display: flex;
-    align-items: center;
-
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
   .commu-navbar-logo {
-    font-size: 2.5rem;
-    flex-shrink: 0;
+    font-size: 2rem;
   }
 
   .commu-navbar-user {
-    gap: 1rem;
-    left: 0rem;
-    flex: 1;
-    padding-left: 2rem;
-    min-width: 0;
+    margin-right: 1rem;
+    gap: 0.8rem;
+    padding-top: 0.3rem;
   }
 
   .commu-navbar-username {
-    font-size: 1.8rem;
+    font-size: 1.5rem;
   }
 
   .commu-navbar-user-icon {
-    width: 3rem;
-    height: 3rem;
+    width: 2rem;
+    height: 2rem;
   }
 
-  .commu-navbar-home {
-    right: 2rem;
-    display: flex;
-    flex: 1;
-    padding-right: 2rem;
+  .commu-navbar-back {
+    padding-top: 1.5rem;
   }
 
-  .commu-navbar-home-icon {
-    width: 4rem;
-    height: 4rem;
+  .commu-navbar-backButton {
+    font-size: 1.5rem;
+    margin-left: 1rem;
+  }
+
+  .commu-topic {
+    height: 30rem;
+  }
+
+  .commu-popup-container {
+    position: relative;
+    width: 100%;
+    max-width: 100rem;
+    margin: 0 auto;
+  }
+
+  .commu-popup-img {
+    width: 80%;
+    display: block;
+    margin: 0 auto;
+  }
+
+  .commu-popup-button {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80%;
+    height: 30%;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    border-radius: 0 0 25px 25px;
+  }
+
+  .commu-container {
+    background-size: 150% auto;
+    padding: 3rem;
+  }
+
+  .commu-posttext {
+    font-size: 3rem;
+    margin-bottom: 4rem;
+  }
+
+  .commu-grid {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    gap: 3rem;
+  }
+
+  .commu-post-topic {
+    font-size: 2rem;
+  }
+
+  .commu-post-detail {
+    font-size: 1.5rem;
+  }
+
+  .commu-post-contact {
+    font-size: 1.5rem;
+  }
+
+  .commu-post-contact a {
+    color: blue;
+    text-decoration: underline;
+    bottom: 1;
   }
 }
 
 @media (min-width: 640px) {
+  .commu-navbar-logo {
+    font-size: 2rem;
+  }
+
+  .commu-navbar-user {
+    margin-right: 1rem;
+    gap: 0.8rem;
+    padding-top: 0.3rem;
+  }
+
+  .commu-navbar-username {
+    font-size: 1.5rem;
+  }
+
+  .commu-navbar-user-icon {
+    width: 2rem;
+    height: 2rem;
+  }
+
+  .commu-navbar-back {
+    padding-top: 1.5rem;
+  }
+
+  .commu-navbar-backButton {
+    font-size: 1.5rem;
+    margin-left: 1rem;
+  }
+
+  .commu-topic {
+    height: 50rem;
+  }
+
+  .commu-popup-container {
+    position: relative;
+    width: 100%;
+    max-width: 100rem;
+    margin: 0 auto;
+  }
+
+  .commu-popup-img {
+    width: 70%;
+    display: block;
+    margin: 0 auto;
+  }
+
+  .commu-popup-button {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 70%;
+    height: 30%;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    border-radius: 0 0 25px 25px;
+  }
+
+  .commu-container {
+    background-size: 170% auto !important;
+    padding: 3rem;
+  }
+
+  .commu-posttext {
+    font-size: 4rem;
+    margin-bottom: 4rem;
+  }
+
+  .commu-grid {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    gap: 3rem;
+  }
+
+  .commu-post-topic {
+    font-size: 3rem;
+  }
+
+  .commu-post-detail {
+    font-size: 2rem;
+  }
+
+  .commu-post-contact {
+    font-size: 2rem;
+  }
+
+  .commu-post-contact a {
+    color: blue;
+    text-decoration: underline;
+    bottom: 1;
+  }
 }
 
 @media (min-width: 1024px) {
+  .commu-navbar {
+    width: 100%;
+    height: auto;
+    padding: 1rem 0.5rem;
+    text-align: center;
+  }
+
   .commu-navbar-logo {
     font-size: 3rem;
   }
 
   .commu-navbar-user {
     gap: 1rem;
-    left: 2rem;
+    margin-right: 2rem;
+    padding-bottom: 1rem;
   }
 
   .commu-navbar-username {
@@ -292,12 +448,73 @@
     height: 3rem;
   }
 
-  .commu-navbar-home {
-    right: 2rem;
+  .commu-navbar-back {
+    padding-top: 2.2rem;
   }
 
-  .commu-navbar-home-icon {
-    width: 4rem;
-    height: 4rem;
+  .commu-navbar-backButton {
+    font-size: 2.3rem;
+    margin-left: 2rem;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  .commu-topic {
+    width: 100%;
+    height: 60rem;
+  }
+
+  .commu-popup-container {
+    width: 50%;
+    max-width: 60rem;
+    margin: 0 auto;
+  }
+  .commu-popup-img {
+    width: 100%;
+  }
+
+  .commu-popup-button {
+    height: 30%;
+  }
+
+  .commu-container {
+    min-height: 100vh;
+    background-image: url("../../../../assets/bg-commu.png");
+    background-repeat: repeat-y;
+    background-size: cover;
+    background-position: top center;
+    padding: 6rem;
+  }
+
+  .commu-posttext {
+    font-size: 5rem;
+    margin-bottom: 20px;
+  }
+
+  .commu-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 6rem;
+  }
+
+  .commu-post {
+    min-height: 30rem;
+  }
+
+  .commu-post-topic {
+    font-size: 3rem;
+    min-width: 4rem;
+  }
+
+  .commu-post-detail {
+    font-size: 2rem;
+    margin-top: 1rem;
+    margin-bottom: 1.5rem;
+    margin-left: 0.6rem;
+  }
+
+  .commu-post-contact {
+    font-size: 2rem;
+    margin-left: 0.6rem;
   }
 }
