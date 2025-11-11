@@ -100,7 +100,7 @@ export default function luckyColor() {
         <div className="LuckyC-from">
           <span className="LuckyC-from1">แหล่งที่มา</span>
           <br />
-          <span className="LuckyC*from2">
+          <span className="LuckyC-from2">
             สีเสื้อมงคล 2568 แจกตารางสีเสริมดวงดี รับทรัพย์ เพิ่มความปังตลอดปี!
             - phusuda{" "}
           </span>

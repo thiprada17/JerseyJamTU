@@ -255,7 +255,8 @@ export default function Main() {
 
   useEffect(() => {
     function handleClickOutside(event) {
-      if (filterRef.current && !filterRef.current.contains(event.target)) {
+      if (filterRef.current && !filterRef.current.contains(event.target) &&
+      !event.target.closest(".filters-button")) {
         setShowFilter(false);
       }
     }
