@@ -374,27 +374,6 @@ export default function Main() {
               </Link>
             ))
           )}
-          {/* {posts.map((post, index) => (
-            <Link
-              to="/display"
-              state={{ id: post.id }}
-              key={post.id}
-              style={{ textDecoration: 'none', color: 'black' }}
-            >
-              <div
-                ref={el => postRefs.current[index] = el}
-                className="main-post fade-in-up"
-              >
-                <div className="main-post-photo">
-                  <img src={post.shirt_pic} alt={post.shirt_name} />
-                </div>
-                <div className="main-post-detail-card">
-                  <div className="shirt-name">{post.shirt_name}</div>
-                  <div className="price">{post.shirt_price} ฿</div>
-                </div>
-              </div>
-            </Link>
-          ))} */}
         </div>
       </div>
     </div>
