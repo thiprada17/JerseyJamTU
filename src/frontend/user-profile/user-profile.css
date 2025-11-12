@@ -189,8 +189,6 @@
   overflow: hidden;
   background: #fff;
   box-shadow: 2px 3px 5px rgba(0, 0, 0, 0.1);
-  display: flex;
-  flex-direction: column;
 }
 
 .up-post-photo {
@@ -362,7 +360,6 @@
 }
 
 @media (max-width: 430px) {
-
   .up-top {
     height: 22rem;
     padding: 1rem;
@@ -492,7 +489,6 @@
     line-height: 1.2;
   }
 
-
   .up-btn {
     font-size: 1.2rem;
     padding: 0.6rem 1.2rem;
@@ -515,7 +511,6 @@
     gap: 0.8rem;
   }
 
- 
   .up-post-actions {
     display: flex;
     justify-content: flex-end;
@@ -524,27 +519,24 @@
   }
 
   .commu-post {
-  flex-direction: column;
-  min-height: 25rem;
-  height: auto;
-  border: 1.5px solid #000;
-}
+    flex-direction: column;
+    min-height: 25rem;
+    height: auto;
+    border: 1.5px solid #000;
+  }
 
-.commu-post-topic {
-  border: 1.5px solid #000;
-  font-size: 1.7rem;
-}
+  .commu-post-topic {
+    border: 1.5px solid #000;
+    font-size: 1.7rem;
+  }
 
-.commu-post-detail {
-  font-size: 1.5rem;
-}
+  .commu-post-detail {
+    font-size: 1.5rem;
+  }
 
-.commu-post-contact {
-  font-size: 1.5rem;
-}
-
-
-
+  .commu-post-contact {
+    font-size: 1.5rem;
+  }
 }
 
 @media (max-width: 360px) {
@@ -554,5 +546,99 @@
 
   .up-fav-post {
     max-width: 100%;
+  }
+}
+
+@media screen and (min-width: 820px) and (max-width: 1024px) and (orientation: portrait) {
+  .up-top {
+    height: 30rem;
+  }
+
+  .up-username {
+    top: 5rem;
+  }
+
+  .up-username-name {
+    font-size: 3.6rem;
+  }
+
+  .up-top-box {
+    width: 80%;
+    height: 14rem;
+  }
+
+  .up-tabs {
+    font-size: 2.2rem;
+  }
+
+  .up-fav-grid {
+    grid-template-columns: repeat(2, 1fr);
+    column-gap: 1.6rem;
+    row-gap: 2rem;
+    padding: 0 2rem;
+    margin: 0;
+  }
+
+  .up-fav-post {
+    width: 100%;
+    max-width: 230px;
+    height: auto;
+  }
+
+  .up-post-photo {
+    height: 250px;
+  }
+
+  .up-fav-detail {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 6px;
+    padding: 8px 10px 12px;
+    height: auto;
+  }
+
+  .up-fav-detail-name {
+    flex: unset;
+    width: 100%;
+    text-align: center;
+    font-size: 1.8rem;
+    display: block;
+    margin: 0;
+  }
+
+  .up-fav-cmore {
+    align-self: center;
+    width: 11rem;
+    height: 3.4rem;
+    font-size: 1.2rem;
+    line-height: 1.2;
+  }
+}
+
+@media screen and (min-width: 1180px) and (max-width: 1366px) and (orientation: landscape) {
+  .up-top {
+    height: 35rem;
+  }
+
+  .up-top-box {
+    width: 50rem;
+    height: 16rem;
+  }
+
+  .up-year-num,
+  .up-faculty-name {
+    font-size: 4rem;
+  }
+
+  .up-fav-grid {
+    grid-template-columns: repeat(3, 1fr);
+    row-gap: 4rem;
+  }
+
+  .up-fav-post {
+    width: 26rem;
+    height: 36rem;
   }
 }
