@@ -66,11 +66,28 @@ export default function SellerForm() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    if (
+      !formData.shirt_name ||
+      formData.shirt_price === "" ||
+      !formData.shirt_open_date_raw ||
+      !formData.shirt_close_date_raw ||
+      !formData.shirt_detail ||
+      !formData.shirt_url
+    ) {
+      setNotification({ message: "กรุณากรอกข้อมูลให้ครบถ้วน", type: "error" });
+      return;
+    }
+
     // << เพิ่ม: validate วันปิดต้องมากกว่าวันเปิด (noti แทน alert)
     const o = formData.shirt_open_date_raw;
     const c = formData.shirt_close_date_raw;
     if (!o || !c || c <= o) {
       setNotification({ message: "กรุณากรอกวันที่ให้ถูกต้อง: วันปิดต้องมากกว่าวันเปิด", type: "error" });
+      return;
+    }
+
+    if (!imageFile) {
+      setNotification({ message: "กรุณาอัปโหลดรูปภาพเสื้อ", type: "error" });
       return;
     }
 
@@ -80,6 +97,7 @@ export default function SellerForm() {
       const fileExt = imageFile.name.split(".").pop();
       const fileName = `${Date.now()}.${fileExt}`;
       const filePath = `shirt/${fileName}`;
+    
 
       // อัปโหลดไฟล์ไป Supabase
       const { data: uploadData, error: uploadError } = await supabase
@@ -230,6 +248,7 @@ export default function SellerForm() {
                 onChange={handleChange}
                 className="sellerform-input"
                 placeholder="Rockstar Jersey, TU Jersey..."
+                required
               />
             </label>
 
@@ -260,6 +279,7 @@ export default function SellerForm() {
                 }}
                 min={0}
                 max={1000}
+                required
               />
             </label>
 
@@ -273,6 +293,7 @@ export default function SellerForm() {
                   placeholder="dd/mm/yyyy"
                   className="sellerform-input"
                   onClick={() => document.getElementById("hiddenDateOpen").showPicker()}
+                  required
                 />
                 <input
                   type="date"
@@ -320,6 +341,7 @@ export default function SellerForm() {
                   placeholder="dd/mm/yyyy"
                   className="sellerform-input"
                   onClick={() => document.getElementById("hiddenDateClose").showPicker()}
+                  required
                 />
                 <input
                   type="date"
@@ -373,7 +395,7 @@ export default function SellerForm() {
             </div>
 
             <div className="sellerform-block">
-              <span className="sellerform-labelTop">ลิงก์ฟอร์มซื้อเสื้อ</span>
+              <span className="sellerform-labelTop">ลิงก์ฟอร์มสั่งซื้อ</span>
               <input
                 name="shirt_url"
                 value={formData.shirt_url}

@@ -60,9 +60,12 @@ export default function Login({ scrollToHome, scrollToSignup }) {
       setNotification({ message: "กรุณากรอก Email ให้ถูกต้อง", type: "error" });
       return;
     }
-
-    if (!password || password.length < 8) {
-      setNotification({ message: "รหัสผ่านต้องมีอย่างน้อย 8 ตัวอักษร", type: "error" });
+    if (!password) {
+      setNotification({ message: "กรุณากรอกรหัสผ่าน", type: "error" });
+      return;
+    }
+    if (password.length < 8) {
+      setNotification({ message: "กรุณากรอกรหัสผ่านให้ถูกต้อง", type: "error" });
       return;
     }
     if (thaiRegex.test(password)) {

@@ -50,7 +50,7 @@ export default function SignUp({ scrollToHome, scrollToLogIn }) {
     "วิทยาลัยโลกคดีศึกษา(SGS)", "สถาบันเทคโนโลยีนานาชาติสิรินธร(SIIT)",
     "วิทยาลัยนานาชาติ ปรีดี พนมยงค์(PBIC)"
   ];
-
+  
   const YEARS = ["1", "2", "3", "4", "5", "6", "7", "8", "บุคลากร"];
 
   const handleSubmit = async (e) => {
@@ -58,8 +58,33 @@ export default function SignUp({ scrollToHome, scrollToLogIn }) {
 
     const emailPattern = /^[^\s@]+@dome\.tu\.ac\.th$/;
     const thaiRegex = /[\u0E00-\u0E7F]/;
+    const usernamePattern = /^[A-Za-z0-9\u0E00-\u0E7F]+$/;
 
-    if (!emailPattern.test(userData.email)) {
+    const username = (userData.username || "").trim();
+    const email = (userData.email || "").trim();
+    const faculty = (userData.faculty || "").trim();
+    const year = (userData.year || "").trim();
+    const password = userData.password || "";
+
+    if (!username) {
+      setNotification({ message: "กรุณากรอก Username", type: "error" });
+      return;
+    }
+
+    if (!usernamePattern.test(username)) {
+      setNotification({
+        message: "กรุณากรอก username ให้ถูกต้อง\n(ภาษาไทย ภาษาอังกฤษ หรือตัวเลขเท่านั้น)",
+        type: "error",
+      });
+      return;
+    }
+
+    if (!email) {
+      setNotification({ message: "กรุณากรอก email", type: "error" });
+      return;
+    }
+
+    if (!emailPattern.test(email)) {
       setNotification({
         message: "กรุณากรอกอีเมลที่ลงท้ายด้วย @dome.tu.ac.th เท่านั้น",
         type: "error",
@@ -67,23 +92,12 @@ export default function SignUp({ scrollToHome, scrollToLogIn }) {
       return;
     }
 
-    if (userData.password.length < 8) {
-      setNotification({
-        message: "รหัสผ่านต้องมีอย่างน้อย 8 ตัวอักษร",
-        type: "error",
-      });
+    if (!faculty) {
+      setNotification({ message: "กรุณาเลือก Faculty", type: "error" });
       return;
     }
 
-    if (thaiRegex.test(userData.password)) {
-      setNotification({
-        message: "รหัสผ่านห้ามมีอักษรภาษาไทย",
-        type: "error",
-      });
-      return;
-    }
-
-    if (userData.faculty && !FACULTIES.includes(userData.faculty)) {
+    if (faculty && !FACULTIES.includes(faculty)) {
       setNotification({
         message: "กรุณาเลือกคณะจากรายการที่กำหนด",
         type: "error",
@@ -91,13 +105,36 @@ export default function SignUp({ scrollToHome, scrollToLogIn }) {
       return;
     }
 
-    const YEAR_OPTIONS = [
-      "1","2","3","4","5","6","7","8","อาจารย์","บุคลากร"
-    ];
+    if (!year) {
+      setNotification({ message: "กรุณาเลือก Year", type: "error" });
+      return;
+    }
 
-    if (userData.year && !YEAR_OPTIONS.includes(userData.year)) {
+    const YEAR_OPTIONS = ["1","2","3","4","5","6","7","8","อาจารย์","บุคลากร"];
+    if (year && !YEAR_OPTIONS.includes(year)) {
       setNotification({
         message: "กรุณาเลือกชั้นปี/สถานะจากรายการที่กำหนด",
+        type: "error",
+      });
+      return;
+    }
+
+    if (!password) {
+      setNotification({ message: "กรุณากรอกรหัสผ่าน", type: "error" });
+      return;
+    }
+
+    if (password.length < 8) {
+      setNotification({
+        message: "รหัสผ่านต้องมีอย่างน้อย 8 ตัวอักษร",
+        type: "error",
+      });
+      return;
+    }
+
+    if (thaiRegex.test(password)) {
+      setNotification({
+        message: "รหัสผ่านห้ามมีอักษรภาษาไทย",
         type: "error",
       });
       return;
@@ -107,7 +144,7 @@ export default function SignUp({ scrollToHome, scrollToLogIn }) {
       const response = await fetch('http://localhost:8000/add-user/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(userData),
+        body: JSON.stringify({ ...userData, username, email, faculty, year }),
       });
       const result = await response.json();
 
