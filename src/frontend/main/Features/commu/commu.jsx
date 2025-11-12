@@ -136,6 +136,7 @@ export default function Commu() {
                 {post.detail ?? "No detail"}
               </div>
               <div className="commu-post-contact">
+                ช่องทางการติดต่อ :<span> </span>
                 <a
                   href={post.contact}
                   target="_blank"

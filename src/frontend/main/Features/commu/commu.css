@@ -232,7 +232,7 @@
   text-decoration: underline;
   bottom: 1;
 }
-
+ /* ทรศ */
 @media (max-width: 640px) {
   .commu-navbar-logo {
     font-size: 2rem;
@@ -296,6 +296,11 @@
     background-size: 150% auto;
     padding: 3rem;
   }
+  
+  .commu-post {
+    min-height: 30rem;
+    width: 35rem;
+  }
 
   .commu-posttext {
     font-size: 3rem;
@@ -327,6 +332,7 @@
   }
 }
 
+/* ไอแพด */
 @media (min-width: 640px) {
   .commu-navbar-logo {
     font-size: 2rem;
@@ -421,6 +427,7 @@
   }
 }
 
+/* เดสท้อป */
 @media (min-width: 1024px) {
   .commu-navbar {
     width: 100%;
