@@ -13,6 +13,7 @@ import filterIcon from "../../assets/sort.png";
 import Filter from "./Filter.jsx";
 import "./Filter.css";
 import { Button } from "bootstrap";
+import "../component/loading.css";
 
 
 export default function Main() {
@@ -146,7 +147,6 @@ export default function Main() {
             }
           })
         );
-
         setPosts(postsWithTags);
         setfillterPosts(postsWithTags);
         setFilterApplied(false);
@@ -256,7 +256,7 @@ export default function Main() {
   useEffect(() => {
     function handleClickOutside(event) {
       if (filterRef.current && !filterRef.current.contains(event.target) &&
-      !event.target.closest(".filters-button")) {
+        !event.target.closest(".filters-button")) {
         setShowFilter(false);
       }
     }
@@ -337,7 +337,12 @@ export default function Main() {
         </div>
 
         <div className="main-grid">
-          {!isLoading && (
+          {isLoading ? (
+            <div className="main-loading">
+              <div className="spinner-border text-secondary" role="status"></div>
+              <div className="loading-text">Loading...</div>
+            </div>
+          ) : (
             (filterApplied && fillterposts.length === 0) ||
             (!filterApplied && posts.length === 0)
           ) ? (
