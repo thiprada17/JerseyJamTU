@@ -1,352 +1,352 @@
 @import "tailwindcss";
 
 @font-face {
-    font-family: 'PG';
-    src: url('./PG Newport DEMO.ttf');
+  font-family: 'PG';
+  src: url('./PG Newport DEMO.ttf');
 }
 
 @font-face {
-    font-family: 'Kanit';
-    src: url('Kanit-Regular.ttf');
+  font-family: 'Kanit';
+  src: url('Kanit-Regular.ttf');
 }
 
 @font-face {
-    font-family: 'KanitEB';
-    src: url('Kanit-ExtraBold.ttf');
+  font-family: 'KanitEB';
+  src: url('Kanit-ExtraBold.ttf');
 }
 
 @font-face {
-    font-family: 'KanitB';
-    src: url('Kanit-Bold.ttf');
+  font-family: 'KanitB';
+  src: url('Kanit-Bold.ttf');
 }
 
 @font-face {
-    font-family: 'Nec';
-    src: url('Nectarine.ttf');
+  font-family: 'Nec';
+  src: url('Nectarine.ttf');
 }
 
 @font-face {
-    font-family: 'thi';
-    src: url('thierry.ttf');
+  font-family: 'thi';
+  src: url('thierry.ttf');
 }
 
 .up-body {
-    background-color: white;
-    width: 100%;
-    min-height: 100vh;
-    margin: 0;
-    padding: 0;
+  background-color: white;
+  width: 100%;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
 }
 
 .up-top {
-    position: relative;
-    background-color: #DF2D3B;
-    width: 100%;
-    height: 40rem;
-    padding: 1rem 0.5rem;
-    text-align: center;
-    border-bottom: 1px solid black;
-    font-size: clamp(3rem, 2.5vw, 1.5rem);
-    justify-content: center;
-    justify-items: center;
-    align-items: center;
-    overflow-wrap: break-word;
-    word-break: break-word;
+  position: relative;
+  background-color: #DF2D3B;
+  width: 100%;
+  height: 40rem;
+  padding: 1rem 0.5rem;
+  text-align: center;
+  border-bottom: 1px solid black;
+  font-size: clamp(3rem, 2.5vw, 1.5rem);
+  justify-content: center;
+  justify-items: center;
+  align-items: center;
+  overflow-wrap: break-word;
+  word-break: break-word;
 }
 
 .up-home-icon {
-    position: absolute;
-    top: 0;
-    right: 0;
-    margin: 2rem;
-    width: 5rem;
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 2rem;
+  width: 5rem;
 }
 
 .up-top-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
-    width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
 }
 
 .up-username {
-    position: absolute;
-    top: 7rem;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-family: 'Kanit', sans-serif;
+  position: absolute;
+  top: 7rem;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: 'Kanit', sans-serif;
 }
 
 .up-usericon {
-    width: 5rem;
+  width: 5rem;
 }
 
 .up-username-name {
-    font-size: 4rem;
-    font-family: 'KanitEB';
-    font-weight: 700;
-    line-height: 54px;
-    color: #FFFFFF;
-    -webkit-text-stroke: 2px #000000;
+  font-size: 4rem;
+  font-family: 'KanitEB';
+  font-weight: 700;
+  line-height: 54px;
+  color: #FFFFFF;
+  -webkit-text-stroke: 2px #000000;
 }
 
 .up-top-box {
-    display: flex;
-    box-sizing: border-box;
-    align-items: center;
-    height: 20rem;
-    width: 58rem;
-    font-family: 'Kanit', sans-serif;
-    background-color: white;
-    background: rgba(253, 248, 240, 0.5);
-    border: 3px solid #000000;
-    border-radius: 4rem;
+  display: flex;
+  box-sizing: border-box;
+  align-items: center;
+  height: 20rem;
+  width: 58rem;
+  font-family: 'Kanit', sans-serif;
+  background-color: white;
+  background: rgba(253, 248, 240, 0.5);
+  border: 3px solid #000000;
+  border-radius: 4rem;
 }
 
 .up-year {
-    flex: 1;
+  flex: 1;
 }
 
 .up-faculty {
-    flex: 1;
+  flex: 1;
 }
 
 .up-year-num {
-    font-family: 'KanitEB';
-    font-size: 5rem;
-    line-height: 5rem;
-    color: #FFF4DF;
-    -webkit-text-stroke: 2px #000000;
+  font-family: 'KanitEB';
+  font-size: 5rem;
+  line-height: 5rem;
+  color: #FFF4DF;
+  -webkit-text-stroke: 2px #000000;
 }
 
 .up-faculty-name {
-    font-family: 'KanitEB';
-    font-size: 5rem;
-    line-height: 5rem;
-    color: #FFF4DF;
-    -webkit-text-stroke: 2px #000000;
+  font-family: 'KanitEB';
+  font-size: 5rem;
+  line-height: 5rem;
+  color: #FFF4DF;
+  -webkit-text-stroke: 2px #000000;
 }
 
 .up-tabs {
-    font-family: 'KanitB';
-    display: flex;
-    justify-content: center;
-    font-size: 2.5rem;
-    background: #DF2D3B;
-    color: #fff;
+  font-family: 'KanitB';
+  display: flex;
+  justify-content: center;
+  font-size: 2.5rem;
+  background: #DF2D3B;
+  color: #fff;
 }
 
 .up-tab {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 6rem;
-    width: 100%;
-    border: 2px solid #000000;
-    cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 6rem;
+  width: 100%;
+  border: 2px solid #000000;
+  cursor: pointer;
 }
 
 .active-tabs {
-    background: #fff;
-    color: #000;
+  background: #fff;
+  color: #000;
 }
 
 .up-content {
-    display: none;
-    min-height: 100vh;
-    background-image: url('../../assets/dot_bg.png');
-    background-repeat: repeat-y;
-    background-size: cover;
-    background-position: top center;
-    padding: 5rem;
+  min-height: 100vh;
+  background-image: url('../../assets/dot-bg.png');
+  background-repeat: repeat-y !important;
+  background-repeat: repeat-x !important;
+  background-size: cover;
+  background-position: center top;
+  padding: 5rem;
 }
 
 .active-content {
-    display: block;
+  display: block;
 }
 
 .up-fav-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    row-gap: 5rem;
-    justify-items: center;
-    padding: 2rem;
-    margin-left: 5rem;
-    margin-right: 5rem;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  row-gap: 5rem;
+  justify-items: center;
+  padding: 2rem;
+  margin-left: 5rem;
+  margin-right: 5rem;
 }
 
 .up-fav-post {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    width: 30rem;
-    height: 40rem;
-    border: 2px solid #000;
-    border-radius: 25px;
-    overflow: hidden;
-    background: #fff;
-    box-shadow: 2px 3px 5px rgba(0, 0, 0, 0.1);
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 30rem;
+  height: 40rem;
+  border: 2px solid #000;
+  border-radius: 25px;
+  overflow: hidden;
+  background: #fff;
+  box-shadow: 2px 3px 5px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
 }
 
 .up-post-photo {
-    background-color: #ffffff;
-    height: 70rem;
-    overflow: hidden;
-    margin: 10px;
-    justify-content: center;
-    border: 1.5px solid black;
-    border-radius: 25px;
+  background-color: #ffffff;
+  height: 70rem;
+  overflow: hidden;
+  margin: 10px;
+  justify-content: center;
+  border: 1.5px solid black;
+  border-radius: 25px;
 }
 
 .up-post-photo img {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
 }
 
 .up-fav-detail {
-    margin-top: 0;
-    display: flex;
-    padding: 1rem;
-    font-family: 'Kanit', sans-serif;
-    height: 10rem;
-    margin-bottom: 1rem;
+  margin-top: 0;
+  display: flex;
+  padding: 1rem;
+  font-family: 'Kanit', sans-serif;
+  height: 10rem;
+  margin-bottom: 1rem;
 }
 
 .up-fav-detail-name {
-    flex: 1;
-    display: flex;
-    align-items: center;
-    font-size: 2rem;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  font-size: 2rem;
 }
 
 .up-fav-cmore {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: #FFF4DF;
-    width: 10rem;
-    height: 6rem;
-    border-radius: 22px;
-    border: 1px solid black;
-    font-size: 1.4rem;
-    font-weight: 600;
-    text-align: center;
-    color: black !important;
-    text-decoration: none !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #FFF4DF;
+  width: 10rem;
+  height: 6rem;
+  border-radius: 22px;
+  border: 1px solid black;
+  font-size: 1.4rem;
+  font-weight: 600;
+  text-align: center;
+  color: black !important;
+  text-decoration: none !important;
 }
 
 .up-fav-cmore a {
-    color: inherit !important;
-    text-decoration: none !important;
+  color: inherit !important;
+  text-decoration: none !important;
 }
 
 .shirt-name {
-    font-size: 2rem;
-    border-bottom: 2px solid #000;
-    padding-bottom: 0.5rem;
-    text-align: left;
+  font-size: 2rem;
+  border-bottom: 2px solid #000;
+  padding-bottom: 0.5rem;
+  text-align: left;
 }
 
 .up-post-actions {
-    display: flex;
-    gap: 1rem;
-    margin-top: 1rem;
-    justify-content: flex-end;
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+  justify-content: flex-end;
 }
 
 .up-btn {
-    font-family: 'Kanit', sans-serif;
-    font-size: 1.8rem;
-    padding: 1rem 2.2rem;
-    border-radius: 14px;
-    border: 2px solid #000;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.6rem;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    box-shadow: 2px 4px 0 rgba(0, 0, 0, 0.5);
-    text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.5);
-    letter-spacing: 0.5px;
+  font-family: 'Kanit', sans-serif;
+  font-size: 1.8rem;
+  padding: 1rem 2.2rem;
+  border-radius: 14px;
+  border: 2px solid #000;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 2px 4px 0 rgba(0, 0, 0, 0.5);
+  text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.5);
+  letter-spacing: 0.5px;
 }
 
 .up-post-edit {
-    background-color: #fff7d6;
-    color: #2f2f2f;
+  background-color: #fff7d6;
+  color: #2f2f2f;
 }
 
 .up-post-edit:hover {
-    background-color: #ffecb3;
-    transform: translateY(-2px);
-    box-shadow: 2px 6px 10px rgba(0, 0, 0, 0.2);
+  background-color: #ffecb3;
+  transform: translateY(-2px);
+  box-shadow: 2px 6px 10px rgba(0, 0, 0, 0.2);
 }
 
 .up-post-delete {
-    background-color: #ff6b6b;
-    color: white;
+  background-color: #ff6b6b;
+  color: white;
 }
 
 .up-post-delete:hover {
-    background-color: #fa5252;
-    transform: translateY(-2px);
-    box-shadow: 2px 6px 10px rgba(0, 0, 0, 0.2);
+  background-color: #fa5252;
+  transform: translateY(-2px);
+  box-shadow: 2px 6px 10px rgba(0, 0, 0, 0.2);
 }
 
 .up-btn:active {
-    transform: translateY(1px);
-    box-shadow: none;
+  transform: translateY(1px);
+  box-shadow: none;
 }
 
 .up-post-edit:disabled,
 .up-post-delete:disabled,
 .up-btn:disabled {
-    opacity: .6;
-    cursor: not-allowed;
-    box-shadow: none;
+  opacity: .6;
+  cursor: not-allowed;
+  box-shadow: none;
 }
 
 @media (max-width: 640px) {
-    .up-btn {
-        font-size: 1.4rem;
-        padding: 0.8rem 1.2rem;
-    }
+  .up-btn {
+    font-size: 1.4rem;
+    padding: 0.8rem 1.2rem;
+  }
 }
 
 .up-loading,
 .up-error,
 .up-empty {
-    text-align: center;
-    font-family: 'Kanit', sans-serif;
-    font-size: 2.5rem;
-    font-weight: 700;
-    padding: 4rem 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 50vh;
+  text-align: center;
+  font-family: 'Kanit', sans-serif;
+  font-size: 2.5rem;
+  font-weight: 700;
+  padding: 4rem 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50vh;
 }
 
 .up-error {
-    color: #DF2D3B;
+  color: #DF2D3B;
 }
 
 @media (max-width: 1200px) {
-    .up-fav-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
+  .up-fav-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
 @media (max-width: 768px) {
-    .up-fav-grid {
-        grid-template-columns: 1fr;
-    }
+  .up-fav-grid {
+    grid-template-columns: 1fr;
+  }
 }
 
 .up-empty {
@@ -362,6 +362,7 @@
 }
 
 @media (max-width: 430px) {
+
   .up-top {
     height: 22rem;
     padding: 1rem;
@@ -405,7 +406,8 @@
     border-radius: 2.5rem;
   }
 
-  .up-year, .up-faculty {
+  .up-year,
+  .up-faculty {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -425,6 +427,7 @@
     position: relative;
     z-index: 10;
   }
+
   .up-tab {
     height: 4.5rem;
     border-width: 1.5px;
@@ -432,9 +435,13 @@
   }
 
   .up-content {
-    padding: 1.6rem 1.2rem;
-    min-height: auto;
-    background-size: 22px auto;
+    min-height: 100vh;
+    background-image: url('../../assets/dot-bg.png');
+    background-repeat: repeat-y !important;
+    background-repeat: repeat-x !important;
+    background-size: cover;
+    background-position: center top;
+    padding: 5rem;
   }
 
   .up-fav-grid {
@@ -447,7 +454,7 @@
 
   .up-fav-post {
     width: 100%;
-    max-width: 180px; 
+    max-width: 180px;
     height: auto;
     border-radius: 18px;
   }
@@ -485,12 +492,12 @@
     line-height: 1.2;
   }
 
-  
+
   .up-btn {
     font-size: 1.2rem;
     padding: 0.6rem 1.2rem;
     border-radius: 10px;
-    box-shadow: 1px 2px 0 rgba(0,0,0,.5);
+    box-shadow: 1px 2px 0 rgba(0, 0, 0, .5);
   }
 
   .up-loading,
@@ -507,54 +514,45 @@
     align-items: center;
     gap: 0.8rem;
   }
-  .commu-post {
-    width: 90%;
-    max-width: 300px;
-    padding: 0.8rem 1rem;
-    border: 1.5px solid #000;
-    border-radius: 12px;
-    background-color: #fff;
-    box-shadow: 2px 3px 5px rgba(0,0,0,0.1);
-    display: flex;
-    flex-direction: column;
-    gap: 0.6rem;
-    height: auto;      
-  }
-  .commu-post-topic {
-    font-size: 1.6rem;
-    font-weight: 700;
-    text-align: center;
-    margin-bottom: 0.3rem;
-  }
-  .commu-post-detail,
-  .commu-post-contact {
-    font-size: 1.4rem;
-    line-height: 1.4rem;
-  }
+
+ 
   .up-post-actions {
-  display: flex;
-  justify-content: flex-end;
-  gap: 0.5rem;
-  margin-top: 0.5rem;
- }
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+  }
+
+  .commu-post {
+  flex-direction: column;
+  min-height: 25rem;
+  height: auto;
+  border: 1.5px solid #000;
+}
+
+.commu-post-topic {
+  border: 1.5px solid #000;
+  font-size: 1.7rem;
+}
+
+.commu-post-detail {
+  font-size: 1.5rem;
+}
+
+.commu-post-contact {
+  font-size: 1.5rem;
+}
+
+
+
 }
 
 @media (max-width: 360px) {
   .up-fav-grid {
     grid-template-columns: 1fr;
   }
+
   .up-fav-post {
     max-width: 100%;
   }
 }
-
-@media (max-width: 430px) {
-  .up-content {
-    background-image: url('../../assets/dot_bg.png') !important;
-    background-repeat: repeat-y !important;
-    background-size: 100% auto;
-    background-position: top center;
-    background-attachment: scroll
-  }
-}
-
