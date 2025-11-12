@@ -90,14 +90,6 @@ export default function Commu() {
 
   return (
     <div className="commu-body">
-      {/* {showToast && (
-        <Toast
-          message="✅ Post Success!"
-          duration={3000}
-          onClose={() => setShowToast(false)}
-        />
-      )} */}
-
       <div className="commu-navbar">
         <Link to="/main" className="commu-navbar-back">
           <button className="commu-navbar-backButton" onClick={handleBack}>
@@ -155,6 +147,10 @@ export default function Commu() {
     </div>
   )}
 </div>
+{/* ขอลองใช้ Link หน่อย */}
+<Link to="/commu/form" className="commu-fab" data-tooltip="เพิ่มโพสต์ใหม่">
+  +
+</Link>
     </div>
   );
 }

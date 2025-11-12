@@ -67,9 +67,22 @@
   animation: fadeIn 0.3s ease-in;
   margin: 0 auto; }
 
+
+  
 .loading-overlay.commuload .spinner-border {
   width: 3rem;
   height: 3rem;
+}
+
+.loading-overlay.up-load {
+  position: relative;
+  inset: 0; 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+  backdrop-filter: none;
+  margin-top: 5rem;
 }
 
 .loading-overlay--blur {
