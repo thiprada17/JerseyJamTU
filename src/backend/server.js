@@ -20,27 +20,15 @@ app.use(express.json());
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 const session = require('express-session')
-const secret = 'ความลับไม่บอกหรอก'
 
 
-// let conn = null
-// const initMySQL = async () => {
-//   conn = await mysql.createConnection({
-//     host: 'localhost',
-//     user: 'root',
-//     password: 'root',
-//     database: 'jerseyjamtu',
-//     port: 3306
-//   })
-// }
+const supabaseUrl = process.env.SUPABASE_URL;
+const supabaseKey = process.env.SUPABASE_KEY;
+const supabaseServiceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+const secret = process.env.JWT_SECRET;
+const port = process.env.PORT || 8000;
 
 
-
-console.log("SUPABASE_SERVICE_ROLE_KEY =", process.env.SUPABASE_SERVICE_ROLE_KEY)
-
-const supabaseUrl = 'https://zdhjexmsbgozpxroeaud.supabase.co';
-const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpkaGpleG1zYmdvenB4cm9lYXVkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTgxODU3NTUsImV4cCI6MjA3Mzc2MTc1NX0.E_NmaPHl2jK_h8CTHqzfF5K8cTUMehs7Bf9nHdjLizM";
-const supabaseServiceRoleKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpkaGpleG1zYmdvenB4cm9lYXVkIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc1ODE4NTc1NSwiZXhwIjoyMDczNzYxNzU1fQ.y2rLVTGLD5anVMLup17ib5RqS7XrekDr4XVE8Pa2kts';
 if (!supabaseServiceRoleKey) {
   console.error("⚠️ SUPABASE_SERVICE_ROLE_KEY is missing. Please set it in your .env file!");
 }
@@ -699,113 +687,6 @@ app.post('/shirt/fillter', async (req, res) => {
 });
 
 
-//อันนี้เทสยิงข้อมูล mock นะ
-// app.post('/shirt/info/post', async (req, res) => {
-//   try {
-//     console.log('Mock insert shirt info:', req.body);
-
-//     // เพิ่มข้อมูลเข้า array
-//     mockShirts.push(req.body);
-
-//     res.json({
-//       message: 'Shirt info added (mocked)',
-//       data: req.body
-//     });
-//   } catch (err) {
-//     console.error('Unexpected error:', err);
-//     res.status(500).json({ error: 'Internal server error' });
-//   }
-// });
-
-
-// app.get('/shirt/info/get', async (req, res) => {
-//   try {
-//     res.json({ shirts: mockShirts });
-//   } catch (err) {
-//     console.error('Unexpected error:', err);
-//     res.status(500).json({ error: 'Internal server error' });
-//   }
-// });
-
-
-
-// // sign up
-// app.post('/add-user/register', async (req, res) => {
-//   try {
-//     const data = req.body;
-//     console.log("ข้อมูลที่ผู้ลงทะเบียนกรอก" + data);
-
-//     const [results] = await conn.query('INSERT INTO users SET ?', data);
-
-//     res.json({
-//       message: 'Insert Success',
-//       data: results
-//     });
-//   } catch (error) {
-//     res.status(500).json({
-//       message: "error something wrong",
-//       errorMessage: error.message
-//     });
-//   }
-// });
-
-// // commu get
-// app.get('/commu/get', async (req, res) => {
-//   try {
-//     const [results] = await conn.query('SELECT * FROM commupost ORDER BY postid DESC');
-
-//     res.json(results)
-//     console.log(results)
-
-//   } catch (error) {
-//     console.error(error);
-//     res.status(500).json({
-//       message: "Error while fetching posts",
-//       errorMessage: error.message
-//     });
-//   }
-// });
-
-// // commu post
-// app.post('/commu/post', async (req, res) => {
-//   try {
-//     const data = req.body
-//     console.log(data)
-//     const results = await conn.query('INSERT INTO commupost SET ?', data);
-
-//     res.json({
-//       message: 'Insert Success',
-//       data: results
-//     });
-
-//   } catch (error) {
-//     console.error(error);
-//     res.status(500).json({
-//       message: "Error while creating post",
-//       errorMessage: error.message
-//     });
-//   }
-// });
-
-// commu get
-//app.get('/commu/get', async (req, res) => {
-//  try {
-//    const [results] = await conn.query('SELECT * FROM commupost');
-
-//    res.json(results)
-//    console.log(results)
-
-//  } catch (error) {
-//    console.error(error);
-//    res.status(500).json({
-//      message: "Error while fetching posts",
-//      errorMessage: error.message
-//    });
-//  }
-//});
-
-
-const port = 8000;
 app.listen(port, () => {
   console.log('http server run at : ' + port)
 })

@@ -3,24 +3,23 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import "./commu.css";
-// import viewBg from "../../assets/view-bg.png";
 import popup from "../../../../assets/popup-commu.png";
-import home_icon from "../../../../assets/home_icon.png";
+// import home_icon from "../../../../assets/home_icon.png";
 import profile_icon from "../../../../assets/profile-icon.png";
 import { useNavigate, useLocation } from "react-router-dom";
-import Toast from "../../../component/Toast.jsx";
+import '../../../component/loading.css';
 
 export default function Commu() {
   const navigate = useNavigate();
   const [posts, setPosts] = useState([]);
   const location = useLocation();
+  const [loading, setLoading] = useState(true);
   // console.log(posts)
   const username = localStorage.getItem("username");
   const [showToast, setShowToast] = useState(false);
   useEffect(() => {
     if (location.state?.postSuccess) {
       setShowToast(true);
-      // ล้าง state กัน toast เด้งซ้ำ
       window.history.replaceState({}, document.title);
     }
   }, [location.state]);
@@ -70,13 +69,15 @@ export default function Commu() {
   useEffect(() => {
     const fetchPosts = async () => {
       try {
+        setLoading(true);
         const response = await axios.get("http://localhost:8000/commu/get");
         setPosts(response.data);
 
-        // console.log(setPosts)
         console.log("fetching posts success");
       } catch (error) {
         console.error("Error fetching posts:", error);
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -89,14 +90,6 @@ export default function Commu() {
 
   return (
     <div className="commu-body">
-      {/* {showToast && (
-        <Toast
-          message="✅ Post Success!"
-          duration={3000}
-          onClose={() => setShowToast(false)}
-        />
-      )} */}
-
       <div className="commu-navbar">
         <Link to="/main" className="commu-navbar-back">
           <button className="commu-navbar-backButton" onClick={handleBack}>
@@ -122,33 +115,42 @@ export default function Commu() {
         </div>
       </div>
 
-      <div className="commu-container">
-        <div className="commu-posttext">Community</div>
+<div className="commu-container">
+  <div className="commu-posttext">Community</div>
 
-        <div className="commu-grid">
-          {posts.map((post, index) => (
-            <div className="commu-post bg-slate-50" key={post.post_id}>
-              <div className="commu-post-topic">
-                {" "}
-                {post.title ?? "No Title"}{" "}
-              </div>
-              <div className="commu-post-detail">
-                {post.detail ?? "No detail"}
-              </div>
-              <div className="commu-post-contact">
-                ช่องทางการติดต่อ :<span> </span>
-                <a
-                  href={post.contact}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  {post.contact ?? "No Contact"}
-                </a>
-              </div>
-            </div>
-          ))}
+  {/* ย้าย loading ออกมานอก commu-grid */}
+  {loading ? (
+    <div className="loading-overlay commuload">
+      <div className="spinner-border text-secondary" role="status"></div>
+      <div className="loading-text">Loading...</div>
+    </div>
+  ) : posts.length === 0 ? (
+    <div className="loading-text">ยังไม่มีโพสต์</div>
+  ) : (
+    <div className="commu-grid">
+      {posts.map((post) => (
+        <div className="commu-post bg-slate-50" key={post.post_id}>
+          <div className="commu-post-topic">{post.title ?? "No Title"}</div>
+          <div className="commu-post-detail">{post.detail ?? "No detail"}</div>
+          <div className="commu-post-contact">
+            ช่องทางการติดต่อ :{" "}
+            {post.contact ? (
+              <a href={post.contact} target="_blank" rel="noopener noreferrer">
+                {post.contact}
+              </a>
+            ) : (
+              "No Contact"
+            )}
+          </div>
         </div>
-      </div>
+      ))}
+    </div>
+  )}
+</div>
+{/* ขอลองใช้ Link หน่อย */}
+<Link to="/commu/form" className="commu-fab" data-tooltip="เพิ่มโพสต์ใหม่">
+  +
+</Link>
     </div>
   );
 }

@@ -34,6 +34,7 @@ export default function luckyColor() {
           type="button"
           className={`LuckyC-home-btn ${clicked ? "animate" : ""}`}
           onClick={handleClick}
+          title="กลับหน้าหลัก"
         >
           <span className="LuckyC-btn-icon">
             <img src={homeIcon} alt="styles" className="LuckyC-home-icon" />

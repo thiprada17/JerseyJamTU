@@ -54,6 +54,37 @@
   backdrop-filter: none;
 }
 
+.loading-overlay.commuload {
+  position: relative;
+  width: 100%;
+  height: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center; 
+  background: transparent;
+  z-index: 10;
+  animation: fadeIn 0.3s ease-in;
+  margin: 0 auto; }
+
+
+  
+.loading-overlay.commuload .spinner-border {
+  width: 3rem;
+  height: 3rem;
+}
+
+.loading-overlay.up-load {
+  position: relative;
+  inset: 0; 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+  backdrop-filter: none;
+  margin-top: 5rem;
+}
+
 .loading-overlay--blur {
   background-color: rgba(255, 255, 255, 0.7);
   backdrop-filter: blur(3px);
