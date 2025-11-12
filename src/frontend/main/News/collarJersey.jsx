@@ -44,6 +44,7 @@ export default function CollarJersey() {
           type="button"
           className={`home-btn ${clicked ? "animate" : ""}`}
           onClick={handleClick}
+          title="กลับหน้าหลัก"
         >
           <span className="btn-icon">
             <img src={homeIcon} alt="styles" className="home-icon" />

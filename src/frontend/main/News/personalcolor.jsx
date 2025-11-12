@@ -35,6 +35,7 @@ export default function personalcolor() {
           type="button"
           className={`perC-home-btn ${clicked ? "animate" : ""}`}
           onClick={handleClick}
+          title="กลับหน้าหลัก"
         >
           <span className="perC-btn-icon">
             <img src={homeIcon} alt="styles" className="perC-home-icon" />
