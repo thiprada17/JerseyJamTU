@@ -4,10 +4,11 @@ import { Link, useNavigate } from 'react-router-dom';
 import axios from "axios";
 import "./user-profile.css";
 import usericon from "../../assets/profile-icon2.png";
-import home_icon from "../../assets/home_icon.png";
-import { useLocation } from "react-router-dom";
-import Toast from "../component/Toast.jsx";
+// import home_icon from "../../assets/home_icon.png";
+// import { useLocation } from "react-router-dom";
+// import Toast from "../component/Toast.jsx";
 import ConfirmBox from "../component/ConfirmBox.jsx";
+import "../main/Features/commu/commu.css";
 
 const getFacultyShort = (s) => {
   if (!s) return "";
@@ -67,6 +68,10 @@ export default function UserProfile() {
 
     verify();
   }, [navigate]);
+
+  const handleBack = () => {
+  navigate('/main');
+};
 
   const [activeTab, setActiveTab] = useState(1);
   let tab1Class = "up-tab";
@@ -172,7 +177,9 @@ export default function UserProfile() {
       <div className="up-top">
         <div className="up-top-container">
           <Link to="/main">
-            <img src={home_icon} alt="home" className="up-home-icon" />
+            <button className="commuForm-backButton user-profile " onClick={handleBack}>
+              &lt; back
+            </button>
           </Link>
 
           <div className="up-username">

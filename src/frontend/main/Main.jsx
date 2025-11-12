@@ -12,17 +12,10 @@ import { useNavigate } from 'react-router-dom';
 import filterIcon from "../../assets/sort.png";
 import Filter from "./Filter.jsx";
 import "./Filter.css";
-import { Button } from "bootstrap";
 import "../component/loading.css";
 
 
 export default function Main() {
-  // const posts = [
-  //     { id: 1, name: "Shirt name", price: 350, img: "https://picsum.photos/id/1011/600/400" },
-  //     { id: 2, name: "Shirt name", price: 350, img: "liverpool.jpg" },
-  //     { id: 3, name: "Shirt name", price: 350, img: "chelsea.jpg" },
-  //     { id: 4, name: "Shirt name", price: 350, img: "barca.jpg" },
-  // ];
   const navigate = useNavigate();
   const [posts, setPosts] = useState([]);
   const [fillterposts, setfillterPosts] = useState([]);
@@ -70,13 +63,11 @@ export default function Main() {
         console.error('verify error:', error);
         window.alert('verify error');
         navigate('/');
-
       }
     };
 
     verify();
   }, [navigate]);
-
 
   // ก้อนนี้คือเพิ่มอนิเมชั่นเล่นๆนะ ไม่ชอบเดะเอาออก มันคือ เฟดตอนเข้า
   const postRefs = useRef([]);
