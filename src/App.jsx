@@ -27,6 +27,7 @@ import JerseyWith from './frontend/main/News/jerseyWith';
 import PersonalColor from './frontend/main/News/personalcolor';
 import CollarJersey from './frontend/main/News/collarJersey';
 import LuckyColor from './frontend/main/News/luckuColor';
+import ProtectedRoute from './frontend/component/ProtectedRoute';
 
 
 function App() {
