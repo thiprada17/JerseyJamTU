@@ -46,6 +46,13 @@ export default function Homepage() {
         }
     }, [location.state]);
 
+    // ให้น้องไม่เลื่อนจู้
+    useEffect(() => {
+        document.body.classList.add("homepage");
+        return () => document.body.classList.remove("homepage");
+    }, []);
+
+
     return (
         <div className="homepage-body">
             <div className="homepage-container">
@@ -79,7 +86,7 @@ export default function Homepage() {
                     <SignUp
                         scrollToHome={() => scrollToSection(homeRef)}
                         scrollToLogIn={() => scrollToSection(loginRef)}
-                    /> 
+                    />
                 </div>
             </div>
         </div>

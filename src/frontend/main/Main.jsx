@@ -90,29 +90,6 @@ export default function Main() {
       });
     };
   }, [posts]);
-  // สุดตรงนี้จ้า
-  // Fetch posts on component mount
-  // useEffect(() => {
-  //   async function fetchPosts() {
-  //     try {
-  //       const response = await fetch('https://jerseyjamtu.onrender.com/shirt/info/get', {
-  //         method: 'GET',
-  //       });
-
-  //       if (!response.ok) {
-  //         throw new Error("Failed to fetch posts");
-  //       }
-
-  //       const data = await response.json();
-  //       setPosts(data);
-  //       setfillterPosts(data);
-  //     } catch (error) {
-  //       console.error("Error fetching posts:", error);
-  //     }
-  //   }
-
-  //   fetchPosts();
-  // }, []);
 
   useEffect(() => {
     async function fetchPosts() {
@@ -266,7 +243,6 @@ export default function Main() {
     localStorage.removeItem("token");
     navigate("/")
   }
-
 
   return (
     <div className="main-body">
