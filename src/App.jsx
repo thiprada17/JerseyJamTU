@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { ToastContainer } from 'react-toastify';
 import './App.css'
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { HashRouter, Routes, Route } from "react-router-dom";
 import 'react-toastify/dist/ReactToastify.css';
 
 // import SignIn from "./frontend/SignIn";
@@ -27,49 +27,55 @@ import JerseyWith from './frontend/main/News/jerseyWith';
 import PersonalColor from './frontend/main/News/personalcolor';
 import CollarJersey from './frontend/main/News/collarJersey';
 import LuckyColor from './frontend/main/News/luckuColor';
+import ProtectedRoute from './frontend/component/ProtectedRoute';
 
 
 function App() {
 
   return (
     <>
-      <Router>
+      <HashRouter>
         <Routes>
           <Route path="/" element={<Homepage />} />
-          <Route path="/main" element={<Main />} />
+          <Route path="/main" element={
+            <ProtectedRoute>
+              <Main />
+            </ProtectedRoute>
+          }
+          />
           <Route path="/main/news" element={<MainNews />} />
 
           <Route path="/commu" element={<Commu />} />
           <Route path="/commu/form" element={<CommuForm />} />
           <Route path="/display" element={<Display />} />
           <Route path="/sellerform" element={<Sellerform />} />
-          <Route path="/mixAndmatch" element = {<MixAndMatch />} />
-          <Route path='/closet' element = {<Closet />} />
+          <Route path="/mixAndmatch" element={<MixAndMatch />} />
+          <Route path='/closet' element={<Closet />} />
           {/* <Route path="/" element={<SignIn />} />
           <Route path="/signup" element={<SignUp />} /> */}
-          <Route path='/userprofile' element = {<UserProfile />} />
-          <Route path='/blog/sevenDayMatch' element = {<SevenDayMatch />} />
-          <Route path='/blog/jerseyWith' element = {<JerseyWith />} />
-          <Route path='/blog/personalColor' element = {<PersonalColor />} />
-          <Route path='/blog/collarJersey' element = {<CollarJersey />} />
-          <Route path='/blog/luckycolor' element = {<LuckyColor />} />
+          <Route path='/userprofile' element={<UserProfile />} />
+          <Route path='/blog/sevenDayMatch' element={<SevenDayMatch />} />
+          <Route path='/blog/jerseyWith' element={<JerseyWith />} />
+          <Route path='/blog/personalColor' element={<PersonalColor />} />
+          <Route path='/blog/collarJersey' element={<CollarJersey />} />
+          <Route path='/blog/luckycolor' element={<LuckyColor />} />
 
-          <Route path='/filter' element = {<Filter/>} />
+          <Route path='/filter' element={<Filter />} />
         </Routes>
-      </Router>
+      </HashRouter>
 
       <ToastContainer
-  position="top-right"
-  autoClose={2500}
-  hideProgressBar={false}
-  newestOnTop={false}
-  closeOnClick
-  rtl={false}
-  pauseOnFocusLoss
-  draggable
-  pauseOnHover
-  theme="colored"
-/>
+        position="top-right"
+        autoClose={2500}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="colored"
+      />
 
     </>
   )

@@ -150,8 +150,8 @@ export default function MixAndMatch() {
     const canvas = await html2canvas(element, {
       useCORS: true,
       allowTaint: false,
-      foreignObjectRendering: true, 
-      backgroundColor: null,
+      foreignObjectRendering: false, 
+      backgroundColor: window.getComputedStyle(element).backgroundColor || "#FFFFF0",
       scale,
       width: rect.width,
       height: rect.height,
@@ -225,7 +225,6 @@ export default function MixAndMatch() {
 
   return (
     <>
-
       <div ref={captureRef}
         className="mixandmatch-container"
         onMouseMove={onPointerMove}
@@ -250,7 +249,6 @@ export default function MixAndMatch() {
               position: "absolute",
             }}
           >
-
             {selectedImages[frame.id] && (
               <div className="img-wrapper">
                 <img
