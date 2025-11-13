@@ -7,11 +7,9 @@ import icon from "../../assets/foldericon.png";
 
 export default function FeatureFolder() {
   const navi = useNavigate()
-
-
   return (
     <div className="main-ff">
-      <button className="ff-button 1" onClick={() => navi("/mixAndmatch")}>
+      <button className="ff-button 1" onClick={() => navi("/mixAndmatch", { state: { fromMain: true } })}>
         <img src={icon} alt="Click me" />
         <div className="ff-button-text">Mix & Match</div>
       </button>
@@ -20,7 +18,6 @@ export default function FeatureFolder() {
         <img src={icon} alt="Click me" />
         <div className="ff-button-text">Community</div>
       </button>
-
       
       <button className="ff-button 3" onClick={() => navi("/userprofile")}>
         <img src={icon} alt="Click me" />

@@ -3,19 +3,9 @@
   src: url('./main/Kanit-Regular.ttf');
 }
 
-/* .mixandmatch-container {
-  position: fixed;
-  width: 100%;
-  background-image: url("../../../../assets/bg-mixandmatch.png");
-  background-repeat: no-repeat; 
-  background-size: cover; 
-  background-position: top center;
-  height: 100vh;
-  overflow: hidden;
-} */
 
 .mixandmatch-container {
-  position: fixed; 
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
@@ -42,9 +32,13 @@
   justify-content: center;
   overflow: hidden;
   transition: transform 0.2s ease;
+  will-change: transform;
+  touch-action: none;
 }
 
-.frame:hover {transform: scale(1.05);}
+.frame:hover {
+  transform: scale(1.05);
+}
 
 .img-wrapper {
   width: 100%;
@@ -112,7 +106,7 @@
 }
 
 .mam-btn {
-  position: absolute;
+  position: fixed;
   bottom: 2rem;
   left: 2rem;
   background-color: #C02C38;
@@ -126,7 +120,8 @@
   transition: all 0.2s ease;
   z-index: 999;
   font-family: 'Kanit', sans-serif;
-  }
+  pointer-events: auto
+}
 
 .mam-btn:hover {
   background-color: #9f2f2f;
@@ -196,12 +191,20 @@
   z-index: 9999;
   pointer-events: none;
   animation: fadeInOutHint 1.5s ease-in-out infinite;
+  /* display: none; */
+}
+
+.hint-overlay.show {
+  display: block;
 }
 
 @keyframes fadeInOutHint {
-  0%, 100% {
+
+  0%,
+  100% {
     opacity: 0.3;
   }
+
   50% {
     opacity: 1;
   }
@@ -284,7 +287,9 @@
     padding: 2.5rem;
   }
 
-  .confirm-box p {font-size: 1.6rem;}
+  .confirm-box p {
+    font-size: 1.6rem;
+  }
 
   .confirm-btns button {
     font-size: 1.3rem;
@@ -292,18 +297,20 @@
   }
 }
 
-
 @media (max-width: 450px) {
   .mixandmatch-container {
     background-image: url("../../../../assets/bg-mixandmatch.png");
-  background-repeat: no-repeat; 
-  background-size: cover; 
-  background-position: top center;
-  height: 100vh; 
-  background-color: #FFFFF0; 
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: top center;
+    height: 100vh;
+    background-color: #FFFFF0;
   }
 
-  .frame {border-width: 0.4rem;}
+  .frame {
+    border-width: 0.4rem;
+  }
+
   .frame1ass {
     width: 10rem;
     height: 12rem;
@@ -345,7 +352,7 @@
     /* bottom: 18%;
     left: 12%; */
   }
-
+  
   .mam-btn {
     font-size: 1.2rem;
     padding: 8px 12px;

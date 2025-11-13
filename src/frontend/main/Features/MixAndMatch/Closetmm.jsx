@@ -91,40 +91,29 @@ export default function Closetmm() {
     fetchItems();
   }, [category]);
 
-  // const handleSelect = (imageUrl) => {
-  //   console.log("Closetmm: handleSelect for frameId", frameId, "imageUrl:", imageUrl);
-  //   console.log("Closetmm: existing selectedImages:", selectedImages);
-  //   const updatedImages = {
-  //     ...selectedImages,
-  //     [frameId]: imageUrl,
-  //   };
-  //   console.log("Closetmm: updatedImages to send back:", updatedImages);
-  //   navigate("/mixandmatch", {
-  //     state: {
-  //       selectedImages: updatedImages,
-  //     },
-  //   });
-  // };
-
   const handleSelect = async (imageUrl) => {
-  const res = await fetch(imageUrl);
-  const blob = await res.blob();
-  const base64 = await new Promise((resolve) => {
-    const reader = new FileReader();
-    reader.onloadend = () => resolve(reader.result);
-    reader.readAsDataURL(blob);
-  });
+  try {
+    const res = await fetch(imageUrl, { mode: "cors" }); 
+    const blob = await res.blob();
 
-  const updatedImages = {
-    ...selectedImages,
-    [frameId]: base64, 
-  };
-
-  navigate("/mixandmatch", {
-    state: { selectedImages: updatedImages },
-  });
+    const base64 = await new Promise((resolve) => {
+      const reader = new FileReader();
+      reader.onloadend = () => resolve(reader.result);
+      reader.readAsDataURL(blob);
+    });
+    const updatedImages = {
+      ...selectedImages,
+      [frameId]: base64, 
+    };
+    localStorage.setItem("selectedImages", JSON.stringify(updatedImages));
+    navigate("/mixandmatch", {
+      state: { selectedImages: updatedImages },
+    });
+  } catch (error) {
+    console.error("Error converting image:", error);
+    alert("ไม่สามารถโหลดรูปได้ ลองใหม่อีกครั้งค่ะ");
+  }
 };
-
 
   const buttonRefs = useRef([]);
   useEffect(() => {
@@ -189,6 +178,7 @@ export default function Closetmm() {
                     <img
                       src={item.url || item.shirt_pic}
                       alt={item.shirt_name || item.name}
+  crossOrigin="anonymous"
                     />
                   </div>
                 ))

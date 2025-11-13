@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useRef, useLayoutEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
+import html2canvas from "html2canvas";
 import "./mixAndmatch.css";
 import greyArrow from "../../../../assets/grey_arrow.png";
-import html2canvas from "html2canvas";
 import Toast from "../../../component/Toast";
 
 const polaroidFrames = [
@@ -14,199 +14,190 @@ const polaroidFrames = [
   { id: 6, className: "frame frame3ass" },
 ];
 
+const initialPositionsPct = {
+  1: { top: 12.5, left: 16.7 },
+  2: { top: 5, left: 38 },
+  3: { top: 39, left: 40 },
+  4: { top: 31.25, left: 70 },
+  5: { top: 75, left: 58 },
+  6: { top: 70, left: 28 },
+};
+
 export default function MixAndMatch() {
   const navigate = useNavigate();
-  const locate = useLocation();
+  const location = useLocation();
   const captureRef = useRef(null);
 
   const [selectedImages, setSelectedImages] = useState({});
-  const [positions, setPositions] = useState(
-    polaroidFrames.reduce((acc, frame) => {
-      acc[frame.id] = { x: 0, y: 0 };
-      return acc;
-    }, {})
-  );
-  const [dragging, setDragging] = useState(null);
-  const [moved, setMoved] = useState(false);
+  const [positionsPx, setPositionsPx] = useState({});
+  const dragOffset = useRef({});
+  const dragging = useRef(null);
+  const [showHint, setShowHint] = useState(false);
+  const [hasShownHint, setHasShownHint] = useState(false);
   const [showToast, setShowToast] = useState(false);
   const [confirmVisible, setConfirmVisible] = useState(false);
 
-  useEffect(() => {
-    const verify = async () => {
-      try {
-        const authToken = localStorage.getItem('token');
-
-        if (!authToken) {
-          window.alert('token not found');
-          navigate('/');
-          return
-        }
-
-        const authen = await fetch('https://jerseyjamtu.onrender.com/authen/users', {
-          method: 'GET',
-          headers: { authorization: `Bearer ${authToken}` }
-        });
-
-        if (!authen.ok) {
-          console.error('authen fail', authen.status);
-          window.alert('authen fail');
-          navigate('/');
-          return
-        }
-        const authenData = await authen.json();
-        console.log('auth ' + authenData.success);
-        if (!authenData && !authenData.data && !authenData.data.success) {
-          window.alert('token not pass');
-          localStorage.clear();
-          navigate('/');
-          return
-        }
-      } catch (error) {
-        console.error('verify error:', error);
-        window.alert('verify error');
-        navigate('/');
-
-      }
-    };
-    verify();
-  }, [navigate]);
-  useEffect(() => {
-    if (locate.state?.selectedImages) {
-      setSelectedImages(locate.state.selectedImages);
-    } else {
-      const stored = localStorage.getItem("selectedImages");
-      if (stored) setSelectedImages(JSON.parse(stored));
-    }
-  }, []);
-
-  useEffect(() => {
-    localStorage.setItem("selectedImages", JSON.stringify(selectedImages));
-  }, [selectedImages]);
-
-  const getPosi = (e) => {
+  const getEventPos = (e) => {
     if (e.touches && e.touches.length > 0) {
       return { x: e.touches[0].clientX, y: e.touches[0].clientY };
     }
     return { x: e.clientX, y: e.clientY };
   };
-  const onPointerDown = (e, id) => {
-    const { x, y } = getPosi(e);
-    setDragging({
+
+  const updatePositions = () => {
+    if (!captureRef.current) return;
+    const { width, height } = captureRef.current.getBoundingClientRect();
+    if (width === 0 || height === 0) return;
+
+    const newPositions = {};
+    for (let id in initialPositionsPct) {
+      const offset = dragOffset.current[id] || { dx: 0, dy: 0 };
+      newPositions[id] = {
+        x: (initialPositionsPct[id].left / 100) * width + offset.dx,
+        y: (initialPositionsPct[id].top / 100) * height + offset.dy,
+      };
+    }
+    setPositionsPx(newPositions);
+  };
+
+  // drag
+  const handlePointerDown = (e, id) => {
+    e.preventDefault();
+    const { x, y } = getEventPos(e);
+    dragging.current = {
       id,
       startX: x,
       startY: y,
-      initialX: positionsPx[id].x,
-      initialY: positionsPx[id].y,
-    });
-    setMoved(false);
+      initialOffset: dragOffset.current[id] || { dx: 0, dy: 0 },
+      moved: false,
+    };
+    setShowHint(false);
   };
 
-  const onPointerMove = (e) => {
-    if (!dragging) return;
-    const { x, y } = getPosi(e);
-    const dx = x - dragging.startX;
-    const dy = y - dragging.startY;
-    if (Math.abs(dx) > 3 || Math.abs(dy) > 3) setMoved(true);
-    setPositionsPx((prev) => ({
-      ...prev,
-      [dragging.id]: {
-        x: dragging.initialX + dx,
-        y: dragging.initialY + dy,
-      },
-    }));
-    dragOffset.current[dragging.id] = { dx, dy };
-  };
+  const handlePointerMove = (e) => {
+    if (!dragging.current) return;
+    const { x, y } = getEventPos(e);
+    const dx = x - dragging.current.startX;
+    const dy = y - dragging.current.startY;
 
-  const onPointerUp = () => setDragging(null);
-  const onClickFrame = (id) => {
-    if (!moved) {
-      navigate("/closet", {
-        state: { frameId: id, selectedImages },
-      });
+    if (!dragging.current.moved && (Math.abs(dx) > 5 || Math.abs(dy) > 5)) {
+      dragging.current.moved = true;
     }
+
+    dragOffset.current[dragging.current.id] = {
+      dx: dragging.current.initialOffset.dx + dx,
+      dy: dragging.current.initialOffset.dy + dy,
+    };
+
+    requestAnimationFrame(updatePositions);
   };
+
+  const handlePointerUp = () => {
+    if (dragging.current) {
+      localStorage.setItem("framePositions", JSON.stringify(dragOffset.current));
+      if (!dragging.current.moved) {
+        navigate("/closet", { state: { frameId: dragging.current.id, selectedImages } });
+      }
+    }
+    dragging.current = null;
+  };
+
+  // ---------- Screenshot ----------
   const captureScreenshot = () => setConfirmVisible(true);
 
   const doCapture = async () => {
     setConfirmVisible(false);
     if (!captureRef.current) return;
-    const element = captureRef.current;
-    const saveButton = document.querySelector(".mam-btn");
-    if (saveButton) saveButton.style.visibility = "hidden";
 
-    await Promise.all(
-      Array.from(element.querySelectorAll("img")).map(
-        (img) =>
-          new Promise((resolve) => {
-            if (img.complete) resolve();
-            else img.onload = img.onerror = resolve;
-          })
-      )
-    );
+    const clone = captureRef.current.cloneNode(true);
+    clone.style.position = "absolute";
+    clone.style.top = "0";
+    clone.style.left = "0";
+    clone.style.width = `${captureRef.current.offsetWidth}px`;
+    clone.style.height = `${captureRef.current.offsetHeight}px`;
+    clone.style.zIndex = "9999";
+    clone.style.transform = "none";
+    document.body.appendChild(clone);
 
-    const rect = element.getBoundingClientRect();
-    const scale = window.devicePixelRatio || 1;
-
-    const canvas = await html2canvas(element, {
-      useCORS: true,
-      allowTaint: false,
-      foreignObjectRendering: false, 
-      backgroundColor: window.getComputedStyle(element).backgroundColor || "#FFFFF0",
-      scale,
-      width: rect.width,
-      height: rect.height,
-      x: rect.left,
-      y: rect.top,
-      logging: false,
-      ignoreElements: (el) => el.classList.contains("no-capture"),
+    clone.querySelectorAll(".no-capture").forEach(el => el.remove());
+    clone.querySelectorAll(".frame").forEach(frame => {
+      const id = frame.dataset.id;
+      const pos = positionsPx[id];
+      if (pos) {
+        frame.style.position = "absolute";
+        frame.style.left = `${pos.x}px`;
+        frame.style.top = `${pos.y}px`;
+        frame.style.transform = "none";
+      }
     });
 
-    const dataURL = canvas.toDataURL("image/png");
+    const images = Array.from(clone.querySelectorAll("img"));
+    await Promise.all(images.map(img => new Promise(res => {
+      if (img.complete && img.naturalHeight !== 0) res();
+      else img.onload = img.onerror = () => res();
+    })));
+
+    await new Promise(r => setTimeout(r, 200));
+
+    const canvas = await html2canvas(clone, {
+      useCORS: true,
+      allowTaint: true,
+      backgroundColor: "#fff",
+      scale: window.devicePixelRatio || 1,
+    });
+
+    document.body.removeChild(clone);
+
+    const image = canvas.toDataURL("image/png");
     const link = document.createElement("a");
-    link.href = dataURL;
+    link.href = image;
     link.download = "mixandmatch.png";
     link.click();
-    if (saveButton) saveButton.style.visibility = "visible";
+
     setShowToast(true);
     setTimeout(() => setShowToast(false), 2500);
   };
-
-  const initialPositionsPct = {
-    1: { top: 12.5, left: 16.7 },
-    2: { top: 5, left: 38 },
-    3: { top: 39, left: 40 },
-    4: { top: 31.25, left: 70 },
-    5: { top: 75, left: 58 },
-    6: { top: 70, left: 28 },
-  };
-
-  const [positionsPx, setPositionsPx] = useState({});
-  const dragOffset = useRef({});
-  const updatePositions = () => {
-    if (!captureRef.current) return;
-    const { width, height } = captureRef.current.getBoundingClientRect();
-    if (width === 0 || height === 0) return;
-    const newPositions = {};
-    for (let id in initialPositionsPct) {
-      newPositions[id] = {
-        x:
-          (initialPositionsPct[id].left / 100) * width +
-          (dragOffset.current[id]?.dx || 0),
-        y:
-          (initialPositionsPct[id].top / 100) * height +
-          (dragOffset.current[id]?.dy || 0),
-      };
-    }
-    setPositionsPx(newPositions);
-  };
+  // ---------- Initialize selected images & positions ----------
   useLayoutEffect(() => {
-    updatePositions();
-    window.addEventListener("resize", updatePositions);
-    return () => window.removeEventListener("resize", updatePositions);
-  }, []);
+    const initialize = async () => {
+      const container = captureRef.current;
+      if (!container) return;
+      const { width, height } = container.getBoundingClientRect();
+      if (width === 0 || height === 0) {
+        setTimeout(initialize, 100);
+        return;
+      }
 
-  const [showHint, setShowHint] = useState(false);
-  const [hasShownHint, setHasShownHint] = useState(false);
+      // โหลด selectedImages จาก location.state หรือ localStorage
+      const imgs = location.state?.selectedImages || JSON.parse(localStorage.getItem("selectedImages") || "{}");
+      setSelectedImages(imgs);
+
+      // รอให้รูปโหลดเสร็จ
+      await Promise.all(
+        Object.values(imgs).map(src => {
+          if (!src) return Promise.resolve();
+          return new Promise(res => {
+            const img = new Image();
+            img.onload = img.onerror = () => res();
+            img.src = src;
+          });
+        })
+      );
+
+      if (location.state?.fromMain) {
+        dragOffset.current = {};
+      } else {
+        const savedPositions = JSON.parse(localStorage.getItem("framePositions") || "{}");
+        dragOffset.current = savedPositions || {};
+      }
+
+      updatePositions();
+    };
+
+    initialize();
+  }, [location.state]);
+
+  // ---------- Show hint overlay ----------
   useEffect(() => {
     if (!hasShownHint) {
       setShowHint(true);
@@ -215,42 +206,87 @@ export default function MixAndMatch() {
       return () => clearTimeout(timer);
     }
   }, [hasShownHint]);
-  const handleFrameEnter = () => {
-    setShowHint(true);
-  };
-  const handleFrameLeave = () => {
-    setShowHint(false);
-  };
-  const hideHint = () => setShowHint(false);
+
+  useEffect(() => {
+    console.log("Location state:", location.state);
+    if (location.state?.fromMain) {
+      console.log("Navigated from main");
+      dragOffset.current = {}; 
+    } else {
+      const savedPositions = JSON.parse(localStorage.getItem("framePositions") || "{}");
+      dragOffset.current = savedPositions || {};
+    }
+
+    updatePositions();
+
+    if (!hasShownHint) {
+      setShowHint(true);
+      setHasShownHint(true);
+      const timer = setTimeout(() => setShowHint(false), 2500);
+      return () => clearTimeout(timer);
+    }
+  }, []);
+
+  // ---------- Event Listeners ----------
+  useEffect(() => {
+    const handleMouseMove = handlePointerMove;
+    const handleMouseUp = handlePointerUp;
+    window.addEventListener("mousemove", handleMouseMove);
+    window.addEventListener("mouseup", handleMouseUp);
+    return () => {
+      window.removeEventListener("mousemove", handleMouseMove);
+      window.removeEventListener("mouseup", handleMouseUp);
+    };
+  }, []);
+
+  useLayoutEffect(() => {
+    const container = captureRef.current;
+    if (!container) return;
+    const handleTouchStart = (e) => {
+      const frameEl = e.target.closest(".frame");
+      if (!frameEl) return;
+      handlePointerDown(e, Number(frameEl.dataset.id));
+    };
+    const handleTouchMove = handlePointerMove;
+    const handleTouchEnd = handlePointerUp;
+
+    container.addEventListener("touchstart", handleTouchStart, { passive: false });
+    container.addEventListener("touchmove", handleTouchMove, { passive: false });
+    container.addEventListener("touchend", handleTouchEnd);
+
+    return () => {
+      container.removeEventListener("touchstart", handleTouchStart);
+      container.removeEventListener("touchmove", handleTouchMove);
+      container.removeEventListener("touchend", handleTouchEnd);
+    };
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem("selectedImages", JSON.stringify(selectedImages));
+  }, [selectedImages]);
 
   return (
     <>
-      <div ref={captureRef}
+      <div
+        ref={captureRef}
         className="mixandmatch-container"
-        onMouseMove={onPointerMove}
-        onMouseUp={onPointerUp}
-        onTouchMove={onPointerMove}
-        onTouchEnd={onPointerUp}>
-        {polaroidFrames.map((frame) => (
+        onMouseMove={handlePointerMove}
+        onMouseUp={handlePointerUp}
+      >
+        {polaroidFrames.map(frame => (
           <div
             key={frame.id}
+            data-id={frame.id}
             className={frame.className}
-            onMouseEnter={handleFrameEnter}
-            onMouseLeave={handleFrameLeave}
-            onTouchStart={handleFrameEnter}
-            onTouchEnd={handleFrameLeave}
-            onMouseDown={(e) => { onPointerDown(e, frame.id); hideHint(); }}
-            onTouchStartCapture={(e) => { onPointerDown(e, frame.id); hideHint(); }}
-            onClick={() => { onClickFrame(frame.id); hideHint(); }}
-
             style={{
-              transform: `translate(${positionsPx[frame.id]?.x}px, ${positionsPx[frame.id]?.y}px)`,
+              left: positionsPx[frame.id]?.x || 0,
+              top: positionsPx[frame.id]?.y || 0,
               cursor: "grab",
               position: "absolute",
             }}
-          >
+            onMouseDown={(e) => handlePointerDown(e, frame.id)}>
             {selectedImages[frame.id] && (
-              <div className="img-wrapper">
+              <div className="img-wrapper" style={{ pointerEvents: "none" }}>
                 <img
                   src={selectedImages[frame.id]}
                   alt="selected"
@@ -277,22 +313,16 @@ export default function MixAndMatch() {
         {showHint && (
           <div className="hint-overlay no-capture">
             ✨ ลากเพื่อขยับ • กดเพื่อเลือกเสื้อผ้า ✨
-          </div>)}
+          </div>
+        )}
       </div>
       {confirmVisible && (
         <div className="confirm-popup no-capture">
           <div className="confirm-box">
             <p>ต้องการแคปภาพตอนนี้ไหม?</p>
             <div className="confirm-btns">
-              <button className="ok-btn" onClick={doCapture}>
-                ตกลง
-              </button>
-              <button
-                className="cancel-btn"
-                onClick={() => setConfirmVisible(false)}
-              >
-                ยกเลิก
-              </button>
+              <button className="ok-btn" onClick={doCapture}>ตกลง</button>
+              <button className="cancel-btn" onClick={() => setConfirmVisible(false)}>ยกเลิก</button>
             </div>
           </div>
         </div>
