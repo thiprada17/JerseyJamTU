@@ -29,6 +29,7 @@ import CollarJersey from './frontend/main/News/collarJersey';
 import LuckyColor from './frontend/main/News/luckuColor';
 import ProtectedRoute from './frontend/component/ProtectedRoute';
 
+// import { lazy, Suspense } from "react";
 
 function App() {
 
