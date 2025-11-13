@@ -3,7 +3,6 @@ import { Navigate } from "react-router-dom";
 
 function ProtectedRoute({ children }) {
   const [verified, setVerified] = useState(null); 
-  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const verify = async () => {
@@ -42,7 +41,6 @@ function ProtectedRoute({ children }) {
     verify();
   }, []);
 
-  if (loading || verified === null) return <div>Loading...</div>;
 
   if (!verified) return <Navigate to="/" replace />;
 
