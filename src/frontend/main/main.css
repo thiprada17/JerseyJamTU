@@ -3,27 +3,23 @@
 
 @font-face {
   font-family: 'PG';
- src: url('./fonts/PG.ttf') format('truetype');
+  src: url('../fonts/PG.ttf') format('truetype');
 }
-
 @font-face {
   font-family: 'Kanit';
-  src: url('./fonts/Kanit-Regular.ttf') format('truetype');
+  src: url('../fonts/Kanit-Regular.ttf') format('truetype');
 }
-
 @font-face {
   font-family: 'Nec';
-  src: url('./fonts/Nectarine.ttf') format('truetype');
+  src: url('../fonts/Nectarine.ttf') format('truetype');
 }
-
 @font-face {
   font-family: 'thi';
-  src: url('./fonts/thierry.ttf') format('truetype');
+  src: url('../fonts/thierry.ttf') format('truetype');
 }
-
 @font-face {
   font-family: "KanitL";
-  src: url("./fonts/Kanit-Light.ttf") format('truetype');
+  src: url("../fonts/Kanit-Light.ttf") format('truetype');
 }
 
 .main-header {
