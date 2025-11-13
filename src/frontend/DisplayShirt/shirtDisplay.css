@@ -536,7 +536,7 @@
 }
 
 @media (max-height: 500px) and (orientation: landscape) {
-  .shirtDisplay-dateBox {
+  .shirtDisplay-dateBox {                                                                                                                                                                                                                                                                                                                                                                                                       
     padding: 0.7rem 1.7rem;  
     font-size: 1.7rem;       
     min-width: 100px;        
