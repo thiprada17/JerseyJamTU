@@ -35,6 +35,9 @@ if (!supabaseServiceRoleKey) {
 const supabase = createClient(supabaseUrl, supabaseKey)
 const supabaseAdmin = createClient(supabaseUrl, supabaseServiceRoleKey); // admin client for private buckets ka man pen public fake
 
+let cachedShirts = null;
+let cacheTime = 0;
+const CACHE_DURATION = 1000 * 60 * 5;
 
 // sign up
 app.post('/add-user/register', async (req, res) => {
@@ -303,31 +306,37 @@ app.get('/shirt/fav/get/:user_id', async (req, res) => {
 app.get('/shirt/info/get', async (req, res) => {
   try {
 
-    // เช็คว่าเชื่อม supabase ได้มั้ย
-    if (!supabase) {
-      return res.status(500).json({ error: 'Supabase dead (not connect)' });
+    
+    const now = Date.now();
+    console.log('Request received at', new Date(now).toLocaleTimeString());
+
+    if (cachedShirts && now - cacheTime < CACHE_DURATION) {
+      console.log('Returning cached shirts!', cachedShirts?.length);
+      return res.json(cachedShirts);
     }
 
     const { data, error } = await supabaseAdmin
       .from('shirtInfo')
       .select('*')
-      .order('id', { ascending: false }); // เรียงล่าสุดขึ้นก่อน
+      .order('id', { ascending: false });
 
-    // เช็ค error
     if (error) {
-      console.error('error:', error);
+      console.error('Supabase fetch error:', error);
       return res.status(500).json({ error: error.message });
     }
-
     // เช็คว่ามีข้อมูลมั้ย
     if (!data || data.length === 0) {
       return res.status(404).json({ message: 'No shirt info found' });
     }
+    console.log(data)
+
+    cachedShirts = data;
+    cacheTime = now;
+    console.log('Cache updated with', data?.length, 'shirts');
 
     res.json(data);
-
   } catch (err) {
-    console.error('catch error:', err);
+    console.error('Unexpected error:', err);
     res.status(500).json({ error: 'Internal server error' });
   }
 });
