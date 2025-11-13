@@ -38,7 +38,8 @@ function ProtectedRoute({ children }) {
     verify();
   }, []);
 
-  if (verified === null) return <div className="token-loading">Loading...</div>;
+
+  if (verified === null) return <div className="token-loading"></div>;
   if (!verified) return <Navigate to="/" replace />;
 
   return children;
