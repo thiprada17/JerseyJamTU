@@ -451,7 +451,7 @@
 
   .up-fav-post {
     width: 100%;
-    max-width: 180px;
+    max-width: 220px;
     height: auto;
     border-radius: 18px;
   }
@@ -549,7 +549,7 @@
   }
 }
 
-@media screen and (min-width: 820px) and (max-width: 1024px) and (orientation: portrait) {
+@media screen and (min-width: 800px) and (max-width: 1024px) and (orientation: portrait) {
   .up-top {
     height: 30rem;
   }
