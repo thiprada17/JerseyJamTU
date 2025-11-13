@@ -36,40 +36,45 @@ function App() {
       <HashRouter>
         <Routes>
           <Route path="/" element={<Homepage />} />
-          <Route path="/main" element={<Main />} />
+          <Route path="/main" element={
+            <ProtectedRoute>
+              <Main />
+            </ProtectedRoute>
+          }
+          />
           <Route path="/main/news" element={<MainNews />} />
 
           <Route path="/commu" element={<Commu />} />
           <Route path="/commu/form" element={<CommuForm />} />
           <Route path="/display" element={<Display />} />
           <Route path="/sellerform" element={<Sellerform />} />
-          <Route path="/mixAndmatch" element = {<MixAndMatch />} />
-          <Route path='/closet' element = {<Closet />} />
+          <Route path="/mixAndmatch" element={<MixAndMatch />} />
+          <Route path='/closet' element={<Closet />} />
           {/* <Route path="/" element={<SignIn />} />
           <Route path="/signup" element={<SignUp />} /> */}
-          <Route path='/userprofile' element = {<UserProfile />} />
-          <Route path='/blog/sevenDayMatch' element = {<SevenDayMatch />} />
-          <Route path='/blog/jerseyWith' element = {<JerseyWith />} />
-          <Route path='/blog/personalColor' element = {<PersonalColor />} />
-          <Route path='/blog/collarJersey' element = {<CollarJersey />} />
-          <Route path='/blog/luckycolor' element = {<LuckyColor />} />
+          <Route path='/userprofile' element={<UserProfile />} />
+          <Route path='/blog/sevenDayMatch' element={<SevenDayMatch />} />
+          <Route path='/blog/jerseyWith' element={<JerseyWith />} />
+          <Route path='/blog/personalColor' element={<PersonalColor />} />
+          <Route path='/blog/collarJersey' element={<CollarJersey />} />
+          <Route path='/blog/luckycolor' element={<LuckyColor />} />
 
-          <Route path='/filter' element = {<Filter/>} />
+          <Route path='/filter' element={<Filter />} />
         </Routes>
       </HashRouter>
 
       <ToastContainer
-  position="top-right"
-  autoClose={2500}
-  hideProgressBar={false}
-  newestOnTop={false}
-  closeOnClick
-  rtl={false}
-  pauseOnFocusLoss
-  draggable
-  pauseOnHover
-  theme="colored"
-/>
+        position="top-right"
+        autoClose={2500}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="colored"
+      />
 
     </>
   )
