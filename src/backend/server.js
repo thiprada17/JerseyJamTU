@@ -654,7 +654,7 @@ app.post('/shirt/fillter', async (req, res) => {
       .select('*')
       .gte('shirt_price', minPrice)
       .lte('shirt_price', maxPrice)
-          .order('id', { ascending: false });
+      .order('id', { ascending: false });
 
     console.log(shirts)
 
@@ -675,8 +675,6 @@ app.post('/shirt/fillter', async (req, res) => {
 
       shirts = shirts.filter(shirt => tagShirtIds.has(shirt.id));
     }
-
-
 
     res.json(shirts || []);
 

@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { ToastContainer } from 'react-toastify';
 import './App.css'
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { HashRouter, Routes, Route } from "react-router-dom";
 import 'react-toastify/dist/ReactToastify.css';
 
 // import SignIn from "./frontend/SignIn";
@@ -33,7 +33,7 @@ function App() {
 
   return (
     <>
-      <Router>
+      <HashRouter>
         <Routes>
           <Route path="/" element={<Homepage />} />
           <Route path="/main" element={<Main />} />
@@ -56,7 +56,7 @@ function App() {
 
           <Route path='/filter' element = {<Filter/>} />
         </Routes>
-      </Router>
+      </HashRouter>
 
       <ToastContainer
   position="top-right"

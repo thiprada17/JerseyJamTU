@@ -339,7 +339,7 @@
 
 .main-post-photo {
   background-color: #f8f8f8;
-  height: 30rem;
+  height: auto;
   overflow: hidden;
 }
 
@@ -707,6 +707,9 @@
     background-position: center top;
   }
 
+   .main-news-frame{
+      border: 1.57px solid black;
+  }
 
 
     .main-grid {
@@ -834,6 +837,7 @@
     margin: 0 auto !important;
     display: flex;
     justify-content: center;
+    border: 1px solid #000;
   }
 
   .slide-wrapper {
@@ -898,7 +902,6 @@
   }
 
 
-
   .main-grid {
     grid-template-columns: 1fr;
     gap: 0rem;
@@ -914,6 +917,7 @@
 
   .main-post-photo {
     height: 45rem;
+    
   }
 
   .main-post-photo img {
