@@ -15,7 +15,7 @@
 }
 @font-face {
   font-family: 'thi';
-  src: url('../fonts/thierry.ttf') format('truetype');
+  src: url('@../fonts/thierry.ttf') format('truetype');
 }
 @font-face {
   font-family: "KanitL";
