@@ -133,6 +133,7 @@ export default function MixAndMatch() {
     const element = captureRef.current;
     const saveButton = document.querySelector(".mam-btn");
     if (saveButton) saveButton.style.visibility = "hidden";
+
     await Promise.all(
       Array.from(element.querySelectorAll("img")).map(
         (img) =>
@@ -142,7 +143,6 @@ export default function MixAndMatch() {
           })
       )
     );
-    await new Promise((r) => setTimeout(r, 100));
 
     const rect = element.getBoundingClientRect();
     const scale = window.devicePixelRatio || 1;
@@ -150,6 +150,7 @@ export default function MixAndMatch() {
     const canvas = await html2canvas(element, {
       useCORS: true,
       allowTaint: false,
+      foreignObjectRendering: true, 
       backgroundColor: null,
       scale,
       width: rect.width,
@@ -266,7 +267,11 @@ export default function MixAndMatch() {
           src={greyArrow}
           alt="back button"
           className="sellerform-floatingButton no-capture"
-          onClick={() => navigate("/main")}
+          onClick={() => {
+            localStorage.removeItem("selectedImages");
+            setSelectedImages({});
+            navigate("/main");
+          }}
         />
         <button className="mam-btn no-capture" onClick={captureScreenshot}>
           📸 SAVE

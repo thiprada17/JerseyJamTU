@@ -91,20 +91,40 @@ export default function Closetmm() {
     fetchItems();
   }, [category]);
 
-  const handleSelect = (imageUrl) => {
-    console.log("Closetmm: handleSelect for frameId", frameId, "imageUrl:", imageUrl);
-    console.log("Closetmm: existing selectedImages:", selectedImages);
-    const updatedImages = {
-      ...selectedImages,
-      [frameId]: imageUrl,
-    };
-    console.log("Closetmm: updatedImages to send back:", updatedImages);
-    navigate("/mixandmatch", {
-      state: {
-        selectedImages: updatedImages,
-      },
-    });
+  // const handleSelect = (imageUrl) => {
+  //   console.log("Closetmm: handleSelect for frameId", frameId, "imageUrl:", imageUrl);
+  //   console.log("Closetmm: existing selectedImages:", selectedImages);
+  //   const updatedImages = {
+  //     ...selectedImages,
+  //     [frameId]: imageUrl,
+  //   };
+  //   console.log("Closetmm: updatedImages to send back:", updatedImages);
+  //   navigate("/mixandmatch", {
+  //     state: {
+  //       selectedImages: updatedImages,
+  //     },
+  //   });
+  // };
+
+  const handleSelect = async (imageUrl) => {
+  const res = await fetch(imageUrl);
+  const blob = await res.blob();
+  const base64 = await new Promise((resolve) => {
+    const reader = new FileReader();
+    reader.onloadend = () => resolve(reader.result);
+    reader.readAsDataURL(blob);
+  });
+
+  const updatedImages = {
+    ...selectedImages,
+    [frameId]: base64, 
   };
+
+  navigate("/mixandmatch", {
+    state: { selectedImages: updatedImages },
+  });
+};
+
 
   const buttonRefs = useRef([]);
   useEffect(() => {
