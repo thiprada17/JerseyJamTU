@@ -182,8 +182,8 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  width: 30rem;
-  height: 40rem;
+  width: 38rem;
+  height: 43rem;
   border: 2px solid #000;
   border-radius: 25px;
   overflow: hidden;
@@ -228,8 +228,8 @@
   align-items: center;
   justify-content: center;
   background-color: #FFF4DF;
-  width: 10rem;
-  height: 6rem;
+  width: 8rem;
+  height: 4.5rem;
   border-radius: 22px;
   border: 1px solid black;
   font-size: 1.4rem;
@@ -444,20 +444,20 @@
   .up-fav-grid {
     grid-template-columns: repeat(2, 1fr);
     column-gap: 1.2rem;
-    row-gap: 1.6rem;
+    row-gap: 1.3rem;
     padding: 0;
     margin: 0;
   }
 
   .up-fav-post {
     width: 100%;
-    max-width: 220px;
+    max-width: 350px;
     height: auto;
     border-radius: 18px;
   }
 
   .up-post-photo {
-    height: 190px;
+    height: 150px;
     margin: 4px 6px;
     border-radius: 18px;
   }
@@ -572,7 +572,7 @@
   }
 
   .up-fav-grid {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     column-gap: 1.6rem;
     row-gap: 2rem;
     padding: 0 2rem;
@@ -581,7 +581,7 @@
 
   .up-fav-post {
     width: 100%;
-    max-width: 230px;
+    max-width: 260px;
     height: auto;
   }
 
@@ -633,12 +633,14 @@
   }
 
   .up-fav-grid {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     row-gap: 4rem;
+    column-gap: 2.4rem;
+    justify-content: center;
   }
 
   .up-fav-post {
-    width: 26rem;
-    height: 36rem;
+    width: 29rem;
+    height: 39rem;
   }
 }
