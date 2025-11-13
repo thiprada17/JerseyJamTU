@@ -339,7 +339,7 @@
 
 .main-post-photo {
   background-color: #f8f8f8;
-  height: auto;
+  height: 40rem;
   overflow: hidden;
 }
 
@@ -918,6 +918,10 @@
     height: 25rem;
     border: 1.5px solid #000;
   }
+  
+  .main-post-photo {
+  height: 30rem;
+}
 
 
   .main-post-photo img {
@@ -927,7 +931,7 @@
   }
 
   .main-post-detail-card {
-    height: 7rem;
+    height: 10rem;
   }
 
 
