@@ -850,14 +850,19 @@
     transform: none !important;
     opacity: 1 !important;
   }
-
+.custom-prev,
+.custom-next {
+  font-size: 3rem;
+  color: rgb(208, 21, 21);
+  text-shadow: 2px 2px 6px rgba(237, 169, 169, 0.5);
+}
 
   .custom-prev {
-    left: 15.5%;
+    left: 5%;
   }
 
   .custom-next {
-    right: 15.5%;
+    right: 5%;
   }
 
 
@@ -916,7 +921,7 @@
 
 
   .main-post-photo {
-    height: 45rem;
+    height: auto;
     
   }
 
@@ -927,7 +932,7 @@
   }
 
   .main-post-detail-card {
-    height: 20rem;
+    height: 12rem;
   }
 
 
@@ -958,4 +963,6 @@
   .price {
     font-size: 1.5rem;
   }
+
+  
 }
