@@ -2,41 +2,33 @@ import { useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
 
 function ProtectedRoute({ children }) {
-  const [verified, setVerified] = useState(null); // null = loading, true/false = verified
-  const [loading, setLoading] = useState(true);
+  const [verified, setVerified] = useState(true); // assume token exist ถ้าเพิ่ง login
+  const [loading, setLoading] = useState(false); // ไม่ต้อง block หน้า
 
   useEffect(() => {
     const verify = async () => {
+      const token = localStorage.getItem("token");
+      if (!token) {
+        setVerified(false);
+        return;
+      }
+      setLoading(true);
       try {
-        const authToken = localStorage.getItem('token');
-        if (!authToken) {
+        const res = await fetch(
+          "https://jerseyjamtu.onrender.com/authen/users",
+          { headers: { authorization: `Bearer ${token}` } }
+        );
+        if (!res.ok) {
           setVerified(false);
           return;
         }
-
-        const authen = await fetch('https://jerseyjamtu.onrender.com/authen/users', {
-          method: 'GET',
-          headers: { authorization: `Bearer ${authToken}` }
-        });
-
-        if (!authen.ok) {
-          console.error('authen fail', authen.status);
-          setVerified(false);
-          return;
-        }
-
-        const authenData = await authen.json();
-
-        // ตรวจสอบความสำเร็จของ token
-        if (!authenData || !authenData.data || !authenData.data.success) {
+        const data = await res.json();
+        if (!data?.data?.success) {
           localStorage.clear();
           setVerified(false);
           return;
         }
-
-        setVerified(true);
-      } catch (error) {
-        console.error('verify error:', error);
+      } catch {
         setVerified(false);
       } finally {
         setLoading(false);
@@ -46,17 +38,9 @@ function ProtectedRoute({ children }) {
     verify();
   }, []);
 
-  if (loading) {
-    // แสดง loading ระหว่าง verify token
-    return <div>Loading...</div>;
-  }
+  if (!verified) return <Navigate to="/" replace />;
+  if (loading) return <div>Loading...</div>;
 
-  if (!verified) {
-    // ถ้าไม่ผ่าน token → redirect ไปหน้า login
-    return <Navigate to="/" replace />;
-  }
-
-  // ถ้า verified → render children
   return children;
 }
 
