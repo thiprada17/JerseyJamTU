@@ -921,6 +921,7 @@
 
 
   .main-post-photo {
+    min-height: 15rem;
     height: auto;
     
   }
