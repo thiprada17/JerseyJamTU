@@ -3,31 +3,31 @@
 
 @font-face {
   font-family: 'PG';
-  src: url('/fonts/PG.ttf') format('truetype');
+  src: url('../../assets/fonts/PG-Newport-DEMO.ttf') format('truetype');
 }
 @font-face {
   font-family: 'Kanit';
-  src: url('/fonts/Kanit-Regular.ttf') format('truetype');
+  src: url('../../assets/fonts/Kanit-Regular.ttf') format('truetype');
 }
 @font-face {
   font-family: 'Nec';
-  src: url('/fonts/Nectarine.ttf') format('truetype');
+  src: url('../../assets/fonts/Nectarine.ttf') format('truetype');
 }
 @font-face {
   font-family: 'thi';
-  src: url('/fonts/thierry.ttf') format('truetype');
+  src: url('../../assets/fonts/thierry.ttf') format('truetype');
 }
 @font-face {
-  font-family: "KanitL";
-  src: url("/fonts/Kanit-Light.ttf") format('truetype');
+  font-family: 'KanitL';
+  src: url('../../assets/fonts/Kanit-Light.ttf') format('truetype');
 }
 @font-face {
-  font-family: "KanitB";
-  src: url("/fonts/Kanit-Bold.ttf") format('truetype');
+  font-family: 'KanitB';
+  src: url('../../assets/fonts/Kanit-Bold.ttf') format('truetype');
 }
 @font-face {
-  font-family: "KanitEB";
-  src: url("/fonts/Kanit-ExtraBold.ttf") format('truetype');
+  font-family: 'KanitEB';
+  src: url('../../assets/fonts/Kanit-ExtraBold.ttf') format('truetype');
 }
 .up-body {
   background-color: white;
