@@ -8,6 +8,7 @@ import popup from "../../../../assets/popup-commu.png";
 import profile_icon from "../../../../assets/profile-icon.png";
 import { useNavigate, useLocation } from "react-router-dom";
 import '../../../component/loading.css';
+import logo from "../../../../assets/JerseyJam_logo.png";
 
 export default function Commu() {
   const navigate = useNavigate();
@@ -97,7 +98,13 @@ export default function Commu() {
           </button>
         </Link>
 
-        <div className="commu-navbar-logo">JerseyJamTU</div>
+        <div className="commu-navbar-logo">
+          <img
+            src={logo}
+            alt="logo"
+            className="commu-navbar-user-logo"
+          />
+        </div>
 
         <Link className="commu-navbar-user" to="/userprofile">
           <img

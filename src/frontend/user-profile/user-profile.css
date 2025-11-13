@@ -1,35 +1,34 @@
 @import "tailwindcss";
 
+
 @font-face {
   font-family: 'PG';
-  src: url('./PG Newport DEMO.ttf');
+  src: url('../../assets/fonts/PG-Newport-DEMO.ttf') format('truetype');
 }
-
 @font-face {
   font-family: 'Kanit';
-  src: url('Kanit-Regular.ttf');
+  src: url('../../assets/fonts/Kanit-Regular.ttf') format('truetype');
 }
-
-@font-face {
-  font-family: 'KanitEB';
-  src: url('Kanit-ExtraBold.ttf');
-}
-
-@font-face {
-  font-family: 'KanitB';
-  src: url('Kanit-Bold.ttf');
-}
-
 @font-face {
   font-family: 'Nec';
-  src: url('Nectarine.ttf');
+  src: url('../../assets/fonts/Nectarine.ttf') format('truetype');
 }
-
 @font-face {
   font-family: 'thi';
-  src: url('thierry.ttf');
+  src: url('../../assets/fonts/thierry.ttf') format('truetype');
 }
-
+@font-face {
+  font-family: 'KanitL';
+  src: url('../../assets/fonts/Kanit-Light.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'KanitB';
+  src: url('../../assets/fonts/Kanit-Bold.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'KanitEB';
+  src: url('../../assets/fonts/Kanit-ExtraBold.ttf') format('truetype');
+}
 .up-body {
   background-color: white;
   width: 100%;
@@ -182,8 +181,8 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  width: 30rem;
-  height: 40rem;
+  width: 38rem;
+  height: 43rem;
   border: 2px solid #000;
   border-radius: 25px;
   overflow: hidden;
@@ -228,8 +227,8 @@
   align-items: center;
   justify-content: center;
   background-color: #FFF4DF;
-  width: 10rem;
-  height: 6rem;
+  width: 8rem;
+  height: 4.5rem;
   border-radius: 22px;
   border: 1px solid black;
   font-size: 1.4rem;
@@ -360,63 +359,60 @@
 }
 
 @media (max-width: 430px) {
+
   .up-top {
-    height: 22rem;
-    padding: 1rem;
-    font-size: 1.6rem;
-    padding-bottom: 7px;
-  }
+  height: 25rem;
+  text-align: center;
+  border-bottom: 1px solid black;
+  font-size: clamp(1.7rem, 2.5vw, 1.5rem);
+}
+ .up-top-container {
+  height: 100%;
+  width: 100%;
+}
 
-  .up-home-icon {
-    width: 3.2rem;
-    margin: 1rem;
-  }
+.up-username {
+  top: 3rem;
+}
 
-  .up-top-container {
-    padding-top: 0.5rem;
-  }
+.up-usericon {
+  width: 3rem;
+}
 
-  .up-username {
-    top: 3.5rem;
-    gap: 8px;
-  }
+.up-username-name {
+  font-size: 3rem;
+  -webkit-text-stroke: 1.5px #000000;
+}
 
-  .up-usericon {
-    width: 3.2rem;
-  }
+.up-top-box {
+  height: 13rem;
+  width: 30rem;
+  border: 2px solid #000000;
+  border-radius: 3rem;
+}
 
-  .up-username-name {
-    font-size: 2.9rem;
-    line-height: 2.6rem;
-    -webkit-text-stroke: 1.5px #000;
-  }
+.up-year {
+  flex: 1;
+}
 
-  .up-top-box {
-    margin-top: -2.7rem;
-    width: calc(100% - 3rem);
-    padding: 0 1.5rem;
-    gap: 2rem;
-    height: 10rem;
-    margin-bottom: 0;
-    width: 9;
-    border-width: 1.5px;
-    border-radius: 2.5rem;
-  }
+.up-faculty {
+  flex: 1;
+}
 
-  .up-year,
-  .up-faculty {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
+.up-year-num {
+  font-family: 'KanitEB';
+  font-size: 3rem;
+  line-height: 5rem;
+  color: #FFF4DF;
+  -webkit-text-stroke: 1.5px #000000;
+}
 
-  .up-year-num,
-  .up-faculty-name {
-    font-size: 3rem;
-    line-height: 3.2rem;
-    -webkit-text-stroke: 1.5px #000;
-    color: #FFF4DF;
-  }
+.up-faculty-name {
+  font-family: 'KanitEB';
+  font-size: 3rem;
+  -webkit-text-stroke: 1.5px #000000;
+}
+
 
   .up-tabs {
     font-size: 1.9rem;
@@ -432,32 +428,27 @@
   }
 
   .up-content {
-    min-height: 100vh;
-    background-image: url('../../assets/dot-bg.png');
-    background-repeat: repeat-y !important;
-    background-repeat: repeat-x !important;
-    background-size: cover;
-    background-position: center top;
-    padding: 5rem;
+    padding: 2rem;
   }
 
   .up-fav-grid {
     grid-template-columns: repeat(2, 1fr);
     column-gap: 1.2rem;
-    row-gap: 1.6rem;
-    padding: 0;
-    margin: 0;
+    row-gap: 1.3rem;
+    padding: 0rem !important;
+    margin: 0rem !important;
   }
 
-  .up-fav-post {
-    width: 100%;
-    max-width: 180px;
-    height: auto;
-    border-radius: 18px;
-  }
+.up-fav-post {
+  width: 17.5rem;
+  height: 25rem;
+  border: 2px solid #000;
+  border-radius: 20px;
+}
+ 
 
   .up-post-photo {
-    height: 190px;
+    height: 150px;
     margin: 4px 6px;
     border-radius: 18px;
   }
@@ -540,16 +531,89 @@
 }
 
 @media (max-width: 360px) {
+  .up-top {
+  height: 25rem;
+  text-align: center;
+  border-bottom: 1px solid black;
+  font-size: clamp(1.7rem, 2.5vw, 1.5rem);
+}
+ .up-top-container {
+  height: 100%;
+  width: 100%;
+}
+
+.up-username {
+  top: 3rem;
+}
+
+.up-usericon {
+  width: 3rem;
+}
+
+.up-username-name {
+  font-size: 3rem;
+  -webkit-text-stroke: 1.5px #000000;
+}
+
+.up-top-box {
+  height: 13rem;
+  width: 30rem;
+  border: 2px solid #000000;
+  border-radius: 3rem;
+}
+
+.up-year {
+  flex: 1;
+}
+
+.up-faculty {
+  flex: 1;
+}
+
+.up-year-num {
+  font-family: 'KanitEB';
+  font-size: 3rem;
+  line-height: 5rem;
+  color: #FFF4DF;
+  -webkit-text-stroke: 1.5px #000000;
+}
+
+.up-faculty-name {
+  font-family: 'KanitEB';
+  font-size: 3rem;
+  -webkit-text-stroke: 1.5px #000000;
+}
+
   .up-fav-grid {
     grid-template-columns: 1fr;
   }
+
+  .up-content {
+    padding: 2rem;
+  }
+
+  .up-fav-grid {
+    grid-template-columns: repeat(2, 1fr);
+    column-gap: 1.2rem;
+    row-gap: 1.5rem;
+    padding: 0rem !important;
+    margin: 0rem !important;
+  }
+
+.up-fav-post {
+  width: 12rem;
+  height: 20rem;
+  border: 2px solid #000;
+  border-radius: 20px;
+  gap: 1rem;
+}
 
   .up-fav-post {
     max-width: 100%;
   }
 }
 
-@media screen and (min-width: 820px) and (max-width: 1024px) and (orientation: portrait) {
+@media screen and (min-width: 800px) and (max-width: 1024px) and (orientation: portrait) {
   .up-top {
     height: 30rem;
   }
@@ -572,7 +636,7 @@
   }
 
   .up-fav-grid {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     column-gap: 1.6rem;
     row-gap: 2rem;
     padding: 0 2rem;
@@ -581,7 +645,7 @@
 
   .up-fav-post {
     width: 100%;
-    max-width: 230px;
+    max-width: 260px;
     height: auto;
   }
 
@@ -633,12 +697,14 @@
   }
 
   .up-fav-grid {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     row-gap: 4rem;
+    column-gap: 2.4rem;
+    justify-content: center;
   }
 
   .up-fav-post {
-    width: 26rem;
-    height: 36rem;
+    width: 29rem;
+    height: 39rem;
   }
 }

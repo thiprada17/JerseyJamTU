@@ -90,6 +90,15 @@
   backdrop-filter: blur(3px);
 }
 
+
+.token-loading {
+  justify-content: center;
+  text-align: center;
+  font-family: 'kanit';
+  font-size: 5rem;
+  color: blue;
+} 
+
 @keyframes fadeIn {
   from {
     opacity: 0;

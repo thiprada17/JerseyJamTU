@@ -26,48 +26,6 @@ export default function Main() {
   const filterRef = useRef(null); //ฝ้าย ๆ ลองทำ ลบได้
   const [isLoading, setIsLoading] = useState(true);
 
-  useEffect(() => {
-    const verify = async () => {
-      try {
-        const authToken = localStorage.getItem('token');
-
-        if (!authToken) {
-          window.alert('token not found');
-          navigate('/');
-          return
-        }
-
-        const authen = await fetch('https://jerseyjamtu.onrender.com/authen/users', {
-          method: 'GET',
-          headers: { authorization: `Bearer ${authToken}` }
-        });
-
-        if (!authen.ok) {
-          console.error('authen fail', authen.status);
-          window.alert('authen fail');
-          navigate('/');
-          return
-        }
-
-        const authenData = await authen.json();
-        console.log('auth ' + authenData.success);
-
-        if (!authenData && !authenData.data && !authenData.data.success) {
-          window.alert('token not pass');
-          localStorage.clear();
-          navigate('/');
-          return
-        }
-
-      } catch (error) {
-        console.error('verify error:', error);
-        window.alert('verify error');
-        navigate('/');
-      }
-    };
-
-    verify();
-  }, [navigate]);
 
   // ก้อนนี้คือเพิ่มอนิเมชั่นเล่นๆนะ ไม่ชอบเดะเอาออก มันคือ เฟดตอนเข้า
   const postRefs = useRef([]);

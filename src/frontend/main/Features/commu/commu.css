@@ -2,22 +2,31 @@
 
 @font-face {
   font-family: "PG";
-  src: url("/fonts/PG-Newport-DEMO.ttf") format("truetype");
+  src: url("../../../assets/fonts/PG-Newport-DEMO.ttf") format("truetype");
 }
-
 @font-face {
   font-family: "Kanit";
-  src: url("/fonts/Kanit-Regular.ttf") format("truetype");
+  src: url("../../../assets/fonts/Kanit-Regular.ttf") format("truetype");
 }
-
 @font-face {
   font-family: "Nec";
-  src: url("/fonts/Nectarine.ttf") format("truetype");
+  src: url("../../../assets/fonts/Nectarine.ttf") format("truetype");
 }
-
 @font-face {
   font-family: "thi";
-  src: url("/fonts/thierry.ttf") format("truetype");
+  src: url("../../../assets/fonts/thierry.ttf") format("truetype");
+}
+@font-face {
+  font-family: "KanitL";
+  src: url("../../../assets/fonts/Kanit-Light.ttf") format("truetype");
+}
+@font-face {
+  font-family: "KanitB";
+  src: url("../../assets/fonts/Kanit-Bold.ttf") format("truetype");
+}
+@font-face {
+  font-family: "KanitEB";
+  src: url("../../../assets/fonts/Kanit-ExtraBold.ttf") format("truetype");
 }
 
 .commu-body {
@@ -50,7 +59,7 @@
   background-color: white;
   width: 100%;
   height: auto;
-  padding: 1rem 0.5rem;
+  padding: 0rem 0.5rem;
   text-align: center;
   font-family: "Nec", sans-serif;
   border-bottom: 1px solid black;
@@ -64,8 +73,10 @@
 }
 
 .commu-navbar-logo {
-  font-size: 3rem;
-  font-family: "Nec", sans-serif;
+  width: 10rem;
+  height: auto;
+  padding-bottom: 5rem;
+  padding-top: 3rem;
 }
 
 .commu-navbar-user {
@@ -234,7 +245,7 @@
 }
 
 .commu-fab {
-  position: fixed; 
+  position: fixed;
   bottom: 2rem;
   right: 2rem;
   width: 5rem;
@@ -245,8 +256,8 @@
   font-size: 3rem;
   /* font-weight: bold; */
   display: flex;
-  align-items: center;   
-  justify-content: center; 
+  align-items: center;
+  justify-content: center;
   text-decoration: none;
   box-shadow: 0 0.25rem 0.625rem rgba(0, 0, 0, 0.3);
   transition: transform 0.3s, background-color 0.3s;
@@ -262,7 +273,7 @@
 .commu-fab::after {
   content: attr(data-tooltip);
   position: absolute;
-  bottom: 120%; 
+  bottom: 120%;
   right: 50%;
   transform: translateX(50%);
   background: rgba(0, 0, 0, 0.8);
@@ -281,10 +292,13 @@
   transform: translateX(50%) translateY(-0.2rem);
 }
 
- /* ทรศ */
+/* ทรศ */
 @media (max-width: 640px) {
   .commu-navbar-logo {
-    font-size: 2rem;
+    width: 8rem;
+    height: auto;
+    padding-bottom: 1rem;
+    padding-top: 1rem;
   }
 
   .commu-navbar-user {
@@ -345,10 +359,10 @@
     background-size: 150% auto;
     padding: 3rem;
   }
-  
+
   .commu-post {
-    min-height: 30rem;
-    width: 35rem;
+    min-height: 20rem;
+    width: 30rem;
   }
 
   .commu-posttext {
@@ -359,19 +373,19 @@
   .commu-grid {
     display: grid;
     grid-template-columns: repeat(1, 1fr);
-    gap: 3rem;
+    gap: 3rem !important;
   }
 
   .commu-post-topic {
-    font-size: 2rem;
+    font-size: 2rem !important;
   }
 
   .commu-post-detail {
-    font-size: 1.5rem;
+    font-size: 1.5rem !important;
   }
 
   .commu-post-contact {
-    font-size: 1.5rem;
+    font-size: 1.5rem !important;
   }
 
   .commu-post-contact a {
@@ -380,20 +394,23 @@
     bottom: 1;
   }
 
-    .commu-fab {
+  .commu-fab {
     width: 4rem;
     height: 4rem;
     font-size: 2rem;
     bottom: 1.5rem;
     right: 1.5rem;
-    z-index: 9999; 
+    z-index: 9999;
   }
 }
 
 /* ไอแพด */
 @media (min-width: 640px) {
   .commu-navbar-logo {
-    font-size: 2rem;
+    width: 10rem;
+    height: auto;
+    padding-bottom: 1rem;
+    padding-top: 1rem;
   }
 
   .commu-navbar-user {
@@ -495,7 +512,10 @@
   }
 
   .commu-navbar-logo {
-    font-size: 3rem;
+    width: 15rem;
+    height: auto;
+    padding-bottom: 1rem;
+    padding-top: 1rem;
   }
 
   .commu-navbar-user {
