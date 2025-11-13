@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import "./Toast.css";
+import "./toast.css";
 
 export default function Toast({ message, duration = 3000, onClose }) {
   const [isHiding, setIsHiding] = useState(false);
