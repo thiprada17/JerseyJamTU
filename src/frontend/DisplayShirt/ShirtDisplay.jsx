@@ -26,7 +26,7 @@ export default function ShirtDisplay() {
                     return
                 }
 
-                const authen = await fetch('http://localhost:8000/authen/users', {
+                const authen = await fetch('https://jerseyjamtu.onrender.com/authen/users', {
                     method: 'GET',
                     headers: { authorization: `Bearer ${authToken}` }
                 });
@@ -73,7 +73,7 @@ export default function ShirtDisplay() {
     useEffect(() => {
         const fetchPosts = async () => {
             try {
-                const response = await fetch(`http://localhost:8000/shirt/info/get/${id}`);
+                const response = await fetch(`https://jerseyjamtu.onrender.com/shirt/info/get/${id}`);
                 const data = await response.json();
                 setshirtData(data[0] || {});
             } catch (error) {
@@ -95,7 +95,7 @@ export default function ShirtDisplay() {
         const CheckIsFavMai = async () => {
             try {
                 if (!user_id || !id) return;
-                const response = await fetch("http://localhost:8000/shirt/fav/check", {
+                const response = await fetch("https://jerseyjamtu.onrender.com/shirt/fav/check", {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json"
@@ -141,7 +141,7 @@ export default function ShirtDisplay() {
 
         try {
             if (!isFavorited) {
-                const response = await fetch("http://localhost:8000/shirt/fav/post", {
+                const response = await fetch("https://jerseyjamtu.onrender.com/shirt/fav/post", {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify(favData)
@@ -149,7 +149,7 @@ export default function ShirtDisplay() {
                 const data = await response.json();
                 console.log(data);
             } else {
-                const response = await fetch("http://localhost:8000/shirt/fav/del", {
+                const response = await fetch("https://jerseyjamtu.onrender.com/shirt/fav/del", {
                     method: "DELETE",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify(favdelData)
@@ -167,7 +167,7 @@ export default function ShirtDisplay() {
     useEffect(() => {
         const fetchTags = async () => {
             try {
-                const response = await fetch(`http://localhost:8000/shirt/tag/get/${id}`);
+                const response = await fetch(`https://jerseyjamtu.onrender.com/shirt/tag/get/${id}`);
                 const data = await response.json();
                 setTags(data || []);
             } catch (error) {

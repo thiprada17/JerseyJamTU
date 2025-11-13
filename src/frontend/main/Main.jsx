@@ -37,7 +37,7 @@ export default function Main() {
           return
         }
 
-        const authen = await fetch('http://localhost:8000/authen/users', {
+        const authen = await fetch('https://jerseyjamtu.onrender.com/authen/users', {
           method: 'GET',
           headers: { authorization: `Bearer ${authToken}` }
         });
@@ -95,7 +95,7 @@ export default function Main() {
   // useEffect(() => {
   //   async function fetchPosts() {
   //     try {
-  //       const response = await fetch('http://localhost:8000/shirt/info/get', {
+  //       const response = await fetch('https://jerseyjamtu.onrender.com/shirt/info/get', {
   //         method: 'GET',
   //       });
 
@@ -118,7 +118,7 @@ export default function Main() {
     async function fetchPosts() {
       try {
         setIsLoading(true);
-        const response = await fetch('http://localhost:8000/shirt/info/get', {
+        const response = await fetch('https://jerseyjamtu.onrender.com/shirt/info/get', {
           method: 'GET',
         });
 
@@ -130,7 +130,7 @@ export default function Main() {
         const postsWithTags = await Promise.all(
           data.map(async (post) => {
             try {
-              const resTag = await fetch(`http://localhost:8000/shirt/tag/get/${post.id}`);
+              const resTag = await fetch(`https://jerseyjamtu.onrender.com/shirt/tag/get/${post.id}`);
               const tags = await resTag.json();
               return { ...post, tags };
             } catch {
@@ -211,7 +211,7 @@ export default function Main() {
       }
 
       // fetch filtered shirts
-      const res = await fetch('http://localhost:8000/shirt/fillter', {
+      const res = await fetch('https://jerseyjamtu.onrender.com/shirt/fillter', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ selectedTagIds: TagID, minPrice, maxPrice })
@@ -222,7 +222,7 @@ export default function Main() {
       const postsWithTags = await Promise.all(
         data.map(async (post) => {
           try {
-            const resTag = await fetch(`http://localhost:8000/shirt/tag/get/${post.id}`);
+            const resTag = await fetch(`https://jerseyjamtu.onrender.com/shirt/tag/get/${post.id}`);
             const tags = await resTag.json();
             return { ...post, tags };
           } catch {

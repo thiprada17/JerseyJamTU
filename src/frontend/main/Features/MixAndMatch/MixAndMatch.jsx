@@ -42,7 +42,7 @@ export default function MixAndMatch() {
           return
         }
 
-        const authen = await fetch('http://localhost:8000/authen/users', {
+        const authen = await fetch('https://jerseyjamtu.onrender.com/authen/users', {
           method: 'GET',
           headers: { authorization: `Bearer ${authToken}` }
         });

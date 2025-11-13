@@ -133,7 +133,7 @@ export default function SellerForm() {
     };
 
     try {
-      const response = await fetch("http://localhost:8000/shirt/info/post", {
+      const response = await fetch("https://jerseyjamtu.onrender.com/shirt/info/post", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
@@ -156,7 +156,7 @@ export default function SellerForm() {
 
       //ส่งแท็กแต่ละอันไปbackend
       for (const tag of selectedTags) {
-        await fetch("http://localhost:8000/shirt/tag/add", {
+        await fetch("https://jerseyjamtu.onrender.com/shirt/tag/add", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ shirt_id: shirtId, tag_name: tag }),

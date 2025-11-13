@@ -76,7 +76,7 @@ export default function Login({ scrollToHome, scrollToSignup }) {
     const fullEmail = `${local}@dome.tu.ac.th`;
 
     try {
-      const response = await fetch('http://localhost:8000/create/login', {
+      const response = await fetch('https://jerseyjamtu.onrender.com/create/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email: fullEmail, password }),
@@ -100,7 +100,7 @@ export default function Login({ scrollToHome, scrollToSignup }) {
         localStorage.setItem("token", user.token || "");
 
         const authToken = localStorage.getItem('token') || "";
-        const authen = await fetch('http://localhost:8000/authen/users', {
+        const authen = await fetch('https://jerseyjamtu.onrender.com/authen/users', {
           method: 'GET',
           headers: { 'authorization': `Bearer ${authToken}` }
         });

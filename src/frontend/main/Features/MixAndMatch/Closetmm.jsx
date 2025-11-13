@@ -28,7 +28,7 @@ export default function Closetmm() {
           return
         }
 
-        const authen = await fetch('http://localhost:8000/authen/users', {
+        const authen = await fetch('https://jerseyjamtu.onrender.com/authen/users', {
           method: 'GET',
           headers: { authorization: `Bearer ${authToken}` }
         });
@@ -70,13 +70,13 @@ export default function Closetmm() {
       setLoading(true);
       try {
         if (category === "Jersey") {
-          const response = await fetch(`http://localhost:8000/shirt/info/get`);
+          const response = await fetch(`https://jerseyjamtu.onrender.com/shirt/info/get`);
           if (!response.ok) throw new Error("Failed to fetch shirt info");
           const data = await response.json();
           setItems(data);
         } else {
           let folderName = category;
-          const response = await fetch(`http://localhost:8000/category/${folderName}/info/get`);
+          const response = await fetch(`https://jerseyjamtu.onrender.com/category/${folderName}/info/get`);
           if (!response.ok) throw new Error("Failed to fetch images from storage");
           const data = await response.json();
           setItems(data);

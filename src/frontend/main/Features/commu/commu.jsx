@@ -35,7 +35,7 @@ export default function Commu() {
           return;
         }
 
-        const authen = await fetch("http://localhost:8000/authen/users", {
+        const authen = await fetch("https://jerseyjamtu.onrender.com/authen/users", {
           method: "GET",
           headers: { authorization: `Bearer ${authToken}` },
         });
@@ -70,7 +70,7 @@ export default function Commu() {
     const fetchPosts = async () => {
       try {
         setLoading(true);
-        const response = await axios.get("http://localhost:8000/commu/get");
+        const response = await axios.get("https://jerseyjamtu.onrender.com/commu/get");
         setPosts(response.data);
 
         console.log("fetching posts success");

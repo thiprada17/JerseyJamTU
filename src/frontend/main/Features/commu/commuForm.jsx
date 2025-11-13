@@ -33,7 +33,7 @@ export default function CommuForm() {
           return
         }
 
-        const authen = await fetch('http://localhost:8000/authen/users', {
+        const authen = await fetch('https://jerseyjamtu.onrender.com/authen/users', {
           method: 'GET',
           headers: { authorization: `Bearer ${authToken}` }
         });
@@ -128,7 +128,7 @@ export default function CommuForm() {
 
     try {
       if (isEdit && editingPost?.post_id) {
-        await axios.put(`http://localhost:8000/commu/post/${editingPost.post_id}`, {
+        await axios.put(`https://jerseyjamtu.onrender.com/commu/post/${editingPost.post_id}`, {
           title: t,
           detail: d,
           contact: c,
@@ -140,7 +140,7 @@ export default function CommuForm() {
           type: "success",
         });
       } else {
-        await axios.post("http://localhost:8000/commu/post", {
+        await axios.post("https://jerseyjamtu.onrender.com/commu/post", {
           title: t,
           detail: d,
           contact: c,

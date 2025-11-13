@@ -37,7 +37,7 @@ export default function UserProfile() {
           return;
         }
 
-        const authen = await fetch('http://localhost:8000/authen/users', {
+        const authen = await fetch('https://jerseyjamtu.onrender.com/authen/users', {
           method: 'GET',
           headers: { authorization: `Bearer ${authToken}` },
         });
@@ -95,7 +95,7 @@ export default function UserProfile() {
         setLoading(true);
         setError("");
         const res = await axios.get(
-          `http://localhost:8000/commu/get/by-user/${user_id}`
+          `https://jerseyjamtu.onrender.com/commu/get/by-user/${user_id}`
         );
         setPosts(res.data || []);
         setLoading(false);
@@ -115,7 +115,7 @@ export default function UserProfile() {
     }
     try {
       const res = await axios.get(
-        `http://localhost:8000/shirt/fav/get/${user_id}`
+        `https://jerseyjamtu.onrender.com/shirt/fav/get/${user_id}`
       );
       setFavs(res.data || []);
     } catch (e) {
@@ -142,7 +142,7 @@ export default function UserProfile() {
   const handleConfirmDelete = async () => {
     if (!selectedPost) return;
     try {
-      await axios.delete(`http://localhost:8000/commu/delete/${selectedPost}`, {
+      await axios.delete(`https://jerseyjamtu.onrender.com/commu/delete/${selectedPost}`, {
         data: { user_id },
       });
       setPosts((prev) => prev.filter((p) => p.post_id !== selectedPost));
