@@ -1,3 +1,9 @@
+body.homepage {
+  height: 100vh;         
+  overflow: hidden;
+  touch-action: none;
+}
+
 .homepage-container {
   width: 100vw;
   min-height: 100vh;
