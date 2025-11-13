@@ -339,13 +339,10 @@
 .heart-mobile  { display: none; }
 
 @media (max-width:768px) {
-  .shirtDisplay-container {
-    width: 100%;
-    padding: 0 1.2rem;
-    box-sizing: border-box;
-    display: flex;
-    justify-content: center;
-  }
+.shirtDisplay-container {
+  width: 100vw;
+  height: 100vw;
+}
 
   .shirtDisplay-wrapper {
     flex-direction: column;
@@ -353,7 +350,7 @@
     gap: 1.2rem;
     margin-top: 1rem;
     width: auto;
-    max-width: 480px;
+    max-width: 60rem;
   }
   .shirtDisplay-right {
     order: 1;
@@ -370,9 +367,9 @@
     text-align: center;
   }
   .shirtDisplay-imageContainer {
-    width: 88%;
-    max-width: 330%;
-    height: 300px;
+    width: 60rem;
+    max-width: 100rem;
+    height: 30rem;
     margin: 0 auto;
     padding: 1rem;
     border-radius: 1rem;
@@ -394,18 +391,18 @@
   }
   .shirtDisplay-title {
     font-family: 'Cooper', sans-serif !important;
-    font-size: 2.4rem;
-    line-height: 1.2;
-    margin-bottom: 0.8rem;
+    font-size: 3rem;
+    margin-bottom: 2rem;
   }
   .shirtDisplay-priceWrapper {
-    margin: 0.8rem auto 1.6rem;
-    transform: scale(1.05);
+    margin: 0rem auto 2rem;
+    transform: scale(1.2);
   }
+  
   .shirtDisplay-descriptionBox {
-    width: 330px;
+    width: 60rem;
+    min-height: 10rem;
     height: auto;
-    min-height: 8rem;
     font-size: 1.6rem;
     padding: 1rem 1.2rem;
     margin: 0 auto 1.2rem;
@@ -418,9 +415,10 @@
   .shirtDisplay-dateBox {
     padding: 0.6rem 1.4rem;
     font-size: 1.6rem;
+    width: 20rem;
   }
   .shirtDisplay-separator {
-    width: 2rem;
+    width: 3rem;
     height: 2px;
   }
   .heart-desktop { display: none; }
@@ -433,97 +431,85 @@
 
 @media (orientation:portrait) and (min-width:800px) and (max-width:1100px) {
   .shirtDisplay-container {
-    padding: 0 rem;
-    display: flex;
-    justify-content: center;
-  }
+  width: 100vw;
+  height: 100vw;
+  margin-top: 5rem;
+}
 
   .shirtDisplay-wrapper {
-    flex-direction: column !important;
-    align-items: center !important;
-    width: 100vw !important;
-    max-width: 100vw !important;
-    margin: 2rem auto 0 !important;
-    gap: 1.6rem !important;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.2rem;
+    margin-top: 1rem;
+    width: auto;
+    max-width: 70rem;
   }
-
   .shirtDisplay-right {
-    order: 0;
-    width: 100% !important;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: visible !important;
-  }
-
-  .shirtDisplay-imageContainer {
-    width: 100%;
-    max-width: 100% !important;
-    margin: 0 auto;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border: none;
-    border-radius: 1.2rem;
-    padding: 1.2rem !important;
-    background: #fff;
-    box-shadow: 0 0 0 1.5px #000 inset;
-  }
-
-  .shirtDisplay-image {
-    width: 100%;
-    height: auto;
-    object-fit: contain;
-    border-radius: 1rem;
-  }
-
-  .shirtDisplay-left {
     order: 1;
+    max-width: 100%;
+    width: 100%;
+
+  }
+  .shirtDisplay-left {
+    order: 2;
+    max-width: 100%;
     width: 100%;
     text-align: center;
   }
-
-  .shirtDisplay-title {
-    font-size: 2.7rem !important;
-    margin: .6rem 0 .2rem;
-  }
-
-  .shirtDisplay-priceWrapper {
-    margin: .6rem auto 1.2rem;
-    transform: scale(1.25);
-  }
-
-  .shirtDisplay-descriptionBox {
-    width: 100%;
-    height: auto;
-    min-height: 12rem;
-    padding: 1.2rem 1.6rem;
-  }
-
-  .shirtDisplay-datesWrapper {
-    flex-wrap: nowrap;   
+  .shirtDisplay-imageContainer {
+    width: 100rem;
+    max-width: 100rem;
+    height: 45rem;
+    margin: 0 auto;
+    padding: 1rem;
+    border-radius: 1rem;
+    display: flex;
     justify-content: center;
-    gap: 0.5rem;       
-    padding: 0 .25rem;
+    align-items: center;
+    background-color: #fff;
+    border: 1.5px solid #000;
+    overflow: hidden;
+    position: relative;
   }
-
+  .shirtDisplay-image {
+    width: auto;
+    height: 100%;
+    max-width: 100%;
+    object-fit: contain;
+    border-radius: 1rem;
+    display: block;
+  }
+  .shirtDisplay-title {
+    font-family: 'Cooper', sans-serif !important;
+    font-size: 4rem;
+    margin-bottom: 3rem;
+  }
+  .shirtDisplay-priceWrapper {
+    margin: 0rem auto 3rem;
+    transform: scale(1.5);
+  }
+  
+  .shirtDisplay-descriptionBox {
+    width: 70rem;
+    min-height: 20rem;
+    height: auto;
+    font-size: 1.6rem;
+    padding: 1rem 1.2rem;
+    margin: 0 auto 1.2rem;
+    justify-content: center;
+  }
+  .shirtDisplay-datesWrapper {
+    margin-top: 2rem;
+    gap: 0.6rem;
+  }
   .shirtDisplay-dateBox {
-    flex: 0 0 auto;       
-    min-width: 190px;
-    max-width: 210px;
-    padding: 0.9rem 2rem;      
-    font-size: 1.8rem;   
+    padding: 0.6rem 1.4rem;
+    font-size: 1.6rem;
+    width: 20rem;
   }
-
-
   .shirtDisplay-separator {
-    display: block !important;
-    width: 40px !important;
-    height: 3px !important;
-    background-color: #000 !important;
-    margin: 0 0.5rem !important;
-    align-self: center !important;
-    flex-shrink: 0 !important;
+    width: 3rem;
+    height: 2px;
   }
 
   .heart-desktop {
