@@ -68,10 +68,6 @@ export default function Login({ scrollToHome, scrollToSignup }) {
       setNotification({ message: "กรุณากรอกรหัสผ่านให้ถูกต้อง", type: "error" });
       return;
     }
-    if (thaiRegex.test(password)) {
-      setNotification({ message: "รหัสผ่านห้ามมีอักษรภาษาไทย", type: "error" });
-      return;
-    }
 
     const fullEmail = `${local}@dome.tu.ac.th`;
 
