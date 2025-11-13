@@ -1,35 +1,34 @@
 @import "tailwindcss";
 
+
 @font-face {
   font-family: 'PG';
-  src: url('./PG Newport DEMO.ttf');
+  src: url('../../assets/fonts/PG-Newport-DEMO.ttf') format('truetype');
 }
-
 @font-face {
   font-family: 'Kanit';
-  src: url('Kanit-Regular.ttf');
+  src: url('../../assets/fonts/Kanit-Regular.ttf') format('truetype');
 }
-
-@font-face {
-  font-family: 'KanitEB';
-  src: url('Kanit-ExtraBold.ttf');
-}
-
-@font-face {
-  font-family: 'KanitB';
-  src: url('Kanit-Bold.ttf');
-}
-
 @font-face {
   font-family: 'Nec';
-  src: url('Nectarine.ttf');
+  src: url('../../assets/fonts/Nectarine.ttf') format('truetype');
 }
-
 @font-face {
   font-family: 'thi';
-  src: url('thierry.ttf');
+  src: url('../../assets/fonts/thierry.ttf') format('truetype');
 }
-
+@font-face {
+  font-family: 'KanitL';
+  src: url('../../assets/fonts/Kanit-Light.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'KanitB';
+  src: url('../../assets/fonts/Kanit-Bold.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'KanitEB';
+  src: url('../../assets/fonts/Kanit-ExtraBold.ttf') format('truetype');
+}
 .up-body {
   background-color: white;
   width: 100%;
