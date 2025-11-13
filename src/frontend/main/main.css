@@ -918,14 +918,6 @@
     height: 25rem;
     border: 1.5px solid #000;
   }
-.main-post-photo {
-
-  }
-
-  .main-post-photo img {
-
-  }
-
 
 
   .main-post-photo img {
@@ -935,7 +927,7 @@
   }
 
   .main-post-detail-card {
-    height: 12rem;
+    height: 7rem;
   }
 
 
