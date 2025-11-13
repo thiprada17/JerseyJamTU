@@ -320,7 +320,7 @@
   flex-direction: column;
   justify-content: space-between;
   width: 30rem;
-  height: 45rem;
+  height: 40rem;
   border: 2px solid #000;
   border-radius: 25px;
   overflow: hidden;
@@ -918,13 +918,15 @@
     height: 25rem;
     border: 1.5px solid #000;
   }
+.main-post-photo {
 
-
-  .main-post-photo {
-    min-height: 15rem;
-    height: auto;
-    
   }
+
+  .main-post-photo img {
+
+  }
+
+
 
   .main-post-photo img {
     width: 100%;
