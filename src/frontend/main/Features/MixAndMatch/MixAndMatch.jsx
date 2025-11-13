@@ -133,12 +133,23 @@ export default function MixAndMatch() {
     const element = captureRef.current;
     const saveButton = document.querySelector(".mam-btn");
     if (saveButton) saveButton.style.visibility = "hidden";
-
+    await Promise.all(
+      Array.from(element.querySelectorAll("img")).map(
+        (img) =>
+          new Promise((resolve) => {
+            if (img.complete) resolve();
+            else img.onload = img.onerror = resolve;
+          })
+      )
+    );
     await new Promise((r) => setTimeout(r, 100));
+
     const rect = element.getBoundingClientRect();
     const scale = window.devicePixelRatio || 1;
+
     const canvas = await html2canvas(element, {
       useCORS: true,
+      allowTaint: false,
       backgroundColor: null,
       scale,
       width: rect.width,
@@ -158,6 +169,7 @@ export default function MixAndMatch() {
     setShowToast(true);
     setTimeout(() => setShowToast(false), 2500);
   };
+
   const initialPositionsPct = {
     1: { top: 12.5, left: 16.7 },
     2: { top: 5, left: 38 },
@@ -198,7 +210,7 @@ export default function MixAndMatch() {
     if (!hasShownHint) {
       setShowHint(true);
       setHasShownHint(true);
-      const timer = setTimeout(() => setShowHint(false), 2500); 
+      const timer = setTimeout(() => setShowHint(false), 2500);
       return () => clearTimeout(timer);
     }
   }, [hasShownHint]);
@@ -212,7 +224,7 @@ export default function MixAndMatch() {
 
   return (
     <>
-    
+
       <div ref={captureRef}
         className="mixandmatch-container"
         onMouseMove={onPointerMove}
@@ -244,13 +256,12 @@ export default function MixAndMatch() {
                   src={selectedImages[frame.id]}
                   alt="selected"
                   className="frame-img"
+                  crossOrigin="anonymous"
                 />
               </div>
             )}
           </div>
         ))}
-
-
         <img
           src={greyArrow}
           alt="back button"
