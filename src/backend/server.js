@@ -647,13 +647,16 @@ app.post('/shirt/fillter', async (req, res) => {
     minPrice = minPrice ?? 0;
     maxPrice = maxPrice ?? 10000;
 
+console.log("Frontend value:", JSON.stringify(selectedFaculties[0]));
+
     // ดึง tag_id จากชื่อคณะ
     let TagID = [];
     if (selectedFaculties.length > 0) {
-      const { data: tagData, error } = await supabaseAdmin
-        .from('tags')
-        .select('tag_id')
-        .in('tag_name', selectedFaculties);
+  const cleanedFaculties = selectedFaculties.map(f => f.trim());
+const { data: tagData, error } = await supabaseAdmin
+  .from('tags')
+  .select('tag_id')
+  .in('tag_name', cleanedFaculties);
 
       if (error) return res.status(500).json({ error: error.message });
       TagID = tagData.map(tag => tag.tag_id);
@@ -683,7 +686,7 @@ app.post('/shirt/fillter', async (req, res) => {
       shirts = shirts.filter(shirt => shirtIdsSet.has(shirt.id));
     }
 
-    res.json(TagID + shirts || []);
+    res.json(shirts || []);
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: 'Internal server error' });
