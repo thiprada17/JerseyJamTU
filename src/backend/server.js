@@ -683,7 +683,7 @@ app.post('/shirt/fillter', async (req, res) => {
       shirts = shirts.filter(shirt => shirtIdsSet.has(shirt.id));
     }
 
-    res.json(shirts || []);
+    res.json(TagID + shirts || []);
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: 'Internal server error' });
