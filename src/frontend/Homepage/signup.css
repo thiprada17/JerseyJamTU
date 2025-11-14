@@ -2,6 +2,7 @@
 @font-face {
   font-family: 'PG';
   src: url('../../assets/fonts/PG-Newport-DEMO.ttf') format('truetype');
+  font-display: swap;
 }
 @font-face {
   font-family: 'Kanit';
@@ -58,8 +59,8 @@
 }
 
 .signup-arrow-icon {
-  width: 3rem;
-  height: 3rem;
+  width: 4rem;
+  height: 4rem;
   opacity: 0.85;
   transition: transform 0.2s ease;
 }
@@ -72,7 +73,7 @@
   position: absolute;
   top: 1rem;
   position: sticky;
-  top: 0;
+  /* top: 0; */
   left: 0;
   height: 5.5rem;
   width: 100%;
@@ -100,7 +101,7 @@
 }
 
 .signup-form-wrapper  {
-  margin-top: 36rem;
+  margin-top: 50vh;
   width: 90%;
   max-width: 100rem;
   padding: 3rem 2rem;
@@ -153,7 +154,8 @@
   min-width: 0;
 }
 
-.signup-form-wrapper input::placeholder, select::placeholder
+.signup-form-wrapper input::placeholder,
+.signup-form-wrapper select::placeholder,
 .signup-form-wrapper textarea::placeholder {
   color: #878585;
   opacity: 1;
@@ -227,4 +229,40 @@ text-align: center;
 
   .signup-actions {margin-top: 5%; }
   .signup-back-btn {right: 1rem;}
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .signup-page {
+    background-image: url("../../assets/background-signup.png");
+    background-size: cover;
+    background-position: top center;
+  }
+
+  .signup-form-wrapper {
+    margin-top: 45vh !important;  
+    padding: 2rem 2rem;
+    width: 85%;
+  }
+
+  .signup-form-row,
+  .last-row {
+    gap: 2rem;
+  }
+}
+
+@media (min-width: 1025px) and (max-width: 1366px) {
+  .signup-page {
+    background-image: url("../../assets/background-signup.png");
+    background-size: cover;
+    background-position: center;
+  }
+
+  .signup-form-wrapper {
+    margin-top: 40vh !important;
+    width: 70%;
+  }
+
+  .signup-actions {
+    align-items: flex-start;
+  }
 }
