@@ -227,31 +227,33 @@ body.homepage {
     background-repeat: no-repeat;
     min-height: 100vh;       
   }
+  
 }
 
-@media (min-width: 1024px) and (max-width: 1366px) {
+@media (min-width: 1024px) and (max-width: 1400px) {
   .home-section {
     background-size: contain; 
     background-position: center;
   }
 
   .cart {
-    /* width: 18vw; */
-    width: 30%;
-    max-width: 18rem;
+    width: 38vw;
+    /* width: 35%; */
+    /* max-width: 18rem; */
     right: 3%;
     top: 50%;
     transform: translateY(-50%);
   }
 
   .action-buttons {
-    bottom: 4rem;
+    bottom: 15% ;
     gap: 2rem;
   }
 
   .signup-btn,
-  .login-btn {
-    font-size: 3rem;
+  .login-btn,
+  .add-shirt-btn {
+    font-size: 4rem;
   }
 
   .speaker-icon {

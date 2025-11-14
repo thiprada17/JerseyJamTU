@@ -13,7 +13,7 @@ import filterIcon from "../../assets/sort.png";
 import Filter from "./Filter.jsx";
 import "./Filter.css";
 import "../component/loading.css";
-
+import logo from "../../assets/JerseyJam_logo.png";
 
 export default function Main() {
   const navigate = useNavigate();
@@ -199,7 +199,8 @@ export default function Main() {
           <img src={profile_icon} alt="" className="main-navbar-user-profile-icon" />
           <div className="main-navbar-user-username">{username}</div>
         </Link>
-        <div className="main-navbar-logo">JerseyJamTU</div>
+        {/* <div className="main-navbar-logo">JerseyJamTU</div> */}
+          <img src = {logo} alt="JerseyJamTU Logo" className="main-navbar-logo"/>
         <button className="main-navbar-logout" onClick={handleLogout}>
           Log out
         </button>

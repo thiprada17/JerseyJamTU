@@ -105,6 +105,7 @@
   justify-content: center;
   align-items: center;
   margin-top: 1rem;
+  max-width: 10vw;
 }
 
 .main-navbar-user-profile-icon {
