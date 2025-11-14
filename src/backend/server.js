@@ -65,7 +65,7 @@ app.post('/add-user/register', async (req, res) => {
       return res.status(400).json({ error: 'Username already registered' });
     }
 
-    const passwordHash = await bcrypt.hash(password, 10)
+    const passwordHash = await bcrypt.hash(password, 8)
     const { data, error } = await supabase
       .from('users')
       .insert([{ username, email, password: passwordHash, faculty, year }])
@@ -88,41 +88,35 @@ app.post('/create/login', async (req, res) => {
   try {
     const { username, email, password } = req.body;
 
-    let query = supabaseAdmin
+    const { data, error } = await supabaseAdmin
       .from('users')
-      .select('user_id, username, email, password, faculty, year');
-
-    if (email && typeof email === 'string') {
-      query = query.eq('email', email);
-    } else {
-      query = query.eq('username', username);
-    }
-
-    const { data, error } = await query
-
-    console.log("data :", data)
-    console.log("error:", error)
+      .select('user_id, username, email, password, faculty, year')
+      .or(`email.eq.${email},username.eq.${username}`)
+      .maybeSingle();
 
     if (error) {
       console.error(error);
       return res.status(500).json({ message: 'Server error' });
     }
 
-    if (!data || data.length === 0) {
+    if (!data) {
       return res.status(401).json({ message: 'User not found' });
     }
 
-    const supabase_user_data = data[0];
+    const supabase_user_data = data;
     const supabase_password = supabase_user_data.password;
 
-    const match = await bcrypt.compare(password, supabase_password)
+    const match = await bcrypt.compare(password, supabase_password);
 
     if (!match) {
-      return res.status(401).json({ message: 'Password Incorrect😭' })
+      return res.status(401).json({ message: 'Password Incorrect😭' });
     }
 
-    // jwt token
-    const token = jwt.sign({ email: supabase_user_data.email, role: 'admin' }, secret, { expiresIn: '5h' })
+    const token = jwt.sign(
+      { email: supabase_user_data.email, role: 'admin' },
+      secret,
+      { expiresIn: '5h' }
+    );
 
     res.json({
       success: true,
@@ -134,14 +128,13 @@ app.post('/create/login', async (req, res) => {
         token
       }
     });
-
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: 'Server error', message: error.message });
+    res.status(500).json({ message: 'Server error', error: error.message });
   }
 });
 
-// กำลังก่อสร้างยังไม่เสด
+
 app.get('/authen/users', async (req, res) => {
   try {
     const authHeader = req.headers['authorization'];
@@ -181,7 +174,6 @@ app.post('/commu/post', async (req, res) => {
     .insert([{ user_id, title, detail, contact }])
     .select()
 
-  console.log(data)
   if (error) {
     console.error('Supabase insert error:', error);
     return res.status(500).json({ error: error.message });
@@ -328,7 +320,6 @@ app.get('/shirt/info/get', async (req, res) => {
     if (!data || data.length === 0) {
       return res.status(404).json({ message: 'No shirt info found' });
     }
-    console.log(data)
 
     cachedShirts = data;
     cacheTime = now;
@@ -486,8 +477,6 @@ app.post('/shirt/fav/check', async (req, res) => {
       console.error('checck error:', error);
       return res.status(500).json({ error: error.message });
     }
-
-    console.log("check data " + data.length)
 
     if (data.length != 0) {
       res.json(true);
@@ -665,7 +654,6 @@ app.post('/shirt/fillter', async (req, res) => {
       .lte('shirt_price', maxPrice)
       .order('id', { ascending: false });
 
-    console.log(shirts)
 
     if (priceError) return res.status(500).json({ error: priceError.message });
 
@@ -675,12 +663,10 @@ app.post('/shirt/fillter', async (req, res) => {
         .select('shirt_id')
         .in('tag_id', selectedTagIds);
 
-      console.log(tagData)
 
       if (tagError) return res.status(500).json({ error: tagError.message });
 
       const tagShirtIds = new Set(tagData.map(d => d.shirt_id));
-      console.log(tagShirtIds)
 
       shirts = shirts.filter(shirt => tagShirtIds.has(shirt.id));
     }
