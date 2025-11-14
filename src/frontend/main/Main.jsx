@@ -15,6 +15,7 @@ import "./Filter.css";
 import "../component/loading.css";
 import logo from "../../assets/JerseyJam_logo.png";
 
+
 export default function Main() {
   const navigate = useNavigate();
   const [posts, setPosts] = useState([]);
@@ -90,15 +91,11 @@ export default function Main() {
   const handleApplyFilter = async (incomingFilters) => {
     try {
       setSelectedFilters(incomingFilters);
-      const TagID = [];
       const { faculties, price } = incomingFilters;
       console.log(price)
-      const hasAnyFilter =
-        (faculties && faculties.length > 0) ||
-        (typeof price === "string" && price.trim() !== "");
-
-      if (!hasAnyFilter) {
-        setfillterPosts(posts);
+      const hasFilter = (faculties && faculties.length > 0) || (price && price.trim() !== "");
+      if (!hasFilter) {
+        setFilteredPosts(posts);
         setFilterApplied(false);
         return;
       }
@@ -119,30 +116,16 @@ export default function Main() {
       }
       console.log(price)
 
-      const prefixedFaculties = faculties.map(fac => `คณะ${fac}`);
-      prefixedFaculties.forEach(faculty => {
-        if (faculty === "คณะวิทยาศาสตร์") TagID.push(1);
-        if (faculty === "คณะรัฐศาสตร์") TagID.push(2);
-        if (faculty === "คณะวิศวกรรมศาสตร์") TagID.push(3);
-        if (faculty === "คณะสถาปัตยกรรมศาสตร์") TagID.push(4);
-        if (faculty === "คณะเศรษฐศาสตร์") TagID.push(5);
-        if (faculty === "คณะศิลปศาสตร์") TagID.push(6);
-      });
 
-      if (faculties.length > 0 && TagID.length === 0) {
-        setfillterPosts([]);
-        setFilterApplied(true);
-        return;
-      }
+      console.log(faculties)
 
-      // fetch filtered shirts
       const res = await fetch('https://jerseyjamtu.onrender.com/shirt/fillter', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ selectedTagIds: TagID, minPrice, maxPrice })
+        body: JSON.stringify({ selectedFaculties: faculties, minPrice, maxPrice })
       });
-      let data = await res.json();
 
+      const data = await res.json();
       // fetch tags พร้อมกับแต่ละ post
       const postsWithTags = await Promise.all(
         data.map(async (post) => {
@@ -199,7 +182,7 @@ export default function Main() {
           <img src={profile_icon} alt="" className="main-navbar-user-profile-icon" />
           <div className="main-navbar-user-username">{username}</div>
         </Link>
-        {/* <div className="main-navbar-logo">JerseyJamTU</div> */}
+            {/* <div className="main-navbar-logo">JerseyJamTU</div> */}
           <img src = {logo} alt="JerseyJamTU Logo" className="main-navbar-logo"/>
         <button className="main-navbar-logout" onClick={handleLogout}>
           Log out

@@ -394,6 +394,8 @@ app.post('/shirt/info/post', async (req, res) => {
       return res.status(500).json({ error: error.message });
     }
 
+    cachedShirts = null;
+
     res.json({ success: true, shirt_id: newShirt.id });
 
   } catch (err) {

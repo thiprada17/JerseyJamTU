@@ -894,7 +894,7 @@
     padding: 2rem 1rem;
     background-size: contain;
     background-position: center top;
-    background-repeat: repeat-x;
+    background-repeat: repeat-x !important;
   }
 
 
