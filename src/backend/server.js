@@ -639,19 +639,28 @@ app.get('/category/:folder/info/get', async (req, res) => {
   }
 });
 
+
 app.post('/shirt/fillter', async (req, res) => {
   try {
-
-    let { selectedTagIds = [], minPrice, maxPrice } = req.body;
+    let { selectedFaculties = [], minPrice, maxPrice } = req.body;
 
     minPrice = minPrice ?? 0;
     maxPrice = maxPrice ?? 10000;
 
-  
-    if (!Array.isArray(selectedTagIds)) {
-      return res.status(400).json({ error: 'selectedTagIds must be an array' });
+    // ดึง tag_id จากชื่อคณะ
+    let TagID = [];
+    if (selectedFaculties.length > 0) {
+      const { data: tagData, error } = await supabaseAdmin
+        .from('tags')
+        .select('tag_id')
+        .in('tag_name', selectedFaculties);
+
+      if (error) return res.status(500).json({ error: error.message });
+      TagID = tagData.map(tag => tag.tag_id);
     }
 
+    console.log(TagID)
+    // ดึงเสื้อตามราคาก่อน
     let { data: shirts, error: priceError } = await supabaseAdmin
       .from('shirtInfo')
       .select('*')
@@ -659,31 +668,28 @@ app.post('/shirt/fillter', async (req, res) => {
       .lte('shirt_price', maxPrice)
       .order('id', { ascending: false });
 
-
     if (priceError) return res.status(500).json({ error: priceError.message });
 
-    if (selectedTagIds.length > 0) {
-      const { data: tagData, error: tagError } = await supabaseAdmin
+    // ถ้ามี TagID ให้ filter อีกที
+    if (TagID.length > 0) {
+      const { data: tagShirts, error: tagError } = await supabaseAdmin
         .from('shirt_tags')
         .select('shirt_id')
-        .in('tag_id', selectedTagIds);
-
-
+        .in('tag_id', TagID);
 
       if (tagError) return res.status(500).json({ error: tagError.message });
 
-      const tagShirtIds = new Set(tagData.map(d => d.shirt_id));
-
-      shirts = shirts.filter(shirt => tagShirtIds.has(shirt.id));
+      const shirtIdsSet = new Set(tagShirts.map(d => d.shirt_id));
+      shirts = shirts.filter(shirt => shirtIdsSet.has(shirt.id));
     }
 
     res.json(shirts || []);
-
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: 'Internal server error' });
   }
 });
+
 
 
 app.listen(port, () => {
