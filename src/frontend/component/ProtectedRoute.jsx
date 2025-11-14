@@ -3,6 +3,7 @@ import { Navigate } from "react-router-dom";
 
 function ProtectedRoute({ children }) {
   const [verified, setVerified] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const verify = async () => {
@@ -10,6 +11,7 @@ function ProtectedRoute({ children }) {
 
       if (!token) {
         setVerified(false);
+        setLoading(false);
         return;
       }
 
@@ -32,12 +34,13 @@ function ProtectedRoute({ children }) {
       } catch (error) {
         console.error(error);
         setVerified(false);
-      }
+      } finally {
+        setTimeout(() => setLoading(false), 500);
+      } 
     };
 
     verify();
   }, []);
-
 
   if (verified === null) return <div className="token-loading"></div>;
   if (!verified) return <Navigate to="/" replace />;

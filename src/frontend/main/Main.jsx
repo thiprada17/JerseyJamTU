@@ -85,16 +85,6 @@ export default function Main() {
     fetchPosts();
   }, []);
 
-
-  useEffect(() => {
-    const showToast = sessionStorage.getItem("showLoginToast");
-
-    if (showToast) {
-      setShowToast(true);
-      sessionStorage.removeItem("showLoginToast");  // ลบข้อมูลหลังจากแสดง Toast
-    }
-  }, []);
-
   /// fillterrrrrrrrrrrr
   const [showFilter, setShowFilter] = useState(false);
   const handleApplyFilter = async (incomingFilters) => {
@@ -204,14 +194,6 @@ export default function Main() {
 
   return (
     <div className="main-body">
-      {showToast && (
-        <Toast
-          message="✅ Login Success!"
-          duration={3000}
-          onClose={() => setShowToast(false)}
-        />
-      )}
-
       <div className="main-navbar">
         <Link className="main-navbar-user" to="/userprofile">
           <img src={profile_icon} alt="" className="main-navbar-user-profile-icon" />
@@ -222,8 +204,6 @@ export default function Main() {
           Log out
         </button>
       </div>
-
-
       <div className="main-topic">
         <div className="main-popup-container">
           <img src={topic} alt="Popup" className="main-popup-img" />

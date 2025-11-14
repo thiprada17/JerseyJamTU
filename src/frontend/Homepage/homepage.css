@@ -50,8 +50,8 @@ body.homepage {
 
 .cart {
   position: absolute;
-  right: 3%;              
-  top: 45%;
+  right: 2%;              
+  top:50%;
   transform: translateY(-50%);
   width: 25vw;            
   max-width: 30rem;
@@ -129,6 +129,7 @@ body.homepage {
     gap: 1rem !important;
     width: 100% !important;
     margin: 0 !important;
+    bottom: 8%;
   }
 
   .signup-btn,
@@ -164,13 +165,10 @@ body.homepage {
     color: black;
   }
 
-  .cart {
-    width: 35vw; 
+    .cart {
+    width: 40%;
+    /* width: 35vw;  */
     max-width: 10rem;
-    right: 3%;
-    top: 50%;
-    transform: translateY(-50%);
-    animation: wiggle 3s cubic-bezier(0.445, 0.05, 0.55, 0.95) infinite;
   }
 
   .speaker-icon {
@@ -192,7 +190,7 @@ body.homepage {
 
   .action-buttons {
     position: absolute;
-    bottom: 2rem;
+    bottom: 6%;
     left: 50%;
     transform: translateX(-50%);
     display: flex;
@@ -208,11 +206,13 @@ body.homepage {
   }
 
   .cart {
-    width: 22vw;
-    max-width: 18rem;
-    top: 50%;
+    /* width: 22vw; */
+        width: 25%;
+    /* max-width: 18rem; */
+        max-width: 18rem;
+    /* top: 50%;
     right: 3%;
-    transform: translateY(-50%);
+    transform: translateY(-50%); */
   }
 
   .speaker-icon {
