@@ -43,7 +43,7 @@ function App() {
           <Route path="/" element={<Homepage />} />
           <Route path="/main" element={
             <ProtectedRoute>
-              <Suspense fallback={<div>Loading...</div>}>
+              <Suspense >
                 <Main />
               </Suspense>
             </ProtectedRoute>

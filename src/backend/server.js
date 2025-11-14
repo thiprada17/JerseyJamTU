@@ -88,35 +88,41 @@ app.post('/create/login', async (req, res) => {
   try {
     const { username, email, password } = req.body;
 
-    const { data, error } = await supabaseAdmin
+    let query = supabaseAdmin
       .from('users')
-      .select('user_id, username, email, password, faculty, year')
-      .or(`email.eq.${email},username.eq.${username}`)
-      .maybeSingle();
+      .select('user_id, username, email, password, faculty, year');
+
+    if (email && typeof email === 'string') {
+      query = query.eq('email', email);
+    } else {
+      query = query.eq('username', username);
+    }
+
+    const { data, error } = await query
+
+    console.log("data :", data)
+    console.log("error:", error)
 
     if (error) {
       console.error(error);
       return res.status(500).json({ message: 'Server error' });
     }
 
-    if (!data) {
+    if (!data || data.length === 0) {
       return res.status(401).json({ message: 'User not found' });
     }
 
-    const supabase_user_data = data;
+    const supabase_user_data = data[0];
     const supabase_password = supabase_user_data.password;
 
-    const match = await bcrypt.compare(password, supabase_password);
+    const match = await bcrypt.compare(password, supabase_password)
 
     if (!match) {
-      return res.status(401).json({ message: 'Password Incorrect😭' });
+      return res.status(401).json({ message: 'Password Incorrect😭' })
     }
 
-    const token = jwt.sign(
-      { email: supabase_user_data.email, role: 'admin' },
-      secret,
-      { expiresIn: '5h' }
-    );
+    // jwt token
+    const token = jwt.sign({ email: supabase_user_data.email, role: 'admin' }, secret, { expiresIn: '5h' })
 
     res.json({
       success: true,
@@ -128,9 +134,10 @@ app.post('/create/login', async (req, res) => {
         token
       }
     });
+
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: 'Server error', error: error.message });
+    res.status(500).json({ message: 'Server error', message: error.message });
   }
 });
 
@@ -323,7 +330,6 @@ app.get('/shirt/info/get', async (req, res) => {
 
     cachedShirts = data;
     cacheTime = now;
-    console.log('Cache updated with', data?.length, 'shirts');
 
     res.json(data);
   } catch (err) {
@@ -641,8 +647,7 @@ app.post('/shirt/fillter', async (req, res) => {
     minPrice = minPrice ?? 0;
     maxPrice = maxPrice ?? 10000;
 
-    console.log('selectedTagIds:', selectedTagIds, 'minPrice:', minPrice, 'maxPrice:', maxPrice);
-
+  
     if (!Array.isArray(selectedTagIds)) {
       return res.status(400).json({ error: 'selectedTagIds must be an array' });
     }
@@ -662,6 +667,7 @@ app.post('/shirt/fillter', async (req, res) => {
         .from('shirt_tags')
         .select('shirt_id')
         .in('tag_id', selectedTagIds);
+
 
 
       if (tagError) return res.status(500).json({ error: tagError.message });
