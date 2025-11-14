@@ -97,11 +97,11 @@ export default function Login({ scrollToHome, scrollToSignup }) {
         localStorage.setItem("token", user.token || "");
 
         const authToken = localStorage.getItem('token') || "";
-        const authen = await fetch('https://jerseyjamtu.onrender.com/authen/users', {
-          method: 'GET',
-          headers: { 'authorization': `Bearer ${authToken}` }
-        });
-        await authen.json();
+        // const authen = await fetch('https://jerseyjamtu.onrender.com/authen/users', {
+        //   method: 'GET',
+        //   headers: { 'authorization': `Bearer ${authToken}` }
+        // });
+        // await authen.json();
 
         setShowToast(true);
         setTimeout(() => {

@@ -88,15 +88,18 @@ export default function Main() {
 
   /// fillterrrrrrrrrrrr
   const [showFilter, setShowFilter] = useState(false);
+  const [isFilterLoading, setIsFilterLoading] = useState(false);
   const handleApplyFilter = async (incomingFilters) => {
     try {
+      setIsFilterLoading(true);
       setSelectedFilters(incomingFilters);
       const { faculties, price } = incomingFilters;
       console.log(price)
       const hasFilter = (faculties && faculties.length > 0) || (price && price.trim() !== "");
       if (!hasFilter) {
-        setFilteredPosts(posts);
+        setfillterPosts(posts);
         setFilterApplied(false);
+        setIsFilterLoading(false);
         return;
       }
 
@@ -143,6 +146,8 @@ export default function Main() {
       setFilterApplied(true);
     } catch (err) {
       console.error(err);
+    } finally {
+      setIsFilterLoading(false);
     }
   };
 
@@ -182,8 +187,8 @@ export default function Main() {
           <img src={profile_icon} alt="" className="main-navbar-user-profile-icon" />
           <div className="main-navbar-user-username">{username}</div>
         </Link>
-            {/* <div className="main-navbar-logo">JerseyJamTU</div> */}
-          <img src = {logo} alt="JerseyJamTU Logo" className="main-navbar-logo"/>
+        {/* <div className="main-navbar-logo">JerseyJamTU</div> */}
+        <img src={logo} alt="JerseyJamTU Logo" className="main-navbar-logo" />
         <button className="main-navbar-logout" onClick={handleLogout}>
           Log out
         </button>
@@ -226,11 +231,8 @@ export default function Main() {
         </div>
 
         <div className="main-grid">
-          {isLoading ? (
-            <div className="main-loading">
-              <div className="spinner-border text-secondary" role="status"></div>
-              <div className="loading-text">Loading...</div>
-            </div>
+          {isLoading || isFilterLoading ? (
+            <div className="filter-loader"></div>
           ) : (
             (filterApplied && fillterposts.length === 0) ||
             (!filterApplied && posts.length === 0)
