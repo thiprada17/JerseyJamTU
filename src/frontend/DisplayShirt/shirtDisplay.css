@@ -338,10 +338,12 @@
 .heart-desktop { display: flex; }
 .heart-mobile  { display: none; }
 
-@media (max-width:768px) {
+@media (max-width:430px) {
 .shirtDisplay-container {
   width: 100vw;
-  height: 100vw;
+  padding: 0 1rem;
+  height: auto;
+  box-sizing: border-box;
 }
 
   .shirtDisplay-wrapper {
@@ -407,6 +409,7 @@
     padding: 1rem 1.2rem;
     margin: 0 auto 1.2rem;
     justify-content: center;
+    text-align: left;
   }
   .shirtDisplay-datesWrapper {
     margin-top: 2rem;
@@ -497,6 +500,7 @@
     padding: 1rem 1.2rem;
     margin: 0 auto 1.2rem;
     justify-content: center;
+    text-align: left;
   }
   .shirtDisplay-datesWrapper {
     margin-top: 2rem;
