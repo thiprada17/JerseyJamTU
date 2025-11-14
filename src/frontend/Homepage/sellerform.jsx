@@ -1,12 +1,13 @@
 import React, { useState, useEffect, useRef } from "react";
 import "./sellerform.css";
-// import blueLayer from "../../assets/bg.png"
 import { useNavigate } from "react-router-dom";
 import { supabase } from "../supabaseClient";
 import greyArrow from "../../assets/grey_arrow.png"
 import Toast from "../component/Toast";
 import { FaTag, FaPlusCircle, FaTimes } from "react-icons/fa";
 import Notification from "../component/Notification"; // << เพิ่ม
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 export default function SellerForm() {
   const navigate = useNavigate();
@@ -14,7 +15,8 @@ export default function SellerForm() {
   const [showToast, setShowToast] = useState(false);
   const [imageFile, setImageFile] = useState(null); // เก็บไฟล์ไว้ใช้ตอน submit จ้า
   const [notification, setNotification] = useState({ message: "", type: "error" }); // << เพิ่ม
-
+  const [startDate, setStartDate] = useState(null); // for datepicker
+  const [endDate, setEndDate] = useState(null);     // for datepicker
   const [formData, setFormData] = useState({
     shirt_name: "",
     shirt_price: "",
@@ -37,31 +39,31 @@ export default function SellerForm() {
   };
 
   const handleChange = (e) => {
-  const { name, value } = e.target;
+    const { name, value } = e.target;
 
-  if (name === "shirt_price") {
-    if (value === "") {
-      setFormData((prev) => ({
-        ...prev,
-        [name]: "",
-      }));
+    if (name === "shirt_price") {
+      if (value === "") {
+        setFormData((prev) => ({
+          ...prev,
+          [name]: "",
+        }));
+      } else {
+        let num = Number(value);
+        if (num < 0) num = 0;
+        if (num > 1000) num = 1000;
+
+        setFormData((prev) => ({
+          ...prev,
+          [name]: num,
+        }));
+      }
     } else {
-      let num = Number(value);
-      if (num < 0) num = 0;
-      if (num > 1000) num = 1000;
-
       setFormData((prev) => ({
         ...prev,
-        [name]: num,
+        [name]: value,
       }));
     }
-  } else {
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-  }
-};
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -97,7 +99,7 @@ export default function SellerForm() {
       const fileExt = imageFile.name.split(".").pop();
       const fileName = `${Date.now()}.${fileExt}`;
       const filePath = `shirt/${fileName}`;
-    
+
 
       // อัปโหลดไฟล์ไป Supabase
       const { data: uploadData, error: uploadError } = await supabase
@@ -154,14 +156,14 @@ export default function SellerForm() {
           return;
         }
 
-      //ส่งแท็กแต่ละอันไปbackend
-      for (const tag of selectedTags) {
-        await fetch("https://jerseyjamtu.onrender.com/shirt/tag/add", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ shirt_id: shirtId, tag_name: tag }),
-        });
-      }
+        //ส่งแท็กแต่ละอันไปbackend
+        for (const tag of selectedTags) {
+          await fetch("https://jerseyjamtu.onrender.com/shirt/tag/add", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ shirt_id: shirtId, tag_name: tag }),
+          });
+        }
       } else {
         setNotification({ message: "กรอกข้อมูลไม่ถูกต้อง: " + (result?.error || ""), type: "error" }); // << แทน alert
       }
@@ -285,79 +287,52 @@ export default function SellerForm() {
 
             <label className="sellerform-row">
               <span className="sellerform-label">วันเปิดขาย</span>
-              <div className="sellerform-input-wrapper">
-                <input
-                  type="text"
-                  readOnly
-                  value={formData.shirt_open_date_display}
-                  placeholder="dd/mm/yyyy"
-                  className="sellerform-input"
-                  onClick={() => document.getElementById("hiddenDateOpen").showPicker()}
-                  required
-                />
-                <input
-                  type="date"
-                  id="hiddenDateOpen"
-                  style={{ position: 'absolute', opacity: 0, pointerEvents: 'none' }}
-                  min={formData.shirt_open_date_raw || undefined}
-                  onChange={(e) => {
-                    const [year, month, day] = e.target.value.split("-");
-                    const formatted = `${day}/${month}/${year}`;
-                    const raw = e.target.value;
-                    
-                    setFormData((prev) => {
-                      const next = {
-                        ...prev,
-                        shirt_open_date_display: formatted,
-                        shirt_open_date_raw: raw,
-                      };
-                      
-                      if (prev.shirt_close_date_raw && prev.shirt_close_date_raw <= raw) {
-                        next.shirt_close_date_display = "";
-                        next.shirt_close_date_raw = "";
-                      }
-                      return next;
-                    });
+              <div className="date-input-wrapper">
+                <DatePicker
+                  selected={startDate}
+                  onChange={(date) => {
+                    setStartDate(date);
+                    if (!date) return;
+                    const day = String(date.getDate()).padStart(2, "0");
+                    const month = String(date.getMonth() + 1).padStart(2, "0");
+                    const year = date.getFullYear();
+                    setFormData(prev => ({
+                      ...prev,
+                      shirt_open_date_display: `${day}/${month}/${year}`,
+                      shirt_open_date_raw: `${year}-${month}-${day}`
+                    }));
                   }}
+                  className="sellerform-input"
+                  placeholderText="dd/mm/yyyy"
+                  dateFormat="dd/MM/yyyy"
                 />
+
               </div>
             </label>
 
-            {/* // onChange={(e) => {
-                  //   const [year, month, day] = e.target.value.split("-");
-                  //   const formatted = `${day}/${month}/${year}`;
-                  //   setFormData((prev) => ({
-                  //     ...prev,
-                  //     shirt_open_date: formatted,
-                  //   }));
-                  // }} */}
             <label className="sellerform-row">
               <span className="sellerform-label">วันปิดขาย</span>
-              <div className="sellerform-input-wrapper">
-                <input
-                  type="text"
-                  readOnly
-                  value={formData.shirt_close_date_display}
-                  placeholder="dd/mm/yyyy"
-                  className="sellerform-input"
-                  onClick={() => document.getElementById("hiddenDateClose").showPicker()}
-                  required
-                />
-                <input
-                  type="date"
-                  id="hiddenDateClose"
-                  style={{ position: 'absolute', opacity: 0, pointerEvents: 'none' }}
-                  min={formData.shirt_open_date_raw || undefined} // << เพิ่ม: กันเลือกวันปิดก่อนวันเปิด
-                  onChange={(e) => {
-                    const [year, month, day] = e.target.value.split("-");
-                    const formatted = `${day}/${month}/${year}`;
-                    setFormData((prev) => ({
+              <div className="date-input-wrapper">
+                <DatePicker
+                  selected={endDate}
+                  onChange={(date) => {
+                    setEndDate(date);
+                    if (!date) return;
+                    const day = String(date.getDate()).padStart(2, "0");
+                    const month = String(date.getMonth() + 1).padStart(2, "0");
+                    const year = date.getFullYear();
+                    setFormData(prev => ({
                       ...prev,
-                      shirt_close_date_display: formatted,
-                      shirt_close_date_raw: e.target.value,
+                      shirt_close_date_display: `${day}/${month}/${year}`,
+                      shirt_close_date_raw: `${year}-${month}-${day}`
                     }));
                   }}
+                  className="sellerform-input"
+                  placeholderText="dd/mm/yyyy"
+                  minDate={startDate}
+                  dateFormat="dd/MM/yyyy"
                 />
+
               </div>
             </label>
 
