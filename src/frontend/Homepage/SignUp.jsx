@@ -178,7 +178,7 @@ export default function SignUp({ scrollToHome, scrollToLogIn }) {
     <div className="signup-page">
       <div className="signup-header">
         <button className="signup-back-btn" onClick={scrollToHome}>
-          <img src={arrowIcon} alt="Back" className="signup-arrow-icon" />
+          <img src={arrowIcon} alt="Back" className="login-arrow-icon" />
         </button>
       </div>
 

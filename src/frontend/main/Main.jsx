@@ -13,7 +13,7 @@ import filterIcon from "../../assets/sort.png";
 import Filter from "./Filter.jsx";
 import "./Filter.css";
 import "../component/loading.css";
-
+import logo from "../../assets/JerseyJam_logo.png";
 
 export default function Main() {
   const navigate = useNavigate();
@@ -83,16 +83,6 @@ export default function Main() {
       }
     }
     fetchPosts();
-  }, []);
-
-
-  useEffect(() => {
-    const showToast = sessionStorage.getItem("showLoginToast");
-
-    if (showToast) {
-      setShowToast(true);
-      sessionStorage.removeItem("showLoginToast");  // ลบข้อมูลหลังจากแสดง Toast
-    }
   }, []);
 
   /// fillterrrrrrrrrrrr
@@ -204,26 +194,17 @@ export default function Main() {
 
   return (
     <div className="main-body">
-      {showToast && (
-        <Toast
-          message="✅ Login Success!"
-          duration={3000}
-          onClose={() => setShowToast(false)}
-        />
-      )}
-
       <div className="main-navbar">
         <Link className="main-navbar-user" to="/userprofile">
           <img src={profile_icon} alt="" className="main-navbar-user-profile-icon" />
           <div className="main-navbar-user-username">{username}</div>
         </Link>
-        <div className="main-navbar-logo">JerseyJamTU</div>
+        {/* <div className="main-navbar-logo">JerseyJamTU</div> */}
+          <img src = {logo} alt="JerseyJamTU Logo" className="main-navbar-logo"/>
         <button className="main-navbar-logout" onClick={handleLogout}>
           Log out
         </button>
       </div>
-
-
       <div className="main-topic">
         <div className="main-popup-container">
           <img src={topic} alt="Popup" className="main-popup-img" />

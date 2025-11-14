@@ -13,15 +13,14 @@
   animation: fadeIn 0.3s ease-in;
 }
 
-.main-loading{
-  position: relative;
+.main-loading {
   width: 100%;
-  height: 100%;
-  background: transparent;
+  min-height: 300px; 
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  background: transparent; 
   z-index: 9999;
   animation: fadeIn 0.3s ease-in;
 }
@@ -92,12 +91,61 @@
 
 
 .token-loading {
+  position: fixed;           
+  top: 50%;                  
+  left: 50%;                 
+  transform: translate(-50%, -50%); 
+  
+  width: 60px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  --r1: 154%;
+  --r2: 68.5%;
+  background:
+    radial-gradient(var(--r1) var(--r2) at top   ,#0000 79.5%,#dc1818 80%),
+    radial-gradient(var(--r1) var(--r2) at bottom,#dc1818 79.5%,#0000 80%),
+    radial-gradient(var(--r1) var(--r2) at top   ,#0000 79.5%,#dc1818 80%),
+    #ccc;
+  background-size: 50.5% 220%;
+  background-position: -100% 0%,0% 0%,100% 0%;
+  background-repeat: no-repeat;
+  animation: l9 1s infinite linear;
+  z-index: 9999;
+}
+/* 269af2 สีฟ้าเก่า */
+
+@keyframes l9 {
+    33%  {background-position:    0% 33% ,100% 33% ,200% 33% }
+    66%  {background-position: -100%  66%,0%   66% ,100% 66% }
+    100% {background-position:    0% 100%,100% 100%,200% 100%}
+}
+
+.userpro-loader {
+  position: relative; 
+  inset: 0; 
+  display: flex;
   justify-content: center;
-  text-align: center;
-  font-family: 'kanit';
-  font-size: 5rem;
-  color: blue;
-} 
+  align-items: center;
+  z-index: 10;
+  backdrop-filter: none;
+  margin-top: 5%;
+  left: 46%; 
+  width: 60px;
+  aspect-ratio: 1;
+  background: linear-gradient(#dc1818 0 0) bottom/100% 0% no-repeat #ccc;
+  -webkit-mask: 
+    radial-gradient(circle at 60% 65%, #000 62%, #0000 65%) top left, 
+    radial-gradient(circle at 40% 65%, #000 62%, #0000 65%) top right, 
+    linear-gradient(to bottom left, #000 42%,#0000 43%) bottom left , 
+    linear-gradient(to bottom right,#000 42%,#0000 43%) bottom right;
+  -webkit-mask-size: 50% 50%;
+  -webkit-mask-repeat: no-repeat;
+  animation: l19 1s infinite linear;
+}
+
+@keyframes l19 {
+    90%,100% {background-size:100% 100%}
+}
 
 @keyframes fadeIn {
   from {

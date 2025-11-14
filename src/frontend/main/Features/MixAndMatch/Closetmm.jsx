@@ -92,28 +92,30 @@ export default function Closetmm() {
   }, [category]);
 
   const handleSelect = async (imageUrl) => {
-  try {
-    const res = await fetch(imageUrl, { mode: "cors" }); 
-    const blob = await res.blob();
+    try {
+      const res = await fetch(imageUrl, { mode: "cors" });
+      const blob = await res.blob();
 
-    const base64 = await new Promise((resolve) => {
-      const reader = new FileReader();
-      reader.onloadend = () => resolve(reader.result);
-      reader.readAsDataURL(blob);
-    });
-    const updatedImages = {
-      ...selectedImages,
-      [frameId]: base64, 
-    };
-    localStorage.setItem("selectedImages", JSON.stringify(updatedImages));
-    navigate("/mixandmatch", {
-      state: { selectedImages: updatedImages },
-    });
-  } catch (error) {
-    console.error("Error converting image:", error);
-    alert("ไม่สามารถโหลดรูปได้ ลองใหม่อีกครั้งค่ะ");
-  }
-};
+      const base64 = await new Promise((resolve) => {
+        const reader = new FileReader();
+        reader.onloadend = () => resolve(reader.result);
+        reader.readAsDataURL(blob);
+      });
+
+      const savedImages = JSON.parse(localStorage.getItem("selectedImages") || "{}");
+      const updatedImages = {
+        ...savedImages,
+        [frameId]: base64,
+      };
+      localStorage.setItem("selectedImages", JSON.stringify(updatedImages));
+      navigate("/mixandmatch", {
+        state: { selectedImages: updatedImages },
+      });
+    } catch (error) {
+      console.error("Error converting image:", error);
+      alert("ไม่สามารถโหลดรูปได้ ลองใหม่อีกครั้งค่ะ");
+    }
+  };
 
   const buttonRefs = useRef([]);
   useEffect(() => {
@@ -178,7 +180,7 @@ export default function Closetmm() {
                     <img
                       src={item.url || item.shirt_pic}
                       alt={item.shirt_name || item.name}
-  crossOrigin="anonymous"
+                      crossOrigin="anonymous"
                     />
                   </div>
                 ))

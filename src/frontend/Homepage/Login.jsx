@@ -5,11 +5,12 @@ import pinkshape from "../../assets/pink-shape.png";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { useNavigate } from 'react-router-dom';
 import Notification from '../component/Notification';
+import Toast from "../component/Toast";
 
 export default function Login({ scrollToHome, scrollToSignup }) {
   const navigate = useNavigate();
   const [notification, setNotification] = useState({ message: "", type: "error" });
-
+  const [showToast, setShowToast] = useState(false);
   const [userData, setuserData] = useState({
     username: '',
     password: ''
@@ -102,9 +103,10 @@ export default function Login({ scrollToHome, scrollToSignup }) {
         });
         await authen.json();
 
-        localStorage.setItem("showLoginToast", "true");
-        sessionStorage.setItem("showLoginToast", "true");
-        navigate('/main');
+        setShowToast(true);
+        setTimeout(() => {
+          navigate('/main');
+        }, 1500);
       } else {
         const message = mapBackendMessageToThai(response.status, data?.message);
         setNotification({ message, type: "error" });
@@ -119,6 +121,13 @@ export default function Login({ scrollToHome, scrollToSignup }) {
 
   return (
     <div className="login-page">
+      {showToast && (
+        <Toast
+          message="✅ Login Success!"
+          duration={1500}
+          onClose={() => setShowToast(false)}
+        />
+      )}
       <Notification
         type={notification.type}
         message={notification.message}

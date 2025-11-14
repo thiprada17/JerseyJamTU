@@ -4,11 +4,9 @@ import { Link, useNavigate } from 'react-router-dom';
 import axios from "axios";
 import "./user-profile.css";
 import usericon from "../../assets/profile-icon2.png";
-// import home_icon from "../../assets/home_icon.png";
-// import { useLocation } from "react-router-dom";
-// import Toast from "../component/Toast.jsx";
 import ConfirmBox from "../component/ConfirmBox.jsx";
 import "../main/Features/commu/commu.css";
+import "../component/loading.css";
 
 const getFacultyShort = (s) => {
   if (!s) return "";
@@ -224,10 +222,7 @@ export default function UserProfile() {
 
       <div className="up-content-tabs">
         {loading ? (
-          <div className="loading-overlay up-load">
-            <div className="spinner-border text-secondary" role="status"></div>
-            <div className="loading-text">กำลังโหลด...</div>
-          </div>
+          <div className="userpro-loader"></div>
         ) : error ? (
           <div className="up-empty">{error}</div>
         ) : (

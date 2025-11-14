@@ -33,7 +33,7 @@
   min-height: 100vh;
   width: 100%;
   overflow-x: hidden;
-  overflow-y: hidden;
+  overflow-y: visible;
   position: relative;
   background-color: #fefefe;
     background-image: url("../../assets/bg.png"); 
@@ -103,6 +103,52 @@
   max-width: 100%;
   max-height: 100%;
 }
+
+.sellerform-input-wrapper {
+  display: block;
+  display: flex;
+  justify-content: center; 
+  position: relative;
+  width: 100%;
+  flex: 1;
+}
+
+.sellerform-input-wrapper input[type="text"] {
+  width: 100%;
+  text-align: left;
+  box-sizing: border-box;
+
+}
+
+.react-datepicker-popper {
+  font-family: 'Kanit';
+    z-index: 9999 !important;
+}
+
+.date-input-wrapper {
+  /* width: 100%; */
+  display: flex;
+  flex: 1;
+  align-items: center;  
+  width: 100% !important;
+  border-radius: 15px;
+  
+}
+
+.date-input-wrapper .react-datepicker-wrapper {
+  width: 100%;
+}
+
+.date-input-wrapper .react-datepicker__input-container {
+  width: 100%;
+}
+
+.date-input-wrapper .react-datepicker__input-container input {
+  width: 100%;
+  padding: 12px; 
+  box-sizing: border-box;
+}
+
 
 .sellerform-placeholder {
   width: 100%;
@@ -234,16 +280,7 @@
   transform: rotate(180deg) scale(1.05);
 }
 
-.sellerform-input-wrapper {
-  position: relative;
-  flex: 1;
-  display: block;
-}
 
-.sellerform-input-wrapper input[type="text"] {
-  width: 100%;
-  box-sizing: border-box;
-}
 .tag-input-box {
   position: relative;
   display: flex;
@@ -439,6 +476,11 @@ textarea.sellerform-input::placeholder {
   .sellerform-input {
     font-size: 0.875rem;
     padding: 0.625rem;
+  }
+    .date-input-wrapper .react-datepicker__input-container input {
+    padding: 0.625rem !important; 
+    font-size: 0.875rem !important;
+    height: auto !important;
   }
 
   .sellerform-submitBtn {font-size: 1.2rem;}

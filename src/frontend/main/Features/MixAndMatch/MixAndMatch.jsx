@@ -169,8 +169,13 @@ export default function MixAndMatch() {
       }
 
       // โหลด selectedImages จาก location.state หรือ localStorage
-      const imgs = location.state?.selectedImages || JSON.parse(localStorage.getItem("selectedImages") || "{}");
+      const savedImages = JSON.parse(localStorage.getItem("selectedImages") || "{}");
+      const imgs = {
+        ...JSON.parse(localStorage.getItem("selectedImages") || "{}"),
+        ...(location.state?.selectedImages || {}),
+      };
       setSelectedImages(imgs);
+
 
       // รอให้รูปโหลดเสร็จ
       await Promise.all(
@@ -211,7 +216,7 @@ export default function MixAndMatch() {
     console.log("Location state:", location.state);
     if (location.state?.fromMain) {
       console.log("Navigated from main");
-      dragOffset.current = {}; 
+      dragOffset.current = {};
     } else {
       const savedPositions = JSON.parse(localStorage.getItem("framePositions") || "{}");
       dragOffset.current = savedPositions || {};

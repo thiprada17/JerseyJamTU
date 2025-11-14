@@ -3,6 +3,7 @@ import { ToastContainer } from 'react-toastify';
 import './App.css'
 import { HashRouter, Routes, Route } from "react-router-dom";
 import 'react-toastify/dist/ReactToastify.css';
+import { lazy, Suspense } from "react";
 
 // import SignIn from "./frontend/SignIn";
 // import SignUp from "./frontend/SignUp";
@@ -12,7 +13,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import Homepage from './frontend/Homepage/homepage';
 import Commu from './frontend/main/Features/commu/commu';
 import CommuForm from './frontend/main/Features/commu/commuForm';
-import Main from './frontend/main/Main';
+const Main = lazy(() => import('./frontend/main/Main'));
 import MainNews from './frontend/main/MainNews';
 import Display from './frontend/DisplayShirt/ShirtDisplay';
 import Filter from './frontend/main/Filter';
@@ -30,6 +31,9 @@ import LuckyColor from './frontend/main/News/luckuColor';
 import ProtectedRoute from './frontend/component/ProtectedRoute';
 
 
+
+
+
 function App() {
 
   return (
@@ -39,7 +43,9 @@ function App() {
           <Route path="/" element={<Homepage />} />
           <Route path="/main" element={
             <ProtectedRoute>
-              <Main />
+              <Suspense >
+                <Main />
+              </Suspense>
             </ProtectedRoute>
           }
           />
