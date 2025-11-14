@@ -335,27 +335,6 @@ export default function SellerForm() {
 
               </div>
             </label>
-
-            {/* // onChange={(e) => {
-                  //   const [year, month, day] = e.target.value.split("-");
-                  //   const formatted = `${day}/${month}/${year}`;
-                  //   setFormData((prev) => ({
-                  //     ...prev,
-                  //     shirt_close_date: formatted,
-                  //   }));
-                  // }} */}
-
-            {/* <label className="sellerform-row">
-              <span className="sellerform-label">วันปิดขาย</span>
-              <input
-                type="date"
-                name="shirt_close_date"
-                value={formData.shirt_close_date}
-                onChange={handleChange}
-                className="sellerform-input"
-                lang="en"
-              />
-            </label> */}
             <div className="sellerform-block">
               <span className="sellerform-labelTop">รายละเอียดเสื้อ</span>
               <textarea
