@@ -154,12 +154,24 @@
   min-width: 0;
 }
 
+.signup-form-wrapper input,
+.signup-form-wrapper select,
+.signup-form-wrapper textarea {
+  padding: 1.2rem;
+  font-size: 1.6rem;
+  border-radius: 0.7rem;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* placeholder style */
 .signup-form-wrapper input::placeholder,
 .signup-form-wrapper select::placeholder,
 .signup-form-wrapper textarea::placeholder {
   color: #878585;
   opacity: 1;
 }
+
 
 
 @media (max-width: 450px) { 
@@ -192,6 +204,22 @@ text-align: center;
 .signup-actions .btn-login { width: 100%; max-width: 300px; } 
 .signup-form-wrapper { margin-top: 15rem; padding: 2rem 1rem; } 
 .signup-back-btn { right: 1rem; } 
+
+.signup-form-wrapper input,
+  .signup-form-wrapper select,
+  .signup-form-wrapper textarea {
+    padding: 1rem;
+    font-size: 1.4rem;
+  }
+}
+
+@media (min-width: 451px) and (max-width: 768px) {
+  .signup-form-wrapper input,
+  .signup-form-wrapper select,
+  .signup-form-wrapper textarea {
+    padding: 1.1rem;
+    font-size: 1.5rem;
+  }
 }
 
 @media(max-width: 768px) {
@@ -248,6 +276,12 @@ text-align: center;
   .last-row {
     gap: 2rem;
   }
+    .signup-form-wrapper input,
+  .signup-form-wrapper select,
+  .signup-form-wrapper textarea {
+    padding: 1.4rem;
+    font-size: 1.7rem;
+  }
 }
 
 @media (min-width: 1025px) and (max-width: 1366px) {
@@ -265,4 +299,12 @@ text-align: center;
   .signup-actions {
     align-items: flex-start;
   }
+  .signup-form-wrapper input,
+  .signup-form-wrapper select,
+  .signup-form-wrapper textarea {
+    padding: 1.3rem;
+    font-size: 1.6rem;
+  }
 }
+
+

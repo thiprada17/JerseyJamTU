@@ -308,13 +308,23 @@
   }
 
   .commu-navbar-username {
-    font-size: 1.5rem;
+    font-size: 1.1rem;
   }
 
   .commu-navbar-user-icon {
-    width: 2rem;
-    height: 2rem;
+    width: 1.8rem;
+    height: 1.8rem;
+    margin: 0;
+    padding: 0;
   }
+
+  .commu-navbar-user {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  text-decoration: none;
+  padding-bottom: 1rem;
+}
 
   .commu-navbar-back {
     padding-top: 1.5rem;
@@ -407,10 +417,11 @@
 /* ไอแพด */
 @media (min-width: 640px) {
   .commu-navbar-logo {
-    width: 10rem;
+    width: 12rem;
     height: auto;
     padding-bottom: 1rem;
     padding-top: 1rem;
+    padding-left: 2rem;
   }
 
   .commu-navbar-user {
@@ -426,7 +437,17 @@
   .commu-navbar-user-icon {
     width: 2rem;
     height: 2rem;
+    margin: 0;
+    padding: 0;
   }
+
+  .commu-navbar-user {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  text-decoration: none;
+  padding-bottom: 1rem;
+}
 
   .commu-navbar-back {
     padding-top: 1.5rem;

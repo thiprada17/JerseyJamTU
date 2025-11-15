@@ -160,3 +160,18 @@
   0%, 100% { opacity: 0.6; }
   50% { opacity: 1; }
 }
+
+.filter-loader {
+  width: 120px;
+  height: 20px;
+  -webkit-mask: radial-gradient(circle closest-side,#000 94%,#0000) left/20% 100%;
+  background: linear-gradient(#000 0 0) left/0% 100% no-repeat #ddd;
+  animation: l17 1s infinite steps(6);
+  grid-column: 1 / -1;     /* ขยายกินเต็มแถว grid */
+  justify-self: center;    
+  margin: 40px 0;          
+}
+@keyframes l17 {
+    100% {background-size:120% 100%}
+}
+

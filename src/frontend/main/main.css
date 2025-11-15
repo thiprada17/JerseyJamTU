@@ -276,8 +276,8 @@
 .main-container {
   min-height: 100vh;
   background-image: url('../../assets/bg-commu.png');
-  background-repeat: repeat-y;
-  background-repeat: repeat-x !important;
+    background-repeat: repeat-x !important;
+        background-repeat: repeat-y !important;
   background-size: cover;
   background-position: center top;
   padding: 6rem;
@@ -423,6 +423,8 @@
 }
 
 
+
+
 @keyframes floatImage {
   0% {
     transform: translateY(0px);
@@ -507,7 +509,9 @@
   .main-popup-container {
     width: 70%;
   }
-
+.main-navbar-logo {
+  max-width: 15vw;
+}
   .main-news {
     padding: 2rem 1rem;
   }
@@ -620,6 +624,9 @@
     font-size: 2rem;
 
   }
+  .main-navbar-logo {
+  max-width: 15vw;
+}
 
 
   .main-topic {
@@ -786,9 +793,10 @@
     top: 0.2rem;
   }
 
-  .main-navbar-logo {
-    font-size: 2rem;
-  }
+.main-navbar-logo {
+  margin-top: 0;
+  max-width: 15vw;
+}
 
   .main-navbar-logout {
     right: 2rem;
@@ -894,7 +902,8 @@
     padding: 2rem 1rem;
     background-size: contain;
     background-position: center top;
-    background-repeat: repeat-x;
+    background-repeat: repeat-x !important;
+        background-repeat: repeat-y !important;
   }
 
 
