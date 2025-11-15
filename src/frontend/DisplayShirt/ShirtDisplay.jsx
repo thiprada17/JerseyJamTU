@@ -235,13 +235,13 @@ export default function ShirtDisplay() {
                                 <div className="shirtDisplay-dateBox">
 
                                     <p>{formatDate(shirtData.shirt_open_date)}</p>
-                                    <p>-----------------</p>
+                                    <p>--------------</p>
                                     <span>วันที่เปิดขาย</span>
                                 </div>
                                 <div className="shirtDisplay-separator"></div>
                                 <div className="shirtDisplay-dateBox shirtDisplay-endDateBox">
                                     <p>{formatDate(shirtData.shirt_close_date)}</p>
-                                    <p>-----------------</p>
+                                    <p>--------------</p>
                                     <span>วันที่ปิดขาย</span>
                                 </div>
                             </div>
