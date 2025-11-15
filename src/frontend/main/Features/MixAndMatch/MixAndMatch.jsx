@@ -227,7 +227,7 @@ export default function MixAndMatch() {
     if (!hasShownHint) {
       setShowHint(true);
       setHasShownHint(true);
-      const timer = setTimeout(() => setShowHint(false), 2500);
+      const timer = setTimeout(() => setShowHint(false), 5000);
       return () => clearTimeout(timer);
     }
   }, []);
