@@ -148,7 +148,7 @@
   display: flex;
   font-family: 'Cooper', sans-serif !important;
   width: fit-content;
-  border: 3px solid black;
+  border: 2px solid rgb(141, 141, 141);
   border-radius: 9999px;
   overflow: hidden;
   margin-bottom: 3rem;
@@ -191,7 +191,7 @@
   height: 100%;
   background-color: white;
   border-radius: 50%;
-  border-right: 3px solid black;
+  border-right: 2px solid rgb(141, 141, 141);
   z-index: 10;
 }
 
@@ -287,7 +287,7 @@
 .shirtDisplay-dateBox {
   flex: 1; 
   min-width: 120px; 
-  border: 2px solid black;
+  border: 2px solid rgb(141, 141, 141);
   padding: 1.2rem 4rem;
   border-radius: 1rem;
   text-align: center;
@@ -311,7 +311,7 @@
 .shirtDisplay-endDateBox {
   background-color: #c62828;
   color: white;
-  border-color: #000000;
+  border-color: #rgb(141, 141, 141);
 }
 
 
@@ -319,7 +319,7 @@
   /* width: 5rem; */
   width: 4rem;
   height: 3px;
-  background-color: black;
+  background-color: rgb(141, 141, 141);
   margin: 0 10px;
 }
 
