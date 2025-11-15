@@ -211,6 +211,15 @@
   justify-content: space-between;
 }
 
+.shirtDisplay-descriptionText {
+  flex: 1 1 auto;
+  white-space: pre-wrap;
+  overflow-y: auto; 
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
+
+
 
 .shirtDisplay-tagContainer {
   display: flex;
@@ -384,7 +393,6 @@
     justify-content: center;
   }
 
-
   .shirtDisplay-wrapper {
     flex-direction: column;
     align-items: center;
@@ -450,6 +458,11 @@
     justify-content: center;
     text-align: left;
   }
+  .shirtDisplay-descriptionText {
+    max-height: 200px;      
+    overflow-y: auto;           
+    -webkit-overflow-scrolling: touch; /* ทำให้ scroll ลื่นบน iOS */
+  }
   .shirtDisplay-datesWrapper {
     margin-top: 2rem;
     gap: 0.6rem;
@@ -474,11 +487,10 @@
 
 @media (orientation:portrait) and (min-width:800px) and (max-width:1100px) {
   .shirtDisplay-container {
-    padding: 0 rem;
+    padding: 0rem;
     display: flex;
     justify-content: center;
   }
-
 
   .shirtDisplay-wrapper {
     flex-direction: column !important;
@@ -489,7 +501,6 @@
     gap: 1.6rem !important;
   }
 
-
   .shirtDisplay-right {
     order: 0;
     width: 100% !important;
@@ -498,7 +509,6 @@
     align-items: center;
     overflow: visible !important;
   }
-
 
   .shirtDisplay-imageContainer {
     width: 100%;
@@ -514,14 +524,12 @@
     box-shadow: 0 0 0 1.5px #000 inset;
   }
 
-
   .shirtDisplay-image {
     width: 100%;
     height: auto;
     object-fit: contain;
     border-radius: 1rem;
   }
-
 
   .shirtDisplay-left {
     order: 1;
@@ -549,6 +557,11 @@
     padding: 1.2rem 1.6rem;
     text-align:left;
   }
+  .shirtDisplay-descriptionText {
+    max-height: 200px;      
+    overflow-y: auto;           
+    -webkit-overflow-scrolling: touch; /* ทำให้ scroll ลื่นบน iOS */
+  }
 
 
   .shirtDisplay-datesWrapper {
@@ -566,9 +579,6 @@
     padding: 0.9rem 2rem;      
     font-size: 1.8rem;  
   }
-
-
-
 
   .shirtDisplay-separator {
     display: block !important;
@@ -626,7 +636,6 @@
   gap: 2rem;
   box-sizing: border-box;
 }
-
 
 .shirtDisplay-left {
   flex: 1;
@@ -710,6 +719,11 @@
   justify-content: space-between;
 }
 
+.shirtDisplay-descriptionText {
+    max-height: 200px;
+    overflow-y: auto;
+  }
+
 .shirtDisplay-datesWrapper {
   width: 100%;
   display: flex;
@@ -780,12 +794,14 @@
   transform: translateY(-5px);
   box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
 }
-
-
 }
 
 
 @media (max-height: 500px) and (orientation: landscape) {
+  .shirtDisplay-descriptionText {
+    max-height: 200px;
+    overflow-y: auto;
+  }
   .shirtDisplay-dateBox {                                                                                                                                                                                                                                                                                                                                                                                                       
     padding: 0.7rem 1.7rem;  
     font-size: 1.7rem;      
@@ -819,6 +835,10 @@
     max-width: 250px;
   }
 
+  .shirtDisplay-descriptionText {
+    max-height: 200px;
+    overflow-y: auto;
+  }
 
   .shirtDisplay-endDateBox {
     padding: 0.7rem 1.7rem;
