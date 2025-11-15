@@ -31,7 +31,6 @@
   src: url('../../assets/fonts/Kanit-ExtraBold.ttf') format('truetype');
 }
 
-
 .shirtDisplay-topBar {
   width: 100vw;
   height: 5rem;
@@ -77,7 +76,6 @@
 .shirtDisplay-wrapper {
   display: flex;
   flex-direction: row;
-  /* flex-direction: column; */
   justify-content: space-between;
   align-items: center;
   width: 100%;
@@ -91,6 +89,17 @@
   flex: 1;
   max-width: 50%;
   position: relative;
+}
+
+.shirtDisplay-right {
+  position: relative;
+  flex: 1;
+  max-width: 50%;
+  top: 15vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
 }
 
 .shirtDisplay-title {
@@ -199,7 +208,7 @@
 .shirtDisplay-descriptionText {
   flex: 1 1 auto;
   white-space: pre-wrap;
-  overflow-y: auto; 
+  overflow-y: auto;
   overflow-wrap: break-word;
   word-break: break-word;
 }
@@ -267,24 +276,14 @@
 }
 
 .shirtDisplay-dateBox {
-  flex: 1; 
-  min-width: 120px; 
+  flex: 1;
+  min-width: 120px;
   border: 2px solid black;
   padding: 1.2rem 4rem;
   border-radius: 1rem;
   text-align: center;
   background-color: white;
   font-size: 2rem;
-}
-
-.shirtDisplay-dateBox {
-  display: block;
-  margin-top: 0.3rem;
-}
-
-.shirtDisplay-dateBox {
-  margin: 2px 0;
-  line-height: 1.2;
 }
 
 .shirtDisplay-endDateBox {
@@ -320,17 +319,6 @@
   box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
 }
 
-.shirtDisplay-right {
-  position: relative;
-  flex: 1;
-  max-width: 50%;
-  top: 15vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  overflow: hidden;
-}
-
 .shirtDisplay-imageContainer {
   background-color: rgb(255, 255, 255);
   border-radius: 1rem;
@@ -352,17 +340,16 @@
   border-radius: 2rem;
 }
 
+.heart-desktop { display: flex; }
+.heart-mobile  { display: none; }
 
-.heart-desktop {display: flex;}
-.heart-mobile {display: none;}
 .shirtDisplay-left,
 .shirtDisplay-right {
-  flex: 0 0 calc(50% - 0.5rem); 
+  flex: 0 0 calc(50% - 0.5rem);
   max-width: calc(50% - 0.5rem);
 }
 
-@media (max-width:768px) and (max-height:980px)
-{
+@media (max-width:768px) and (max-height:980px) {
   .shirtDisplay-container {
     width: 100%;
     padding: 0 1.2rem;
@@ -379,6 +366,7 @@
     width: auto;
     max-width: 480px;
   }
+
   .shirtDisplay-right {
     order: 1;
     max-width: 100%;
@@ -388,12 +376,14 @@
     display: flex;
     top: 0;
   }
+
   .shirtDisplay-left {
     order: 2;
     max-width: 100%;
     width: 100%;
     text-align: center;
   }
+
   .shirtDisplay-imageContainer {
     width: 88%;
     max-width: 330px;
@@ -441,10 +431,11 @@
     justify-content: center;
     text-align: left;
   }
+
   .shirtDisplay-descriptionText {
-    max-height: 200px;      
-    overflow-y: auto;           
-    -webkit-overflow-scrolling: touch; /* ทำให้ scroll ลื่นบน iOS */
+    max-height: 200px;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
   }
 
   .shirtDisplay-datesWrapper {
@@ -462,9 +453,7 @@
     height: 2px;
   }
 
-  .heart-desktop {
-    display: none;
-  }
+  .heart-desktop { display: none; }
 
   .heart-mobile {
     display: flex;
@@ -473,13 +462,8 @@
     right: 0.8rem;
   }
 
-  .shirtDisplay-tagContainer {
-    justify-content: flex-start;
-  }
-
-  .shirtDisplay-tagList {
-    justify-content: flex-start;
-  }
+  .shirtDisplay-tagContainer { justify-content: flex-start; }
+  .shirtDisplay-tagList      { justify-content: flex-start; }
 
   .shirtDisplay-tag {
     font-size: 1.2rem;
@@ -489,7 +473,7 @@
 
 @media (orientation:portrait) and (min-width:700px) and (max-width:1100px) {
   .shirtDisplay-container {
-    padding: 0rem;
+    padding: 0;
     display: flex;
     justify-content: center;
   }
@@ -557,16 +541,16 @@
     padding: 1.2rem 1.6rem;
     text-align: left;
   }
+
   .shirtDisplay-descriptionText {
-    max-height: 200px;      
-    overflow-y: auto;           
-    -webkit-overflow-scrolling: touch; /* ทำให้ scroll ลื่นบน iOS */
+    max-height: 200px;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
   }
 
   .shirtDisplay-datesWrapper {
     flex-wrap: nowrap;
     flex-direction: row;
-    /* flex-direction: column; */
     justify-content: center;
     align-items: center;
     gap: 0.5rem;
@@ -593,13 +577,8 @@
     flex-shrink: 0 !important;
   }
 
-  .heart-desktop {
-    display: none !important;
-  }
-
-  .heart-mobile {
-    display: flex !important;
-  }
+  .heart-desktop { display: none !important; }
+  .heart-mobile  { display: flex !important; }
 }
 
 @media (orientation:landscape) and (max-width:1420px) {
@@ -609,10 +588,8 @@
     display: flex;
     justify-content: center;
     background-color: #fff;
-    /* margin-left: 5rem; */
     padding: 0 2rem;
   }
-
 }
 
 @media (orientation:landscape) and (max-width:1024px) {
@@ -639,13 +616,11 @@
     box-sizing: border-box;
   }
 
-
   .shirtDisplay-left {
     flex: 1;
     max-width: 50%;
     position: relative;
   }
-
 
   .shirtDisplay-title {
     font-size: 3rem;
@@ -717,6 +692,11 @@
     justify-content: space-between;
   }
 
+  .shirtDisplay-descriptionText {
+    max-height: 200px;
+    overflow-y: auto;
+  }
+
   .shirtDisplay-datesWrapper {
     width: 100%;
     display: flex;
@@ -739,141 +719,16 @@
     width: 20rem;
   }
 
-
-  .shirtDisplay-dateBox span {
-    display: block;
-    margin-top: 0.3rem;
-  }
-
-
-  .shirtDisplay-dateBox p {
-    margin: 2px 0;
-    line-height: 1.2;
-  }
-
-
   .shirtDisplay-endDateBox {
     background-color: #c62828;
     color: white;
     border-color: #000000;
   }
 
-
   .shirtDisplay-separator {
     width: 5rem;
     height: 3px;
     background-color: black;
-  }
-
-
-.shirtDisplay-descriptionBox {
-  border: 1px solid #ccc;
-  background-color: #fff6ee;
-  color: #333;
-  font-size: 1.7rem;
-  padding: 1.25rem;
-  height: 25rem;
-  margin-bottom: 1.5rem;
-  border-radius: 1rem;
-  min-height: 10rem;
-  font-family: 'Kanit', sans-serif;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-
-.shirtDisplay-descriptionText {
-    max-height: 200px;
-    overflow-y: auto;
-  }
-
-.shirtDisplay-datesWrapper {
-  width: 100%;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
-  margin-bottom: 1.5rem;
-  align-items: center;
-  margin-top: 3rem;
-  justify-content: center;
-  font-family: 'Kanit';
-}
-
-
-.shirtDisplay-dateBox {
-  border: 2px solid black;
-  padding: 1.2rem 4rem;
-  border-radius: 1rem;
-  text-align: center;
-  background-color: white;
-  font-size: 1.45rem;
-  width: 20rem;
-}
-
-
-.shirtDisplay-dateBox span {
-  display: block;
-  margin-top: 0.3rem;
-}
-
-
-.shirtDisplay-dateBox p {
-  margin: 2px 0;
-  line-height: 1.2;
-}
-
-
-.shirtDisplay-endDateBox {
-  background-color: #c62828;
-  color: white;
-  border-color: #000000;
-}
-
-
-.shirtDisplay-separator {
-  width: 5rem;
-  height: 3px;
-  background-color: black;
-}
-
-
-.shirtDisplay-orderButton {
-  border: 2px dashed gray;
-  padding: 1rem 1.5rem;
-  border-radius: 9999px;
-  background-color: white;
-  transition: all 0.3s ease;
-  cursor: pointer;
-  font-size: 2rem;
-  width: 100%;
-  margin-top: 2rem;
-  font-weight: bold;
-  font-family: 'Kanit';
-}
-
-.shirtDisplay-orderButton:hover {
-  background-color: #f0f0f0;
-  transform: translateY(-5px);
-  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
-}
-  .shirtDisplay-orderButton {
-    border: 2px dashed gray;
-    padding: 1rem 1.5rem;
-    border-radius: 9999px;
-    background-color: white;
-    transition: all 0.3s ease;
-    cursor: pointer;
-    font-size: 2rem;
-    width: 100%;
-    margin-top: 2rem;
-    font-weight: bold;
-    font-family: 'Kanit';
-  }
-
-  .shirtDisplay-orderButton:hover {
-    background-color: #f0f0f0;
-    transform: translateY(-5px);
-    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
   }
 }
 
@@ -882,10 +737,11 @@
     max-height: 200px;
     overflow-y: auto;
   }
-  .shirtDisplay-dateBox {                                                                                                                                                                                                                                                                                                                                                                                                       
-    padding: 0.7rem 1.7rem;  
-    font-size: 1.7rem;      
-    min-width: 100px;        
+
+  .shirtDisplay-dateBox {
+    padding: 0.7rem 1.7rem;
+    font-size: 1.7rem;
+    min-width: 100px;
     max-width: 250px;
   }
 
@@ -902,6 +758,7 @@
     gap: 0.4rem;
   }
 }
+
 @media (max-height: 500px) and (orientation: portrait) {
   .shirtDisplay-dateBox {
     padding: 0.7rem 1.7rem;
@@ -909,6 +766,7 @@
     min-width: 100px;
     max-width: 250px;
   }
+
   .shirtDisplay-descriptionText {
     max-height: 200px;
     overflow-y: auto;
@@ -919,11 +777,9 @@
     font-size: 1.0rem;
   }
 
-
   .shirtDisplay-separator {
     width: 2.5rem;
   }
-
 
   .shirtDisplay-datesWrapper {
     gap: 0.4rem;
@@ -933,7 +789,6 @@
 @media (orientation: landscape) {
   .shirtDisplay-wrapper {
     align-items: flex-start !important;
-    
   }
 
   .shirtDisplay-right {
@@ -947,7 +802,6 @@
     justify-content: center;
   }
 
-
   .shirtDisplay-image {
     height: 100%;
     width: auto;
@@ -958,8 +812,7 @@
 @media (orientation: landscape) and (max-width: 1200px) {
   .shirtDisplay-container {
     padding: 0 4rem !important;
-        margin-left: 2rem;
-
+    margin-left: 2rem;
   }
 
   .shirtDisplay-wrapper {
