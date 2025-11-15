@@ -892,12 +892,25 @@
   }
 }
 
+
+
 @media (orientation: landscape) and (max-width: 1200px) {
   .shirtDisplay-container {
     padding: 0 4rem !important;
         margin-left: 2rem;
-
   }
+
+  .shirtDisplay-title {
+  font-size: 3.6rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+  font-family: 'Cooper', sans-serif !important;
+  width: 39rem;
+    white-space: normal;  
+  word-break: break-all; 
+}
+
+
 
   .shirtDisplay-wrapper {
     padding-left: 1.5rem !important;
