@@ -42,30 +42,23 @@ const CACHE_DURATION = 1000 * 60 * 5;
 // sign up
 app.post('/add-user/register', async (req, res) => {
   try {
-    console.log('Request body:', req.body);
     const { username, email, password, faculty, year } = req.body;
 
-    const { data: Checkemail } = await supabase
+    const { data: check, error: checkerror } = await supabase
       .from('users')
-      .select('email')
-      .eq('email', email)
-      .maybeSingle() // ถ้าใช้ซิงเกิ้ลเฉยๆไม่เจอมันจะ error
+      .select('email, username')
+      .or(`email.eq.${email},username.eq.${username}`);
 
-    const { data: Checkusername } = await supabase
-      .from('users')
-      .select('username')
-      .eq('username', username)
-      .maybeSingle()
+    if (checkerror) throw checkerror;
 
-    if (Checkemail) {
-      return res.status(400).json({ error: 'Email already registered' });
+    if (check && check.length > 0) {
+      if (check[0].email === email)
+        return res.status(400).json({ error: 'Email already registered' });
+      if (check[0].username === username)
+        return res.status(400).json({ error: 'Username already registered' });
     }
 
-    if (Checkusername) {
-      return res.status(400).json({ error: 'Username already registered' });
-    }
-
-    const passwordHash = await bcrypt.hash(password, 8)
+    const passwordHash = await bcrypt.hash(password, 6)
     const { data, error } = await supabase
       .from('users')
       .insert([{ username, email, password: passwordHash, faculty, year }])
@@ -86,8 +79,7 @@ app.post('/add-user/register', async (req, res) => {
 // sign in
 app.post('/create/login', async (req, res) => {
   try {
-    const { username, email, password } = req.body;
-
+    const { email, password } = req.body;
     let query = supabaseAdmin
       .from('users')
       .select('user_id, username, email, password, faculty, year');
@@ -100,8 +92,6 @@ app.post('/create/login', async (req, res) => {
 
     const { data, error } = await query
 
-    console.log("data :", data)
-    console.log("error:", error)
 
     if (error) {
       console.error(error);
@@ -153,7 +143,6 @@ app.get('/authen/users', async (req, res) => {
       authToken = authHeader.split(' ')[1]
     }
     const veri = jwt.verify(authToken, secret)
-    console.log('Auth Token:', veri);
 
     res.json({
       success: true,
@@ -175,7 +164,6 @@ app.get('/authen/users', async (req, res) => {
 app.post('/commu/post', async (req, res) => {
 
   const { user_id, title, detail, contact } = req.body;
-  console.log(title, detail, contact)
 
   const { data, error } = await supabaseAdmin
     .from('commuPost')
@@ -305,10 +293,7 @@ app.get('/shirt/fav/get/:user_id', async (req, res) => {
 
 app.get('/shirt/info/get', async (req, res) => {
   try {
-
-    
     const now = Date.now();
-    console.log('Request received at', new Date(now).toLocaleTimeString());
 
     if (cachedShirts && now - cacheTime < CACHE_DURATION) {
       console.log('Returning cached shirts!', cachedShirts?.length);
@@ -342,7 +327,6 @@ app.get('/shirt/info/get', async (req, res) => {
 app.get('/shirt/info/get/:id', async (req, res) => {
 
   let id = req.params.id
-  console.log(id)
   try {
     let { data, error } = await supabaseAdmin
       .from('shirtInfo')
@@ -364,8 +348,6 @@ app.get('/shirt/info/get/:id', async (req, res) => {
 
 app.post('/shirt/info/post', async (req, res) => {
   try {
-    console.log('Insert shirt info:', req.body);
-
     const {
       shirt_name,
       shirt_price,
@@ -376,6 +358,11 @@ app.post('/shirt/info/post', async (req, res) => {
       shirt_pic
     } = req.body;
 
+    if (!shirt_name || !shirt_price || !shirt_open_date || !shirt_close_date || !shirt_detail) {
+      return res.status(400).json({
+        error: "Missing required fields"
+      });
+    }
     const { data: newShirt, error } = await supabaseAdmin
       .from('shirtInfo')
       .insert([{
@@ -407,8 +394,6 @@ app.post('/shirt/info/post', async (req, res) => {
 
 app.post('/shirt/fav/post', async (req, res) => {
   try {
-    console.log('Insert shirt info:', req.body);
-
     const {
       shirt_name,
       shirt_pic,
@@ -431,7 +416,7 @@ app.post('/shirt/fav/post', async (req, res) => {
       return res.status(500).json({ error: error.message });
     }
 
-    res.json({ message: 'Shirt info added yayy', data });
+    res.json({ message: 'Fav Shirt info added yayy', data });
   } catch (err) {
     console.error('error:', err);
     res.status(500).json({ error: 'Internal server error' });
@@ -440,7 +425,6 @@ app.post('/shirt/fav/post', async (req, res) => {
 
 app.delete('/shirt/fav/del', async (req, res) => {
   try {
-    console.log('Del shirt info:', req.body);
 
     const {
       user_id,
@@ -469,8 +453,6 @@ app.delete('/shirt/fav/del', async (req, res) => {
 
 app.post('/shirt/fav/check', async (req, res) => {
   try {
-    console.log('shirt info:', req.body);
-
     const {
       user_id,
       shirt_id
@@ -584,7 +566,6 @@ app.get('/shirt/tag/get/:shirt_id', async (req, res) => {
 app.get('/category/:folder/info/get', async (req, res) => {
   try {
     const folder = req.params.folder;
-    console.log("Request for folder:", folder)
 
     // เช็คว่าเชื่อม supabase ได้มั้ย
     if (!supabase) {
@@ -650,22 +631,19 @@ app.post('/shirt/fillter', async (req, res) => {
     minPrice = minPrice ?? 0;
     maxPrice = maxPrice ?? 10000;
 
-console.log("Frontend value:", JSON.stringify(selectedFaculties[0]));
-
     // ดึง tag_id จากชื่อคณะ
     let TagID = [];
     if (selectedFaculties.length > 0) {
-  const cleanedFaculties = selectedFaculties.map(f => f.trim());
-const { data: tagData, error } = await supabaseAdmin
-  .from('tags')
-  .select('tag_id')
-  .in('tag_name', cleanedFaculties);
+      const cleanedFaculties = selectedFaculties.map(f => f.trim());
+      const { data: tagData, error } = await supabaseAdmin
+        .from('tags')
+        .select('tag_id')
+        .in('tag_name', cleanedFaculties);
 
       if (error) return res.status(500).json({ error: error.message });
       TagID = tagData.map(tag => tag.tag_id);
     }
 
-    console.log(TagID)
     // ดึงเสื้อตามราคาก่อน
     let { data: shirts, error: priceError } = await supabaseAdmin
       .from('shirtInfo')

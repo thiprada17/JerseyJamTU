@@ -13,7 +13,6 @@ import { lazy, Suspense } from "react";
 import Homepage from './frontend/Homepage/homepage';
 import Commu from './frontend/main/Features/commu/commu';
 import CommuForm from './frontend/main/Features/commu/commuForm';
-const Main = lazy(() => import('./frontend/main/Main'));
 import MainNews from './frontend/main/MainNews';
 import Display from './frontend/DisplayShirt/ShirtDisplay';
 import Filter from './frontend/main/Filter';
@@ -30,9 +29,7 @@ import CollarJersey from './frontend/main/News/collarJersey';
 import LuckyColor from './frontend/main/News/luckuColor';
 import ProtectedRoute from './frontend/component/ProtectedRoute';
 
-
-
-
+const Main = lazy(() => import('./frontend/main/Main'));
 
 function App() {
 

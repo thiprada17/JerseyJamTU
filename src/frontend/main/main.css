@@ -5,10 +5,12 @@
   font-family: 'KanitB';
   src: url('../../assets/fonts/Kanit-Bold.ttf') format('truetype');
 }
+
 @font-face {
   font-family: 'KanitEB';
   src: url('../../assets/fonts/Kanit-ExtraBold.ttf') format('truetype');
 }
+
 @font-face {
   font-family: 'PG';
   src: url('../../assets/fonts/PG-Newport-DEMO.ttf') format('truetype');
@@ -276,8 +278,8 @@
 .main-container {
   min-height: 100vh;
   background-image: url('../../assets/bg-commu.png');
-    background-repeat: repeat-x !important;
-        background-repeat: repeat-y !important;
+  background-repeat: repeat-x !important;
+  background-repeat: repeat-y !important;
   background-size: cover;
   background-position: center top;
   padding: 6rem;
@@ -509,9 +511,11 @@
   .main-popup-container {
     width: 70%;
   }
-.main-navbar-logo {
-  max-width: 15vw;
-}
+
+  .main-navbar-logo {
+    max-width: 15vw;
+  }
+
   .main-news {
     padding: 2rem 1rem;
   }
@@ -624,9 +628,10 @@
     font-size: 2rem;
 
   }
+
   .main-navbar-logo {
-  max-width: 15vw;
-}
+    max-width: 15vw;
+  }
 
 
   .main-topic {
@@ -705,12 +710,12 @@
     background-position: center top;
   }
 
-   .main-news-frame{
-      border: 1.57px solid black;
+  .main-news-frame {
+    border: 1.57px solid black;
   }
 
 
-    .main-grid {
+  .main-grid {
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 0rem;
     justify-items: center;
@@ -793,10 +798,10 @@
     top: 0.2rem;
   }
 
-.main-navbar-logo {
-  margin-top: 0;
-  max-width: 15vw;
-}
+  .main-navbar-logo {
+    margin-top: 0;
+    max-width: 15vw;
+  }
 
   .main-navbar-logout {
     right: 2rem;
@@ -849,12 +854,13 @@
     transform: none !important;
     opacity: 1 !important;
   }
-.custom-prev,
-.custom-next {
-  font-size: 3rem;
-  color: rgb(208, 21, 21);
-  text-shadow: 2px 2px 6px rgba(237, 169, 169, 0.5);
-}
+
+  .custom-prev,
+  .custom-next {
+    font-size: 3rem;
+    color: rgb(208, 21, 21);
+    text-shadow: 2px 2px 6px rgba(237, 169, 169, 0.5);
+  }
 
   .custom-prev {
     left: 5%;
@@ -903,7 +909,7 @@
     background-size: contain;
     background-position: center top;
     background-repeat: repeat-x !important;
-        background-repeat: repeat-y !important;
+    background-repeat: repeat-y !important;
   }
 
 
@@ -918,10 +924,10 @@
     height: 25rem;
     border: 1.5px solid #000;
   }
-  
+
   .main-post-photo {
-  height: 30rem;
-}
+    height: 30rem;
+  }
 
 
   .main-post-photo img {
@@ -963,5 +969,5 @@
     font-size: 1.5rem;
   }
 
-  
+
 }
