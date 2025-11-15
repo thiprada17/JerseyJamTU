@@ -124,6 +124,7 @@ app.post('/create/login', async (req, res) => {
     // jwt token
     const token = jwt.sign({ email: supabase_user_data.email, role: 'admin' }, secret, { expiresIn: '5h' })
 
+    console.log("logining")
     res.json({
       success: true,
       user: {
