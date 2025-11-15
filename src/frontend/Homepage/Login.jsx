@@ -96,8 +96,6 @@ export default function Login({ scrollToHome, scrollToSignup }) {
         localStorage.setItem("year", user.year || "");
         localStorage.setItem("token", user.token || "");
 
-
-
         setShowToast(true);
         setTimeout(() => {
           navigate('/main');

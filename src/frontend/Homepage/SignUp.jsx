@@ -207,7 +207,6 @@ export default function SignUp({ scrollToHome, scrollToLogIn }) {
             />
           </div>
         </div>
-
         <div className="signup-form-row row-faculty row-year">
           <div className="input-group">
             <label>Faculty:</label>
