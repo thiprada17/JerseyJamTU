@@ -86,8 +86,7 @@ app.post('/add-user/register', async (req, res) => {
 // sign in
 app.post('/create/login', async (req, res) => {
   try {
-    const { username, email, password } = req.body;
-
+    const {email, password } = req.body;
     let query = supabaseAdmin
       .from('users')
       .select('user_id, username, email, password, faculty, year');
