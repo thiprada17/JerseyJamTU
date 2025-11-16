@@ -26,11 +26,11 @@ export default function Homepage() {
     useEffect(() => {
         const preventScroll = (e) => e.preventDefault();
         window.addEventListener('wheel', preventScroll, { passive: false });
-        window.addEventListener('touchmove', preventScroll, { passive: false });
+        // window.addEventListener('touchmove', preventScroll, { passive: false });
 
         return () => {
             window.removeEventListener('wheel', preventScroll);
-            window.removeEventListener('touchmove', preventScroll);
+            // window.removeEventListener('touchmove', preventScroll);
         };
     }, []);
 
