@@ -205,17 +205,17 @@
 
 .hint-overlay {
   position: fixed;
-  top: 10%;
+  top: 20%;
   left: 50%;
   transform: translateX(-50%);
   background: rgba(0, 0, 0, 0.65);
   color: #fff;
-  font-size: 1rem;
+  font-size: 2rem;
   padding: 8px 16px;
   border-radius: 20px;
   z-index: 9999;
   pointer-events: none;
-  animation: fadeInOutHint 1.5s ease-in-out infinite;
+  animation: fadeInOutHint 2s ease-in-out infinite;
   /* display: none; */
 }
 
@@ -401,6 +401,6 @@
   }
 
   .hint-overlay {
-    font-size: 0.9rem;
+    font-size: 1.5rem;
   }
 }

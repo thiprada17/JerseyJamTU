@@ -227,7 +227,7 @@ export default function MixAndMatch() {
     if (!hasShownHint) {
       setShowHint(true);
       setHasShownHint(true);
-      const timer = setTimeout(() => setShowHint(false), 5000);
+      const timer = setTimeout(() => setShowHint(false), 10000);
       return () => clearTimeout(timer);
     }
   }, []);
@@ -317,7 +317,7 @@ export default function MixAndMatch() {
         </button>
         {showHint && (
           <div className="hint-overlay no-capture">
-            ✨ ลากเพื่อขยับ • กดเพื่อเลือกเสื้อผ้า ✨
+            แต่งตัวตามสไตล์ของคุณ ✨ ลากเพื่อขยับเฟรม • กดเพื่อเลือกเสื้อผ้า ✨
           </div>
         )}
       </div>
