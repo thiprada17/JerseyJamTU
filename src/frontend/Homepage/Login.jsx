@@ -50,11 +50,11 @@ export default function Login({ scrollToHome, scrollToSignup }) {
     const localPattern = /^[a-zA-Z0-9._%+-]+$/;
 
     if (!local) {
-      setNotification({ message: "กรุณากรอก Email โดยไม่ต้องใส่ @dome.tu.ac.th", type: "error" });
-      return;
+    setNotification({ message: "กรุณากรอก Email", type: "error" });
+    return;
     }
     if (local.includes("@")) {
-      setNotification({ message: "กรุณากรอกเฉพาะส่วนหน้าของ Email", type: "error" });
+      setNotification({ message: "กรุณากรอก Email โดยไม่ต้องใส่ @dome.tu.ac.th", type: "error" });
       return;
     }
     if (thaiRegex.test(local) || !localPattern.test(local)) {
