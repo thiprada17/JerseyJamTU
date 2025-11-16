@@ -80,57 +80,48 @@ app.post('/add-user/register', async (req, res) => {
 app.post('/create/login', async (req, res) => {
   try {
     const { email, password } = req.body;
-    let query = supabaseAdmin
+
+    const { data, error } = await supabaseAdmin
       .from('users')
-      .select('user_id, username, email, password, faculty, year');
-
-    if (email && typeof email === 'string') {
-      query = query.eq('email', email);
-    } else {
-      query = query.eq('username', username);
-    }
-
-    const { data, error } = await query
-
+      .select('user_id, username, email, password, faculty, year')
+      .or(`email.eq.${email},username.eq.${email}`)
+      .maybeSingle();
 
     if (error) {
       console.error(error);
       return res.status(500).json({ message: 'Server error' });
     }
 
-    if (!data || data.length === 0) {
+    if (!data) {
       return res.status(401).json({ message: 'User not found' });
     }
 
-    const supabase_user_data = data[0];
-    const supabase_password = supabase_user_data.password;
-
-    const match = await bcrypt.compare(password, supabase_password)
+    const supabase_password = data.password;
+    const match = await bcrypt.compare(password, supabase_password);
 
     if (!match) {
-      return res.status(401).json({ message: 'Password Incorrect😭' })
+      return res.status(401).json({ message: 'Password Incorrect😭' });
     }
 
-    // jwt token
-    const token = jwt.sign({ email: supabase_user_data.email, role: 'admin' }, secret, { expiresIn: '5h' })
+    const token = jwt.sign({ email: data.email, role: 'admin' }, secret, { expiresIn: '5h' });
 
-    console.log("logining")
     res.json({
       success: true,
       user: {
-        user_id: supabase_user_data.user_id,
-        username: supabase_user_data.username,
-        faculty: supabase_user_data.faculty,
-        year: supabase_user_data.year,
+        user_id: data.user_id,
+        username: data.username,
+        faculty: data.faculty,
+        year: data.year,
         token
       }
     });
 
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: 'Server error', message: error.message });
+    res.status(500).json({ message: 'Server error', detail: error.message });
   }
 });
+
 
 
 app.get('/authen/users', async (req, res) => {
