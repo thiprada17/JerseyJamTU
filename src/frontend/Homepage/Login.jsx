@@ -29,9 +29,14 @@ export default function Login({ scrollToHome, scrollToSignup }) {
     if (msg.includes("invalid password") || msg.includes("wrong password")) {
       return "รหัสผ่านไม่ถูกต้อง กรุณาลองใหม่อีกครั้ง";
     }
-    if (msg.includes("user not found") || msg.includes("no user")) {
-      return "ไม่พบบัญชีผู้ใช้ กรุณาสมัครสมาชิก";
-    }
+    if (
+    msg.includes("user not found") ||
+    msg.includes("no user") ||
+    msg.includes("email not found") ||
+    msg.includes("not exist")
+  ) {
+    return "ไม่พบบัญชีผู้ใช้ กรุณาสมัครสมาชิก";
+  }
     if (status === 401 || status === 403) {
       return "รหัสผ่านไม่ถูกต้อง กรุณาลองใหม่อีกครั้ง";
     }
